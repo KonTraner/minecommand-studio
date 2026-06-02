@@ -1586,5 +1586,47 @@ const MC_DATA = {
                 }
             ]
         }
+    ],
+    execute_blocks: [
+        { id: "minecraft:lava", name: "Lava", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:obsidian", name: "Obsidian", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:tnt", name: "TNT", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:water", name: "Water", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:cobweb", name: "Cobweb", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:fire", name: "Fire", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:bedrock", name: "Bedrock", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:gravel", name: "Gravel", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:sand", name: "Sand", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:slime_block", name: "Slime Block", get icon() { return getItemIconPath(this.id); } }
+    ],
+    execute_sounds: [
+        { id: "minecraft:entity.creeper.primed", name: "Creeper Hiss", icon: "🔊" },
+        { id: "minecraft:ambient.cave", name: "Cave Ambient Spook", icon: "🔊" },
+        { id: "minecraft:block.anvil.land", name: "Anvil Impact", icon: "🔊" },
+        { id: "minecraft:entity.ghast.warn", name: "Ghast Scream", icon: "🔊" },
+        { id: "minecraft:entity.lightning_bolt.thunder", name: "Thunder Bolt", icon: "🔊" },
+        { id: "minecraft:entity.ender_dragon.death", name: "Ender Dragon Death", icon: "🔊" },
+        { id: "minecraft:entity.warden.heartbeat", name: "Warden Heartbeat", icon: "🔊" },
+        { id: "minecraft:entity.phantom.swoop", name: "Phantom Swoop", icon: "🔊" },
+        { id: "minecraft:entity.witch.ambient", name: "Witch Giggle", icon: "🔊" }
+    ],
+    execute_particles: [
+        { id: "minecraft:portal", name: "End Portal", icon: "✨" },
+        { id: "minecraft:smoke", name: "Smoke Puff", icon: "✨" },
+        { id: "minecraft:flame", name: "Fire Flame", icon: "✨" },
+        { id: "minecraft:cloud", name: "Cloud Dust", icon: "✨" },
+        { id: "minecraft:sonic_boom", name: "Sonic Boom", icon: "✨" },
+        { id: "minecraft:explosion", name: "Large Explosion", icon: "✨" },
+        { id: "minecraft:heart", name: "Red Hearts", icon: "✨" },
+        { id: "minecraft:electric_spark", name: "Lightning Spark", icon: "✨" }
+    ],
+    execute_effects: [
+        { id: "minecraft:blindness", name: "Blindness", icon: "🧪" },
+        { id: "minecraft:slowness", name: "Slowness", icon: "🧪" },
+        { id: "minecraft:levitation", name: "Levitation", icon: "🧪" },
+        { id: "minecraft:nausea", name: "Nausea", icon: "🧪" },
+        { id: "minecraft:mining_fatigue", name: "Mining Fatigue", icon: "🧪" },
+        { id: "minecraft:poison", name: "Poison", icon: "🧪" },
+        { id: "minecraft:wither", name: "Wither", icon: "🧪" }
     ]
 };

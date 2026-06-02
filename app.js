@@ -109,7 +109,7 @@ const app = {
 
         // Hide/Show Save Presets widget in sticky command box
         const presetWidget = document.getElementById("preset-save-widget");
-        if (tabId === "mobs-pane" || tabId === "items-pane") {
+        if (tabId === "mobs-pane" || tabId === "items-pane" || tabId === "execute-pane") {
             presetWidget.style.display = "flex";
         } else {
             presetWidget.style.display = "none";
@@ -179,12 +179,16 @@ const app = {
         app.buildGroupedCustomDropdown("dropdown-eq-offhand", handSlots, "none", () => app.recalculateCurrentCommand(), true);
 
         // Hydrate Armor Slots
-        for (const [dropId, data] of Object.entries(armorSlots)) {
-            const groups = {};
-            groups[data.label] = data.list;
-            groups["Blocks & Fun"] = MC_DATA.items.fun;
-            app.buildGroupedCustomDropdown(dropId, groups, "none", () => app.recalculateCurrentCommand(), true);
         }
+
+        // Hydrate Execute Builder Dropdowns
+        app.buildCustomDropdown("dropdown-exec-block", MC_DATA.execute_blocks, "minecraft:lava", () => app.recalculateCurrentCommand());
+        app.buildCustomDropdown("dropdown-exec-mob", MC_DATA.mobs, "minecraft:creeper", () => app.recalculateCurrentCommand());
+        app.buildCustomDropdown("dropdown-exec-mob-summon", MC_DATA.mobs, "minecraft:creeper", () => app.recalculateCurrentCommand());
+        app.buildCustomDropdown("dropdown-exec-sound", MC_DATA.execute_sounds, "minecraft:entity.creeper.primed", () => app.recalculateCurrentCommand());
+        app.buildCustomDropdown("dropdown-exec-particle", MC_DATA.execute_particles, "minecraft:portal", () => app.recalculateCurrentCommand());
+        app.buildCustomDropdown("dropdown-exec-effect", MC_DATA.execute_effects, "minecraft:blindness", () => app.recalculateCurrentCommand());
+        app.buildCustomDropdown("dropdown-exec-block-place", MC_DATA.execute_blocks, "minecraft:lava", () => app.recalculateCurrentCommand());
 
         // Setup global listener to close dropdowns when clicking outside
         document.addEventListener("click", (e) => {
@@ -948,6 +952,69 @@ const app = {
             });
         }
 
+        // --- EXECUTE BUILDER EVENTS ---
+        // Conditional block toggling
+        const condSelect = document.getElementById("exec-cond-type");
+        if (condSelect) {
+            condSelect.addEventListener("change", (e) => {
+                app.playClick();
+                const type = e.target.value;
+                document.querySelectorAll(".exec-conditional-group").forEach(group => {
+                    group.style.display = "none";
+                });
+                if (type === "if_block" || type === "unless_block") {
+                    const blockGroup = document.getElementById("exec-cond-field-block");
+                    if (blockGroup) blockGroup.style.display = "flex";
+                } else if (type === "if_entity" || type === "unless_entity") {
+                    const proxGroup = document.getElementById("exec-cond-field-proximity");
+                    if (proxGroup) proxGroup.style.display = "flex";
+                } else if (type === "if_dimension") {
+                    const dimGroup = document.getElementById("exec-cond-field-dimension");
+                    if (dimGroup) dimGroup.style.display = "flex";
+                } else if (type === "if_weather") {
+                    const weatherGroup = document.getElementById("exec-cond-field-weather");
+                    if (weatherGroup) weatherGroup.style.display = "flex";
+                } else if (type === "if_score") {
+                    const scoreGroup = document.getElementById("exec-cond-field-score");
+                    if (scoreGroup) scoreGroup.style.display = "flex";
+                } else if (type === "if_altitude") {
+                    const altGroup = document.getElementById("exec-cond-field-altitude");
+                    if (altGroup) altGroup.style.display = "flex";
+                }
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        // Action parameter toggling
+        const actionSelect = document.getElementById("exec-action");
+        if (actionSelect) {
+            actionSelect.addEventListener("change", (e) => {
+                app.playClick();
+                const action = e.target.value;
+                document.querySelectorAll(".exec-action-group").forEach(group => {
+                    group.style.display = "none";
+                });
+                const paramGroup = document.getElementById(`exec-action-param-${action}`);
+                if (paramGroup) paramGroup.style.display = "flex";
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        // General execute pane inputs
+        const execInputs = [
+            "exec-target-base", "exec-target-exclude", "exec-target-gamemode", "exec-target-tag", "exec-anchor",
+            "exec-block-offset", "exec-prox-distance", "exec-dimension", "exec-weather",
+            "exec-score-obj", "exec-score-op", "exec-score-val", "exec-alt-min", "exec-alt-height",
+            "exec-summon-offset", "exec-sound-volume", "exec-sound-pitch", "exec-sound-category",
+            "exec-particle-count", "exec-particle-speed", "exec-particle-offset",
+            "exec-effect-duration", "exec-effect-amp", "exec-effect-hide-particles",
+            "exec-block-place-offset", "exec-tellraw-text", "exec-tellraw-color", "exec-custom-cmd"
+        ];
+        execInputs.forEach(id => {
+            app.safeBind(id, "input", () => app.recalculateCurrentCommand());
+            app.safeBind(id, "change", () => app.recalculateCurrentCommand());
+        });
+
         // --- PRESET ACTIONS ---
         app.safeBind("btn-save-preset", "click", () => app.saveCurrentPreset());
         app.safeBind("btn-import-preset", "click", () => app.importPreset());
@@ -1133,6 +1200,52 @@ const app = {
 
             const cmd = Generator.generateItem(config, targetVersion);
             app.displayCommand(cmd);
+        } else if (activeTab === "execute-pane") {
+            const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
+            const getChecked = (id) => { const el = document.getElementById(id); return el ? el.checked : false; };
+
+            const config = {
+                targetBase: getVal("exec-target-base", "@a"),
+                targetExclude: getVal("exec-target-exclude"),
+                targetGamemode: getVal("exec-target-gamemode"),
+                targetTag: getVal("exec-target-tag"),
+                anchor: getVal("exec-anchor", "at"),
+                condType: getVal("exec-cond-type", "always"),
+                blockType: getVal("exec-block", "minecraft:lava"),
+                blockOffset: getVal("exec-block-offset", "~ ~-1 ~"),
+                mobType: getVal("exec-mob", "minecraft:creeper"),
+                distance: getVal("exec-prox-distance", "..5"),
+                dimension: getVal("exec-dimension", "minecraft:overworld"),
+                weather: getVal("exec-weather", "rain"),
+                scoreObj: getVal("exec-score-obj", "dummy"),
+                scoreOp: getVal("exec-score-op", "matches"),
+                scoreVal: getVal("exec-score-val", "1.."),
+                altMin: parseInt(getVal("exec-alt-min", "120")),
+                altHeight: parseInt(getVal("exec-alt-height", "50")),
+                action: getVal("exec-action", "summon"),
+                actionMob: getVal("exec-mob-summon", "minecraft:creeper"),
+                summonOffset: getVal("exec-summon-offset", "~ ~ ~"),
+                actionSound: getVal("exec-sound", "minecraft:entity.creeper.primed"),
+                soundVolume: parseFloat(getVal("exec-sound-volume", "1.0")),
+                soundPitch: parseFloat(getVal("exec-sound-pitch", "1.0")),
+                soundCategory: getVal("exec-sound-category", "master"),
+                actionParticle: getVal("exec-particle", "minecraft:portal"),
+                particleCount: parseInt(getVal("exec-particle-count", "30")),
+                particleSpeed: parseFloat(getVal("exec-particle-speed", "0.1")),
+                particleOffset: getVal("exec-particle-offset", "~ ~1 ~"),
+                actionEffect: getVal("exec-effect", "minecraft:blindness"),
+                effectDuration: parseInt(getVal("exec-effect-duration", "10")),
+                effectAmp: parseInt(getVal("exec-effect-amp", "1")),
+                effectHideParticles: getChecked("exec-effect-hide-particles"),
+                actionBlockPlace: getVal("exec-block-place", "minecraft:lava"),
+                blockPlaceOffset: getVal("exec-block-place-offset", "~ ~ ~"),
+                tellrawText: getVal("exec-tellraw-text"),
+                tellrawColor: getVal("exec-tellraw-color", "white"),
+                customCmd: getVal("exec-custom-cmd")
+            };
+
+            const cmd = Generator.generateExecute(config, targetVersion);
+            app.displayCommand(cmd);
         }
     },
 
@@ -1193,14 +1306,26 @@ const app = {
         const box = document.getElementById("command-output-box");
         const rawCmd = box.dataset.rawCommand || box.textContent;
 
+        let pType = "item";
+        let pDetails = "";
+
+        if (activeTab === "mobs-pane") {
+            pType = "mob";
+            pDetails = "Mob: " + document.getElementById("mob-type").value.replace("minecraft:", "");
+        } else if (activeTab === "items-pane") {
+            pType = "item";
+            pDetails = "Item: " + document.getElementById("item-type").value.replace("minecraft:", "");
+        } else if (activeTab === "execute-pane") {
+            pType = "execute";
+            pDetails = "Execute: " + document.getElementById("exec-action").value;
+        }
+
         const presetObj = {
             id: Date.now().toString(),
             name: presetName,
-            type: activeTab === "mobs-pane" ? "mob" : "item",
+            type: pType,
             command: rawCmd,
-            details: activeTab === "mobs-pane" 
-                ? "Mob: " + document.getElementById("mob-type").value.replace("minecraft:", "")
-                : "Item: " + document.getElementById("item-type").value.replace("minecraft:", "")
+            details: pDetails
         };
 
         presets.push(presetObj);

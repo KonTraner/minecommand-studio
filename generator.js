@@ -391,5 +391,287 @@ const Generator = {
         let generated = commandTemplate.replace(/\[TARGET\]/g, target);
 
         return generated;
+    },
+
+    // 4. GENERATE CUSTOM EXECUTE TROLL COMMANDS
+    translateSoundToBedrock(soundId) {
+        const mapping = {
+            "minecraft:entity.creeper.primed": "random.fuse",
+            "minecraft:ambient.cave": "ambient.cave",
+            "minecraft:block.anvil.land": "random.anvil_land",
+            "minecraft:entity.ghast.warn": "mob.ghast.charge",
+            "minecraft:entity.lightning_bolt.thunder": "ambient.weather.thunder",
+            "minecraft:entity.ender_dragon.death": "mob.enderdragon.death",
+            "minecraft:entity.warden.heartbeat": "mob.warden.heartbeat",
+            "minecraft:entity.phantom.swoop": "mob.phantom.swoop",
+            "minecraft:entity.witch.ambient": "mob.witch.say"
+        };
+        return mapping[soundId] || "random.click";
+    },
+
+    translateParticleToBedrock(particleId) {
+        const mapping = {
+            "minecraft:portal": "minecraft:portal_particle",
+            "minecraft:smoke": "minecraft:basic_smoke_particle",
+            "minecraft:flame": "minecraft:basic_flame_particle",
+            "minecraft:cloud": "minecraft:cloud_particle",
+            "minecraft:sonic_boom": "minecraft:sonic_explosion",
+            "minecraft:explosion": "minecraft:huge_explosion_emitter",
+            "minecraft:heart": "minecraft:heart_particle",
+            "minecraft:electric_spark": "minecraft:sparkler_emitter"
+        };
+        return mapping[particleId] || "minecraft:portal_particle";
+    },
+
+    translateEffectToBedrock(effectId) {
+        const clean = effectId.replace("minecraft:", "");
+        return clean; // Bedrock matches standard effect names like blindness, slowness, etc.
+    },
+
+    colorCodeBedrock(color) {
+        const mapping = {
+            "white": "§f",
+            "red": "§c",
+            "yellow": "§e",
+            "green": "§a",
+            "blue": "§9",
+            "purple": "§d",
+            "gold": "§6",
+            "dark_red": "§4",
+            "gray": "§7"
+        };
+        return mapping[color] || "";
+    },
+
+    generateExecute(config, version) {
+        // --- 1. COMPILE SELECTOR ---
+        const base = config.targetBase || "@a";
+        let filters = [];
+
+        // Exclude name
+        if (config.targetExclude) {
+            filters.push(`name=!${config.targetExclude.trim()}`);
+        }
+
+        // Gamemode
+        if (config.targetGamemode && config.targetGamemode !== "none") {
+            if (version === "bedrock") {
+                const gmMap = { "survival": "s", "creative": "c", "adventure": "a", "spectator": "sp" };
+                const bedrockGm = gmMap[config.targetGamemode] || "s";
+                filters.push(`m=${bedrockGm}`);
+            } else {
+                filters.push(`gamemode=${config.targetGamemode}`);
+            }
+        }
+
+        // Tag
+        if (config.targetTag) {
+            filters.push(`tag=${config.targetTag.trim()}`);
+        }
+
+        // Distance range helper (Parses range like ..5 or 2..10 or 3..)
+        const parseRangeForSelector = (rangeStr, isBedrock) => {
+            const clean = (rangeStr || "").trim();
+            if (!clean) return isBedrock ? "r=5" : "distance=..5";
+            
+            // Match min..max
+            const matchMinMax = clean.match(/^(\d+)\.\.(\d+)$/);
+            if (matchMinMax) {
+                const min = matchMinMax[1];
+                const max = matchMinMax[2];
+                return isBedrock ? `rm=${min},r=${max}` : `distance=${min}..${max}`;
+            }
+            
+            // Match ..max
+            const matchMax = clean.match(/^\.\.(\d+)$/);
+            if (matchMax) {
+                const max = matchMax[1];
+                return isBedrock ? `r=${max}` : `distance=..${max}`;
+            }
+
+            // Match min..
+            const matchMin = clean.match(/^(\d+)\.\.$/);
+            if (matchMin) {
+                const min = matchMin[1];
+                return isBedrock ? `rm=${min}` : `distance=${min}..`;
+            }
+
+            // Simple number
+            const matchNum = clean.match(/^(\d+)$/);
+            if (matchNum) {
+                const num = matchNum[1];
+                return isBedrock ? `r=${num}` : `distance=${num}`;
+            }
+
+            return isBedrock ? `r=${clean}` : `distance=${clean}`;
+        };
+
+        const selector = filters.length > 0 ? `${base}[${filters.join(",")}]` : base;
+
+        // --- 2. COMPILE EXECUTE ANCHOR PREAMBLE ---
+        let preamble = "";
+        if (version === "bedrock") {
+            // Bedrock supports modern execute since 1.19.50+
+            if (config.anchor === "at") {
+                preamble = `execute at ${selector}`;
+            } else if (config.anchor === "as") {
+                preamble = `execute as ${selector}`;
+            } else if (config.anchor === "as_at") {
+                preamble = `execute as ${selector} at @s`;
+            }
+        } else {
+            // Java Modern & Legacy execute
+            if (config.anchor === "at") {
+                preamble = `execute at ${selector}`;
+            } else if (config.anchor === "as") {
+                preamble = `execute as ${selector}`;
+            } else if (config.anchor === "as_at") {
+                preamble = `execute as ${selector} at @s`;
+            }
+        }
+
+        // --- 3. COMPILE CONDITIONAL CLAUSE ---
+        let condition = "";
+        const cType = config.condType || "always";
+
+        if (cType === "if_block" || cType === "unless_block") {
+            const prefix = cType === "if_block" ? "if" : "unless";
+            const offset = config.blockOffset || "~ ~-1 ~";
+            const block = config.blockType || "minecraft:lava";
+            const blockCompiled = version === "bedrock" ? block.replace("minecraft:", "") : block;
+            condition = `${prefix} block ${offset} ${blockCompiled}`;
+        } 
+        else if (cType === "if_entity" || cType === "unless_entity") {
+            const prefix = cType === "if_entity" ? "if" : "unless";
+            const mob = config.mobType || "minecraft:creeper";
+            const mobCompiled = version === "bedrock" ? mob.replace("minecraft:", "") : mob;
+            const distFilter = parseRangeForSelector(config.distance, version === "bedrock");
+            condition = `${prefix} entity @e[type=${mobCompiled},${distFilter}]`;
+        } 
+        else if (cType === "if_dimension") {
+            if (version === "bedrock") {
+                condition = ""; // Bedrock doesn't have dimension checks natively in execute
+            } else {
+                condition = `if dimension ${config.dimension || "minecraft:overworld"}`;
+            }
+        } 
+        else if (cType === "if_weather") {
+            if (version === "bedrock") {
+                condition = ""; // Bedrock doesn't have weather checks natively in execute
+            } else {
+                condition = `if weather ${config.weather || "rain"}`;
+            }
+        } 
+        else if (cType === "if_score") {
+            const obj = config.scoreObj || "dummy";
+            const val = config.scoreVal || "1..";
+            let opString = `matches ${val}`;
+            
+            if (config.scoreOp && config.scoreOp !== "matches") {
+                if (config.scoreOp === ">=") opString = `matches ${val}..`;
+                else if (config.scoreOp === "<=") opString = `matches ..${val}`;
+                else if (config.scoreOp === "=") opString = `matches ${val}`;
+            }
+            condition = `if score @s ${obj} ${opString}`;
+        }
+        else if (cType === "if_altitude") {
+            const minY = config.altMin !== undefined ? config.altMin : 120;
+            const dy = config.altHeight !== undefined ? config.altHeight : 50;
+            condition = `if entity @s[y=${minY},dy=${dy}]`;
+        }
+
+        // --- 4. COMPILE PAYLOAD ACTION ---
+        let actionCmd = "";
+        const action = config.action || "summon";
+
+        if (action === "summon") {
+            const mob = config.actionMob || "minecraft:creeper";
+            const offset = config.summonOffset || "~ ~ ~";
+            if (version === "java_modern") {
+                actionCmd = `summon ${mob} ${offset}`;
+            } else {
+                actionCmd = `summon ${mob.replace("minecraft:", "")} ${offset}`;
+            }
+        } 
+        else if (action === "playsound") {
+            const sound = config.actionSound || "minecraft:entity.creeper.primed";
+            const volume = config.soundVolume !== undefined ? config.soundVolume : 1.0;
+            const pitch = config.soundPitch !== undefined ? config.soundPitch : 1.0;
+            const category = config.soundCategory || "master";
+
+            if (version === "bedrock") {
+                const brSound = this.translateSoundToBedrock(sound);
+                actionCmd = `playsound ${brSound} @s ~ ~ ~ ${volume} ${pitch}`;
+            } else if (version === "java_legacy") {
+                actionCmd = `playsound ${sound.replace("minecraft:", "")} ${category} @s ~ ~ ~ ${volume} ${pitch}`;
+            } else {
+                actionCmd = `playsound ${sound} ${category} @s ~ ~ ~ ${volume} ${pitch}`;
+            }
+        } 
+        else if (action === "particle") {
+            const particle = config.actionParticle || "minecraft:portal";
+            const speed = config.particleSpeed !== undefined ? config.particleSpeed : 0.1;
+            const count = config.particleCount !== undefined ? config.particleCount : 30;
+            const offset = config.particleOffset || "~ ~1 ~";
+
+            if (version === "bedrock") {
+                const brPart = this.translateParticleToBedrock(particle);
+                actionCmd = `particle ${brPart} ${offset}`;
+            } else if (version === "java_legacy") {
+                actionCmd = `particle ${particle.replace("minecraft:", "")} ${offset} 0.2 0.2 0.2 ${speed} ${count}`;
+            } else {
+                actionCmd = `particle ${particle} ${offset} 0.2 0.2 0.2 ${speed} ${count}`;
+            }
+        } 
+        else if (action === "effect") {
+            const effect = config.actionEffect || "minecraft:blindness";
+            const duration = config.effectDuration !== undefined ? config.effectDuration : 10;
+            const amp = config.effectAmp !== undefined ? config.effectAmp : 1;
+            const hide = !!config.effectHideParticles;
+
+            if (version === "bedrock") {
+                const brEffect = this.translateEffectToBedrock(effect);
+                actionCmd = `effect @s ${brEffect} ${duration} ${amp} ${hide ? "true" : "false"}`;
+            } else if (version === "java_legacy") {
+                actionCmd = `effect give @s ${effect.replace("minecraft:", "")} ${duration} ${amp} ${hide ? "true" : "false"}`;
+            } else {
+                actionCmd = `effect give @s ${effect} ${duration} ${amp} ${hide ? "true" : "false"}`;
+            }
+        } 
+        else if (action === "setblock") {
+            const block = config.actionBlockPlace || "minecraft:lava";
+            const offset = config.blockPlaceOffset || "~ ~ ~";
+            const blockCompiled = version === "bedrock" ? block.replace("minecraft:", "") : block;
+            actionCmd = `setblock ${offset} ${blockCompiled}`;
+        } 
+        else if (action === "tellraw") {
+            const txt = config.tellrawText || "A weird chill runs down your spine...";
+            const color = config.tellrawColor || "white";
+
+            if (version === "bedrock") {
+                const code = this.colorCodeBedrock(color);
+                actionCmd = `tellraw @s {"rawtext":[{"text":"${code}${this.escapeString(txt)}"}]}`;
+            } else {
+                actionCmd = `tellraw @s {"text":"${this.escapeString(txt)}","color":"${color}"}`;
+            }
+        } 
+        else if (action === "custom") {
+            let custom = (config.customCmd || "/say Hi!").trim();
+            if (!custom.startsWith("/")) {
+                custom = "/" + custom;
+            }
+            // Strip leading / since execute syntax runs command relative
+            actionCmd = custom.substring(1);
+        }
+
+        // --- 5. COMBINE BLOCKS ---
+        let compiled = preamble;
+        if (condition) {
+            compiled += ` ${condition}`;
+        }
+        compiled += ` run ${actionCmd}`;
+
+        return compiled;
     }
 };
+
