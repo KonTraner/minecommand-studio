@@ -443,8 +443,43 @@ const Generator = {
         return mapping[color] || "";
     },
 
-    generateExecute(config, version) {
-        // --- 1. COMPILE SELECTOR ---
+    parseRangeForSelector(rangeStr, isBedrock) {
+        const clean = (rangeStr || "").trim();
+        if (!clean) return isBedrock ? "r=5" : "distance=..5";
+        
+        // Match min..max
+        const matchMinMax = clean.match(/^(\d+)\.\.(\d+)$/);
+        if (matchMinMax) {
+            const min = matchMinMax[1];
+            const max = matchMinMax[2];
+            return isBedrock ? `rm=${min},r=${max}` : `distance=${min}..${max}`;
+        }
+        
+        // Match ..max
+        const matchMax = clean.match(/^\.\.(\d+)$/);
+        if (matchMax) {
+            const max = matchMax[1];
+            return isBedrock ? `r=${max}` : `distance=..${max}`;
+        }
+
+        // Match min..
+        const matchMin = clean.match(/^(\d+)\.\.$/);
+        if (matchMin) {
+            const min = matchMin[1];
+            return isBedrock ? `rm=${min}` : `distance=${min}..`;
+        }
+
+        // Simple number
+        const matchNum = clean.match(/^(\d+)$/);
+        if (matchNum) {
+            const num = matchNum[1];
+            return isBedrock ? `r=${num}` : `distance=${num}`;
+        }
+
+        return isBedrock ? `r=${clean}` : `distance=${clean}`;
+    },
+
+    compileSelector(config, version) {
         const base = config.targetBase || "@a";
         let filters = [];
 
@@ -464,49 +499,68 @@ const Generator = {
             }
         }
 
+        // Survival/Adventure Only
+        if (config.targetSurvivalOnly) {
+            if (version === "bedrock") {
+                filters.push("m=!c");
+                filters.push("m=!sp");
+            } else {
+                filters.push("gamemode=!creative");
+                filters.push("gamemode=!spectator");
+            }
+        }
+
         // Tag
         if (config.targetTag) {
             filters.push(`tag=${config.targetTag.trim()}`);
         }
 
-        // Distance range helper (Parses range like ..5 or 2..10 or 3..)
-        const parseRangeForSelector = (rangeStr, isBedrock) => {
-            const clean = (rangeStr || "").trim();
-            if (!clean) return isBedrock ? "r=5" : "distance=..5";
-            
-            // Match min..max
-            const matchMinMax = clean.match(/^(\d+)\.\.(\d+)$/);
-            if (matchMinMax) {
-                const min = matchMinMax[1];
-                const max = matchMinMax[2];
-                return isBedrock ? `rm=${min},r=${max}` : `distance=${min}..${max}`;
+        // Target Limit
+        if (config.targetLimit) {
+            if (version === "bedrock") {
+                filters.push("c=1");
+            } else {
+                filters.push("limit=1");
             }
-            
-            // Match ..max
-            const matchMax = clean.match(/^\.\.(\d+)$/);
-            if (matchMax) {
-                const max = matchMax[1];
-                return isBedrock ? `r=${max}` : `distance=..${max}`;
-            }
+        }
 
-            // Match min..
-            const matchMin = clean.match(/^(\d+)\.\.$/);
-            if (matchMin) {
-                const min = matchMin[1];
-                return isBedrock ? `rm=${min}` : `distance=${min}..`;
+        // XP Level Range
+        const hasMin = config.targetLevelMin !== undefined && !isNaN(config.targetLevelMin);
+        const hasMax = config.targetLevelMax !== undefined && !isNaN(config.targetLevelMax);
+        if (hasMin || hasMax) {
+            if (version === "bedrock") {
+                if (hasMin) filters.push(`lm=${config.targetLevelMin}`);
+                if (hasMax) filters.push(`l=${config.targetLevelMax}`);
+            } else {
+                const minVal = hasMin ? config.targetLevelMin : "";
+                const maxVal = hasMax ? config.targetLevelMax : "";
+                filters.push(`level=${minVal}..${maxVal}`);
             }
+        }
 
-            // Simple number
-            const matchNum = clean.match(/^(\d+)$/);
-            if (matchNum) {
-                const num = matchNum[1];
-                return isBedrock ? `r=${num}` : `distance=${num}`;
-            }
-
-            return isBedrock ? `r=${clean}` : `distance=${clean}`;
+        // Bedrock location mapping for hasitem condition
+        const slotMap = {
+            "weapon.mainhand": "slot.weapon.mainhand",
+            "weapon.offhand": "slot.weapon.offhand",
+            "armor.head": "slot.armor.head",
+            "armor.chest": "slot.armor.chest",
+            "armor.legs": "slot.armor.legs",
+            "armor.feet": "slot.armor.feet"
         };
 
-        const selector = filters.length > 0 ? `${base}[${filters.join(",")}]` : base;
+        if (version === "bedrock" && config.condType === "if_items") {
+            const itemRaw = (config.invItem || "minecraft:diamond_sword").replace("minecraft:", "");
+            const slotRaw = slotMap[config.invSlot] || "slot.weapon.mainhand";
+            const countVal = config.invCount !== undefined ? config.invCount : 1;
+            filters.push(`hasitem={item=${itemRaw},location=${slotRaw},quantity=${countVal}..}`);
+        }
+
+        return filters.length > 0 ? `${base}[${filters.join(",")}]` : base;
+    },
+
+    generateExecute(config, version) {
+        // --- 1. COMPILE SELECTOR ---
+        const selector = this.compileSelector(config, version);
 
         // --- 2. COMPILE EXECUTE ANCHOR PREAMBLE ---
         let preamble = "";
@@ -545,9 +599,43 @@ const Generator = {
             const prefix = cType === "if_entity" ? "if" : "unless";
             const mob = config.mobType || "minecraft:creeper";
             const mobCompiled = version === "bedrock" ? mob.replace("minecraft:", "") : mob;
-            const distFilter = parseRangeForSelector(config.distance, version === "bedrock");
+            const distFilter = this.parseRangeForSelector(config.distance, version === "bedrock");
             condition = `${prefix} entity @e[type=${mobCompiled},${distFilter}]`;
         } 
+        else if (cType === "if_sneaking") {
+            if (version === "bedrock") {
+                condition = "positioned ~ ~1.6 ~ unless entity @s[dx=0,dy=0.4,dz=0] positioned ~ ~-1.6 ~";
+            } else {
+                condition = "if entity @s[pose=sneaking]";
+            }
+        }
+        else if (cType === "if_items") {
+            const slot = config.invSlot || "weapon.mainhand";
+            const item = config.invItem || "minecraft:diamond_sword";
+            const count = config.invCount !== undefined ? config.invCount : 1;
+            
+            if (version === "java_modern") {
+                const countStr = count > 1 ? ` ${count}..` : "";
+                condition = `if items entity @s ${slot} ${item}${countStr}`;
+            } else if (version === "java_legacy") {
+                if (slot === "weapon.mainhand") {
+                    condition = `if entity @s[nbt={SelectedItem:{id:"${item}",Count:${count}b}}]`;
+                } else {
+                    const slotByteMap = {
+                        "weapon.offhand": "-106b",
+                        "armor.head": "103b",
+                        "armor.chest": "102b",
+                        "armor.legs": "101b",
+                        "armor.feet": "100b"
+                    };
+                    const slotByte = slotByteMap[slot] || "0b";
+                    condition = `if entity @s[nbt={Inventory:[{Slot:${slotByte},id:"${item}",Count:${count}b}]}]`;
+                }
+            } else if (version === "bedrock") {
+                // Handled natively in selector via hasitem
+                condition = "";
+            }
+        }
         else if (cType === "if_dimension") {
             if (version === "bedrock") {
                 condition = ""; // Bedrock doesn't have dimension checks natively in execute
@@ -655,6 +743,24 @@ const Generator = {
                 actionCmd = `tellraw @s {"text":"${this.escapeString(txt)}","color":"${color}"}`;
             }
         } 
+        else if (action === "combust") {
+            if (version === "java_modern") {
+                actionCmd = "damage @s 1 minecraft:on_fire";
+            } else if (version === "java_legacy") {
+                actionCmd = "setblock ~ ~ ~ fire";
+            } else if (version === "bedrock") {
+                actionCmd = "damage @s 1 fire";
+            }
+        }
+        else if (action === "wipe_inv") {
+            const item = config.clearItem || "all";
+            if (item === "all") {
+                actionCmd = "clear @s";
+            } else {
+                const compiledItem = version === "bedrock" ? item.replace("minecraft:", "") : item;
+                actionCmd = `clear @s ${compiledItem}`;
+            }
+        }
         else if (action === "custom") {
             let custom = (config.customCmd || "/say Hi!").trim();
             if (!custom.startsWith("/")) {
@@ -674,4 +780,8 @@ const Generator = {
         return compiled;
     }
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = Generator;
+}
 

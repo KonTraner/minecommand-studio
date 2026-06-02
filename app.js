@@ -179,6 +179,11 @@ const app = {
         app.buildGroupedCustomDropdown("dropdown-eq-offhand", handSlots, "none", () => app.recalculateCurrentCommand(), true);
 
         // Hydrate Armor Slots
+        for (const [dropId, data] of Object.entries(armorSlots)) {
+            const groups = {};
+            groups[data.label] = data.list;
+            groups["Blocks & Fun"] = MC_DATA.items.fun;
+            app.buildGroupedCustomDropdown(dropId, groups, "none", () => app.recalculateCurrentCommand(), true);
         }
 
         // Hydrate Execute Builder Dropdowns
@@ -189,6 +194,14 @@ const app = {
         app.buildCustomDropdown("dropdown-exec-particle", MC_DATA.execute_particles, "minecraft:portal", () => app.recalculateCurrentCommand());
         app.buildCustomDropdown("dropdown-exec-effect", MC_DATA.execute_effects, "minecraft:blindness", () => app.recalculateCurrentCommand());
         app.buildCustomDropdown("dropdown-exec-block-place", MC_DATA.execute_blocks, "minecraft:lava", () => app.recalculateCurrentCommand());
+        
+        // Dynamic Slot dropdown
+        app.buildCustomDropdown("dropdown-exec-inv-slot", MC_DATA.execute_slots, "weapon.mainhand", () => app.recalculateCurrentCommand());
+        // Dynamic Inventory Item dropdown
+        app.buildCustomDropdown("dropdown-exec-inv-item", MC_DATA.execute_items, "minecraft:diamond_sword", () => app.recalculateCurrentCommand());
+        // Dynamic Clear Item dropdown
+        const clearOptions = [{ id: "all", name: "Clear Entire Inventory (All)", icon: "❌" }].concat(MC_DATA.execute_items);
+        app.buildCustomDropdown("dropdown-exec-clear-item", clearOptions, "all", () => app.recalculateCurrentCommand());
 
         // Setup global listener to close dropdowns when clicking outside
         document.addEventListener("click", (e) => {
@@ -968,6 +981,9 @@ const app = {
                 } else if (type === "if_entity" || type === "unless_entity") {
                     const proxGroup = document.getElementById("exec-cond-field-proximity");
                     if (proxGroup) proxGroup.style.display = "flex";
+                } else if (type === "if_items") {
+                    const itemsGroup = document.getElementById("exec-cond-field-items");
+                    if (itemsGroup) itemsGroup.style.display = "flex";
                 } else if (type === "if_dimension") {
                     const dimGroup = document.getElementById("exec-cond-field-dimension");
                     if (dimGroup) dimGroup.style.display = "flex";
@@ -1003,8 +1019,10 @@ const app = {
         // General execute pane inputs
         const execInputs = [
             "exec-target-base", "exec-target-exclude", "exec-target-gamemode", "exec-target-tag", "exec-anchor",
+            "exec-target-level-min", "exec-target-level-max", "exec-target-survival-only", "exec-target-limit",
             "exec-block-offset", "exec-prox-distance", "exec-dimension", "exec-weather",
             "exec-score-obj", "exec-score-op", "exec-score-val", "exec-alt-min", "exec-alt-height",
+            "exec-inv-count", "exec-combust-duration",
             "exec-summon-offset", "exec-sound-volume", "exec-sound-pitch", "exec-sound-category",
             "exec-particle-count", "exec-particle-speed", "exec-particle-offset",
             "exec-effect-duration", "exec-effect-amp", "exec-effect-hide-particles",
@@ -1209,12 +1227,19 @@ const app = {
                 targetExclude: getVal("exec-target-exclude"),
                 targetGamemode: getVal("exec-target-gamemode"),
                 targetTag: getVal("exec-target-tag"),
+                targetLevelMin: getVal("exec-target-level-min") !== "" ? parseInt(getVal("exec-target-level-min")) : undefined,
+                targetLevelMax: getVal("exec-target-level-max") !== "" ? parseInt(getVal("exec-target-level-max")) : undefined,
+                targetSurvivalOnly: getChecked("exec-target-survival-only"),
+                targetLimit: getChecked("exec-target-limit"),
                 anchor: getVal("exec-anchor", "at"),
                 condType: getVal("exec-cond-type", "always"),
                 blockType: getVal("exec-block", "minecraft:lava"),
                 blockOffset: getVal("exec-block-offset", "~ ~-1 ~"),
                 mobType: getVal("exec-mob", "minecraft:creeper"),
                 distance: getVal("exec-prox-distance", "..5"),
+                invSlot: getVal("exec-inv-slot", "weapon.mainhand"),
+                invItem: getVal("exec-inv-item", "minecraft:diamond_sword"),
+                invCount: parseInt(getVal("exec-inv-count", "1")) || 1,
                 dimension: getVal("exec-dimension", "minecraft:overworld"),
                 weather: getVal("exec-weather", "rain"),
                 scoreObj: getVal("exec-score-obj", "dummy"),
@@ -1241,8 +1266,19 @@ const app = {
                 blockPlaceOffset: getVal("exec-block-place-offset", "~ ~ ~"),
                 tellrawText: getVal("exec-tellraw-text"),
                 tellrawColor: getVal("exec-tellraw-color", "white"),
+                combustDuration: parseInt(getVal("exec-combust-duration", "5")) || 5,
+                clearItem: getVal("exec-clear-item", "all"),
                 customCmd: getVal("exec-custom-cmd")
             };
+
+            // Update Live Selector Preview Box
+            if (typeof Generator !== "undefined" && typeof Generator.compileSelector === "function") {
+                const liveSelector = Generator.compileSelector(config, targetVersion);
+                const liveSelectorEl = document.getElementById("live-selector-preview");
+                if (liveSelectorEl) {
+                    liveSelectorEl.textContent = liveSelector;
+                }
+            }
 
             const cmd = Generator.generateExecute(config, targetVersion);
             app.displayCommand(cmd);

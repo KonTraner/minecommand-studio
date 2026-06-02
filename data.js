@@ -1628,5 +1628,25 @@ const MC_DATA = {
         { id: "minecraft:mining_fatigue", name: "Mining Fatigue", icon: "🧪" },
         { id: "minecraft:poison", name: "Poison", icon: "🧪" },
         { id: "minecraft:wither", name: "Wither", icon: "🧪" }
+    ],
+    execute_slots: [
+        { id: "weapon.mainhand", name: "Main Hand (Weapon)", icon: "⚔️" },
+        { id: "weapon.offhand", name: "Offhand Slot", icon: "🛡️" },
+        { id: "armor.head", name: "Helmet Slot", icon: "🪖" },
+        { id: "armor.chest", name: "Chestplate Slot", icon: "👕" },
+        { id: "armor.legs", name: "Leggings Slot", icon: "👖" },
+        { id: "armor.feet", name: "Boots Slot", icon: "🥾" }
+    ],
+    execute_items: [
+        { id: "minecraft:diamond_sword", name: "Diamond Sword", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:netherite_sword", name: "Netherite Sword", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:diamond", name: "Diamond", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:tnt", name: "TNT Block", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:lava_bucket", name: "Lava Bucket", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:water_bucket", name: "Water Bucket", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:enchanted_golden_apple", name: "Enchanted Apple", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:totem_of_undying", name: "Totem of Undying", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:shield", name: "Shield", get icon() { return getItemIconPath(this.id); } },
+        { id: "minecraft:elytra", name: "Elytra", get icon() { return getItemIconPath(this.id); } }
     ]
 };

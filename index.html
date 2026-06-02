@@ -567,36 +567,54 @@
                 </section>
 
                 <!-- Pane 6: Execute Command Builder -->
+                <!-- Pane 6: Execute Command Builder (Wizard Rework) -->
                 <section id="execute-pane" class="pane" aria-hidden="true">
                     <div class="pane-header">
                         <h2>⚡ ADVANCED EXECUTE BUILDER</h2>
-                        <p>Visually compile complex conditional <code>/execute</code> statements. Build custom traps, alerts, and targeted actions based on player states.</p>
+                        <p>Follow the steps below to compile highly customized <code>/execute</code> statements. Drag options, filter targets, and trigger actions based on conditions.</p>
                     </div>
 
                     <div class="form-container">
-                        <!-- Left Panel: Context & Targets -->
+                        <!-- Left Panel: Steps 1 & 2 (Victim & Trigger) -->
                         <div class="form-panel">
-                            <h3 class="panel-title">1. Execution Context & Targets</h3>
+                            <!-- STEP 1: Victim Filter -->
+                            <div class="wizard-step-header">
+                                <span class="step-num">Step 1</span>
+                                <h3 class="panel-title">Choose Targets (Who matches?)</h3>
+                            </div>
+                            
+                            <!-- Real-time Selector Preview Badge -->
+                            <div class="selector-preview-container">
+                                <span class="preview-label">Live Selector Preview:</span>
+                                <code id="live-selector-preview" class="selector-code">@a</code>
+                            </div>
+
                             <div class="form-grid">
-                                <!-- Target Base Selector -->
                                 <div class="input-field">
                                     <label for="exec-target-base">Base Target Selector</label>
                                     <select id="exec-target-base">
-                                        <option value="@p">Closest Player (@p)</option>
                                         <option value="@a" selected>All Players (@a)</option>
+                                        <option value="@p">Closest Player (@p)</option>
                                         <option value="@r">Random Player (@r)</option>
                                         <option value="@s">Executing Entity (@s)</option>
                                         <option value="@e">All Entities (@e)</option>
                                     </select>
+                                    <span class="field-help">Choose the base targeted target group.</span>
                                 </div>
 
-                                <!-- Filter: Exclude Player -->
-                                <div class="input-field">
-                                    <label for="exec-target-exclude">Exclude Username</label>
-                                    <input type="text" id="exec-target-exclude" placeholder="e.g. Herobrine (name=!Username)" maxlength="32">
+                                <div class="grid-2-col">
+                                    <div class="input-field">
+                                        <label for="exec-target-exclude">Exclude Username</label>
+                                        <input type="text" id="exec-target-exclude" placeholder="e.g. Herobrine" maxlength="32">
+                                        <span class="field-help">Ignore this player name.</span>
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="exec-target-tag">Required Scoreboard Tag</label>
+                                        <input type="text" id="exec-target-tag" placeholder="e.g. active" maxlength="32">
+                                        <span class="field-help">Target must have this tag.</span>
+                                    </div>
                                 </div>
 
-                                <!-- Filter: Gamemode Filter -->
                                 <div class="input-field">
                                     <label for="exec-target-gamemode">Gamemode Filter</label>
                                     <select id="exec-target-gamemode">
@@ -606,41 +624,69 @@
                                         <option value="adventure">Adventure (m=a)</option>
                                         <option value="spectator">Spectator (m=sp)</option>
                                     </select>
+                                    <span class="field-help">Targets matching this gamemode.</span>
                                 </div>
 
-                                <!-- Filter: Scoreboard Tag -->
-                                <div class="input-field">
-                                    <label for="exec-target-tag">Required Scoreboard Tag</label>
-                                    <input type="text" id="exec-target-tag" placeholder="e.g. troll_immune (tag=Tag)" maxlength="32">
+                                <div class="grid-2-col">
+                                    <div class="input-field">
+                                        <label for="exec-target-level-min">Min XP Level</label>
+                                        <input type="number" id="exec-target-level-min" placeholder="e.g. 10" min="0">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="exec-target-level-max">Max XP Level</label>
+                                        <input type="number" id="exec-target-level-max" placeholder="e.g. 50" min="0">
+                                    </div>
                                 </div>
 
-                                <!-- Anchor Mode -->
+                                <div class="checkbox-grid" style="margin-top: 4px;">
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="exec-target-survival-only">
+                                        <span class="mc-checkbox"></span> Target Survival/Adventure Only
+                                    </label>
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="exec-target-limit">
+                                        <span class="mc-checkbox"></span> Limit to Single Closest Target
+                                    </label>
+                                </div>
+                            </div>
+
+                            <hr class="wizard-divider" style="margin: 18px 0; border: 0; border-top: 2px solid var(--mc-black);">
+
+                            <!-- STEP 2: Trigger Conditions -->
+                            <div class="wizard-step-header">
+                                <span class="step-num">Step 2</span>
+                                <h3 class="panel-title">Define Triggers (When to run?)</h3>
+                            </div>
+
+                            <div class="form-grid">
                                 <div class="input-field">
-                                    <label for="exec-anchor">Execution Mode</label>
+                                    <label for="exec-anchor">Execution Orientation</label>
                                     <select id="exec-anchor">
                                         <option value="at" selected>Execute AT Target Position (at @s)</option>
                                         <option value="as">Execute AS Target (as @s)</option>
                                         <option value="as_at">Execute AS Target and AT Target Position (as & at)</option>
                                     </select>
+                                    <span class="field-help">Execution context anchors. "AT" runs commands relative to coordinates, "AS" runs relative to privileges.</span>
                                 </div>
 
-                                <!-- Trigger Condition Type -->
                                 <div class="input-field">
                                     <label for="exec-cond-type">Trigger Condition</label>
                                     <select id="exec-cond-type">
-                                        <option value="always" selected>Always (No Condition)</option>
-                                        <option value="if_block">Stepping ON Block (if block)</option>
-                                        <option value="unless_block">Stepping OFF Block (unless block)</option>
-                                        <option value="if_entity">Proximity Check (if entity)</option>
-                                        <option value="unless_entity">No Proximity Check (unless entity)</option>
+                                        <option value="always" selected>Always Active (Run Instantly)</option>
+                                        <option value="if_block">Stepping ON Block Type (if block)</option>
+                                        <option value="unless_block">Stepping OFF Block Type (unless block)</option>
+                                        <option value="if_entity">Proximity Mob Check (if entity)</option>
+                                        <option value="unless_entity">No Proximity Mob Check (unless entity)</option>
+                                        <option value="if_items">Carrying Specific Item (if items)</option>
+                                        <option value="if_sneaking">Victim is Crouching/Sneaking</option>
                                         <option value="if_dimension">Dimension Check (if dimension)</option>
                                         <option value="if_weather">Weather Condition (if weather)</option>
-                                        <option value="if_score">Score Check (if score)</option>
-                                        <option value="if_altitude">Altitude Check (if entity y-level)</option>
+                                        <option value="if_score">Scoreboard Level Check (if score)</option>
+                                        <option value="if_altitude">Altitude Level Check (y-height)</option>
                                     </select>
                                 </div>
 
-                                <!-- Conditional Fields: Block Step -->
+                                <!-- Dynamic Condition Sub-panels -->
                                 <div id="exec-cond-field-block" class="exec-conditional-group" style="display: none;">
                                     <div class="input-field">
                                         <label>Detect Block Type</label>
@@ -656,16 +702,16 @@
                                             <input type="hidden" id="exec-block" value="minecraft:lava">
                                         </div>
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
-                                        <label for="exec-block-offset">Block Offset (X Y Z)</label>
-                                        <input type="text" id="exec-block-offset" value="~ ~-1 ~" placeholder="e.g. ~ ~-1 ~">
+                                    <div class="input-field">
+                                        <label for="exec-block-offset">Block Coordinates Offset (X Y Z)</label>
+                                        <input type="text" id="exec-block-offset" value="~ ~-1 ~">
+                                        <span class="field-help">`~ ~-1 ~` looks directly below feet.</span>
                                     </div>
                                 </div>
 
-                                <!-- Conditional Fields: Proximity -->
                                 <div id="exec-cond-field-proximity" class="exec-conditional-group" style="display: none;">
                                     <div class="input-field">
-                                        <label>Entity to Detect</label>
+                                        <label>Target Mob to Detect</label>
                                         <div class="mc-custom-dropdown" id="dropdown-exec-mob">
                                             <div class="dropdown-trigger" id="trigger-exec-mob">
                                                 <span class="dropdown-trigger-icon">🟩</span>
@@ -678,16 +724,51 @@
                                             <input type="hidden" id="exec-mob" value="minecraft:creeper">
                                         </div>
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
-                                        <label for="exec-prox-distance">Detection Distance (Radius)</label>
-                                        <input type="text" id="exec-prox-distance" value="..5" placeholder="e.g. ..5 or 2..10">
+                                    <div class="input-field">
+                                        <label for="exec-prox-distance">Detection Range Distance</label>
+                                        <input type="text" id="exec-prox-distance" value="..5">
+                                        <span class="field-help">Use `..5` for within 5 blocks, or `5..15` for ranges.</span>
                                     </div>
                                 </div>
 
-                                <!-- Conditional Fields: Dimension -->
+                                <div id="exec-cond-field-items" class="exec-conditional-group" style="display: none;">
+                                    <div class="input-field">
+                                        <label>Inventory Equipment Slot</label>
+                                        <div class="mc-custom-dropdown" id="dropdown-exec-inv-slot">
+                                            <div class="dropdown-trigger" id="trigger-exec-inv-slot">
+                                                <span class="dropdown-trigger-icon">⚔️</span>
+                                                <span class="dropdown-trigger-text">Main Hand</span>
+                                            </div>
+                                            <div class="dropdown-content">
+                                                <input type="text" class="dropdown-search" placeholder="🔍 Filter slots...">
+                                                <div class="dropdown-options" id="options-exec-inv-slot"></div>
+                                            </div>
+                                            <input type="hidden" id="exec-inv-slot" value="weapon.mainhand">
+                                        </div>
+                                    </div>
+                                    <div class="input-field" style="margin-top: 8px;">
+                                        <label>Required Item Type</label>
+                                        <div class="mc-custom-dropdown" id="dropdown-exec-inv-item">
+                                            <div class="dropdown-trigger" id="trigger-exec-inv-item">
+                                                <span class="dropdown-trigger-icon">🟩</span>
+                                                <span class="dropdown-trigger-text">Select Item...</span>
+                                            </div>
+                                            <div class="dropdown-content">
+                                                <input type="text" class="dropdown-search" placeholder="🔍 Search items...">
+                                                <div class="dropdown-options" id="options-exec-inv-item"></div>
+                                            </div>
+                                            <input type="hidden" id="exec-inv-item" value="minecraft:diamond_sword">
+                                        </div>
+                                    </div>
+                                    <div class="input-field" style="margin-top: 8px;">
+                                        <label for="exec-inv-count">Required Count (Min)</label>
+                                        <input type="number" id="exec-inv-count" min="1" max="64" value="1">
+                                    </div>
+                                </div>
+
                                 <div id="exec-cond-field-dimension" class="exec-conditional-group" style="display: none;">
                                     <div class="input-field">
-                                        <label for="exec-dimension">Dimension</label>
+                                        <label for="exec-dimension">Minecraft Dimension</label>
                                         <select id="exec-dimension">
                                             <option value="minecraft:overworld" selected>Overworld</option>
                                             <option value="minecraft:the_nether">The Nether</option>
@@ -696,24 +777,22 @@
                                     </div>
                                 </div>
 
-                                <!-- Conditional Fields: Weather -->
                                 <div id="exec-cond-field-weather" class="exec-conditional-group" style="display: none;">
                                     <div class="input-field">
-                                        <label for="exec-weather">Required Weather</label>
+                                        <label for="exec-weather">Environment Weather</label>
                                         <select id="exec-weather">
-                                            <option value="clear">Clear</option>
+                                            <option value="clear">Clear Skies</option>
                                             <option value="rain" selected>Raining</option>
                                             <option value="thunder">Thundering</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <!-- Conditional Fields: Score -->
                                 <div id="exec-cond-field-score" class="exec-conditional-group" style="display: none;">
                                     <div class="grid-2-col">
                                         <div class="input-field">
-                                            <label for="exec-score-obj">Objective Name</label>
-                                            <input type="text" id="exec-score-obj" value="dummy" placeholder="e.g. deaths">
+                                            <label for="exec-score-obj">Score Objective</label>
+                                            <input type="text" id="exec-score-obj" value="dummy">
                                         </div>
                                         <div class="input-field">
                                             <label for="exec-score-op">Operator</label>
@@ -725,50 +804,56 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
-                                        <label for="exec-score-val">Value / Range</label>
-                                        <input type="text" id="exec-score-val" value="1.." placeholder="e.g. 5, or 1.., or 1..10">
+                                    <div class="input-field" style="margin-top: 8px;">
+                                        <label for="exec-score-val">Target Score / Range</label>
+                                        <input type="text" id="exec-score-val" value="1..">
+                                        <span class="field-help">Use `5` for exact score, `1..` for min 1, or `..10` for max 10.</span>
                                     </div>
                                 </div>
 
-                                <!-- Conditional Fields: Altitude -->
                                 <div id="exec-cond-field-altitude" class="exec-conditional-group" style="display: none;">
                                     <div class="grid-2-col">
                                         <div class="input-field">
-                                            <label for="exec-alt-min">Min Y-Level (y)</label>
-                                            <input type="number" id="exec-alt-min" value="120" placeholder="e.g. 120">
+                                            <label for="exec-alt-min">Min Y Altitude (y)</label>
+                                            <input type="number" id="exec-alt-min" value="120">
                                         </div>
                                         <div class="input-field">
                                             <label for="exec-alt-height">Height Range (dy)</label>
-                                            <input type="number" id="exec-alt-height" value="50" placeholder="e.g. 50">
+                                            <input type="number" id="exec-alt-height" value="50">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Right Panel: Actions & Payloads -->
+                        <!-- Right Panel: Step 3 (Actions & Parameters) -->
                         <div class="form-panel">
-                            <h3 class="panel-title">2. Target Action & Payload</h3>
+                            <div class="wizard-step-header">
+                                <span class="step-num">Step 3</span>
+                                <h3 class="panel-title">Define Action (What to run?)</h3>
+                            </div>
+
                             <div class="form-grid">
-                                <!-- Action Select -->
                                 <div class="input-field">
-                                    <label for="exec-action">Action Payload</label>
+                                    <label for="exec-action">Action Payload Type</label>
                                     <select id="exec-action">
-                                        <option value="summon" selected>Summon Mob</option>
-                                        <option value="playsound">Play Sound Effect</option>
-                                        <option value="particle">Spawn Particle Trail</option>
-                                        <option value="effect">Apply Status Effect</option>
-                                        <option value="setblock">Place Block</option>
-                                        <option value="tellraw">Send Tellraw Message</option>
-                                        <option value="custom">Execute Custom Command</option>
+                                        <option value="summon" selected>👾 Summon Custom Mob</option>
+                                        <option value="playsound">🔊 Trigger Audio Sound Effect</option>
+                                        <option value="particle">✨ Spawn Particle Trail</option>
+                                        <option value="effect">🧪 Apply Potion Status Effect</option>
+                                        <option value="setblock">🧱 Place Block Type</option>
+                                        <option value="tellraw">💬 Output System Tellraw Message</option>
+                                        <option value="combust">🔥 Set Target Combust (On Fire)</option>
+                                        <option value="wipe_inv">🧹 Wipe / Clear Inventory</option>
+                                        <option value="custom">✏️ Execute Free-form Custom Command</option>
                                     </select>
+                                    <span class="field-help">What payload runs when the target triggers the condition.</span>
                                 </div>
 
-                                <!-- Action Param: Summon Mob -->
+                                <!-- Dynamic Action Sub-panels -->
                                 <div id="exec-action-param-summon" class="exec-action-group">
                                     <div class="input-field">
-                                        <label>Mob Type</label>
+                                        <label>Mob to Summon</label>
                                         <div class="mc-custom-dropdown" id="dropdown-exec-mob-summon">
                                             <div class="dropdown-trigger" id="trigger-exec-mob-summon">
                                                 <span class="dropdown-trigger-icon">🟩</span>
@@ -781,13 +866,12 @@
                                             <input type="hidden" id="exec-mob-summon" value="minecraft:creeper">
                                         </div>
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
-                                        <label for="exec-summon-offset">Summon Offset (X Y Z)</label>
-                                        <input type="text" id="exec-summon-offset" value="~ ~ ~" placeholder="e.g. ~ ~ ~">
+                                    <div class="input-field" style="margin-top: 8px;">
+                                        <label for="exec-summon-offset">Summon Offset Coordinates (X Y Z)</label>
+                                        <input type="text" id="exec-summon-offset" value="~ ~ ~">
                                     </div>
                                 </div>
 
-                                <!-- Action Param: Play Sound -->
                                 <div id="exec-action-param-playsound" class="exec-action-group" style="display: none;">
                                     <div class="input-field">
                                         <label>Sound Effect</label>
@@ -803,7 +887,7 @@
                                             <input type="hidden" id="exec-sound" value="minecraft:entity.creeper.primed">
                                         </div>
                                     </div>
-                                    <div class="grid-2-col" style="margin-top: 10px;">
+                                    <div class="grid-2-col" style="margin-top: 8px;">
                                         <div class="input-field">
                                             <label for="exec-sound-volume">Volume</label>
                                             <input type="number" id="exec-sound-volume" min="0" max="10" step="0.1" value="1.0">
@@ -813,7 +897,7 @@
                                             <input type="number" id="exec-sound-pitch" min="0" max="2" step="0.1" value="1.0">
                                         </div>
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
+                                    <div class="input-field" style="margin-top: 8px;">
                                         <label for="exec-sound-category">Sound Category</label>
                                         <select id="exec-sound-category">
                                             <option value="master" selected>master</option>
@@ -825,10 +909,9 @@
                                     </div>
                                 </div>
 
-                                <!-- Action Param: Spawn Particle -->
                                 <div id="exec-action-param-particle" class="exec-action-group" style="display: none;">
                                     <div class="input-field">
-                                        <label>Particle Type</label>
+                                        <label>Particle Effect Type</label>
                                         <div class="mc-custom-dropdown" id="dropdown-exec-particle">
                                             <div class="dropdown-trigger" id="trigger-exec-particle">
                                                 <span class="dropdown-trigger-icon">🟩</span>
@@ -841,9 +924,9 @@
                                             <input type="hidden" id="exec-particle" value="minecraft:portal">
                                         </div>
                                     </div>
-                                    <div class="grid-2-col" style="margin-top: 10px;">
+                                    <div class="grid-2-col" style="margin-top: 8px;">
                                         <div class="input-field">
-                                            <label for="exec-particle-count">Count</label>
+                                            <label for="exec-particle-count">Particle Count</label>
                                             <input type="number" id="exec-particle-count" min="1" max="1000" value="30">
                                         </div>
                                         <div class="input-field">
@@ -851,13 +934,12 @@
                                             <input type="number" id="exec-particle-speed" min="0" max="5" step="0.05" value="0.1">
                                         </div>
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
-                                        <label for="exec-particle-offset">Spawn Location Offset (X Y Z)</label>
-                                        <input type="text" id="exec-particle-offset" value="~ ~1 ~" placeholder="e.g. ~ ~1 ~">
+                                    <div class="input-field" style="margin-top: 8px;">
+                                        <label for="exec-particle-offset">Spawn Coordinates Offset (X Y Z)</label>
+                                        <input type="text" id="exec-particle-offset" value="~ ~1 ~">
                                     </div>
                                 </div>
 
-                                <!-- Action Param: Apply Effect -->
                                 <div id="exec-action-param-effect" class="exec-action-group" style="display: none;">
                                     <div class="input-field">
                                         <label>Status Potion Effect</label>
@@ -873,25 +955,24 @@
                                             <input type="hidden" id="exec-effect" value="minecraft:blindness">
                                         </div>
                                     </div>
-                                    <div class="grid-2-col" style="margin-top: 10px;">
+                                    <div class="grid-2-col" style="margin-top: 8px;">
                                         <div class="input-field">
                                             <label for="exec-effect-duration">Duration (sec)</label>
                                             <input type="number" id="exec-effect-duration" min="1" max="1000" value="10">
                                         </div>
                                         <div class="input-field">
-                                            <label for="exec-effect-amp">Amplifier (0-255)</label>
+                                            <label for="exec-effect-amp">Amplifier Level (0-255)</label>
                                             <input type="number" id="exec-effect-amp" min="0" max="255" value="1">
                                         </div>
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
+                                    <div class="input-field" style="margin-top: 8px;">
                                         <label class="mc-checkbox-label">
                                             <input type="checkbox" id="exec-effect-hide-particles" checked>
-                                            <span class="mc-checkbox"></span> Hide Effect Particles?
+                                            <span class="mc-checkbox"></span> Hide Potion Bubbles
                                         </label>
                                     </div>
                                 </div>
 
-                                <!-- Action Param: Setblock -->
                                 <div id="exec-action-param-setblock" class="exec-action-group" style="display: none;">
                                     <div class="input-field">
                                         <label>Block Type</label>
@@ -907,19 +988,18 @@
                                             <input type="hidden" id="exec-block-place" value="minecraft:lava">
                                         </div>
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
-                                        <label for="exec-block-place-offset">Placement Offset (X Y Z)</label>
-                                        <input type="text" id="exec-block-place-offset" value="~ ~ ~" placeholder="e.g. ~ ~ ~">
+                                    <div class="input-field" style="margin-top: 8px;">
+                                        <label for="exec-block-place-offset">Placement Coordinates Offset (X Y Z)</label>
+                                        <input type="text" id="exec-block-place-offset" value="~ ~ ~">
                                     </div>
                                 </div>
 
-                                <!-- Action Param: Tellraw Message -->
                                 <div id="exec-action-param-tellraw" class="exec-action-group" style="display: none;">
                                     <div class="input-field">
                                         <label for="exec-tellraw-text">Chat Message Text</label>
-                                        <input type="text" id="exec-tellraw-text" placeholder="e.g. A weird chill runs down your spine..." value="A weird chill runs down your spine...">
+                                        <input type="text" id="exec-tellraw-text" placeholder="A weird chill runs down your spine..." value="A weird chill runs down your spine...">
                                     </div>
-                                    <div class="input-field" style="margin-top: 10px;">
+                                    <div class="input-field" style="margin-top: 8px;">
                                         <label for="exec-tellraw-color">Message Color</label>
                                         <select id="exec-tellraw-color">
                                             <option value="white" selected>White</option>
@@ -935,11 +1015,37 @@
                                     </div>
                                 </div>
 
-                                <!-- Action Param: Custom Command -->
+                                <div id="exec-action-param-combust" class="exec-action-group" style="display: none;">
+                                    <div class="input-field">
+                                        <label for="exec-combust-duration">Burn Duration (Seconds)</label>
+                                        <input type="number" id="exec-combust-duration" min="1" max="100" value="5">
+                                        <span class="field-help">Ignite the player for this amount of time.</span>
+                                    </div>
+                                </div>
+
+                                <div id="exec-action-param-wipe_inv" class="exec-action-group" style="display: none;">
+                                    <div class="input-field">
+                                        <label>Clear Item Target</label>
+                                        <div class="mc-custom-dropdown" id="dropdown-exec-clear-item">
+                                            <div class="dropdown-trigger" id="trigger-exec-clear-item">
+                                                <span class="dropdown-trigger-icon">🟩</span>
+                                                <span class="dropdown-trigger-text">Clear Entire Inventory (All)</span>
+                                            </div>
+                                            <div class="dropdown-content">
+                                                <input type="text" class="dropdown-search" placeholder="🔍 Search items...">
+                                                <div class="dropdown-options" id="options-exec-clear-item"></div>
+                                            </div>
+                                            <input type="hidden" id="exec-clear-item" value="all">
+                                        </div>
+                                        <span class="field-help">Clear specific items from inventory, or wipe completely.</span>
+                                    </div>
+                                </div>
+
                                 <div id="exec-action-param-custom" class="exec-action-group" style="display: none;">
                                     <div class="input-field">
                                         <label for="exec-custom-cmd">Run Custom Command</label>
-                                        <input type="text" id="exec-custom-cmd" placeholder="e.g. /say Hi! (do not include execute syntax)" value="/say Hi!">
+                                        <input type="text" id="exec-custom-cmd" placeholder="e.g. /say Hi!" value="/say Hi!">
+                                        <span class="field-help">Do not include the leading execute syntax; this is the payload run.</span>
                                     </div>
                                 </div>
                             </div>
