@@ -1,125 +1,118 @@
 /* ==========================================================================
-   MineCommand Studio - Expanded Game Data & Hand-crafted Pixel SVGs
+   MineCommand Studio - Game Data (Upgraded with Real In-Game Textures)
    ========================================================================== */
 
-// 1. Hand-crafted Pixel Art SVG Library (ViewBox 0 0 16 16 with crisp edges)
-const MC_ICONS = {
-    // Mob heads
-    zombie: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#146a5d"/><rect x="2" y="4" width="3" height="2" fill="#111"/><rect x="11" y="4" width="3" height="2" fill="#111"/><rect x="4" y="8" width="8" height="4" fill="#0c4a40"/><rect x="6" y="12" width="4" height="2" fill="#111"/></svg>`,
-    skeleton: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#cfcfd4"/><rect x="2" y="5" width="3" height="3" fill="#1c1c1f"/><rect x="11" y="5" width="3" height="3" fill="#1c1c1f"/><rect x="5" y="10" width="6" height="2" fill="#1c1c1f"/><rect x="7" y="12" width="2" height="4" fill="#88888c"/></svg>`,
-    creeper: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#3aa327"/><rect x="2" y="3" width="3" height="3" fill="#151f13"/><rect x="11" y="3" width="3" height="3" fill="#151f13"/><rect x="5" y="6" width="6" height="4" fill="#151f13"/><rect x="4" y="8" width="8" height="6" fill="#151f13"/><rect x="4" y="12" width="2" height="4" fill="#151f13"/><rect x="10" y="12" width="2" height="4" fill="#151f13"/></svg>`,
-    spider: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#181313"/><rect x="2" y="5" width="2" height="2" fill="#b81616"/><rect x="5" y="5" width="2" height="2" fill="#b81616"/><rect x="9" y="5" width="2" height="2" fill="#b81616"/><rect x="12" y="5" width="2" height="2" fill="#b81616"/><rect x="6" y="9" width="4" height="2" fill="#383030"/></svg>`,
-    enderman: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#111113"/><rect x="1" y="6" width="4" height="2" fill="#d05ce3"/><rect x="2" y="6" width="2" height="2" fill="#fff"/><rect x="11" y="6" width="4" height="2" fill="#d05ce3"/><rect x="12" y="6" width="2" height="2" fill="#fff"/></svg>`,
-    blaze: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#e89315"/><rect x="3" y="2" width="10" height="2" fill="#ffe259"/><rect x="1" y="5" width="4" height="4" fill="#d47306"/><rect x="11" y="5" width="4" height="4" fill="#d47306"/><rect x="5" y="6" width="2" height="2" fill="#fff"/><rect x="9" y="6" width="2" height="2" fill="#fff"/><rect x="4" y="11" width="8" height="2" fill="#ffe259"/></svg>`,
-    witch: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#88766b"/><rect x="3" y="0" width="10" height="4" fill="#201b2b"/><rect x="1" y="4" width="14" height="1" fill="#32ba32"/><rect x="5" y="5" width="6" height="3" fill="#88766b"/><rect x="5" y="7" width="2" height="4" fill="#692a2a"/><rect x="9" y="7" width="2" height="4" fill="#692a2a"/><rect x="7" y="11" width="2" height="4" fill="#1e1c1b"/></svg>`,
-    iron_golem: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#dfdfdb"/><rect x="3" y="5" width="2" height="2" fill="#d43328"/><rect x="11" y="5" width="2" height="2" fill="#d43328"/><rect x="6" y="5" width="4" height="2" fill="#8aa878"/><rect x="7" y="7" width="2" height="6" fill="#bd9a88"/></svg>`,
-    villager: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#b57a5f"/><rect x="3" y="4" width="2" height="2" fill="#5fb55f"/><rect x="11" y="4" width="2" height="2" fill="#5fb55f"/><rect x="6" y="6" width="4" height="8" fill="#915a41"/><rect x="6" y="12" width="4" height="2" fill="#553526"/></svg>`,
-    pig: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#fca1a1"/><rect x="1" y="5" width="2" height="2" fill="#fff"/><rect x="2" y="5" width="1" height="2" fill="#000"/><rect x="13" y="5" width="2" height="2" fill="#fff"/><rect x="13" y="5" width="1" height="2" fill="#000"/><rect x="4" y="8" width="8" height="4" fill="#fca8a8"/><rect x="5" y="9" width="6" height="3" fill="#e8667b"/><rect x="6" y="10" width="1" height="1" fill="#4a1a21"/><rect x="9" y="10" width="1" height="1" fill="#4a1a21"/></svg>`,
-    cow: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#5c4538"/><rect x="1" y="1" width="3" height="3" fill="#fff"/><rect x="12" y="1" width="3" height="3" fill="#fff"/><rect x="2" y="6" width="2" height="2" fill="#fff"/><rect x="2" y="6" width="1" height="2" fill="#000"/><rect x="12" y="6" width="2" height="2" fill="#fff"/><rect x="12" y="6" width="1" height="2" fill="#000"/><rect x="4" y="10" width="8" height="4" fill="#d2a090"/></svg>`,
-    chicken: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#eceff1"/><rect x="3" y="4" width="2" height="2" fill="#263238"/><rect x="11" y="4" width="2" height="2" fill="#263238"/><rect x="5" y="8" width="6" height="3" fill="#ffb300"/><rect x="6" y="11" width="4" height="3" fill="#e53935"/></svg>`,
-    slime: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="rgba(84,204,61,0.6)" stroke="#398525" stroke-width="1"/><rect x="3" y="5" width="2" height="2" fill="#28591c"/><rect x="11" y="5" width="2" height="2" fill="#28591c"/><rect x="7" y="9" width="2" height="2" fill="#28591c"/></svg>`,
-    
-    // Armaments & Weapons
-    sword_diamond: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M12 0h4v4h-1v1h-1v1h-1v1h-1v1H9v1H8v1H7v1H6V9H5V8H4V7h1V6h1V5h1V4h1V3h1V2h1v1h1V1h1V0z" fill="#4dede5"/><path d="M5 11h1v1H5zm-1 1h1v1H4zm-1 1h1v1H3zm-2 2h2v1H0v-2h1z" fill="#805300"/><path d="M3 12h1v1H3zm-1 1h1v1H2zm3-3h1v1H5zm2-2h1v1H7z" fill="#e2c815"/></svg>`,
-    sword_netherite: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M12 0h4v4h-1v1h-1v1h-1v1h-1v1H9v1H8v1H7v1H6V9H5V8H4V7h1V6h1V5h1V4h1V3h1V2h1v1h1V1h1V0z" fill="#2d2d30"/><path d="M5 11h1v1H5zm-1 1h1v1H4zm-1 1h1v1H3zm-2 2h2v1H0v-2h1z" fill="#140f0c"/><path d="M3 12h1v1H3zm-1 1h1v1H2zm3-3h1v1H5zm2-2h1v1H7z" fill="#bd2d2d"/></svg>`,
-    sword_gold: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M12 0h4v4h-1v1h-1v1h-1v1h-1v1H9v1H8v1H7v1H6V9H5V8H4V7h1V6h1V5h1V4h1V3h1V2h1v1h1V1h1V0z" fill="#fca800"/><path d="M5 11h1v1H5zm-1 1h1v1H4zm-1 1h1v1H3zm-2 2h2v1H0v-2h1z" fill="#805300"/><path d="M3 12h1v1H3zm-1 1h1v1H2zm3-3h1v1H5zm2-2h1v1H7z" fill="#fff"/></svg>`,
-    sword_iron: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M12 0h4v4h-1v1h-1v1h-1v1h-1v1H9v1H8v1H7v1H6V9H5V8H4V7h1V6h1V5h1V4h1V3h1V2h1v1h1V1h1V0z" fill="#e0e0e8"/><path d="M5 11h1v1H5zm-1 1h1v1H4zm-1 1h1v1H3zm-2 2h2v1H0v-2h1z" fill="#665"/><path d="M3 12h1v1H3zm-1 1h1v1H2zm3-3h1v1H5zm2-2h1v1H7z" fill="#d1bd19"/></svg>`,
-    sword_stone: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M12 0h4v4h-1v1h-1v1h-1v1h-1v1H9v1H8v1H7v1H6V9H5V8H4V7h1V6h1V5h1V4h1V3h1V2h1v1h1V1h1V0z" fill="#7a7a82"/><path d="M5 11h1v1H5zm-1 1h1v1H4zm-1 1h1v1H3zm-2 2h2v1H0v-2h1z" fill="#4c3d31"/><path d="M3 12h1v1H3zm-1 1h1v1H2zm3-3h1v1H5zm2-2h1v1H7z" fill="#323238"/></svg>`,
-    sword_wood: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M12 0h4v4h-1v1h-1v1h-1v1h-1v1H9v1H8v1H7v1H6V9H5V8H4V7h1V6h1V5h1V4h1V3h1V2h1v1h1V1h1V0z" fill="#a67053"/><path d="M5 11h1v1H5zm-1 1h1v1H4zm-1 1h1v1H3zm-2 2h2v1H0v-2h1z" fill="#543526"/><path d="M3 12h1v1H3zm-1 1h1v1H2zm3-3h1v1H5zm2-2h1v1H7z" fill="#2d1c14"/></svg>`,
-    
-    // Ranged
-    bow: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M11 1 L15 5 L14 6 L12 4 L9 7 L7 9 L4 12 L6 14 L5 15 L1 11 L2 10 L4 12 L7 9 L9 7 L12 4 L11 1 Z" fill="#6d4c41"/><rect x="13" y="1" width="2" height="2" fill="#dfdfdf"/><rect x="1" y="13" width="2" height="2" fill="#dfdfdf"/></svg>`,
-    
-    // Armors
-    helmet: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="3" y="2" width="10" height="12" fill="#4dede5" rx="1"/><rect x="5" y="8" width="6" height="3" fill="#1b1b1d"/><rect x="3" y="14" width="10" height="2" fill="#265c17"/><line x1="8" y1="2" x2="8" y2="7" stroke="#fff" stroke-width="1"/></svg>`,
-    chestplate: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M3 2h3v2h4V2h3v6h-1v5H3V8H2V2z" fill="#4dede5"/><rect x="5" y="4" width="6" height="4" fill="#265c17"/></svg>`,
-    leggings: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="3" y="2" width="10" height="13" fill="#4dede5"/><rect x="6" y="6" width="4" height="9" fill="#1b1b1d"/></svg>`,
-    boots: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="2" y="8" width="4" height="7" fill="#4dede5"/><rect x="10" y="8" width="4" height="7" fill="#4dede5"/></svg>`,
-    
-    // Custom collectibles
-    diamond: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M8 1 L14 7 L8 15 L2 7 Z" fill="#4dede5"/><path d="M5 5 L8 2 L11 5 L8 8 Z" fill="#fff" opacity="0.6"/></svg>`,
-    emerald: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M8 1 L14 5 L14 11 L8 15 L2 11 L2 5 Z" fill="#3aa327"/><path d="M5 5 L8 3 L11 5 L8 13 Z" fill="#a4f48c" opacity="0.5"/></svg>`,
-    tnt: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#b02e2e"/><rect x="0" y="5" width="16" height="6" fill="#ffffff"/><rect x="2" y="7" width="2" height="2" fill="#111"/><rect x="6" y="7" width="4" height="2" fill="#111"/><rect x="12" y="7" width="2" height="2" fill="#111"/><rect x="0" y="0" width="16" height="2" fill="#555"/></svg>`,
-    apple_golden: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M5 2 L11 2 L13 4 L14 7 L12 12 L8 14 L4 12 L2 7 L3 4 Z" fill="#ffd54f"/><rect x="7" y="0" width="2" height="2" fill="#8d6e63"/><path d="M4 4 L6 4 L5 7 Z" fill="#fff" opacity="0.6"/></svg>`,
-    egg: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><path d="M8 1 C5 1 3 5 3 9 C3 13 5 15 8 15 C11 15 13 13 13 9 C13 5 11 1 8 1" fill="#fcf6d6"/><rect x="5" y="8" width="2" height="2" fill="#d1bd19"/><rect x="9" y="5" width="2" height="2" fill="#d1bd19"/></svg>`,
-    dirt: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#8d6e63"/><rect x="0" y="0" width="16" height="4" fill="#4caf50"/><path d="M1 4 L3 4 L2 6 Z" fill="#388e3c"/></svg>`,
-    bedrock: `<svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges"><rect x="0" y="0" width="16" height="16" fill="#1c1c1f"/><rect x="2" y="2" width="4" height="4" fill="#555"/><rect x="10" y="2" width="4" height="4" fill="#555"/><rect x="6" y="8" width="4" height="4" fill="#555"/><rect x="2" y="11" width="3" height="3" fill="#888"/></svg>`
+// 1. Mojang Official Avatars & In-game PNG Texture CDN Mappings
+const mobHeadMapping = {
+    "minecraft:zombie": "MHF_Zombie",
+    "minecraft:skeleton": "MHF_Skeleton",
+    "minecraft:creeper": "MHF_Creeper",
+    "minecraft:spider": "MHF_Spider",
+    "minecraft:wither_skeleton": "MHF_WSkeleton",
+    "minecraft:blaze": "MHF_Blaze",
+    "minecraft:witch": "MHF_Witch",
+    "minecraft:enderman": "MHF_Enderman",
+    "minecraft:iron_golem": "MHF_Golem",
+    "minecraft:villager": "MHF_Villager",
+    "minecraft:pig": "MHF_Pig",
+    "minecraft:cow": "MHF_Cow",
+    "minecraft:chicken": "MHF_Chicken",
+    "minecraft:slime": "MHF_Slime"
 };
 
+function getMobIconPath(mobId) {
+    const skinName = mobHeadMapping[mobId] || "MHF_Zombie";
+    return `https://mc-heads.net/avatar/${skinName}/32`;
+}
+
+function getItemIconPath(itemId) {
+    const cleanName = itemId.replace("minecraft:", "");
+    // Block textures reside in textures/block/
+    const blockTextures = ["dirt", "bedrock"];
+    if (blockTextures.includes(cleanName)) {
+        return `https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.4/assets/minecraft/textures/block/${cleanName}.png`;
+    }
+    if (cleanName === "tnt") {
+        return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.4/assets/minecraft/textures/block/tnt_side.png";
+    }
+    // Items reside in textures/item/
+    return `https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.4/assets/minecraft/textures/item/${cleanName}.png`;
+}
+
 const MC_DATA = {
-    // 2. Mobs Mapping Configuration with relative Icons
+    // 2. Mobs hydrated with raw game heads
     mobs: [
-        { id: "minecraft:zombie", name: "Zombie", category: "Hostile", icon: MC_ICONS.zombie },
-        { id: "minecraft:skeleton", name: "Skeleton", category: "Hostile", icon: MC_ICONS.skeleton },
-        { id: "minecraft:creeper", name: "Creeper", category: "Hostile", special: "creeper", icon: MC_ICONS.creeper },
-        { id: "minecraft:spider", name: "Spider", category: "Hostile", icon: MC_ICONS.spider },
-        { id: "minecraft:wither_skeleton", name: "Wither Skeleton", category: "Hostile", icon: MC_ICONS.skeleton },
-        { id: "minecraft:blaze", name: "Blaze", category: "Hostile", icon: MC_ICONS.blaze },
-        { id: "minecraft:witch", name: "Witch", category: "Hostile", icon: MC_ICONS.witch },
-        { id: "minecraft:enderman", name: "Enderman", category: "Neutral", icon: MC_ICONS.enderman },
-        { id: "minecraft:iron_golem", name: "Iron Golem", category: "Utility", icon: MC_ICONS.iron_golem },
-        { id: "minecraft:villager", name: "Villager", category: "Passive", special: "villager", icon: MC_ICONS.villager },
-        { id: "minecraft:pig", name: "Pig", category: "Passive", icon: MC_ICONS.pig },
-        { id: "minecraft:cow", name: "Cow", category: "Passive", icon: MC_ICONS.cow },
-        { id: "minecraft:chicken", name: "Chicken", category: "Passive", icon: MC_ICONS.chicken },
-        { id: "minecraft:slime", name: "Slime", category: "Hostile", special: "slime", icon: MC_ICONS.slime }
+        { id: "minecraft:zombie", name: "Zombie", category: "Hostile", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:skeleton", name: "Skeleton", category: "Hostile", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:creeper", name: "Creeper", category: "Hostile", special: "creeper", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:spider", name: "Spider", category: "Hostile", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:wither_skeleton", name: "Wither Skeleton", category: "Hostile", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:blaze", name: "Blaze", category: "Hostile", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:witch", name: "Witch", category: "Hostile", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:enderman", name: "Enderman", category: "Neutral", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:iron_golem", name: "Iron Golem", category: "Utility", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:villager", name: "Villager", category: "Passive", special: "villager", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:pig", name: "Pig", category: "Passive", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:cow", name: "Cow", category: "Passive", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:chicken", name: "Chicken", category: "Passive", get icon() { return getMobIconPath(this.id); } },
+        { id: "minecraft:slime", name: "Slime", category: "Hostile", special: "slime", get icon() { return getMobIconPath(this.id); } }
     ],
 
-    // 3. Equipment & Items Lists linked with visual Icons
+    // 3. Items hydrated with raw game assets
     items: {
         weapons: [
-            { id: "minecraft:diamond_sword", name: "Diamond Sword", icon: MC_ICONS.sword_diamond },
-            { id: "minecraft:netherite_sword", name: "Netherite Sword", icon: MC_ICONS.sword_netherite },
-            { id: "minecraft:golden_sword", name: "Golden Sword", icon: MC_ICONS.sword_gold },
-            { id: "minecraft:iron_sword", name: "Iron Sword", icon: MC_ICONS.sword_iron },
-            { id: "minecraft:stone_sword", name: "Stone Sword", icon: MC_ICONS.sword_stone },
-            { id: "minecraft:wooden_sword", name: "Wooden Sword", icon: MC_ICONS.sword_wood },
-            { id: "minecraft:bow", name: "Bow", icon: MC_ICONS.bow },
-            { id: "minecraft:crossbow", name: "Crossbow", icon: MC_ICONS.bow },
-            { id: "minecraft:trident", name: "Trident", icon: MC_ICONS.sword_diamond }
+            { id: "minecraft:diamond_sword", name: "Diamond Sword", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:netherite_sword", name: "Netherite Sword", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:golden_sword", name: "Golden Sword", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:iron_sword", name: "Iron Sword", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:stone_sword", name: "Stone Sword", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:wooden_sword", name: "Wooden Sword", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:bow", name: "Bow", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:crossbow", name: "Crossbow", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:trident", name: "Trident", get icon() { return getItemIconPath(this.id); } }
         ],
         helmets: [
-            { id: "minecraft:netherite_helmet", name: "Netherite Helmet", icon: MC_ICONS.helmet },
-            { id: "minecraft:diamond_helmet", name: "Diamond Helmet", icon: MC_ICONS.helmet },
-            { id: "minecraft:iron_helmet", name: "Iron Helmet", icon: MC_ICONS.helmet },
-            { id: "minecraft:golden_helmet", name: "Golden Helmet", icon: MC_ICONS.helmet },
-            { id: "minecraft:chainmail_helmet", name: "Chainmail Helmet", icon: MC_ICONS.helmet },
-            { id: "minecraft:leather_helmet", name: "Leather Cap", icon: MC_ICONS.helmet }
+            { id: "minecraft:netherite_helmet", name: "Netherite Helmet", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:diamond_helmet", name: "Diamond Helmet", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:iron_helmet", name: "Iron Helmet", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:golden_helmet", name: "Golden Helmet", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:chainmail_helmet", name: "Chainmail Helmet", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:leather_helmet", name: "Leather Cap", get icon() { return getItemIconPath(this.id); } }
         ],
         chestplates: [
-            { id: "minecraft:netherite_chestplate", name: "Netherite Chestplate", icon: MC_ICONS.chestplate },
-            { id: "minecraft:diamond_chestplate", name: "Diamond Chestplate", icon: MC_ICONS.chestplate },
-            { id: "minecraft:iron_chestplate", name: "Iron Chestplate", icon: MC_ICONS.chestplate },
-            { id: "minecraft:golden_chestplate", name: "Golden Chestplate", icon: MC_ICONS.chestplate },
-            { id: "minecraft:chainmail_chestplate", name: "Chainmail Chestplate", icon: MC_ICONS.chestplate },
-            { id: "minecraft:leather_chestplate", name: "Leather Tunics", icon: MC_ICONS.chestplate }
+            { id: "minecraft:netherite_chestplate", name: "Netherite Chestplate", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:diamond_chestplate", name: "Diamond Chestplate", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:iron_chestplate", name: "Iron Chestplate", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:golden_chestplate", name: "Golden Chestplate", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:chainmail_chestplate", name: "Chainmail Chestplate", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:leather_chestplate", name: "Leather Tunics", get icon() { return getItemIconPath(this.id); } }
         ],
         leggings: [
-            { id: "minecraft:netherite_leggings", name: "Netherite Leggings", icon: MC_ICONS.leggings },
-            { id: "minecraft:diamond_leggings", name: "Diamond Leggings", icon: MC_ICONS.leggings },
-            { id: "minecraft:iron_leggings", name: "Iron Leggings", icon: MC_ICONS.leggings },
-            { id: "minecraft:golden_leggings", name: "Golden Leggings", icon: MC_ICONS.leggings },
-            { id: "minecraft:chainmail_leggings", name: "Chainmail Leggings", icon: MC_ICONS.leggings },
-            { id: "minecraft:leather_leggings", name: "Leather Pants", icon: MC_ICONS.leggings }
+            { id: "minecraft:netherite_leggings", name: "Netherite Leggings", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:diamond_leggings", name: "Diamond Leggings", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:iron_leggings", name: "Iron Leggings", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:golden_leggings", name: "Golden Leggings", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:chainmail_leggings", name: "Chainmail Leggings", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:leather_leggings", name: "Leather Pants", get icon() { return getItemIconPath(this.id); } }
         ],
         boots: [
-            { id: "minecraft:netherite_boots", name: "Netherite Boots", icon: MC_ICONS.boots },
-            { id: "minecraft:diamond_boots", name: "Diamond Boots", icon: MC_ICONS.boots },
-            { id: "minecraft:iron_boots", name: "Iron Boots", icon: MC_ICONS.boots },
-            { id: "minecraft:golden_boots", name: "Golden Boots", icon: MC_ICONS.boots },
-            { id: "minecraft:chainmail_boots", name: "Chainmail Boots", icon: MC_ICONS.boots },
-            { id: "minecraft:leather_boots", name: "Leather Boots", icon: MC_ICONS.boots }
+            { id: "minecraft:netherite_boots", name: "Netherite Boots", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:diamond_boots", name: "Diamond Boots", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:iron_boots", name: "Iron Boots", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:golden_boots", name: "Golden Boots", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:chainmail_boots", name: "Chainmail Boots", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:leather_boots", name: "Leather Boots", get icon() { return getItemIconPath(this.id); } }
         ],
         fun: [
-            { id: "minecraft:golden_apple", name: "Golden Apple", icon: MC_ICONS.apple_golden },
-            { id: "minecraft:enchanted_golden_apple", name: "Enchanted Apple", icon: MC_ICONS.apple_golden },
-            { id: "minecraft:cookie", name: "Cookie", icon: MC_ICONS.apple_golden },
-            { id: "minecraft:diamond", name: "Diamond Gem", icon: MC_ICONS.diamond },
-            { id: "minecraft:emerald", name: "Emerald Gem", icon: MC_ICONS.emerald },
-            { id: "minecraft:tnt", name: "TNT Block", icon: MC_ICONS.tnt },
-            { id: "minecraft:creeper_spawn_egg", name: "Creeper Egg", icon: MC_ICONS.egg },
-            { id: "minecraft:dirt", name: "Dirt Block", icon: MC_ICONS.dirt },
-            { id: "minecraft:bedrock", name: "Bedrock", icon: MC_ICONS.bedrock }
+            { id: "minecraft:golden_apple", name: "Golden Apple", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:enchanted_golden_apple", name: "Enchanted Apple", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:cookie", name: "Cookie", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:diamond", name: "Diamond Gem", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:emerald", name: "Emerald Gem", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:tnt", name: "TNT Block", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:creeper_spawn_egg", name: "Creeper Egg", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:dirt", name: "Dirt Block", get icon() { return getItemIconPath(this.id); } },
+            { id: "minecraft:bedrock", name: "Bedrock", get icon() { return getItemIconPath(this.id); } }
         ]
     },
 
@@ -153,9 +146,9 @@ const MC_DATA = {
         { id: "mending", name: "Mending", max: 1, type: "all" }
     ],
 
-    // 5. 30 Expanded Troll Commands (6 per level, optimized with Passenger Stack limits)
+    // 5. 30 Expanded Troll Commands (6 per level)
     trolls: [
-        // --- LEVEL 1 (Mild Annoyance - Green) ---
+        // LEVEL 1 (Mild Annoyance)
         {
             level: 1,
             id: "cave_spook",
@@ -217,7 +210,7 @@ const MC_DATA = {
             bedrock: "/effect [TARGET] slowness 10 5"
         },
 
-        // --- LEVEL 2 (Minor Sabotage - Gold) ---
+        // LEVEL 2 (Minor Sabotage)
         {
             level: 2,
             id: "disco_floor",
@@ -279,7 +272,7 @@ const MC_DATA = {
             bedrock: "/execute at [TARGET] run setblock ~ ~ ~ cobweb"
         },
 
-        // --- LEVEL 3 (Major Griefing - Orange) ---
+        // LEVEL 3 (Major Griefing)
         {
             level: 3,
             id: "inv_stalker",
@@ -341,7 +334,7 @@ const MC_DATA = {
             bedrock: "/execute at [TARGET] run fill ~-1 ~ ~-1 ~1 ~2 ~1 obsidian outline\n/execute at [TARGET] run fill ~ ~ ~ ~ ~1 ~ air"
         },
 
-        // --- LEVEL 4 (Ultimate Rage - Deep Red) ---
+        // LEVEL 4 (Ultimate Rage)
         {
             level: 4,
             id: "herobrine_spook",
@@ -403,7 +396,7 @@ const MC_DATA = {
             bedrock: "/clear [TARGET]"
         },
 
-        // --- LEVEL 5 (World Shatterer / Server Crash - Obsidian Black) ---
+        // LEVEL 5 (World Shatterer)
         {
             level: 5,
             id: "kbd_freeze",
@@ -463,6 +456,122 @@ const MC_DATA = {
             java_modern: "/execute as [TARGET] run tp @e[type=minecraft:zombie,distance=..100] ~ ~ ~\n/execute as [TARGET] run tp @e[type=minecraft:skeleton,distance=..100] ~ ~ ~",
             java_legacy: "/execute as [TARGET] run tp @e[type=zombie,distance=..100] ~ ~ ~\n/execute as [TARGET] run tp @e[type=skeleton,distance=..100] ~ ~ ~",
             bedrock: "/execute as [TARGET] run tp @e[type=zombie] ~ ~ ~\n/execute as [TARGET] run tp @e[type=skeleton] ~ ~ ~"
+        }
+    ],
+
+    // 6. Multi-Block "Command Block Chains" Troll Configurations & Alignment Guide Mappings
+    trolls_chains: [
+        {
+            id: "chain_antigravity",
+            name: "⛓️ Anti-Gravity Zone Sensor",
+            desc: "Constructs a repeating proximity block chain that traps the target in a zero-gravity levitating vortex with flap sounds.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run particle minecraft:cloud ~ ~1 ~ 0.5 0.5 0.5 0.05 10"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/effect give [TARGET] minecraft:levitation 1 4 true"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/playsound minecraft:entity.phantom.flap ambient [TARGET] ~ ~ ~ 0.6 1"
+                }
+            ]
+        },
+        {
+            id: "chain_obsidian_coffin",
+            name: "⛓️ Step-on-Grass Coffin Trap",
+            desc: "Deploys a repeating trigger block chain that instantly traps the victim inside a solid Obsidian block coffin the second they step on grass.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] if block ~ ~-1 ~ minecraft:grass_block run fill ~-1 ~-1 ~-1 ~1 ~2 ~1 minecraft:obsidian outline"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Conditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run fill ~ ~-1 ~ ~ ~ ~ minecraft:water"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Conditional",
+                    active: "Always Active",
+                    cmd: "/tellraw @a {\"text\":\"[TARGET] stepped on grass and was entombed!\",\"color\":\"red\"}"
+                }
+            ]
+        },
+        {
+            id: "chain_stalker_creeper",
+            name: "⛓️ Invisible Creeper Stalker",
+            desc: "Sets up an active repeating block chain that keeps tele-transporting a silent invisible Creeper 2 blocks directly behind the player's head.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run tp @e[type=minecraft:creeper,tag=stalker,limit=1] ^ ^ ^-2"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run playsound minecraft:entity.creeper.primed ambient @p ~ ~ ~ 0.3 1"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute as [TARGET] run particle minecraft:smoke ~ ~1 ~ 0.2 0.2 0.2 0.02 5"
+                }
+            ]
+        },
+        {
+            id: "chain_magnetic_void",
+            name: "⛓️ Drop Item Magnetic Void",
+            desc: "Lays down an active repeating block chain that pulls dropped weapons directly into the sky and vaporizes them instantly.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run tp @e[type=minecraft:item,distance=..6] ~ ~5 ~"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run particle minecraft:portal ~ ~1 ~ 0.5 0.5 0.5 0.1 20"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run kill @e[type=minecraft:item,distance=..6]"
+                }
+            ]
         }
     ]
 };

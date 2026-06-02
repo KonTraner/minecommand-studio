@@ -529,11 +529,14 @@ textarea {
     flex-shrink: 0;
 }
 
-.dropdown-trigger-icon svg, .option-icon svg {
+.dropdown-trigger-icon svg, .option-icon svg, .mc-dropdown-icon-img {
     width: 22px;
     height: 22px;
     max-width: 100%;
     max-height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    object-fit: contain;
 }
 
 .dropdown-trigger-text {
@@ -632,7 +635,7 @@ textarea {
     height: 18px;
 }
 
-.slot-dropdown .dropdown-trigger-icon svg, .slot-dropdown .option-icon svg {
+.slot-dropdown .dropdown-trigger-icon svg, .slot-dropdown .option-icon svg, .slot-dropdown .mc-dropdown-icon-img {
     width: 18px;
     height: 18px;
 }
@@ -1300,6 +1303,199 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 
 /* ==========================================================================
+   10.5. Multi-Block Command Chain Diagrams & Step Lists
+   ========================================================================== */
+.chain-level-banner {
+    background-color: #51187d;
+    box-shadow: inset -3px -3px 0 #310852, inset 3px 3px 0 #7e2fd6;
+}
+
+.chain-diagram-panel {
+    background-color: #212124;
+    border: 3px solid var(--mc-black);
+    padding: 8px 12px;
+    box-shadow: inset -3px -3px 0 #141416, inset 3px 3px 0 #333338;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 320px;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+.diagram-title {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: var(--text-gold);
+    text-shadow: 1.5px 1.5px 0 var(--mc-black);
+    text-align: center;
+}
+
+.command-block-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 4px 0;
+}
+
+.cb-node {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border: 2px solid var(--mc-black);
+    box-shadow: inset -2px -2px 0 rgba(0,0,0,0.35), inset 2px 2px 0 rgba(255,255,255,0.15);
+    min-width: 82px;
+}
+
+.cb-node-repeater {
+    background-color: #5c35a8;
+    border-color: #3f1a80;
+}
+
+.cb-node-chain {
+    background-color: #1f6b4d;
+    border-color: #0f402c;
+}
+
+.cb-face {
+    background-color: #dfdfd7;
+    border: 2px solid #5a5a54;
+    color: #1c1c1a;
+    font-weight: bold;
+    font-size: 13px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'VT323', monospace;
+    text-shadow: none;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+}
+
+.cb-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.cb-type {
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-primary);
+    text-shadow: 1px 1px 0 var(--mc-black);
+}
+
+.cb-cond, .cb-act {
+    font-size: 8px;
+    color: #cccccc;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.cb-arrow {
+    font-size: 14px;
+    color: var(--color-diamond);
+    font-family: 'VT323', monospace;
+    text-shadow: 0 0 4px var(--color-diamond-light);
+    animation: pulseArrow 1.5s infinite alternate;
+}
+
+@keyframes pulseArrow {
+    from { opacity: 0.5; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1.1); }
+}
+
+.diagram-help {
+    font-size: 9px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.2;
+}
+
+.chain-steps-stack {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    max-height: 120px;
+    padding-right: 4px;
+}
+
+.chain-step-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #101011;
+    border: 2px solid var(--mc-panel-border);
+    padding: 6px 10px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.chain-step-num {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: var(--text-gold);
+    background-color: #202022;
+    border: 2px solid var(--mc-black);
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+    box-shadow: inset -1px -1px 0 #0d0d0e, inset 1px 1px 0 #3e3e42;
+}
+
+.chain-step-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    min-width: 90px;
+}
+
+.chain-step-blocktype {
+    font-family: 'VT323', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.chain-step-blockmode {
+    font-size: 8px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.chain-step-code-box {
+    flex: 1;
+    overflow-x: auto;
+    background-color: #050506;
+    padding: 6px 8px;
+    border: 1px solid #2d2d30;
+    display: flex;
+    align-items: center;
+}
+
+.chain-step-code-box pre {
+    font-family: monospace;
+    font-size: 11px;
+    white-space: nowrap;
+    color: #e6db74;
+}
+
+.chain-step-row button {
+    flex-shrink: 0;
+    font-size: 12px;
+    padding: 4px 8px;
+    height: 26px;
+}
+
+/* ==========================================================================
    11. Responsiveness and Mobile Adaptation
    ========================================================================== */
 @media (max-width: 900px) {
@@ -1343,6 +1539,15 @@ input[type="range"]::-webkit-slider-thumb:active {
     .console-actions button {
         padding: 0 16px;
         font-size: 16px;
+    }
+
+    .chain-diagram-panel {
+        width: 100%;
+        margin-right: 0;
+        padding: 6px;
+    }
+    .chain-steps-stack {
+        max-height: 100px;
     }
 }
 
@@ -1423,5 +1628,26 @@ input[type="range"]::-webkit-slider-thumb:active {
     .inline-field input {
         width: 100%;
         flex: 1;
+    }
+
+    .chain-diagram-panel {
+        width: 100%;
+        padding: 4px;
+    }
+    .cb-node {
+        min-width: 65px;
+        padding: 2px 4px;
+    }
+    .cb-type {
+        font-size: 12px;
+    }
+    .chain-steps-stack {
+        max-height: 120px;
+    }
+    .chain-step-row {
+        padding: 4px 6px;
+    }
+    .chain-step-details {
+        min-width: 70px;
     }
 }

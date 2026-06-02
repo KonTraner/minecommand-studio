@@ -7,6 +7,8 @@ let activeTab = "home-pane";
 let currentTrollFilter = "all";
 let presets = [];
 
+let activeChainId = null;
+
 const app = {
     // 1. Initializer Hook
     init() {
@@ -18,6 +20,14 @@ const app = {
         app.updateTrollGrids();
         app.updateSpecialMobPanel();
         app.recalculateCurrentCommand();
+    },
+
+    // 1.5. Render visual in-game texture image tag or fallback unicode
+    renderIcon(icon) {
+        if (icon && (icon.startsWith('http') || icon.startsWith('data:'))) {
+            return `<img src="${icon}" class="mc-dropdown-icon-img" alt="icon" loading="lazy">`;
+        }
+        return icon || "🟩";
     },
 
     // 2. Programmatic Sound FX Synthesis (Web Audio API)
@@ -89,6 +99,13 @@ const app = {
             presetWidget.style.display = "flex";
         } else {
             presetWidget.style.display = "none";
+        }
+
+        // Reset Console states when leaving Troll Pane
+        if (tabId !== "trolls-pane") {
+            document.getElementById("single-command-widget").style.display = "flex";
+            document.getElementById("chain-commands-widget").style.display = "none";
+            activeChainId = null;
         }
 
         app.recalculateCurrentCommand();
@@ -170,19 +187,18 @@ const app = {
         // Clear choices
         optionsBox.innerHTML = "";
 
-        // Hydrate options
         list.forEach(item => {
             const option = document.createElement("div");
             option.className = "dropdown-option";
             option.dataset.value = item.id;
             option.innerHTML = `
-                <span class="option-icon">${item.icon || "🟩"}</span>
+                <span class="option-icon">${app.renderIcon(item.icon)}</span>
                 <span class="dropdown-option-text">${item.name}</span>
             `;
             
             option.addEventListener("click", (e) => {
                 e.stopPropagation();
-                app.selectCustomDropdownOption(dropdownId, item.id, item.name, item.icon || "🟩");
+                app.selectCustomDropdownOption(dropdownId, item.id, item.name, app.renderIcon(item.icon));
                 wrapper.classList.remove("open");
                 if (onSelectCallback) onSelectCallback();
             });
@@ -193,7 +209,7 @@ const app = {
         // Setup default trigger
         const defaultItem = list.find(it => it.id === defaultValue);
         if (defaultItem) {
-            app.selectCustomDropdownOption(dropdownId, defaultValue, defaultItem.name, defaultItem.icon || "🟩");
+            app.selectCustomDropdownOption(dropdownId, defaultValue, defaultItem.name, app.renderIcon(defaultItem.icon));
         }
 
         // Toggle Open/Close click
@@ -272,13 +288,13 @@ const app = {
                 option.className = "dropdown-option";
                 option.dataset.value = item.id;
                 option.innerHTML = `
-                    <span class="option-icon">${item.icon || "⬜"}</span>
+                    <span class="option-icon">${app.renderIcon(item.icon)}</span>
                     <span class="dropdown-option-text">${item.name}</span>
                 `;
                 
                 option.addEventListener("click", (e) => {
                     e.stopPropagation();
-                    app.selectCustomDropdownOption(dropdownId, item.id, item.name, item.icon || "⬜");
+                    app.selectCustomDropdownOption(dropdownId, item.id, item.name, app.renderIcon(item.icon));
                     wrapper.classList.remove("open");
                     if (onSelectCallback) onSelectCallback();
                 });
@@ -301,7 +317,7 @@ const app = {
                 }
             }
             if (defaultItem) {
-                app.selectCustomDropdownOption(dropdownId, defaultValue, defaultItem.name, defaultItem.icon || "⬜");
+                app.selectCustomDropdownOption(dropdownId, defaultValue, defaultItem.name, app.renderIcon(defaultItem.icon));
             }
         }
 
@@ -548,6 +564,170 @@ const app = {
                 grid.appendChild(card);
             });
         });
+
+        app.updateChainTrolls();
+    },
+
+    // 7.5. Command Block Chains Grid Hydration & Interaction
+    updateChainTrolls() {
+        const container = document.getElementById("troll-grid-chains");
+        if (!container) return;
+        container.innerHTML = "";
+
+        // Hydrate the multi-block chains
+        MC_DATA.trolls_chains.forEach(chain => {
+            const card = document.createElement("div");
+            card.className = "troll-card";
+            card.dataset.chainId = chain.id;
+
+            card.innerHTML = `
+                <span class="troll-badge harmless" style="background-color: rgba(106, 13, 173, 0.15); border-color: #9c36f5; color: #a96efc;">⛓️ Chain</span>
+                <h4>${chain.name}</h4>
+                <p>${chain.desc}</p>
+                <div class="troll-action-row">
+                    <button class="mc-btn green-btn sm-btn">Load Chain</button>
+                </div>
+            `;
+
+            // Load Chain on card click
+            card.addEventListener("click", () => {
+                app.playClick();
+                app.loadChainTroll(chain.id);
+            });
+
+            container.appendChild(card);
+        });
+    },
+
+    loadChainTroll(chainId) {
+        const chain = MC_DATA.trolls_chains.find(c => c.id === chainId);
+        if (!chain) return;
+
+        activeChainId = chainId;
+
+        // Show the chain widget, hide single console
+        document.getElementById("single-command-widget").style.display = "none";
+        document.getElementById("chain-commands-widget").style.display = "flex";
+
+        // Hydrate the visual diagram labels
+        // Block 2 details
+        const b2 = chain.blocks[1];
+        const condB2 = document.getElementById("diagram-cond-b2");
+        if (condB2) {
+            condB2.textContent = b2.cond;
+            if (b2.cond.toLowerCase() === "conditional") {
+                condB2.style.color = "var(--color-diamond-light)";
+            } else {
+                condB2.style.color = "#cccccc";
+            }
+        }
+
+        // Block 3 details
+        const b3 = chain.blocks[2];
+        const condB3 = document.getElementById("diagram-cond-b3");
+        if (condB3) {
+            condB3.textContent = b3.cond;
+            if (b3.cond.toLowerCase() === "conditional") {
+                condB3.style.color = "var(--color-diamond-light)";
+            } else {
+                condB3.style.color = "#cccccc";
+            }
+        }
+
+        // Hydrate step stack
+        const stepsContainer = document.getElementById("chain-commands-container");
+        if (!stepsContainer) return;
+        stepsContainer.innerHTML = "";
+
+        const targetVictim = document.getElementById("troll-target").value || "@p";
+
+        chain.blocks.forEach((block, idx) => {
+            const stepRow = document.createElement("div");
+            stepRow.className = "chain-step-row";
+
+            // Compile command with safety tokenization substitution
+            const compiledCommand = block.cmd.replace(/\[TARGET\]/g, targetVictim);
+
+            stepRow.innerHTML = `
+                <div class="chain-step-num">${block.step}</div>
+                <div class="chain-step-details">
+                    <span class="chain-step-blocktype">${block.type.toUpperCase()}</span>
+                    <span class="chain-step-blockmode">${block.cond} / ${block.active}</span>
+                </div>
+                <div class="chain-step-code-box">
+                    <pre class="command-code">${app.highlightSyntax(compiledCommand)}</pre>
+                </div>
+                <button class="mc-btn gold-btn sm-btn">Copy [B${block.step}]</button>
+            `;
+
+            // Setup step-specific copy listener
+            const copyBtn = stepRow.querySelector("button");
+            copyBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                app.playClick();
+
+                navigator.clipboard.writeText(compiledCommand).then(() => {
+                    const toast = document.getElementById("toast");
+                    toast.textContent = `Block ${block.step} Command Copied!`;
+                    toast.classList.add("show");
+                    setTimeout(() => {
+                        toast.classList.remove("show");
+                    }, 2000);
+                }).catch(err => {
+                    console.error("Copy failed", err);
+                    alert("Copy code: " + compiledCommand);
+                });
+            });
+
+            stepsContainer.appendChild(stepRow);
+        });
+
+        // Scroll diagram/console into view smoothly on mobile
+        document.getElementById("chain-commands-widget").scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    },
+
+    updateActiveChainIfOpen() {
+        if (activeChainId) {
+            // Re-render without scrolling or focus change to avoid disrupting user experience
+            const chain = MC_DATA.trolls_chains.find(c => c.id === activeChainId);
+            if (!chain) return;
+
+            const stepsContainer = document.getElementById("chain-commands-container");
+            if (!stepsContainer) return;
+            
+            const targetVictim = document.getElementById("troll-target").value || "@p";
+
+            stepsContainer.querySelectorAll(".chain-step-row").forEach((stepRow, idx) => {
+                const block = chain.blocks[idx];
+                const compiledCommand = block.cmd.replace(/\[TARGET\]/g, targetVictim);
+                const codeBox = stepRow.querySelector(".chain-step-code-box pre");
+                if (codeBox) {
+                    codeBox.innerHTML = app.highlightSyntax(compiledCommand);
+                }
+                
+                // Re-bind the copy listener
+                const copyBtn = stepRow.querySelector("button");
+                const newCopyBtn = copyBtn.cloneNode(true);
+                copyBtn.parentNode.replaceChild(newCopyBtn, copyBtn);
+                
+                newCopyBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    app.playClick();
+
+                    navigator.clipboard.writeText(compiledCommand).then(() => {
+                        const toast = document.getElementById("toast");
+                        toast.textContent = `Block ${block.step} Command Copied!`;
+                        toast.classList.add("show");
+                        setTimeout(() => {
+                            toast.classList.remove("show");
+                        }, 2000);
+                    }).catch(err => {
+                        console.error("Copy failed", err);
+                        alert("Copy code: " + compiledCommand);
+                    });
+                });
+            });
+        }
     },
 
     // 8. Register DOM Event Handlers
@@ -573,6 +753,7 @@ const app = {
                 
                 if (activeTab === "trolls-pane") {
                     app.updateTrollGrids();
+                    app.updateActiveChainIfOpen();
                 }
             });
         });
@@ -692,6 +873,7 @@ const app = {
 
         document.getElementById("troll-target").addEventListener("input", () => {
             app.updateTrollGrids();
+            app.updateActiveChainIfOpen();
         });
 
         // --- PRESET ACTIONS ---

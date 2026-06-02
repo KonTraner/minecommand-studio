@@ -477,6 +477,12 @@
                                 <div class="troll-grid" id="troll-grid-l5"></div>
                             </div>
 
+                            <!-- Command Block Chains -->
+                            <div class="troll-level-section" id="troll-section-chains">
+                                <div class="troll-level-banner chain-level-banner">⛓️ MULTI-BLOCK COMMAND CHAINS (Requires Command Blocks)</div>
+                                <div class="troll-grid" id="troll-grid-chains"></div>
+                            </div>
+
                         </div>
                     </div>
                 </section>
@@ -511,16 +517,17 @@
             </main>
         </div>
 
-        <!-- Sticky Floating Command Output / Console -->
         <footer class="mc-console-panel">
             <div class="console-header">
-                <h3>🖥️ Generated Console Output</h3>
+                <h3>CONSOLE OUTPUT</h3>
                 <div class="preset-save-form" id="preset-save-widget" style="display: none;">
                     <input type="text" id="save-preset-name" placeholder="Preset Name..." maxlength="32">
                     <button id="btn-save-preset" class="mc-btn green-btn sm-btn">Save Preset</button>
                 </div>
             </div>
-            <div class="console-body">
+
+            <!-- Single Command Output (Default) -->
+            <div class="console-body" id="single-command-widget">
                 <div class="command-container">
                     <pre class="command-code" id="command-output-box">/summon minecraft:zombie ~ ~ ~</pre>
                 </div>
@@ -529,6 +536,45 @@
                         <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg>
                         Copy Command
                     </button>
+                </div>
+            </div>
+
+            <!-- New: Multi-Block Chain Console Widget (Hidden by default) -->
+            <div class="console-body" id="chain-commands-widget" style="display: none;">
+                <!-- 3D Chain Block Placement Diagram -->
+                <div class="chain-diagram-panel">
+                    <div class="diagram-title">⛓️ ALIGNMENT DIAGRAM:</div>
+                    <div class="command-block-diagram">
+                        <div class="cb-node cb-node-repeater">
+                            <span class="cb-face">R</span>
+                            <div class="cb-details">
+                                <span class="cb-type">REPEAT</span>
+                                <span class="cb-act">Always Active</span>
+                            </div>
+                        </div>
+                        <div class="cb-arrow">▶</div>
+                        <div class="cb-node cb-node-chain">
+                            <span class="cb-face">C</span>
+                            <div class="cb-details">
+                                <span class="cb-type">CHAIN</span>
+                                <span class="cb-cond" id="diagram-cond-b2">Unconditional</span>
+                            </div>
+                        </div>
+                        <div class="cb-arrow">▶</div>
+                        <div class="cb-node cb-node-chain">
+                            <span class="cb-face">C</span>
+                            <div class="cb-details">
+                                <span class="cb-type">CHAIN</span>
+                                <span class="cb-cond" id="diagram-cond-b3">Unconditional</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="diagram-help">Arrows must align! Set all blocks to Always Active. Copy commands below step-by-step.</p>
+                </div>
+
+                <!-- Multi-Commands Copy Stack -->
+                <div class="chain-steps-stack" id="chain-commands-container">
+                    <!-- Hydrated dynamically by JS -->
                 </div>
             </div>
         </footer>
