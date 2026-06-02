@@ -1514,6 +1514,130 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 
 /* ==========================================================================
+   10.6. Premium fixed overlay Modal Dialog (Command Block Chains Popup)
+   ========================================================================== */
+.mc-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(10, 10, 12, 0.85);
+    backdrop-filter: blur(6px);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out;
+}
+
+.mc-modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mc-modal-card {
+    background-color: var(--mc-panel-bg);
+    border: 4px solid var(--mc-black);
+    width: 90%;
+    max-width: 780px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 
+        inset -4px -4px 0 var(--mc-panel-shadow), 
+        inset 4px 4px 0 var(--mc-panel-light), 
+        0 16px 40px rgba(0,0,0,0.85);
+    transform: scale(0.85) translateY(-20px);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+}
+
+.mc-modal-overlay.show .mc-modal-card {
+    transform: scale(1) translateY(0);
+}
+
+.mc-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background-color: #202022;
+    border-bottom: 4px solid var(--mc-black);
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.05);
+}
+
+.mc-modal-header h3 {
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    color: var(--text-gold);
+    text-shadow: 2px 2px 0 var(--mc-black);
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.modal-close-btn {
+    background-color: var(--color-redstone);
+    border: 2px solid var(--mc-black);
+    color: #ffffff;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    outline: none;
+    box-shadow: inset -2px -2px 0 var(--color-redstone-border), inset 2px 2px 0 var(--color-redstone-light);
+    transition: filter 0.1s ease;
+}
+
+.modal-close-btn:hover {
+    filter: brightness(1.15);
+}
+
+.modal-close-btn:active {
+    box-shadow: inset 2px 2px 0 var(--color-redstone-border), inset -2px -2px 0 var(--color-redstone-light);
+    padding-top: 2px;
+}
+
+.mc-modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    max-height: calc(85vh - 140px);
+    background-color: rgba(18, 18, 19, 0.65);
+}
+
+.mc-modal-body .chain-diagram-panel {
+    width: 100%;
+    margin-right: 0;
+    padding: 12px 20px;
+    background-color: #171719;
+}
+
+.mc-modal-body .chain-steps-stack {
+    max-height: none;
+}
+
+.mc-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 14px 20px;
+    background-color: #202022;
+    border-top: 4px solid var(--mc-black);
+}
+
+.mc-modal-footer button {
+    font-size: 16px;
+    padding: 6px 16px;
+}
+
+/* ==========================================================================
    11. Responsiveness and Mobile Adaptation
    ========================================================================== */
 @media (max-width: 900px) {

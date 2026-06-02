@@ -104,7 +104,11 @@ const app = {
         // Reset Console states when leaving Troll Pane
         if (tabId !== "trolls-pane") {
             document.getElementById("single-command-widget").style.display = "flex";
-            document.getElementById("chain-commands-widget").style.display = "none";
+            const modal = document.getElementById("chain-modal-overlay");
+            if (modal) {
+                modal.classList.remove("show");
+                modal.style.display = "none";
+            }
             activeChainId = null;
         }
 
@@ -612,9 +616,11 @@ const app = {
 
         activeChainId = chainId;
 
-        // Show the chain widget, hide single console
-        document.getElementById("single-command-widget").style.display = "none";
-        document.getElementById("chain-commands-widget").style.display = "flex";
+        // Open the Modal guide with smooth animations
+        const modal = document.getElementById("chain-modal-overlay");
+        modal.style.display = "flex";
+        modal.offsetHeight; // force layout reflow
+        modal.classList.add("show");
 
         // Hydrate the visual diagram labels
         // Block 2 details
@@ -688,9 +694,6 @@ const app = {
 
             stepsContainer.appendChild(stepRow);
         });
-
-        // Scroll diagram/console into view smoothly on mobile
-        document.getElementById("chain-commands-widget").scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     },
 
     updateActiveChainIfOpen() {
@@ -881,6 +884,23 @@ const app = {
         document.getElementById("troll-target").addEventListener("input", () => {
             app.updateTrollGrids();
             app.updateActiveChainIfOpen();
+        });
+
+        // 3D Command Block Chain Setup Modal Close Handlers
+        const chainModal = document.getElementById("chain-modal-overlay");
+        const closeChainModalFn = () => {
+            app.playClick();
+            chainModal.classList.remove("show");
+            setTimeout(() => {
+                chainModal.style.display = "none";
+            }, 250);
+            activeChainId = null;
+        };
+
+        document.getElementById("btn-close-chain-modal").addEventListener("click", closeChainModalFn);
+        document.getElementById("btn-close-chain-modal-bottom").addEventListener("click", closeChainModalFn);
+        chainModal.addEventListener("click", (e) => {
+            if (e.target === chainModal) closeChainModalFn();
         });
 
         // --- PRESET ACTIONS ---
