@@ -30,6 +30,7 @@ const app = {
         app.initAllCustomDropdowns();
         app.hydrateEnchantments();
         app.hydrateMobEffects();
+        app.initCreativeInventory();
         app.registerEventListeners();
         app.switchTab("home-pane");
         app.updateTrollGrids();
@@ -495,6 +496,111 @@ const app = {
                 </div>
             `;
             container.appendChild(div);
+        });
+    },
+
+    activeCreativeTab: "weapons",
+
+    initCreativeInventory() {
+        const btnOpen = document.getElementById("btn-open-creative-inventory");
+        const modal = document.getElementById("creative-inventory-modal");
+        const btnClose = document.getElementById("btn-close-creative-modal");
+        const searchInput = document.getElementById("creative-modal-search");
+
+        if (!btnOpen || !modal) return;
+
+        btnOpen.addEventListener("click", () => {
+            app.playClick();
+            modal.style.display = "flex";
+            app.renderCreativeTabs();
+            app.renderCreativeGrid();
+            if (searchInput) {
+                searchInput.value = "";
+                searchInput.focus();
+            }
+        });
+
+        if (btnClose) {
+            btnClose.addEventListener("click", () => {
+                app.playClick();
+                modal.style.display = "none";
+            });
+        }
+
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                app.playClick();
+                modal.style.display = "none";
+            }
+        });
+
+        if (searchInput) {
+            searchInput.addEventListener("input", () => {
+                app.renderCreativeGrid();
+            });
+        }
+    },
+
+    renderCreativeTabs() {
+        const tabsContainer = document.getElementById("creative-modal-tabs");
+        if (!tabsContainer) return;
+        tabsContainer.innerHTML = "";
+
+        const categories = [
+            { id: "weapons", name: "Weapons" },
+            { id: "helmets", name: "Helmets" },
+            { id: "chestplates", name: "Chestplates" },
+            { id: "leggings", name: "Leggings" },
+            { id: "boots", name: "Boots" },
+            { id: "tools", name: "Tools" },
+            { id: "blocks", name: "Blocks" },
+            { id: "misc", name: "Misc" }
+        ];
+
+        categories.forEach(cat => {
+            const btn = document.createElement("button");
+            btn.className = `creative-tab ${app.activeCreativeTab === cat.id ? "active" : ""}`;
+            btn.type = "button";
+            btn.textContent = cat.name;
+            btn.addEventListener("click", () => {
+                app.playClick();
+                app.activeCreativeTab = cat.id;
+                app.renderCreativeTabs();
+                app.renderCreativeGrid();
+            });
+            tabsContainer.appendChild(btn);
+        });
+    },
+
+    renderCreativeGrid() {
+        const grid = document.getElementById("creative-modal-grid");
+        const searchInput = document.getElementById("creative-modal-search");
+        if (!grid) return;
+        grid.innerHTML = "";
+
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const list = MC_DATA.items[app.activeCreativeTab] || [];
+
+        list.forEach(item => {
+            if (query && !item.name.toLowerCase().includes(query) && !item.id.toLowerCase().includes(query)) {
+                return;
+            }
+
+            const cell = document.createElement("div");
+            cell.className = "creative-item-cell";
+            cell.innerHTML = `
+                ${app.renderIcon(item.icon)}
+                <div class="creative-tooltip">${item.name}</div>
+            `;
+
+            cell.addEventListener("click", () => {
+                app.playClick();
+                app.selectDropdownByValue("dropdown-item-type", item.id);
+                document.getElementById("creative-inventory-modal").style.display = "none";
+                app.recalculateCurrentCommand();
+            });
+
+            grid.appendChild(cell);
         });
     },
 

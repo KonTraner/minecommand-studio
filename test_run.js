@@ -67,6 +67,16 @@ const testConfigs = [
         invCount: 2,
         action: "wipe_inv",
         clearItem: "minecraft:diamond_sword"
+    },
+    {
+        targetBase: "@p",
+        anchor: "at",
+        condType: "none",
+        action: "effect",
+        actionEffect: "minecraft:speed",
+        effectDuration: 9999999,
+        effectAmp: 300,
+        effectHideParticles: true
     }
 ];
 

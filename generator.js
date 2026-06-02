@@ -280,7 +280,7 @@ const Generator = {
             if (activeEffects.length > 0) {
                 const effectCmds = activeEffects.map(eff => {
                     const cleanId = eff.id.replace("minecraft:", "");
-                    const ampVal = eff.amplifier - 1;
+                    const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
                     const targetSelector = customName 
                         ? `@e[type=${mobType.replace("minecraft:", "")},name="${this.escapeString(customName)}",c=1]`
                         : `@e[type=${mobType.replace("minecraft:", "")},c=1]`;
@@ -327,7 +327,7 @@ const Generator = {
         let effectsList = [];
         if (version === "java_modern") {
             activeEffects.forEach(eff => {
-                const ampVal = eff.amplifier - 1;
+                const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
                 const showParticles = eff.id === "minecraft:invisibility" ? "0b" : "1b";
                 effectsList.push(`{id:"${eff.id}",amplifier:${ampVal},duration:20000,show_particles:${showParticles}}`);
             });
@@ -338,7 +338,7 @@ const Generator = {
             // Java Legacy
             const effectsDb = (typeof MC_DATA !== "undefined" && MC_DATA.effects) || [];
             activeEffects.forEach(eff => {
-                const ampVal = eff.amplifier - 1;
+                const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
                 const dbEff = effectsDb.find(e => e.id === eff.id);
                 const numId = dbEff ? dbEff.numeric_id : 1;
                 const showParticles = eff.id === "minecraft:invisibility" ? ",ShowParticles:0b" : "";
@@ -732,13 +732,19 @@ const Generator = {
             const amp = config.effectAmp !== undefined ? config.effectAmp : 1;
             const hide = !!config.effectHideParticles;
 
+            let durationVal = duration;
+            if (typeof duration === "number" || !isNaN(duration)) {
+                durationVal = Math.max(1, Math.min(1000000, parseInt(duration) || 10));
+            }
+            const ampVal = Math.max(0, Math.min(255, parseInt(amp) || 0));
+
             if (version === "bedrock") {
                 const brEffect = this.translateEffectToBedrock(effect);
-                actionCmd = `effect @s ${brEffect} ${duration} ${amp} ${hide ? "true" : "false"}`;
+                actionCmd = `effect @s ${brEffect} ${durationVal} ${ampVal} ${hide ? "true" : "false"}`;
             } else if (version === "java_legacy") {
-                actionCmd = `effect give @s ${effect.replace("minecraft:", "")} ${duration} ${amp} ${hide ? "true" : "false"}`;
+                actionCmd = `effect @s ${effect.replace("minecraft:", "")} ${durationVal} ${ampVal} ${hide ? "true" : "false"}`;
             } else {
-                actionCmd = `effect give @s ${effect} ${duration} ${amp} ${hide ? "true" : "false"}`;
+                actionCmd = `effect give @s ${effect} ${durationVal} ${ampVal} ${hide ? "true" : "false"}`;
             }
         } 
         else if (action === "setblock") {

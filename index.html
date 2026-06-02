@@ -365,6 +365,9 @@
                                         </div>
                                         <input type="hidden" id="item-type" value="minecraft:diamond_sword">
                                     </div>
+                                    <button class="mc-btn mc-btn-sm" id="btn-open-creative-inventory" type="button" style="margin-top: 6px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                        🧰 Browse Creative Grid
+                                    </button>
                                 </div>
                                 <div class="input-field">
                                     <label for="item-name">Custom Item Name</label>
@@ -1106,6 +1109,26 @@
             </div>
             <div class="mc-modal-footer">
                 <button id="btn-close-chain-modal-bottom" class="mc-btn secondary-btn">Close Setup Guide</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Minecraft Creative Inventory Modal -->
+    <div id="creative-inventory-modal" class="mc-modal-overlay" style="display: none;">
+        <div class="creative-inventory-box">
+            <div class="creative-header">
+                <div class="creative-tabs-container" id="creative-modal-tabs">
+                    <!-- Tabs will be rendered dynamically -->
+                </div>
+                <button class="mc-close-btn" id="btn-close-creative-modal">✕</button>
+            </div>
+            <div class="creative-body">
+                <div class="creative-search-row">
+                    <input type="text" id="creative-modal-search" placeholder="🔍 Search items..." class="mc-input-sm" style="width: 100%;">
+                </div>
+                <div class="creative-grid-container scroll-pane" id="creative-modal-grid">
+                    <!-- Items grid will be rendered dynamically -->
+                </div>
             </div>
         </div>
     </div>
