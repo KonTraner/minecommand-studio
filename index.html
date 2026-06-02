@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MineCommand Studio | Minecraft Command Generator & Presets</title>
+    <meta name="description" content="A premium, interactive Minecraft Command Generator for PC and mobile. Build custom mobs, legendary items, and explore level 1-5 troll commands. Save, load, and share your presets.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sound Toggle & Toast Notification Overlay -->
+    <div id="toast" class="mc-toast" role="alert" aria-live="polite">Copied to Clipboard!</div>
+
+    <div class="app-container">
+        <!-- Top Navigation / Header -->
+        <header class="mc-header">
+            <div class="logo-area">
+                <span class="logo-icon">🟩</span>
+                <h1>MINECOMMAND <span>STUDIO</span></h1>
+            </div>
+            <div class="header-actions">
+                <div class="control-group">
+                    <label>Target Version:</label>
+                    <div class="segmented-picker" id="version-picker" role="group" aria-label="Minecraft Version Select">
+                        <button class="segment active" data-value="java_modern">Java 1.20.5+</button>
+                        <button class="segment" data-value="java_legacy">Java Legacy</button>
+                        <button class="segment" data-value="bedrock">Bedrock</button>
+                    </div>
+                    <!-- Hidden input to maintain 100% compatibility with value readers -->
+                    <input type="hidden" id="version-select" value="java_modern">
+                </div>
+                <button id="sound-toggle" class="mc-btn-square icon-btn" title="Toggle Sound FX" aria-label="Toggle Sound Effects">
+                    <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Body Grid Layout -->
+        <div class="mc-body">
+            <!-- Sidebar Navigation (Responsive) -->
+            <aside class="mc-sidebar" role="navigation">
+                <button class="nav-tab active" data-target="home-pane" aria-selected="true">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Home</span>
+                </button>
+                <button class="nav-tab" data-target="mobs-pane" aria-selected="false">
+                    <span class="nav-icon">🧟</span>
+                    <span class="nav-text">Custom Mobs</span>
+                </button>
+                <button class="nav-tab" data-target="items-pane" aria-selected="false">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Custom Items</span>
+                </button>
+                <button class="nav-tab" data-target="trolls-pane" aria-selected="false">
+                    <span class="nav-icon">🧨</span>
+                    <span class="nav-text">Troll Menu</span>
+                </button>
+                <button class="nav-tab" data-target="presets-pane" aria-selected="false">
+                    <span class="nav-icon">🧰</span>
+                    <span class="nav-text">My Presets</span>
+                </button>
+            </aside>
+
+            <!-- Active Studio Canvas Workspace -->
+            <main class="mc-workspace">
+                <!-- Pane 1: Home Dashboard -->
+                <section id="home-pane" class="pane active" aria-hidden="false">
+                    <div class="pane-header">
+                        <h2>WELCOME TO THE STUDIO</h2>
+                        <p>Forge legendary Minecraft commands effortlessly. No coding, no syntax errors. Drag, select, build.</p>
+                    </div>
+                    <div class="home-grid">
+                        <div class="mc-card splash-card">
+                            <h3>⚡ Quick Start Guide</h3>
+                            <ol>
+                                *   Choose your **Target Version** using the horizontal segmented button row in the header.
+                                *   Select a tool on the left: **Custom Mobs** for summoning, **Custom Items** for giving items, or the **Troll Menu** for multiplayer fun.
+                                *   All item/mob selectors now feature searchable dropdowns with **custom pixel art icons**!
+                                *   Configure NBT properties, equipment, enchantments, and stats in real-time.
+                                *   Click **Copy Command** in the console panel below and paste it in Minecraft chat!
+                            </ol>
+                        </div>
+                        <div class="features-row">
+                            <div class="mc-card tool-card highlight-green" onclick="app.switchTab('mobs-pane')">
+                                <div class="card-icon">🧟</div>
+                                <h4>Mob Creator</h4>
+                                <p>Summon customized monsters with enchanted armor, status effects, and crazy attributes.</p>
+                            </div>
+                            <div class="mc-card tool-card highlight-gold" onclick="app.switchTab('items-pane')">
+                                <div class="card-icon">⚔️</div>
+                                <h4>Item Smith</h4>
+                                <p>Forge swords with level 255 sharpness, customized lore, attributes, and unbreakable tags.</p>
+                            </div>
+                            <div class="mc-card tool-card highlight-red" onclick="app.switchTab('trolls-pane')">
+                                <div class="card-icon">🧨</div>
+                                <h4>Troll Panel</h4>
+                                <p>Prank friends with 30 tiered commands across 5 severity levels, from spooks to massive clusters.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pane 2: Custom Mobs Studio -->
+                <section id="mobs-pane" class="pane" aria-hidden="true">
+                    <div class="pane-header">
+                        <h2>CUSTOM MOB SUMMONER</h2>
+                        <p>Generate highly configured <code>/summon</code> commands with weapons, attributes, and drops.</p>
+                    </div>
+
+                    <div class="form-container">
+                        <!-- Left Sub-panel: Core Settings -->
+                        <div class="form-panel">
+                            <h3 class="panel-title">1. Base Properties</h3>
+                            <div class="form-grid">
+                                <div class="input-field">
+                                    <label>Mob Entity</label>
+                                    <!-- Searchable Visual Custom Dropdown -->
+                                    <div class="mc-custom-dropdown" id="dropdown-mob-type">
+                                        <div class="dropdown-trigger" id="trigger-mob-type">
+                                            <span class="dropdown-trigger-icon">🟩</span>
+                                            <span class="dropdown-trigger-text">Select Mob...</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Search mobs...">
+                                            <div class="dropdown-options" id="options-mob-type"></div>
+                                        </div>
+                                        <input type="hidden" id="mob-type" value="minecraft:zombie">
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="mob-name">Display Name</label>
+                                    <input type="text" id="mob-name" placeholder="e.g. §cUndead King" maxlength="64">
+                                </div>
+                                <div class="input-field col-span-2 slider-group">
+                                    <div class="slider-header">
+                                        <label for="mob-health">Max Health</label>
+                                        <span id="mob-health-val">20 HP</span>
+                                    </div>
+                                    <input type="range" id="mob-health" min="1" max="1000" value="20">
+                                </div>
+                                <div class="input-field col-span-2 slider-group">
+                                    <div class="slider-header">
+                                        <label for="mob-speed">Movement Speed Multiplier</label>
+                                        <span id="mob-speed-val">1.0x</span>
+                                    </div>
+                                    <input type="range" id="mob-speed" min="0.1" max="3" step="0.1" value="1.0">
+                                </div>
+                                <div class="checkbox-grid">
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="mob-silent">
+                                        <span class="mc-checkbox"></span>
+                                        Silent (No Sounds)
+                                    </label>
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="mob-noai">
+                                        <span class="mc-checkbox"></span>
+                                        No AI (Statue)
+                                    </label>
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="mob-glowing">
+                                        <span class="mc-checkbox"></span>
+                                        Glowing Effect
+                                    </label>
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="mob-invulnerable">
+                                        <span class="mc-checkbox"></span>
+                                        Invulnerable
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Sub-panel: Gear & Armor -->
+                        <div class="form-panel">
+                            <h3 class="panel-title">2. Equipment & Gear</h3>
+                            <div class="equipment-layout">
+                                <!-- Main Hand -->
+                                <div class="equip-slot">
+                                    <div class="slot-badge">🖐️ Hand</div>
+                                    <div class="mc-custom-dropdown slot-dropdown" id="dropdown-eq-hand">
+                                        <div class="dropdown-trigger" id="trigger-eq-hand">
+                                            <span class="dropdown-trigger-icon">🟩</span>
+                                            <span class="dropdown-trigger-text">Empty Slot</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Filter...">
+                                            <div class="dropdown-options" id="options-eq-hand"></div>
+                                        </div>
+                                        <input type="hidden" id="eq-hand" value="none">
+                                    </div>
+                                    <div class="slot-enchant-wrapper">
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="eq-hand-ench" class="slot-ench-toggle">
+                                            <span class="mc-checkbox"></span> Enchanted?
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- Off Hand -->
+                                <div class="equip-slot">
+                                    <div class="slot-badge">🛡️ Offhand</div>
+                                    <div class="mc-custom-dropdown slot-dropdown" id="dropdown-eq-offhand">
+                                        <div class="dropdown-trigger" id="trigger-eq-offhand">
+                                            <span class="dropdown-trigger-icon">🟩</span>
+                                            <span class="dropdown-trigger-text">Empty Slot</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Filter...">
+                                            <div class="dropdown-options" id="options-eq-offhand"></div>
+                                        </div>
+                                        <input type="hidden" id="eq-offhand" value="none">
+                                    </div>
+                                    <div class="slot-enchant-wrapper">
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="eq-offhand-ench" class="slot-ench-toggle">
+                                            <span class="mc-checkbox"></span> Enchanted?
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- Helmet -->
+                                <div class="equip-slot">
+                                    <div class="slot-badge">🪖 Head</div>
+                                    <div class="mc-custom-dropdown slot-dropdown" id="dropdown-eq-head">
+                                        <div class="dropdown-trigger" id="trigger-eq-head">
+                                            <span class="dropdown-trigger-icon">🟩</span>
+                                            <span class="dropdown-trigger-text">Empty Slot</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Filter...">
+                                            <div class="dropdown-options" id="options-eq-head"></div>
+                                        </div>
+                                        <input type="hidden" id="eq-head" value="none">
+                                    </div>
+                                    <div class="slot-enchant-wrapper">
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="eq-head-ench" class="slot-ench-toggle">
+                                            <span class="mc-checkbox"></span> Enchanted?
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- Chestplate -->
+                                <div class="equip-slot">
+                                    <div class="slot-badge">👕 Chest</div>
+                                    <div class="mc-custom-dropdown slot-dropdown" id="dropdown-eq-chest">
+                                        <div class="dropdown-trigger" id="trigger-eq-chest">
+                                            <span class="dropdown-trigger-icon">🟩</span>
+                                            <span class="dropdown-trigger-text">Empty Slot</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Filter...">
+                                            <div class="dropdown-options" id="options-eq-chest"></div>
+                                        </div>
+                                        <input type="hidden" id="eq-chest" value="none">
+                                    </div>
+                                    <div class="slot-enchant-wrapper">
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="eq-chest-ench" class="slot-ench-toggle">
+                                            <span class="mc-checkbox"></span> Enchanted?
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- Leggings -->
+                                <div class="equip-slot">
+                                    <div class="slot-badge">👖 Legs</div>
+                                    <div class="mc-custom-dropdown slot-dropdown" id="dropdown-eq-legs">
+                                        <div class="dropdown-trigger" id="trigger-eq-legs">
+                                            <span class="dropdown-trigger-icon">🟩</span>
+                                            <span class="dropdown-trigger-text">Empty Slot</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Filter...">
+                                            <div class="dropdown-options" id="options-eq-legs"></div>
+                                        </div>
+                                        <input type="hidden" id="eq-legs" value="none">
+                                    </div>
+                                    <div class="slot-enchant-wrapper">
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="eq-legs-ench" class="slot-ench-toggle">
+                                            <span class="mc-checkbox"></span> Enchanted?
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- Boots -->
+                                <div class="equip-slot">
+                                    <div class="slot-badge">🥾 Feet</div>
+                                    <div class="mc-custom-dropdown slot-dropdown" id="dropdown-eq-feet">
+                                        <div class="dropdown-trigger" id="trigger-eq-feet">
+                                            <span class="dropdown-trigger-icon">🟩</span>
+                                            <span class="dropdown-trigger-text">Empty Slot</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Filter...">
+                                            <div class="dropdown-options" id="options-eq-feet"></div>
+                                        </div>
+                                        <input type="hidden" id="eq-feet" value="none">
+                                    </div>
+                                    <div class="slot-enchant-wrapper">
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="eq-feet-ench" class="slot-ench-toggle">
+                                            <span class="mc-checkbox"></span> Enchanted?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Special Mob Settings (Creeper sizing, Charged, Villager professions) -->
+                        <div class="form-panel col-span-2" id="special-mob-panel" style="display: none;">
+                            <h3 class="panel-title">3. Entity Specials</h3>
+                            <div class="form-grid" id="special-options-grid">
+                                <!-- Hydrated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pane 3: Custom Items Studio -->
+                <section id="items-pane" class="pane" aria-hidden="true">
+                    <div class="pane-header">
+                        <h2>CUSTOM ITEM SMITHY</h2>
+                        <p>Forge customized items with levels up to 255, descriptive lore, and direct attribute attachments.</p>
+                    </div>
+
+                    <div class="form-container">
+                        <!-- Left Panel: Base Items & Details -->
+                        <div class="form-panel">
+                            <h3 class="panel-title">1. Item Template</h3>
+                            <div class="form-grid">
+                                <div class="input-field">
+                                    <label>Item Base</label>
+                                    <!-- Searchable Visual Custom Dropdown -->
+                                    <div class="mc-custom-dropdown" id="dropdown-item-type">
+                                        <div class="dropdown-trigger" id="trigger-item-type">
+                                            <span class="dropdown-trigger-icon">🟩</span>
+                                            <span class="dropdown-trigger-text">Select Item...</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Search items...">
+                                            <div class="dropdown-options" id="options-item-type"></div>
+                                        </div>
+                                        <input type="hidden" id="item-type" value="minecraft:diamond_sword">
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="item-name">Custom Item Name</label>
+                                    <input type="text" id="item-name" placeholder="e.g. §eExcalibur" maxlength="64">
+                                </div>
+                                <div class="input-field col-span-2">
+                                    <label for="item-lore">Lore / Tooltip Description (One line per row)</label>
+                                    <textarea id="item-lore" rows="3" placeholder="e.g. §7Forged in the heart of a dying star&#10;§d+100 Magic Damage"></textarea>
+                                </div>
+                                <div class="checkbox-grid">
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="item-unbreakable">
+                                        <span class="mc-checkbox"></span>
+                                        Unbreakable
+                                    </label>
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="item-hideflags">
+                                        <span class="mc-checkbox"></span>
+                                        Hide Tooltip Info (HideFlags)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Center Panel: Enchantments Selection -->
+                        <div class="form-panel">
+                            <h3 class="panel-title">2. Enchantments</h3>
+                            <div class="search-filter-box">
+                                <input type="text" id="enchant-search" placeholder="🔍 Search enchantments..." class="mc-input-sm">
+                            </div>
+                            <div class="scroll-pane enchant-list-pane" id="enchantments-checklist-container">
+                                <!-- Enchants check-sliders will be rendered here by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Custom Attributes -->
+                        <div class="form-panel">
+                            <h3 class="panel-title">3. Stat Modifiers</h3>
+                            <div class="attributes-modifier-list">
+                                <div class="attribute-row">
+                                    <label for="attr-attack-damage">Attack Damage Bonus</label>
+                                    <div class="attr-input-group">
+                                        <input type="number" id="attr-attack-damage" value="0" min="0" max="10000">
+                                        <span class="attr-tag">⚔️</span>
+                                    </div>
+                                </div>
+                                <div class="attribute-row">
+                                    <label for="attr-attack-speed">Attack Speed Modifier</label>
+                                    <div class="attr-input-group">
+                                        <input type="number" id="attr-attack-speed" value="0" min="-4" max="100" step="0.5">
+                                        <span class="attr-tag">⚡</span>
+                                    </div>
+                                </div>
+                                <div class="attribute-row">
+                                    <label for="attr-max-health">Bonus Health Slots</label>
+                                    <div class="attr-input-group">
+                                        <input type="number" id="attr-max-health" value="0" min="0" max="200">
+                                        <span class="attr-tag">❤️</span>
+                                    </div>
+                                </div>
+                                <div class="attribute-row">
+                                    <label for="attr-knockback-res">Knockback Resistance</label>
+                                    <div class="attr-input-group">
+                                        <input type="number" id="attr-knockback-res" value="0" min="0" max="1" step="0.1">
+                                        <span class="attr-tag">🛡️</span>
+                                    </div>
+                                </div>
+                                <div class="attribute-row">
+                                    <label for="attr-movement-speed">Bonus Movement Speed</label>
+                                    <div class="attr-input-group">
+                                        <input type="number" id="attr-movement-speed" value="0" min="0" max="1" step="0.05">
+                                        <span class="attr-tag">🏃</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pane 4: Troll Menu (Unified Layout) -->
+                <section id="trolls-pane" class="pane" aria-hidden="true">
+                    <div class="pane-header">
+                        <h2>MULTIPLAYER TROLL PANEL</h2>
+                        <p>Select a victim, filter severity modes, and review the full 5-tier prank matrix on a continuous dashboard.</p>
+                    </div>
+
+                    <div class="troll-configuration">
+                        <div class="troll-inputs-bar">
+                            <div class="input-field inline-field">
+                                <label for="troll-target">Victim Name / Selector:</label>
+                                <input type="text" id="troll-target" value="@p" placeholder="e.g. PlayerName, @p, @a">
+                            </div>
+                            <div class="troll-filter-toggle">
+                                <button class="filter-tab active" data-filter="all">All Modes</button>
+                                <button class="filter-tab" data-filter="harmless">🎈 Harmless</button>
+                                <button class="filter-tab" data-filter="grief">🔥 Grief-y</button>
+                            </div>
+                        </div>
+
+                        <!-- Unified 5-Tier Troll Dashboard -->
+                        <div class="unified-troll-canvas">
+                            
+                            <!-- Level 1 -->
+                            <div class="troll-level-section" data-level="1">
+                                <div class="troll-level-banner level-1-banner">LEVEL 1: MILD ANNOYANCE (Harmless Spooks)</div>
+                                <div class="troll-grid" id="troll-grid-l1"></div>
+                            </div>
+
+                            <!-- Level 2 -->
+                            <div class="troll-level-section" data-level="2">
+                                <div class="troll-level-banner level-2-banner">LEVEL 2: MINOR SABOTAGE (Nuisance & Friction)</div>
+                                <div class="troll-grid" id="troll-grid-l2"></div>
+                            </div>
+
+                            <!-- Level 3 -->
+                            <div class="troll-level-section" data-level="3">
+                                <div class="troll-level-banner level-3-banner">LEVEL 3: MAJOR GRIEFING (Traps & Strikes)</div>
+                                <div class="troll-grid" id="troll-grid-l3"></div>
+                            </div>
+
+                            <!-- Level 4 -->
+                            <div class="troll-level-section" data-level="4">
+                                <div class="troll-level-banner level-4-banner">LEVEL 4: ULTIMATE RAGE (Destruction & Swarms)</div>
+                                <div class="troll-grid" id="troll-grid-l4"></div>
+                            </div>
+
+                            <!-- Level 5 -->
+                            <div class="troll-level-section" data-level="5">
+                                <div class="troll-level-banner level-5-banner">LEVEL 5: WORLD SHATTERER (Apocalypse & Client Lag)</div>
+                                <div class="troll-grid" id="troll-grid-l5"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pane 5: My Presets -->
+                <section id="presets-pane" class="pane" aria-hidden="true">
+                    <div class="pane-header">
+                        <h2>CUSTOM CREATIONS & PRESETS</h2>
+                        <p>Review, load, or delete your saved Mob and Item configurations. Share configs using the Import/Export panel.</p>
+                    </div>
+
+                    <div class="presets-workspace">
+                        <div class="presets-cards-grid" id="presets-list-container">
+                            <!-- Populated dynamically -->
+                            <div class="no-presets-msg">No custom presets saved yet. Build a mob or item and hit "Save Preset" below!</div>
+                        </div>
+
+                        <!-- Import/Export Sidebar box -->
+                        <div class="mc-card presets-sharing-card">
+                            <h3>📤 Share & Import Creations</h3>
+                            <p>Export your presets to share with other MineCommand users, or paste a preset code below to load their setup.</p>
+                            <div class="preset-share-form">
+                                <textarea id="preset-json-area" placeholder="Paste preset JSON text here to import, or click Export on a card above to inspect code..."></textarea>
+                                <div class="share-btns">
+                                    <button id="btn-import-preset" class="mc-btn green-btn">Import Preset</button>
+                                    <button id="btn-clear-share" class="mc-btn secondary-btn">Clear Box</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Sticky Floating Command Output / Console -->
+        <footer class="mc-console-panel">
+            <div class="console-header">
+                <h3>🖥️ Generated Console Output</h3>
+                <div class="preset-save-form" id="preset-save-widget" style="display: none;">
+                    <input type="text" id="save-preset-name" placeholder="Preset Name..." maxlength="32">
+                    <button id="btn-save-preset" class="mc-btn green-btn sm-btn">Save Preset</button>
+                </div>
+            </div>
+            <div class="console-body">
+                <div class="command-container">
+                    <pre class="command-code" id="command-output-box">/summon minecraft:zombie ~ ~ ~</pre>
+                </div>
+                <div class="console-actions">
+                    <button id="btn-copy-command" class="mc-btn gold-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg>
+                        Copy Command
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="generator.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

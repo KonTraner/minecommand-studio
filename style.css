@@ -1,0 +1,1427 @@
+/* ==========================================================================
+   MineCommand Studio CSS Design System (Premium Minecraft Aesthetics - Updated)
+   ========================================================================== */
+
+/* 1. Reset and Core Setup */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Palette Tokens */
+    --mc-black: #000000;
+    --mc-bg-dark: #121213;       /* Deep slate stone canvas */
+    --mc-panel-bg: #2d2d30;      /* Minecraft inventory dark gray */
+    --mc-panel-border: #4d4d50;  /* Slate border highlight */
+    --mc-panel-shadow: #1b1b1d;  /* Slate border shadow */
+    --mc-panel-light: #5a5a5e;   /* Soft reflection */
+    
+    --mc-gui-gray: #c6c6c6;      /* Classic active menu gray */
+    --mc-gui-dark: #555555;      /* Text shadow and deep widgets */
+    --mc-gui-light: #ffffff;
+    
+    /* Highlight Themes */
+    --color-emerald: #3c8527;
+    --color-emerald-light: #5cbf3d;
+    --color-emerald-border: #265c17;
+    
+    --color-gold: #de9c10;
+    --color-gold-light: #fca800;
+    --color-gold-border: #805300;
+    
+    --color-redstone: #b02e2e;
+    --color-redstone-light: #e84646;
+    --color-redstone-border: #601212;
+    
+    --color-diamond: #4dede5;
+    --color-diamond-light: #8bfcf6;
+    --color-diamond-border: #139c95;
+
+    /* Text Colors */
+    --text-primary: #f0f0f5;
+    --text-secondary: #aaaaaf;
+    --text-gold: #fdb813;
+    
+    /* Layout Sizes */
+    --sidebar-width: 260px;
+    --header-height: 70px;
+    --console-height: 180px;
+}
+
+body {
+    background-color: var(--mc-bg-dark);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(20, 20, 22, 0.4) 0%, transparent 100%),
+        linear-gradient(rgba(30, 30, 32, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 30, 32, 0.25) 1px, transparent 1px);
+    background-size: 100% 100%, 32px 32px, 32px 32px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    height: 100vh;
+}
+
+h1, h2, h3, h4, .VT-font {
+    font-family: 'VT323', monospace;
+    letter-spacing: 1px;
+}
+
+/* 2. Main Layout Framework */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Header */
+.mc-header {
+    height: var(--header-height);
+    background-color: var(--mc-panel-bg);
+    border-bottom: 4px solid var(--mc-black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 100;
+    box-shadow: inset 0 2px 0 var(--mc-panel-light), 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    font-size: 28px;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5));
+}
+
+.mc-header h1 {
+    font-size: 28px;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0 var(--mc-black);
+}
+
+.mc-header h1 span {
+    color: var(--text-gold);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.control-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* Segmented picker button styles in header */
+.segmented-picker {
+    display: flex;
+    background-color: #161617;
+    border: 3px solid var(--mc-black);
+    padding: 2px;
+    gap: 4px;
+}
+
+.segment {
+    background-color: #3e3e42;
+    border: 2px solid transparent;
+    color: var(--text-secondary);
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    padding: 6px 14px;
+    cursor: pointer;
+    box-shadow: inset -2px -2px 0 #202022, inset 2px 2px 0 #606065;
+    user-select: none;
+    outline: none;
+    transition: all 0.1s ease;
+}
+
+.segment:hover {
+    background-color: #505055;
+    color: var(--text-primary);
+}
+
+.segment.active {
+    background-color: var(--color-emerald);
+    color: var(--text-primary);
+    border-color: var(--color-emerald-light);
+    box-shadow: inset -2px -2px 0 var(--color-emerald-border), inset 2px 2px 0 var(--color-emerald-light);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+/* Main Body Area */
+.mc-body {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - var(--header-height) - var(--console-height));
+    overflow: hidden;
+}
+
+/* Sidebar Navigation */
+.mc-sidebar {
+    width: var(--sidebar-width);
+    background-color: #202022;
+    border-right: 4px solid var(--mc-black);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+    overflow-y: auto;
+    box-shadow: inset -2px 0 0 rgba(255,255,255,0.05);
+}
+
+.nav-tab {
+    background-color: #161617;
+    border: 3px solid var(--mc-black);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+    box-shadow: inset -3px -3px 0 #0d0d0e, inset 3px 3px 0 #2a2a2c;
+    position: relative;
+    user-select: none;
+}
+
+.nav-tab:hover {
+    color: var(--text-primary);
+    background-color: #272729;
+    border-color: var(--text-primary);
+}
+
+.nav-tab.active {
+    background-color: var(--mc-panel-bg);
+    color: var(--text-gold);
+    border-color: var(--color-emerald-light);
+    box-shadow: 
+        inset -3px -3px 0 var(--mc-panel-shadow), 
+        inset 3px 3px 0 var(--mc-panel-light),
+        0 0 10px rgba(92, 191, 61, 0.2);
+}
+
+.nav-icon {
+    font-size: 20px;
+}
+
+/* Workspace Canvas */
+.mc-workspace {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    position: relative;
+    background-color: rgba(18, 18, 19, 0.85);
+}
+
+/* Panes visibility rules */
+.pane {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.pane.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pane-header {
+    border-bottom: 2px dashed var(--mc-panel-border);
+    padding-bottom: 14px;
+}
+
+.pane-header h2 {
+    font-size: 32px;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0 var(--mc-black);
+}
+
+.pane-header p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* Custom Minecraft 3D Button Style */
+.mc-btn, .mc-btn-square {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 3px solid var(--mc-black);
+    color: var(--text-primary);
+    text-align: center;
+    position: relative;
+    user-select: none;
+    outline: none;
+    background-color: #8b8b8b;
+    box-shadow: inset -3px -3px 0 #555555, inset 3px 3px 0 #dbdbdb;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.mc-btn:hover, .mc-btn-square:hover {
+    filter: brightness(1.08);
+}
+
+.mc-btn:active, .mc-btn-square:active {
+    box-shadow: inset 3px 3px 0 #555555, inset -3px -3px 0 #dbdbdb;
+    padding-top: 10px;
+    padding-bottom: 6px;
+}
+
+/* Colored buttons */
+.green-btn {
+    background-color: var(--color-emerald);
+    box-shadow: inset -3px -3px 0 var(--color-emerald-border), inset 3px 3px 0 var(--color-emerald-light);
+}
+.green-btn:active {
+    box-shadow: inset 3px 3px 0 var(--color-emerald-border), inset -3px -3px 0 var(--color-emerald-light);
+}
+
+.gold-btn {
+    background-color: var(--color-gold);
+    color: var(--mc-black);
+    font-weight: bold;
+    box-shadow: inset -3px -3px 0 var(--color-gold-border), inset 3px 3px 0 var(--color-gold-light);
+}
+.gold-btn:active {
+    box-shadow: inset 3px 3px 0 var(--color-gold-border), inset -3px -3px 0 var(--color-gold-light);
+}
+
+.secondary-btn {
+    background-color: #3e3e42;
+    box-shadow: inset -3px -3px 0 #202022, inset 3px 3px 0 #606065;
+}
+.secondary-btn:active {
+    box-shadow: inset 3px 3px 0 #202022, inset -3px -3px 0 #606065;
+}
+
+.mc-btn-square {
+    padding: 8px;
+    width: 42px;
+    height: 42px;
+}
+
+/* 3. Cards & Containers */
+.mc-card {
+    background-color: var(--mc-panel-bg);
+    border: 3px solid var(--mc-black);
+    padding: 20px;
+    box-shadow: 
+        inset -3px -3px 0 var(--mc-panel-shadow), 
+        inset 3px 3px 0 var(--mc-panel-light);
+    position: relative;
+}
+
+.splash-card h3 {
+    font-size: 24px;
+    color: var(--text-gold);
+    margin-bottom: 12px;
+    text-shadow: 2px 2px 0 var(--mc-black);
+}
+
+.splash-card ol {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.splash-card ol strong {
+    color: var(--color-diamond);
+}
+
+.home-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.features-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.tool-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+}
+
+.tool-card.highlight-green:hover { border-color: var(--color-emerald-light); }
+.tool-card.highlight-gold:hover { border-color: var(--color-gold-light); }
+.tool-card.highlight-red:hover { border-color: var(--color-redstone-light); }
+
+.card-icon {
+    font-size: 36px;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5));
+}
+
+.tool-card h4 {
+    font-size: 22px;
+    color: var(--text-primary);
+}
+
+.tool-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* 4. Form Controls & Widgets */
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: 40px;
+}
+
+.form-panel {
+    background-color: #212124;
+    border: 3px solid var(--mc-black);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: inset -3px -3px 0 #141416, inset 3px 3px 0 #333338;
+}
+
+.panel-title {
+    font-size: 20px;
+    color: var(--text-gold);
+    border-bottom: 2px solid var(--mc-black);
+    padding-bottom: 6px;
+    text-shadow: 1.5px 1.5px 0 var(--mc-black);
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.col-span-2 {
+    grid-column: span 2;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+}
+
+.input-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+/* Premium Retro Input Boxes */
+input[type="text"], input[type="number"], textarea, select {
+    background-color: #101011;
+    border: 2px solid var(--mc-panel-border);
+    color: var(--text-primary);
+    padding: 10px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+    transition: border-color 0.15s ease;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+    border-color: var(--color-diamond);
+}
+
+textarea {
+    resize: none;
+}
+
+/* ==========================================================================
+   5. Searchable Custom Dropdown Styles (Mobs, Items, Gear Slots)
+   ========================================================================== */
+.mc-custom-dropdown {
+    position: relative;
+    width: 100%;
+    user-select: none;
+}
+
+.dropdown-trigger {
+    background-color: #101011;
+    border: 2px solid var(--mc-panel-border);
+    color: var(--text-primary);
+    padding: 10px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+    transition: border-color 0.15s ease;
+    position: relative;
+}
+
+.dropdown-trigger::after {
+    content: "▼";
+    font-size: 10px;
+    color: var(--text-secondary);
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mc-custom-dropdown.open .dropdown-trigger {
+    border-color: var(--color-diamond);
+}
+
+/* Embedded SVG styling inside triggers and options */
+.dropdown-trigger-icon, .option-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.dropdown-trigger-icon svg, .option-icon svg {
+    width: 22px;
+    height: 22px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.dropdown-trigger-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Dropdown Content overlay */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #1b1b1d;
+    border: 3px solid var(--mc-black);
+    box-shadow: 
+        0 6px 16px rgba(0,0,0,0.8),
+        inset -2px -2px 0 #0d0d0e,
+        inset 2px 2px 0 #2e2e30;
+    z-index: 999;
+    margin-top: 2px;
+}
+
+.mc-custom-dropdown.open .dropdown-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-search {
+    width: 100%;
+    border: none !important;
+    border-bottom: 2px solid var(--mc-panel-border) !important;
+    background-color: #0b0b0c !important;
+    box-shadow: none !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+}
+
+.dropdown-options {
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.dropdown-optgroup-title {
+    font-family: 'VT323', monospace;
+    font-size: 15px;
+    color: var(--text-gold);
+    padding: 6px 12px 2px 12px;
+    background-color: #161617;
+    border-bottom: 1px dashed #2c2c2f;
+}
+
+.dropdown-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.1s ease;
+}
+
+.dropdown-option:hover {
+    background-color: #272729;
+    border-color: var(--color-emerald-light);
+}
+
+.dropdown-option.active {
+    background-color: #1a2a16;
+    color: var(--text-gold);
+    border-color: var(--color-emerald-light);
+}
+
+.dropdown-option-text {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Equipment Slot specific Dropdown adaptations */
+.slot-dropdown .dropdown-trigger {
+    padding: 6px 8px;
+    font-size: 12px;
+    gap: 6px;
+}
+
+.slot-dropdown .dropdown-trigger::after {
+    font-size: 8px;
+    right: 8px;
+}
+
+.slot-dropdown .dropdown-trigger-icon, .slot-dropdown .option-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.slot-dropdown .dropdown-trigger-icon svg, .slot-dropdown .option-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.slot-dropdown .dropdown-option {
+    padding: 6px 8px;
+    gap: 8px;
+}
+
+.slot-dropdown .dropdown-option-text {
+    font-size: 12px;
+}
+
+/* Checkbox Style */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.mc-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    user-select: none;
+}
+
+.mc-checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.mc-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: #101011;
+    border: 2px solid var(--mc-panel-border);
+    display: inline-block;
+    position: relative;
+    box-shadow: inset 0 2px 2px rgba(0,0,0,0.5);
+}
+
+.mc-checkbox-label input[type="checkbox"]:checked + .mc-checkbox::after {
+    content: "✔";
+    color: var(--color-emerald-light);
+    font-size: 14px;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+}
+
+/* Slider Controls */
+.slider-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.slider-header span {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: var(--color-diamond);
+}
+
+input[type="range"] {
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #101011;
+    outline: none;
+    border: 1px solid var(--mc-panel-border);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--mc-black);
+    background-color: var(--mc-gui-gray);
+    box-shadow: inset -2px -2px 0 #555555, inset 2px 2px 0 #ffffff;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(1.1);
+}
+
+/* 6. Equipment Slots Panel */
+.equipment-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    flex: 1;
+}
+
+.equip-slot {
+    background-color: #171719;
+    border: 2px solid var(--mc-black);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.slot-badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-gold);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.slot-enchant-wrapper {
+    margin-top: 2px;
+}
+
+/* Search Box */
+.search-filter-box {
+    width: 100%;
+}
+
+.mc-input-sm {
+    width: 100%;
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+}
+
+/* Scroll Panes */
+.scroll-pane {
+    overflow-y: auto;
+    border: 2px solid var(--mc-black);
+    background-color: #101011;
+    padding: 8px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.enchant-list-pane {
+    max-height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Enchant Checklist Items */
+.enchant-item {
+    border-bottom: 1px solid #1c1c1f;
+    padding-bottom: 8px;
+}
+
+.enchant-item:last-child {
+    border-bottom: none;
+}
+
+.enchant-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.enchant-row-bottom {
+    margin-top: 6px;
+    display: none;
+}
+
+.enchant-row-bottom.show {
+    display: block;
+}
+
+/* Attributes Input Box adjustments */
+.attributes-modifier-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.attribute-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.attribute-row label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.attr-input-group {
+    display: flex;
+    align-items: center;
+    background-color: #101011;
+    border: 2px solid var(--mc-panel-border);
+    position: relative;
+    width: 90px;
+}
+
+.attr-input-group input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 6px 30px 6px 8px;
+    text-align: center;
+}
+
+.attr-tag {
+    position: absolute;
+    right: 8px;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   7. Unified Continuous Troll Screen Styles
+   ========================================================================== */
+.troll-configuration {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    height: 100%;
+}
+
+.troll-inputs-bar {
+    background-color: #212124;
+    border: 3px solid var(--mc-black);
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: inset -3px -3px 0 #141416, inset 3px 3px 0 #333338;
+}
+
+.inline-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.inline-field label {
+    font-size: 16px;
+    font-family: 'VT323', monospace;
+    text-transform: none;
+}
+
+.inline-field input {
+    width: 180px;
+}
+
+.troll-filter-toggle {
+    display: flex;
+    border: 2px solid var(--mc-black);
+    background-color: #101011;
+    padding: 2px;
+}
+
+.filter-tab {
+    padding: 6px 12px;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.filter-tab.active {
+    background-color: #3e3e42;
+    color: var(--text-gold);
+    box-shadow: inset -1px -1px 0 #202022, inset 1px 1px 0 #606065;
+}
+
+/* Scrolling continuous canvas containing stacked segments */
+.unified-troll-canvas {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: 40px;
+}
+
+.troll-level-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Color-coded threat banners */
+.troll-level-banner {
+    border: 3px solid var(--mc-black);
+    padding: 8px 16px;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0 var(--mc-black);
+}
+
+.level-1-banner {
+    background-color: var(--color-emerald);
+    box-shadow: inset -3px -3px 0 var(--color-emerald-border), inset 3px 3px 0 var(--color-emerald-light);
+}
+
+.level-2-banner {
+    background-color: var(--color-gold);
+    color: var(--mc-black);
+    text-shadow: none;
+    font-weight: 700;
+    box-shadow: inset -3px -3px 0 var(--color-gold-border), inset 3px 3px 0 var(--color-gold-light);
+}
+
+.level-3-banner {
+    background-color: #d47306;
+    box-shadow: inset -3px -3px 0 #8c4a00, inset 3px 3px 0 #ffa640;
+}
+
+.level-4-banner {
+    background-color: var(--color-redstone);
+    box-shadow: inset -3px -3px 0 var(--color-redstone-border), inset 3px 3px 0 var(--color-redstone-light);
+}
+
+.level-5-banner {
+    background-color: #19191a;
+    border-color: #555558;
+    box-shadow: inset -3px -3px 0 #0d0d0e, inset 3px 3px 0 #3b3b3d;
+    color: var(--text-gold);
+}
+
+/* Troll Cards Grid */
+.troll-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.troll-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #202022;
+    border: 3px solid var(--mc-black);
+    padding: 16px;
+    box-shadow: inset -3px -3px 0 #121214, inset 3px 3px 0 #313135;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.troll-card:hover {
+    transform: scale(1.02);
+    border-color: var(--text-gold);
+}
+
+.troll-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border: 1px solid var(--mc-black);
+}
+
+.troll-badge.harmless {
+    background-color: rgba(92, 191, 61, 0.15);
+    border-color: var(--color-emerald-light);
+    color: var(--color-emerald-light);
+}
+
+.troll-badge.grief {
+    background-color: rgba(232, 70, 70, 0.15);
+    border-color: var(--color-redstone-light);
+    color: var(--color-redstone-light);
+}
+
+.troll-card h4 {
+    font-size: 20px;
+    color: var(--text-primary);
+    padding-right: 64px;
+}
+
+.troll-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    flex: 1;
+}
+
+.troll-action-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 8. Saved Presets Styles */
+.presets-workspace {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.presets-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.no-presets-msg {
+    grid-column: span 10;
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    border: 2px dashed var(--mc-panel-border);
+}
+
+.preset-card {
+    background-color: #212124;
+    border: 3px solid var(--mc-black);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: inset -3px -3px 0 #141416, inset 3px 3px 0 #333338;
+}
+
+.preset-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preset-title {
+    font-size: 20px;
+    color: var(--text-gold);
+    text-shadow: 1px 1px 0 var(--mc-black);
+}
+
+.preset-badge {
+    font-size: 11px;
+    padding: 2px 6px;
+    background-color: #171719;
+    border: 1px solid var(--mc-black);
+    color: var(--color-diamond);
+}
+
+.preset-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.preset-btns-row {
+    display: flex;
+    gap: 8px;
+}
+
+.preset-btns-row button {
+    flex: 1;
+    font-size: 15px;
+    padding: 4px 6px;
+}
+
+.presets-sharing-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.presets-sharing-card h3 {
+    font-size: 22px;
+    color: var(--text-gold);
+}
+
+.presets-sharing-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.preset-share-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.preset-share-form textarea {
+    height: 120px;
+    font-family: monospace;
+    font-size: 11px;
+}
+
+.share-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.share-btns button {
+    flex: 1;
+}
+
+/* 9. Console Output Panel (Sticky Footer) */
+.mc-console-panel {
+    height: var(--console-height);
+    background-color: #1a1a1c;
+    border-top: 4px solid var(--mc-black);
+    display: flex;
+    flex-direction: column;
+    padding: 12px 24px;
+    z-index: 100;
+    box-shadow: inset 0 2px 0 var(--mc-panel-light), 0 -4px 10px rgba(0,0,0,0.5);
+}
+
+.console-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+}
+
+.console-header h3 {
+    font-size: 20px;
+    color: var(--text-gold);
+    text-shadow: 1.5px 1.5px 0 var(--mc-black);
+}
+
+.preset-save-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.preset-save-form input {
+    padding: 4px 8px;
+    font-size: 12px;
+    width: 160px;
+}
+
+.sm-btn {
+    font-size: 14px;
+    padding: 4px 10px;
+}
+
+.console-body {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.command-container {
+    flex: 1;
+    background-color: #0b0b0c;
+    border: 2px solid var(--mc-panel-border);
+    padding: 12px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.command-code {
+    font-family: monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+    user-select: text;
+}
+
+/* Custom code coloring classes (Safe Token-highlighted targets) */
+.hl-cmd { color: #f92672; font-weight: bold; } /* /summon, /give */
+.hl-sel { color: #ae81ff; font-weight: bold; } /* @p, @a */
+.hl-ent { color: #a6e22e; }                   /* zombie, creeper */
+.hl-itm { color: #66d9ef; }                   /* diamond_sword, apple */
+.hl-nbt { color: #fd971f; }                   /* {} [] : , = */
+.hl-str { color: #e6db74; }                   /* Names & Lore text */
+
+.console-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.console-actions button {
+    height: 48px;
+    font-size: 20px;
+    padding: 0 24px;
+}
+
+.btn-icon {
+    font-size: 18px;
+}
+
+/* 10. Visual Toast Notifications & Scrollbars */
+.mc-toast {
+    position: fixed;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-emerald);
+    color: var(--text-primary);
+    border: 3px solid var(--mc-black);
+    padding: 10px 24px;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    box-shadow: inset -3px -3px 0 var(--color-emerald-border), inset 3px 3px 0 var(--color-emerald-light), 0 5px 15px rgba(0,0,0,0.5);
+    z-index: 10000;
+    transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+    pointer-events: none;
+}
+
+.mc-toast.show {
+    top: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #161617;
+    border: 1px solid var(--mc-black);
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--mc-gui-gray);
+    border: 2px solid var(--mc-black);
+    box-shadow: inset -2px -2px 0 #555555, inset 2px 2px 0 #ffffff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #aaaaaa;
+}
+
+/* ==========================================================================
+   11. Responsiveness and Mobile Adaptation
+   ========================================================================== */
+@media (max-width: 900px) {
+    .mc-body {
+        flex-direction: column;
+        height: calc(100vh - var(--header-height) - var(--console-height));
+    }
+    
+    .mc-sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 4px solid var(--mc-black);
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 8px;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+    
+    .nav-tab {
+        padding: 8px 12px;
+        font-size: 16px;
+        gap: 6px;
+        white-space: nowrap;
+    }
+    
+    .nav-text {
+        font-size: 15px;
+    }
+    
+    .presets-workspace {
+        grid-template-columns: 1fr;
+    }
+    
+    .console-body {
+        gap: 10px;
+    }
+    
+    .console-actions button {
+        padding: 0 16px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .mc-header {
+        padding: 0 12px;
+        flex-direction: column;
+        height: 110px;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .mc-body {
+        height: calc(100vh - 110px - 220px);
+    }
+    
+    :root {
+        --header-height: 110px;
+        --console-height: 220px;
+    }
+    
+    .mc-header h1 {
+        font-size: 22px;
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .segmented-picker .segment {
+        padding: 4px 8px;
+        font-size: 14px;
+    }
+    
+    .mc-workspace {
+        padding: 12px;
+    }
+    
+    .form-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .checkbox-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .equipment-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .mc-console-panel {
+        height: 220px;
+        padding: 10px;
+    }
+    
+    .console-body {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .command-container {
+        height: 80px;
+    }
+    
+    .console-actions button {
+        height: 42px;
+        font-size: 16px;
+    }
+    
+    .troll-inputs-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .inline-field input {
+        width: 100%;
+        flex: 1;
+    }
+}
