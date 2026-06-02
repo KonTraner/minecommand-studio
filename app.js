@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MineCommand Studio - Main Application Controller (Updated)
+   MineCommand Studio - Main Application Controller (Upgraded & Verified)
    ========================================================================== */
 
 let soundFXEnabled = true;
@@ -10,14 +10,14 @@ let presets = [];
 const app = {
     // 1. Initializer Hook
     init() {
-        this.loadPresetsFromStorage();
-        this.initAllCustomDropdowns();
-        this.hydrateEnchantments();
-        this.registerEventListeners();
-        this.switchTab("home-pane");
-        this.updateTrollGrids();
-        this.updateSpecialMobPanel();
-        this.recalculateCurrentCommand();
+        app.loadPresetsFromStorage();
+        app.initAllCustomDropdowns();
+        app.hydrateEnchantments();
+        app.registerEventListeners();
+        app.switchTab("home-pane");
+        app.updateTrollGrids();
+        app.updateSpecialMobPanel();
+        app.recalculateCurrentCommand();
     },
 
     // 2. Programmatic Sound FX Synthesis (Web Audio API)
@@ -59,7 +59,7 @@ const app = {
     // 3. Tab Navigation & Routing
     switchTab(tabId) {
         activeTab = tabId;
-        this.playClick();
+        app.playClick();
 
         // Manage sidebar buttons
         document.querySelectorAll('.nav-tab').forEach(btn => {
@@ -91,7 +91,7 @@ const app = {
             presetWidget.style.display = "none";
         }
 
-        this.recalculateCurrentCommand();
+        app.recalculateCurrentCommand();
     },
 
     // ==========================================================================
@@ -99,18 +99,17 @@ const app = {
     // ==========================================================================
     initAllCustomDropdowns() {
         // Dropdown 1: Mob Type Select
-        this.buildCustomDropdown(
+        app.buildCustomDropdown(
             "dropdown-mob-type",
             MC_DATA.mobs,
             "minecraft:zombie",
             () => {
-                this.updateSpecialMobPanel();
-                this.recalculateCurrentCommand();
+                app.updateSpecialMobPanel();
+                app.recalculateCurrentCommand();
             }
         );
 
         // Dropdown 2: Item Smith select
-        const allItemsList = [];
         const itemCategories = {
             "Weapons & Ranged": MC_DATA.items.weapons,
             "Helmets": MC_DATA.items.helmets,
@@ -120,11 +119,11 @@ const app = {
             "Fun & Blocks": MC_DATA.items.fun
         };
 
-        this.buildGroupedCustomDropdown(
+        app.buildGroupedCustomDropdown(
             "dropdown-item-type",
             itemCategories,
             "minecraft:diamond_sword",
-            () => this.recalculateCurrentCommand()
+            () => app.recalculateCurrentCommand()
         );
 
         // Dropdowns 3-8: Mob Equipment Slots
@@ -141,15 +140,15 @@ const app = {
         };
 
         // Hydrate Hands Slots
-        this.buildGroupedCustomDropdown("dropdown-eq-hand", handSlots, "none", () => this.recalculateCurrentCommand(), true);
-        this.buildGroupedCustomDropdown("dropdown-eq-offhand", handSlots, "none", () => this.recalculateCurrentCommand(), true);
+        app.buildGroupedCustomDropdown("dropdown-eq-hand", handSlots, "none", () => app.recalculateCurrentCommand(), true);
+        app.buildGroupedCustomDropdown("dropdown-eq-offhand", handSlots, "none", () => app.recalculateCurrentCommand(), true);
 
         // Hydrate Armor Slots
         for (const [dropId, data] of Object.entries(armorSlots)) {
             const groups = {};
             groups[data.label] = data.list;
             groups["Blocks & Fun"] = MC_DATA.items.fun;
-            this.buildGroupedCustomDropdown(dropId, groups, "none", () => this.recalculateCurrentCommand(), true);
+            app.buildGroupedCustomDropdown(dropId, groups, "none", () => app.recalculateCurrentCommand(), true);
         }
 
         // Setup global listener to close dropdowns when clicking outside
@@ -163,10 +162,10 @@ const app = {
     // Build flat searchable dropdown (e.g. Mobs)
     buildCustomDropdown(dropdownId, list, defaultValue, onSelectCallback) {
         const wrapper = document.getElementById(dropdownId);
+        if (!wrapper) return;
         const trigger = wrapper.querySelector(".dropdown-trigger");
         const optionsBox = wrapper.querySelector(".dropdown-options");
         const searchInput = wrapper.querySelector(".dropdown-search");
-        const hiddenInput = wrapper.querySelector("input[type='hidden']");
 
         // Clear choices
         optionsBox.innerHTML = "";
@@ -183,7 +182,7 @@ const app = {
             
             option.addEventListener("click", (e) => {
                 e.stopPropagation();
-                this.selectCustomDropdownOption(dropdownId, item.id, item.name, item.icon || "🟩");
+                app.selectCustomDropdownOption(dropdownId, item.id, item.name, item.icon || "🟩");
                 wrapper.classList.remove("open");
                 if (onSelectCallback) onSelectCallback();
             });
@@ -194,13 +193,13 @@ const app = {
         // Setup default trigger
         const defaultItem = list.find(it => it.id === defaultValue);
         if (defaultItem) {
-            this.selectCustomDropdownOption(dropdownId, defaultValue, defaultItem.name, defaultItem.icon || "🟩");
+            app.selectCustomDropdownOption(dropdownId, defaultValue, defaultItem.name, defaultItem.icon || "🟩");
         }
 
         // Toggle Open/Close click
         trigger.addEventListener("click", (e) => {
             e.stopPropagation();
-            this.playClick();
+            app.playClick();
             // Close other dropdowns first
             document.querySelectorAll(".mc-custom-dropdown").forEach(d => {
                 if (d.id !== dropdownId) d.classList.remove("open");
@@ -235,10 +234,10 @@ const app = {
     // Build categorized grouped dropdowns (e.g. Items, equipment slots)
     buildGroupedCustomDropdown(dropdownId, groups, defaultValue, onSelectCallback, includeEmpty = false) {
         const wrapper = document.getElementById(dropdownId);
+        if (!wrapper) return;
         const trigger = wrapper.querySelector(".dropdown-trigger");
         const optionsBox = wrapper.querySelector(".dropdown-options");
         const searchInput = wrapper.querySelector(".dropdown-search");
-        const hiddenInput = wrapper.querySelector("input[type='hidden']");
 
         // Clear choices
         optionsBox.innerHTML = "";
@@ -254,7 +253,7 @@ const app = {
             `;
             option.addEventListener("click", (e) => {
                 e.stopPropagation();
-                this.selectCustomDropdownOption(dropdownId, "none", "Empty Slot", "❌");
+                app.selectCustomDropdownOption(dropdownId, "none", "Empty Slot", "❌");
                 wrapper.classList.remove("open");
                 if (onSelectCallback) onSelectCallback();
             });
@@ -279,7 +278,7 @@ const app = {
                 
                 option.addEventListener("click", (e) => {
                     e.stopPropagation();
-                    this.selectCustomDropdownOption(dropdownId, item.id, item.name, item.icon || "⬜");
+                    app.selectCustomDropdownOption(dropdownId, item.id, item.name, item.icon || "⬜");
                     wrapper.classList.remove("open");
                     if (onSelectCallback) onSelectCallback();
                 });
@@ -290,7 +289,7 @@ const app = {
 
         // Setup default selection trigger
         if (defaultValue === "none") {
-            this.selectCustomDropdownOption(dropdownId, "none", "Empty Slot", "❌");
+            app.selectCustomDropdownOption(dropdownId, "none", "Empty Slot", "❌");
         } else {
             // Find in deep lists
             let defaultItem = null;
@@ -302,14 +301,14 @@ const app = {
                 }
             }
             if (defaultItem) {
-                this.selectCustomDropdownOption(dropdownId, defaultValue, defaultItem.name, defaultItem.icon || "⬜");
+                app.selectCustomDropdownOption(dropdownId, defaultValue, defaultItem.name, defaultItem.icon || "⬜");
             }
         }
 
         // Toggle clicks
         trigger.addEventListener("click", (e) => {
             e.stopPropagation();
-            this.playClick();
+            app.playClick();
             document.querySelectorAll(".mc-custom-dropdown").forEach(d => {
                 if (d.id !== dropdownId) d.classList.remove("open");
             });
@@ -341,6 +340,7 @@ const app = {
     // Set value and trigger labels programmatically
     selectCustomDropdownOption(dropdownId, val, label, iconHtml) {
         const wrapper = document.getElementById(dropdownId);
+        if (!wrapper) return;
         const hiddenInput = wrapper.querySelector("input[type='hidden']");
         const triggerIcon = wrapper.querySelector(".dropdown-trigger-icon");
         const triggerText = wrapper.querySelector(".dropdown-trigger-text");
@@ -363,15 +363,16 @@ const app = {
     // Helper: Select option by Value lookup (useful for preset loads)
     selectDropdownByValue(dropdownId, targetVal) {
         const wrapper = document.getElementById(dropdownId);
+        if (!wrapper) return;
         const optionsBox = wrapper.querySelector(".dropdown-options");
         const option = optionsBox.querySelector(`.dropdown-option[data-value="${targetVal}"]`);
         
         if (option) {
             const iconHtml = option.querySelector(".option-icon").innerHTML;
             const name = option.querySelector(".dropdown-option-text").textContent;
-            this.selectCustomDropdownOption(dropdownId, targetVal, name, iconHtml);
+            app.selectCustomDropdownOption(dropdownId, targetVal, name, iconHtml);
         } else if (targetVal === "none") {
-            this.selectCustomDropdownOption(dropdownId, "none", "Empty Slot", "❌");
+            app.selectCustomDropdownOption(dropdownId, "none", "Empty Slot", "❌");
         }
     },
 
@@ -444,13 +445,13 @@ const app = {
             
             document.getElementById("spec-creeper-radius").addEventListener("input", (e) => {
                 document.getElementById("spec-creeper-radius-lbl").textContent = `${e.target.value} Blocks`;
-                this.recalculateCurrentCommand();
+                app.recalculateCurrentCommand();
             });
             document.getElementById("spec-creeper-fuse").addEventListener("input", (e) => {
                 document.getElementById("spec-creeper-fuse-lbl").textContent = `${e.target.value} Ticks`;
-                this.recalculateCurrentCommand();
+                app.recalculateCurrentCommand();
             });
-            document.getElementById("spec-creeper-powered").addEventListener("change", () => this.recalculateCurrentCommand());
+            document.getElementById("spec-creeper-powered").addEventListener("change", () => app.recalculateCurrentCommand());
 
         } else if (mob === "minecraft:slime") {
             panel.style.display = "block";
@@ -466,7 +467,7 @@ const app = {
             
             document.getElementById("spec-slime-size").addEventListener("input", (e) => {
                 document.getElementById("spec-slime-size-lbl").textContent = `Size ${e.target.value}`;
-                this.recalculateCurrentCommand();
+                app.recalculateCurrentCommand();
             });
 
         } else if (mob === "minecraft:villager") {
@@ -488,7 +489,7 @@ const app = {
                     </div>
                 </div>
             `;
-            document.getElementById("spec-villager-profession").addEventListener("change", () => this.recalculateCurrentCommand());
+            document.getElementById("spec-villager-profession").addEventListener("change", () => app.recalculateCurrentCommand());
         } else {
             panel.style.display = "none";
         }
@@ -499,11 +500,10 @@ const app = {
     // ==========================================================================
     updateTrollGrids() {
         const levels = [1, 2, 3, 4, 5];
-        const targetVal = document.getElementById("troll-target").value || "@p";
-        const activeVersion = document.getElementById("version-select").value;
 
         levels.forEach(level => {
             const grid = document.getElementById(`troll-grid-l${level}`);
+            if (!grid) return;
             grid.innerHTML = "";
 
             // Filter trolls by current level and category toggles
@@ -535,13 +535,14 @@ const app = {
                     </div>
                 `;
 
-                // Load Troll command on card click
+                // Load Troll command on card click dynamically
                 card.addEventListener("click", () => {
-                    this.playClick();
+                    app.playClick();
                     const activeTarget = document.getElementById("troll-target").value || "@p";
-                    const cmd = Generator.generateTroll(t.id, activeTarget, activeVersion);
+                    const currentVersion = document.getElementById("version-select").value; // Dynamic read!
+                    const cmd = Generator.generateTroll(t.id, activeTarget, currentVersion);
                     
-                    this.displayCommand(cmd);
+                    app.displayCommand(cmd);
                 });
 
                 grid.appendChild(card);
@@ -555,23 +556,23 @@ const app = {
         document.querySelectorAll('.nav-tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
                 const target = e.currentTarget.dataset.target;
-                this.switchTab(target);
+                app.switchTab(target);
             });
         });
 
         // BIND CUSTOM 3D SEGMENTED TARGET VERSION PICKER
         document.querySelectorAll("#version-picker .segment").forEach(btn => {
             btn.addEventListener("click", (e) => {
-                this.playClick();
+                app.playClick();
                 document.querySelectorAll("#version-picker .segment").forEach(b => b.classList.remove("active"));
                 e.currentTarget.classList.add("active");
                 
                 // Write value to hidden field
                 document.getElementById("version-select").value = e.currentTarget.dataset.value;
-                this.recalculateCurrentCommand();
+                app.recalculateCurrentCommand();
                 
                 if (activeTab === "trolls-pane") {
-                    this.updateTrollGrids();
+                    app.updateTrollGrids();
                 }
             });
         });
@@ -588,7 +589,7 @@ const app = {
                         <path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/>
                     </svg>
                 `;
-                this.playClick();
+                app.playClick();
             } else {
                 soundBtn.classList.add("secondary-btn");
                 soundBtn.innerHTML = `
@@ -600,47 +601,47 @@ const app = {
         });
 
         // --- MOB STUDIO EVENTS ---
-        document.getElementById("mob-name").addEventListener("input", () => this.recalculateCurrentCommand());
+        document.getElementById("mob-name").addEventListener("input", () => app.recalculateCurrentCommand());
         
         // HP slider
         const hpSlider = document.getElementById("mob-health");
         hpSlider.addEventListener("input", (e) => {
             document.getElementById("mob-health-val").textContent = `${e.target.value} HP`;
-            this.recalculateCurrentCommand();
+            app.recalculateCurrentCommand();
         });
         
         // Speed slider
         const speedSlider = document.getElementById("mob-speed");
         speedSlider.addEventListener("input", (e) => {
             document.getElementById("mob-speed-val").textContent = `${e.target.value}x`;
-            this.recalculateCurrentCommand();
+            app.recalculateCurrentCommand();
         });
 
         // Mob Checkboxes
-        document.getElementById("mob-silent").addEventListener("change", () => this.recalculateCurrentCommand());
-        document.getElementById("mob-noai").addEventListener("change", () => this.recalculateCurrentCommand());
-        document.getElementById("mob-glowing").addEventListener("change", () => this.recalculateCurrentCommand());
-        document.getElementById("mob-invulnerable").addEventListener("change", () => this.recalculateCurrentCommand());
+        document.getElementById("mob-silent").addEventListener("change", () => app.recalculateCurrentCommand());
+        document.getElementById("mob-noai").addEventListener("change", () => app.recalculateCurrentCommand());
+        document.getElementById("mob-glowing").addEventListener("change", () => app.recalculateCurrentCommand());
+        document.getElementById("mob-invulnerable").addEventListener("change", () => app.recalculateCurrentCommand());
         
         // Equipment checkboxes
         document.querySelectorAll(".slot-ench-toggle").forEach(el => {
             el.addEventListener("change", () => {
-                this.playClick();
-                this.recalculateCurrentCommand();
+                app.playClick();
+                app.recalculateCurrentCommand();
             });
         });
 
         // --- ITEM STUDIO EVENTS ---
-        document.getElementById("item-name").addEventListener("input", () => this.recalculateCurrentCommand());
-        document.getElementById("item-lore").addEventListener("input", () => this.recalculateCurrentCommand());
-        document.getElementById("item-unbreakable").addEventListener("change", () => this.recalculateCurrentCommand());
-        document.getElementById("item-hideflags").addEventListener("change", () => this.recalculateCurrentCommand());
+        document.getElementById("item-name").addEventListener("input", () => app.recalculateCurrentCommand());
+        document.getElementById("item-lore").addEventListener("input", () => app.recalculateCurrentCommand());
+        document.getElementById("item-unbreakable").addEventListener("change", () => app.recalculateCurrentCommand());
+        document.getElementById("item-hideflags").addEventListener("change", () => app.recalculateCurrentCommand());
 
         // Enchant checklist handlers
         const container = document.getElementById("enchantments-checklist-container");
         container.addEventListener("change", (e) => {
             if (e.target.classList.contains("ench-cb")) {
-                this.playClick();
+                app.playClick();
                 const id = e.target.dataset.enchId;
                 const row = document.getElementById(`ench-slider-row-${id}`);
                 if (e.target.checked) {
@@ -648,7 +649,7 @@ const app = {
                 } else {
                     row.classList.remove("show");
                 }
-                this.recalculateCurrentCommand();
+                app.recalculateCurrentCommand();
             }
         });
 
@@ -656,7 +657,7 @@ const app = {
             if (e.target.classList.contains("ench-slider")) {
                 const id = e.target.dataset.enchId;
                 document.getElementById(`ench-lbl-${id}`).textContent = `Level ${e.target.value}`;
-                this.recalculateCurrentCommand();
+                app.recalculateCurrentCommand();
             }
         });
 
@@ -675,51 +676,51 @@ const app = {
 
         // Stat attributes modifiers
         document.querySelectorAll(".attr-input-group input").forEach(input => {
-            input.addEventListener("input", () => this.recalculateCurrentCommand());
+            input.addEventListener("input", () => app.recalculateCurrentCommand());
         });
 
         // --- TROLL MENU EVENTS ---
         document.querySelectorAll(".filter-tab").forEach(tab => {
             tab.addEventListener("click", (e) => {
-                this.playClick();
+                app.playClick();
                 document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
                 e.currentTarget.classList.add("active");
                 currentTrollFilter = e.currentTarget.dataset.filter;
-                this.updateTrollGrids();
+                app.updateTrollGrids();
             });
         });
 
         document.getElementById("troll-target").addEventListener("input", () => {
-            this.updateTrollGrids();
+            app.updateTrollGrids();
         });
 
         // --- PRESET ACTIONS ---
         document.getElementById("btn-save-preset").addEventListener("click", () => {
-            this.saveCurrentPreset();
+            app.saveCurrentPreset();
         });
 
         document.getElementById("btn-import-preset").addEventListener("click", () => {
-            this.importPreset();
+            app.importPreset();
         });
 
         document.getElementById("btn-clear-share").addEventListener("click", () => {
-            this.playClick();
+            app.playClick();
             document.getElementById("preset-json-area").value = "";
         });
 
         document.getElementById("btn-copy-command").addEventListener("click", () => {
-            this.copyToClipboard();
+            app.copyToClipboard();
         });
     },
 
     // ==========================================================================
-    // 9. Safe Tokenizer-based Syntax Highlighter (Resolves Attribute Bug)
+    // 9. Safe Tokenizer-based Syntax Highlighter (Fail-safe verified)
     // ==========================================================================
     highlightSyntax(cmd) {
         if (!cmd) return "";
 
-        // Clean/Robust Tokenizer: splits comments, slash commands, selectors, numbers, NBT nodes
-        const tokenRegex = /(\/\w+|@[pabr](?:\[[^\]]+\])?|#.*|[\{\}\[\]\:\,\=]|[a-zA-Z0-9_\-\.\$§\w]+|\s+)/g;
+        // Fail-safe regex matches commands, selectors, comments, NBT, strings, words, whitespace, or ANY single character (.)
+        const tokenRegex = /(\/\w+|@[pabr](?:\[[^\]]+\])?|#.*|'[^']*'|"[^"]*"|[\{\}\[\]\:\,\=]|[a-zA-Z0-9_\-\.\$§\w]+|\s+|.)/g;
         
         const lines = cmd.split('\n');
         
@@ -728,7 +729,6 @@ const app = {
             if (!tokens) return line;
 
             return tokens.map(token => {
-                // Escape brackets to prevent HTML injections
                 let escaped = token.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
                 // 1. Comments
@@ -747,12 +747,16 @@ const app = {
                 if (['{', '}', '[', ']', ':', ',', '='].includes(escaped)) {
                     return `<span class="hl-nbt">${escaped}</span>`;
                 }
-                // 5. Highlight Entity names inside string
-                if (this.isMobToken(escaped)) {
+                // 5. String Literals
+                if ((escaped.startsWith("'") && escaped.endsWith("'")) || (escaped.startsWith('"') && escaped.endsWith('"'))) {
+                    return `<span class="hl-str">${escaped}</span>`;
+                }
+                // 6. Highlight Entity names inside string
+                if (app.isMobToken(escaped)) {
                     return `<span class="hl-ent">${escaped}</span>`;
                 }
-                // 6. Highlight Item names inside string
-                if (this.isItemToken(escaped)) {
+                // 7. Highlight Item names inside string
+                if (app.isItemToken(escaped)) {
                     return `<span class="hl-itm">${escaped}</span>`;
                 }
 
@@ -782,7 +786,7 @@ const app = {
     // Display command in box
     displayCommand(cmd) {
         const box = document.getElementById("command-output-box");
-        box.innerHTML = this.highlightSyntax(cmd);
+        box.innerHTML = app.highlightSyntax(cmd);
         box.dataset.rawCommand = cmd;
     },
 
@@ -836,7 +840,7 @@ const app = {
             }
 
             const cmd = Generator.generateMob(config, targetVersion);
-            this.displayCommand(cmd);
+            app.displayCommand(cmd);
 
         } else if (activeTab === "items-pane") {
             // Read active enchants
@@ -864,13 +868,13 @@ const app = {
             };
 
             const cmd = Generator.generateItem(config, targetVersion);
-            this.displayCommand(cmd);
+            app.displayCommand(cmd);
         }
     },
 
     // 11. Clipboard Service
     copyToClipboard() {
-        this.playClick();
+        app.playClick();
         const box = document.getElementById("command-output-box");
         const command = box.dataset.rawCommand || box.textContent;
 
@@ -900,7 +904,7 @@ const app = {
         } catch (e) {
             console.error("Failed to load presets", e);
         }
-        this.updatePresetsUI();
+        app.updatePresetsUI();
     },
 
     savePresetsToStorage() {
@@ -909,11 +913,11 @@ const app = {
         } catch (e) {
             console.error("Failed to save presets", e);
         }
-        this.updatePresetsUI();
+        app.updatePresetsUI();
     },
 
     saveCurrentPreset() {
-        this.playClick();
+        app.playClick();
         const nameInput = document.getElementById("save-preset-name");
         const presetName = nameInput.value.trim();
 
@@ -936,7 +940,7 @@ const app = {
         };
 
         presets.push(presetObj);
-        this.savePresetsToStorage();
+        app.savePresetsToStorage();
         nameInput.value = "";
         
         const toast = document.getElementById("toast");
@@ -948,17 +952,17 @@ const app = {
     },
 
     deletePreset(id) {
-        this.playClick();
+        app.playClick();
         presets = presets.filter(p => p.id !== id);
-        this.savePresetsToStorage();
+        app.savePresetsToStorage();
     },
 
     loadPreset(id) {
-        this.playClick();
+        app.playClick();
         const p = presets.find(p => p.id === id);
         if (!p) return;
 
-        this.displayCommand(p.command);
+        app.displayCommand(p.command);
         
         // Push notification toast
         const toast = document.getElementById("toast");
@@ -970,7 +974,7 @@ const app = {
     },
 
     exportPreset(id) {
-        this.playClick();
+        app.playClick();
         const p = presets.find(p => p.id === id);
         if (!p) return;
 
@@ -982,7 +986,7 @@ const app = {
     },
 
     importPreset() {
-        this.playClick();
+        app.playClick();
         const area = document.getElementById("preset-json-area");
         const jsonStr = area.value.trim();
 
@@ -999,7 +1003,7 @@ const app = {
             
             p.id = Date.now().toString();
             presets.push(p);
-            this.savePresetsToStorage();
+            app.savePresetsToStorage();
             area.value = "";
             
             alert(`Preset "${p.name}" imported successfully! Check "My Presets".`);
@@ -1011,6 +1015,7 @@ const app = {
 
     updatePresetsUI() {
         const container = document.getElementById("presets-list-container");
+        if (!container) return;
         container.innerHTML = "";
 
         if (presets.length === 0) {
