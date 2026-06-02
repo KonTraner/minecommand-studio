@@ -146,9 +146,9 @@ const MC_DATA = {
         { id: "mending", name: "Mending", max: 1, type: "all" }
     ],
 
-    // 5. 30 Expanded Troll Commands (6 per level)
+    // 5. 62 Expanded Troll Commands (Levels 1 to 5)
     trolls: [
-        // LEVEL 1 (Mild Annoyance)
+        // LEVEL 1 (Mild Annoyance - Harmless Spooks)
         {
             level: 1,
             id: "cave_spook",
@@ -237,8 +237,41 @@ const MC_DATA = {
             bedrock: "/playsound random.fizz [TARGET] ~ ~ ~ 1 1",
             requires_command_block: false
         },
+        {
+            level: 1,
+            id: "ghost_creeper_hiss",
+            name: "Creeper Hiss Spook",
+            type: "harmless",
+            desc: "Plays the terrifying Creeper fuse warning sound directly at the victim's location.",
+            java_modern: "/playsound minecraft:entity.creeper.primed host [TARGET] ~ ~ ~ 1 1",
+            java_legacy: "/playsound entity.creeper.primed host [TARGET] ~ ~ ~ 1 1",
+            bedrock: "/playsound random.fuse [TARGET] ~ ~ ~ 1 1",
+            requires_command_block: false
+        },
+        {
+            level: 1,
+            id: "ghost_chicken",
+            name: "Clucking Head Crown",
+            type: "harmless",
+            desc: "Summons a completely invisible chicken at their feet, clucking in their ears.",
+            java_modern: "/execute at [TARGET] run summon minecraft:chicken ~ ~ ~ {Silent:0b,active_effects:[{id:'minecraft:invisibility',amplifier:0,duration:-1,show_particles:0b}]}",
+            java_legacy: "/execute at [TARGET] run summon chicken ~ ~ ~ {Silent:0b,ActiveEffects:[{Id:14,Amplifier:0,Duration:19999,ShowParticles:0b}]}",
+            bedrock: "/execute at [TARGET] run summon chicken ~ ~ ~ minecraft:become_invisible",
+            requires_command_block: false
+        },
+        {
+            level: 1,
+            id: "fake_op",
+            name: "Fake Operator Alert",
+            type: "harmless",
+            desc: "Fakes the standard server console OP notice directly to the target's chat screen.",
+            java_modern: '/tellraw [TARGET] {"text":"You are now an operator! Type /help for help.","color":"gray","italic":true}',
+            java_legacy: '/tellraw [TARGET] {"text":"You are now an operator! Type /help for help.","color":"gray","italic":true}',
+            bedrock: '/tellraw [TARGET] {"rawtext":[{"text":"§7§oYou are now an operator! Type /help for help."}]}',
+            requires_command_block: false
+        },
 
-        // LEVEL 2 (Minor Sabotage)
+        // LEVEL 2 (Minor Sabotage - Nuisance & Friction)
         {
             level: 2,
             id: "disco_floor",
@@ -327,8 +360,41 @@ const MC_DATA = {
             bedrock: "/execute at [TARGET] run setblock ~ ~-1 ~ diamond_ore",
             requires_command_block: false
         },
+        {
+            level: 2,
+            id: "water_cage",
+            name: "Instant Water Cage",
+            type: "grief",
+            desc: "Spawns a block of running water exactly at their head height to slow them down.",
+            java_modern: "/execute at [TARGET] run setblock ~ ~1 ~ minecraft:water",
+            java_legacy: "/execute at [TARGET] run setblock ~ ~1 ~ water",
+            bedrock: "/execute at [TARGET] run setblock ~ ~1 ~ water",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "slow_dig",
+            name: "Mining Fatigue Curse",
+            type: "grief",
+            desc: "Inflicts severe Mining Fatigue for 20 seconds, grinding block breaking to a halt.",
+            java_modern: "/effect give [TARGET] minecraft:mining_fatigue 20 2",
+            java_legacy: "/effect give [TARGET] mining_fatigue 20 2",
+            bedrock: "/effect [TARGET] mining_fatigue 20 2",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "soil_swap",
+            name: "Dirt Hand Curse",
+            type: "grief",
+            desc: "Swaps their active hand held item with a basic block of dirt.",
+            java_modern: "/item replace entity [TARGET] weapon.mainhand with minecraft:dirt",
+            java_legacy: "/replaceitem entity [TARGET] slot.weapon.mainhand minecraft:dirt",
+            bedrock: "/replaceitem entity [TARGET] slot.weapon.mainhand 0 dirt",
+            requires_command_block: false
+        },
 
-        // LEVEL 3 (Major Griefing)
+        // LEVEL 3 (Major Griefing - Traps & Strikes)
         {
             level: 3,
             id: "inv_stalker",
@@ -417,8 +483,41 @@ const MC_DATA = {
             bedrock: "/summon phantom ~ ~10 ~",
             requires_command_block: false
         },
+        {
+            level: 3,
+            id: "guardian_scare",
+            name: "Elder Guardian Ghost Scare",
+            type: "harmless",
+            desc: "Flashes the giant Elder Guardian face overlay jump scare on their screen.",
+            java_modern: "/particle minecraft:elder_guardian ~ ~ ~ 0 0 0 0 1 force [TARGET]\n/playsound minecraft:entity.elder_guardian.curse ambient [TARGET] ~ ~ ~ 1 1",
+            java_legacy: "/particle elder_guardian ~ ~ ~ 0 0 0 0 1 force [TARGET]\n/playsound entity.elder_guardian.curse ambient [TARGET] ~ ~ ~ 1 1",
+            bedrock: "/playsound mob.elderguardian.curse [TARGET] ~ ~ ~ 1 1",
+            requires_command_block: true
+        },
+        {
+            level: 3,
+            id: "bedrock_floor",
+            name: "Bedrock Floor Anchor",
+            type: "grief",
+            desc: "Instantly replaces the single block directly beneath their feet with unbreakable Bedrock.",
+            java_modern: "/execute at [TARGET] run setblock ~ ~-1 ~ minecraft:bedrock",
+            java_legacy: "/execute at [TARGET] run setblock ~ ~-1 ~ bedrock",
+            bedrock: "/execute at [TARGET] run setblock ~ ~-1 ~ bedrock",
+            requires_command_block: false
+        },
+        {
+            level: 3,
+            id: "angry_wolf",
+            name: "Rabid Wolf Spawner",
+            type: "grief",
+            desc: "Summons an extremely aggressive, angry wild Wolf right next to the target.",
+            java_modern: "/execute at [TARGET] run summon minecraft:wolf ~ ~ ~ {Angry:1b,AngerTime:1200,AngryAt:[TARGET]}",
+            java_legacy: "/execute at [TARGET] run summon wolf ~ ~ ~ {Angry:1b,AngryAt:[TARGET]}",
+            bedrock: "/execute at [TARGET] run summon wolf ~ ~ ~ minecraft:become_angry",
+            requires_command_block: false
+        },
 
-        // LEVEL 4 (Ultimate Rage)
+        // LEVEL 4 (Ultimate Rage - Destruction & Swarms)
         {
             level: 4,
             id: "herobrine_spook",
@@ -435,7 +534,7 @@ const MC_DATA = {
             id: "fake_diamonds",
             name: "Fake Diamond Broadcaster",
             type: "harmless",
-            desc: "Fakes a server-wide system message declaring they got the 'Diamonds!' achievement.",
+            desc: "Fakes a server-wide system message declaring they got the 'Diamonds!' advancement.",
             java_modern: '/tellraw @a [{"selector":"[TARGET]","color":"white"},{"text":" has made the advancement "},{"text":"[Diamonds!]","color":"green","bold":true}]\n/tellraw [TARGET] {"text":"Pranked! Actually zero diamonds!","color":"red"}',
             java_legacy: '/tellraw @a [{"selector":"[TARGET]","color":"white"},{"text":" has made the advancement "},{"text":"[Diamonds!]","color":"green","bold":true}]\n/tellraw [TARGET] {"text":"Pranked! Actually zero diamonds!","color":"red"}',
             bedrock: '/tellraw @a {"rawtext":[{"selector":"[TARGET]"},{"text":" has made the advancement §a§l[Diamonds!]"}]}\n/tellraw [TARGET] {"rawtext":[{"text":"§cPranked! Actually zero diamonds!"}]}',
@@ -507,8 +606,41 @@ const MC_DATA = {
             bedrock: "/playanimation @e[type=phantom] animation.ghast.scale scale 8",
             requires_command_block: false
         },
+        {
+            level: 4,
+            id: "lava_coffin",
+            name: "Lava Shower Trap",
+            type: "grief",
+            desc: "Summons a block of burning lava exactly 3 blocks above their head, causing it to drip down.",
+            java_modern: "/execute at [TARGET] run setblock ~ ~3 ~ minecraft:lava",
+            java_legacy: "/execute at [TARGET] run setblock ~ ~3 ~ lava",
+            bedrock: "/execute at [TARGET] run setblock ~ ~3 ~ lava",
+            requires_command_block: false
+        },
+        {
+            level: 4,
+            id: "pumpkin_head",
+            name: "Pumpkin Blindness",
+            type: "grief",
+            desc: "Forces a carved pumpkin onto their head armor slot, severely blocking their screen view.",
+            java_modern: "/item replace entity [TARGET] armor.head with minecraft:carved_pumpkin",
+            java_legacy: "/replaceitem entity [TARGET] slot.armor.head minecraft:carved_pumpkin",
+            bedrock: "/replaceitem entity [TARGET] slot.armor.head 0 carved_pumpkin",
+            requires_command_block: false
+        },
+        {
+            level: 4,
+            id: "wither_spawn_sound",
+            name: "Wither Spawn Panic",
+            type: "harmless",
+            desc: "Plays the terrifying Wither Boss spawn sound globally to the target, creating mass panic.",
+            java_modern: "/playsound minecraft:entity.wither.spawn master [TARGET] ~ ~ ~ 1 1 1",
+            java_legacy: "/playsound entity.wither.spawn master [TARGET] ~ ~ ~ 1 1 1",
+            bedrock: "/playsound mob.wither.spawn [TARGET] ~ ~ ~ 1 1",
+            requires_command_block: false
+        },
 
-        // LEVEL 5 (World Shatterer)
+        // LEVEL 5 (World Shatterer - Apocalypse & Client Lag)
         {
             level: 5,
             id: "kbd_freeze",
@@ -525,7 +657,7 @@ const MC_DATA = {
             id: "fake_admin_ban",
             name: "Fake Admin Ban Screen",
             type: "harmless",
-            desc: "Fashes an official-looking kicked system tellraw in public chat while sending a private April Fools message.",
+            desc: "Flashes an official-looking kicked system tellraw in public chat while sending a private April Fools message.",
             java_modern: '/tellraw @a {"text":"[System] Connection lost: Kicked by Admin (Violation: FlyHack)","color":"red"}\n/tellraw [TARGET] {"text":"Pranked! You are not banned!","color":"green"}',
             java_legacy: '/tellraw @a {"text":"[System] Connection lost: Kicked by Admin (Violation: FlyHack)","color":"red"}\n/tellraw [TARGET] {"text":"Pranked! You are not banned!","color":"green"}',
             bedrock: '/tellraw @a {"rawtext":[{"text":"§c[System] Connection lost: Kicked by Admin (Violation: FlyHack)"}]}\n/tellraw [TARGET] {"rawtext":[{"text":"§aPranked! You are not banned!"}]}',
@@ -618,6 +750,94 @@ const MC_DATA = {
             java_legacy: "/execute as [TARGET] at @s run tp @s ~-0.05 ~ ~0.05",
             bedrock: "/execute as [TARGET] at @s run tp @s ~-0.05 ~ ~0.05",
             requires_command_block: true
+        },
+        {
+            level: 5,
+            id: "sky_fall",
+            name: "Terminal Sky Drop (200m)",
+            type: "grief",
+            desc: "Teleports the target 200 blocks straight up into the air, forcing a high-altitude freefall.",
+            java_modern: "/tp [TARGET] ~ ~200 ~",
+            java_legacy: "/tp [TARGET] ~ ~200 ~",
+            bedrock: "/tp [TARGET] ~ ~200 ~",
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "diamond_burn",
+            name: "Anti-Diamond Deletion",
+            type: "grief",
+            desc: "Continuously vaporizes any dropped Diamond items near the player, rendering diamond drops impossible.",
+            java_modern: '/execute as @e[type=minecraft:item] at @s if entity @s[nbt={Item:{id:"minecraft:diamond"}}] run kill @s',
+            java_legacy: '/execute as @e[type=item] at @s if entity @s[nbt={Item:{id:"minecraft:diamond"}}] run kill @s',
+            bedrock: "/kill @e[type=item,name=diamond]",
+            requires_command_block: true
+        },
+        {
+            level: 5,
+            id: "exploding_arrows",
+            name: "Arrow TNT Proximity",
+            type: "grief",
+            desc: "Causes every fired arrow to instantly summon a primed exploding TNT block wherever it travels.",
+            java_modern: "/execute at @e[type=minecraft:arrow] run summon minecraft:tnt ~ ~ ~ {Fuse:0}",
+            java_legacy: "/execute at @e[type=arrow] run summon tnt ~ ~ ~ {Fuse:0}",
+            bedrock: "/execute at @e[type=arrow] run summon tnt ~ ~ ~",
+            requires_command_block: true
+        },
+        {
+            level: 5,
+            id: "silverfish_spawner",
+            name: "Silverfish Swarm",
+            type: "grief",
+            desc: "Spawns 5 high-speed, aggressive Silverfish directly on top of the target's head.",
+            java_modern: "/execute at [TARGET] run summon minecraft:silverfish ~ ~ ~",
+            java_legacy: "/execute at [TARGET] run summon silverfish ~ ~ ~",
+            bedrock: "/execute at [TARGET] run summon silverfish ~ ~ ~",
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "blindness_strike",
+            name: "Extreme Blindness Spike",
+            type: "grief",
+            desc: "Applies high-duration server-wide blindness (30 seconds) to completely black out their vision.",
+            java_modern: "/effect give [TARGET] minecraft:blindness 30 1",
+            java_legacy: "/effect give [TARGET] blindness 30 1",
+            bedrock: "/effect [TARGET] blindness 30 1",
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "fake_timeout",
+            name: "Fake Disconnect Screen",
+            type: "harmless",
+            desc: "Sends a fake network disconnect/timeout system message in red font to spark connection panic.",
+            java_modern: '/tellraw [TARGET] {"text":"Connection timed out: server is shutting down.","color":"red"}',
+            java_legacy: '/tellraw [TARGET] {"text":"Connection timed out: server is shutting down.","color":"red"}',
+            bedrock: '/tellraw [TARGET] {"rawtext":[{"text":"§cConnection timed out: server is shutting down."}]}',
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "slow_motion",
+            name: "Slow Motion Trap",
+            type: "grief",
+            desc: "Inflicts absolute extreme slowness and mining fatigue, making their gameplay crawl in slow-motion.",
+            java_modern: "/effect give [TARGET] minecraft:slowness 20 10\n/effect give [TARGET] minecraft:mining_fatigue 20 10",
+            java_legacy: "/effect give [TARGET] slowness 20 10\n/effect give [TARGET] mining_fatigue 20 10",
+            bedrock: "/effect [TARGET] slowness 20 10\n/effect [TARGET] mining_fatigue 20 10",
+            requires_command_block: true
+        },
+        {
+            level: 5,
+            id: "levitation_void",
+            name: "Anti-Gravity Void",
+            type: "grief",
+            desc: "Shoots the target into the stratosphere with extreme levitation and locks them high above the ground.",
+            java_modern: "/effect give [TARGET] minecraft:levitation 10 20",
+            java_legacy: "/effect give [TARGET] levitation 10 20",
+            bedrock: "/effect [TARGET] levitation 10 20",
+            requires_command_block: false
         }
     ],
 

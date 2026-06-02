@@ -172,6 +172,41 @@
                                         <span class="mc-checkbox"></span>
                                         Invulnerable
                                     </label>
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="mob-nogravity">
+                                        <span class="mc-checkbox"></span>
+                                        No Gravity
+                                    </label>
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="mob-fireimmune">
+                                        <span class="mc-checkbox"></span>
+                                        Fire Immune
+                                    </label>
+                                </div>
+                                <div class="input-field col-span-2" style="margin-top: 14px;">
+                                    <label>Active Potion Effects</label>
+                                    <div class="checkbox-grid" style="margin-top: 6px;">
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="mob-eff-speed">
+                                            <span class="mc-checkbox"></span>
+                                            Speed II
+                                        </label>
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="mob-eff-strength">
+                                            <span class="mc-checkbox"></span>
+                                            Strength II
+                                        </label>
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="mob-eff-invisibility">
+                                            <span class="mc-checkbox"></span>
+                                            Invisibility
+                                        </label>
+                                        <label class="mc-checkbox-label">
+                                            <input type="checkbox" id="mob-eff-resistance">
+                                            <span class="mc-checkbox"></span>
+                                            Resistance V
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -354,6 +389,13 @@
                                     <label for="item-lore">Lore / Tooltip Description (One line per row)</label>
                                     <textarea id="item-lore" rows="3" placeholder="e.g. §7Forged in the heart of a dying star&#10;§d+100 Magic Damage"></textarea>
                                 </div>
+                                <div class="input-field col-span-2 slider-group">
+                                    <div class="slider-header">
+                                        <label for="item-count">Stack Count</label>
+                                        <span id="item-count-val">1 Item</span>
+                                    </div>
+                                    <input type="range" id="item-count" min="1" max="64" value="1">
+                                </div>
                                 <div class="checkbox-grid">
                                     <label class="mc-checkbox-label">
                                         <input type="checkbox" id="item-unbreakable">
@@ -364,6 +406,11 @@
                                         <input type="checkbox" id="item-hideflags">
                                         <span class="mc-checkbox"></span>
                                         Hide Tooltip Info (HideFlags)
+                                    </label>
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="item-glint">
+                                        <span class="mc-checkbox"></span>
+                                        Force Glow (Glint)
                                     </label>
                                 </div>
                             </div>

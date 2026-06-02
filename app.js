@@ -10,6 +10,20 @@ let presets = [];
 let activeChainId = null;
 
 const app = {
+    // Safety Event Binders
+    safeBind(id, event, callback) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener(event, callback);
+        }
+    },
+
+    safeBindAll(selector, event, callback) {
+        document.querySelectorAll(selector).forEach(el => {
+            el.addEventListener(event, callback);
+        });
+    },
+
     // 1. Initializer Hook
     init() {
         app.loadPresetsFromStorage();
@@ -743,121 +757,147 @@ const app = {
     // 8. Register DOM Event Handlers
     registerEventListeners() {
         // Tab routing clicks
-        document.querySelectorAll('.nav-tab').forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                const target = e.currentTarget.dataset.target;
-                app.switchTab(target);
-            });
+        app.safeBindAll('.nav-tab', 'click', (e) => {
+            const target = e.currentTarget.dataset.target;
+            app.switchTab(target);
         });
 
         // BIND CUSTOM 3D SEGMENTED TARGET VERSION PICKER
-        document.querySelectorAll("#version-picker .segment").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                app.playClick();
-                document.querySelectorAll("#version-picker .segment").forEach(b => b.classList.remove("active"));
-                e.currentTarget.classList.add("active");
-                
-                // Write value to hidden field
-                document.getElementById("version-select").value = e.currentTarget.dataset.value;
-                app.recalculateCurrentCommand();
-                
-                if (activeTab === "trolls-pane") {
-                    app.updateTrollGrids();
-                    app.updateActiveChainIfOpen();
-                }
-            });
+        app.safeBindAll("#version-picker .segment", "click", (e) => {
+            app.playClick();
+            document.querySelectorAll("#version-picker .segment").forEach(b => b.classList.remove("active"));
+            e.currentTarget.classList.add("active");
+            
+            const selectEl = document.getElementById("version-select");
+            if (selectEl) selectEl.value = e.currentTarget.dataset.value;
+            app.recalculateCurrentCommand();
+            
+            if (activeTab === "trolls-pane") {
+                app.updateTrollGrids();
+                app.updateActiveChainIfOpen();
+            }
         });
 
         // Sound FX toggle
         const soundBtn = document.getElementById("sound-toggle");
-        soundBtn.addEventListener("click", () => {
-            soundFXEnabled = !soundFXEnabled;
-            if (soundFXEnabled) {
-                soundBtn.classList.remove("secondary-btn");
-                soundBtn.classList.add("mc-btn-square");
-                soundBtn.innerHTML = `
-                    <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/>
-                    </svg>
-                `;
-                app.playClick();
-            } else {
-                soundBtn.classList.add("secondary-btn");
-                soundBtn.innerHTML = `
-                    <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M3.27,1.44L2,2.72L5.28,6H3V12H7L12,17V9.73L16.73,14.46C15.93,15.09 15,15.58 14,15.89V17.95C15.53,17.5 16.92,16.65 18.06,15.5L20.28,17.72L21.56,16.44L3.27,1.44M12,4L9.91,6.09L12,8.18V4M19,12C19,13.68 18.42,15.23 17.5,16.47L18.97,17.94C20.24,16.25 21,14.21 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.48,12.43 16.5,12.22 16.5,12Z"/>
-                    </svg>
-                `;
-            }
-        });
+        if (soundBtn) {
+            soundBtn.addEventListener("click", () => {
+                soundFXEnabled = !soundFXEnabled;
+                if (soundFXEnabled) {
+                    soundBtn.classList.remove("secondary-btn");
+                    soundBtn.classList.add("mc-btn-square");
+                    soundBtn.innerHTML = `
+                        <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/>
+                        </svg>
+                    `;
+                    app.playClick();
+                } else {
+                    soundBtn.classList.add("secondary-btn");
+                    soundBtn.innerHTML = `
+                        <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M3.27,1.44L2,2.72L5.28,6H3V12H7L12,17V9.73L16.73,14.46C15.93,15.09 15,15.58 14,15.89V17.95C15.53,17.5 16.92,16.65 18.06,15.5L20.28,17.72L21.56,16.44L3.27,1.44M12,4L9.91,6.09L12,8.18V4M19,12C19,13.68 18.42,15.23 17.5,16.47L18.97,17.94C20.24,16.25 21,14.21 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.48,12.43 16.5,12.22 16.5,12Z"/>
+                        </svg>
+                    `;
+                }
+            });
+        }
 
         // --- MOB STUDIO EVENTS ---
-        document.getElementById("mob-name").addEventListener("input", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-name", "input", () => app.recalculateCurrentCommand());
         
         // HP slider
         const hpSlider = document.getElementById("mob-health");
-        hpSlider.addEventListener("input", (e) => {
-            document.getElementById("mob-health-val").textContent = `${e.target.value} HP`;
-            app.recalculateCurrentCommand();
-        });
+        if (hpSlider) {
+            hpSlider.addEventListener("input", (e) => {
+                const valEl = document.getElementById("mob-health-val");
+                if (valEl) valEl.textContent = `${e.target.value} HP`;
+                app.recalculateCurrentCommand();
+            });
+        }
         
         // Speed slider
         const speedSlider = document.getElementById("mob-speed");
-        speedSlider.addEventListener("input", (e) => {
-            document.getElementById("mob-speed-val").textContent = `${e.target.value}x`;
+        if (speedSlider) {
+            speedSlider.addEventListener("input", (e) => {
+                const valEl = document.getElementById("mob-speed-val");
+                if (valEl) valEl.textContent = `${e.target.value}x`;
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        // Mob Checkboxes
+        app.safeBind("mob-silent", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-noai", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-glowing", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-invulnerable", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-nogravity", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-fireimmune", "change", () => app.recalculateCurrentCommand());
+
+        // Mob Active Effects Checkboxes
+        app.safeBind("mob-eff-speed", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-eff-strength", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-eff-invisibility", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-eff-resistance", "change", () => app.recalculateCurrentCommand());
+        
+        // Equipment checkboxes
+        app.safeBindAll(".slot-ench-toggle", "change", () => {
+            app.playClick();
             app.recalculateCurrentCommand();
         });
 
-        // Mob Checkboxes
-        document.getElementById("mob-silent").addEventListener("change", () => app.recalculateCurrentCommand());
-        document.getElementById("mob-noai").addEventListener("change", () => app.recalculateCurrentCommand());
-        document.getElementById("mob-glowing").addEventListener("change", () => app.recalculateCurrentCommand());
-        document.getElementById("mob-invulnerable").addEventListener("change", () => app.recalculateCurrentCommand());
-        
-        // Equipment checkboxes
-        document.querySelectorAll(".slot-ench-toggle").forEach(el => {
-            el.addEventListener("change", () => {
-                app.playClick();
+        // --- ITEM STUDIO EVENTS ---
+        app.safeBind("item-name", "input", () => app.recalculateCurrentCommand());
+        app.safeBind("item-lore", "input", () => app.recalculateCurrentCommand());
+        app.safeBind("item-unbreakable", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("item-hideflags", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("item-glint", "change", () => app.recalculateCurrentCommand());
+
+        // Stack count slider
+        const countSlider = document.getElementById("item-count");
+        if (countSlider) {
+            countSlider.addEventListener("input", (e) => {
+                const valEl = document.getElementById("item-count-val");
+                if (valEl) valEl.textContent = `${e.target.value} ${e.target.value == 1 ? 'Item' : 'Items'}`;
                 app.recalculateCurrentCommand();
             });
-        });
-
-        // --- ITEM STUDIO EVENTS ---
-        document.getElementById("item-name").addEventListener("input", () => app.recalculateCurrentCommand());
-        document.getElementById("item-lore").addEventListener("input", () => app.recalculateCurrentCommand());
-        document.getElementById("item-unbreakable").addEventListener("change", () => app.recalculateCurrentCommand());
-        document.getElementById("item-hideflags").addEventListener("change", () => app.recalculateCurrentCommand());
+        }
 
         // Enchant checklist handlers
-        const container = document.getElementById("enchantments-checklist-container");
-        container.addEventListener("change", (e) => {
-            if (e.target.classList.contains("ench-cb")) {
-                app.playClick();
-                const id = e.target.dataset.enchId;
-                const row = document.getElementById(`ench-slider-row-${id}`);
-                if (e.target.checked) {
-                    row.classList.add("show");
-                } else {
-                    row.classList.remove("show");
+        const enchantContainer = document.getElementById("enchantments-checklist-container");
+        if (enchantContainer) {
+            enchantContainer.addEventListener("change", (e) => {
+                if (e.target.classList.contains("ench-cb")) {
+                    app.playClick();
+                    const id = e.target.dataset.enchId;
+                    const row = document.getElementById(`ench-slider-row-${id}`);
+                    if (row) {
+                        if (e.target.checked) {
+                            row.classList.add("show");
+                        } else {
+                            row.classList.remove("show");
+                        }
+                    }
+                    app.recalculateCurrentCommand();
                 }
-                app.recalculateCurrentCommand();
-            }
-        });
+            });
 
-        container.addEventListener("input", (e) => {
-            if (e.target.classList.contains("ench-slider")) {
-                const id = e.target.dataset.enchId;
-                document.getElementById(`ench-lbl-${id}`).textContent = `Level ${e.target.value}`;
-                app.recalculateCurrentCommand();
-            }
-        });
+            enchantContainer.addEventListener("input", (e) => {
+                if (e.target.classList.contains("ench-slider")) {
+                    const id = e.target.dataset.enchId;
+                    const lbl = document.getElementById(`ench-lbl-${id}`);
+                    if (lbl) lbl.textContent = `Level ${e.target.value}`;
+                    app.recalculateCurrentCommand();
+                }
+            });
+        }
 
         // Search enchants filter
-        document.getElementById("enchant-search").addEventListener("input", (e) => {
+        app.safeBind("enchant-search", "input", (e) => {
             const query = e.target.value.toLowerCase().trim();
             document.querySelectorAll(".enchant-item").forEach(item => {
                 const name = item.dataset.name;
-                if (name.includes(query)) {
+                if (name && name.includes(query)) {
                     item.style.display = "block";
                 } else {
                     item.style.display = "none";
@@ -866,22 +906,18 @@ const app = {
         });
 
         // Stat attributes modifiers
-        document.querySelectorAll(".attr-input-group input").forEach(input => {
-            input.addEventListener("input", () => app.recalculateCurrentCommand());
-        });
+        app.safeBindAll(".attr-input-group input", "input", () => app.recalculateCurrentCommand());
 
         // --- TROLL MENU EVENTS ---
-        document.querySelectorAll(".filter-tab").forEach(tab => {
-            tab.addEventListener("click", (e) => {
-                app.playClick();
-                document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
-                e.currentTarget.classList.add("active");
-                currentTrollFilter = e.currentTarget.dataset.filter;
-                app.updateTrollGrids();
-            });
+        app.safeBindAll(".filter-tab", "click", (e) => {
+            app.playClick();
+            document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+            e.currentTarget.classList.add("active");
+            currentTrollFilter = e.currentTarget.dataset.filter;
+            app.updateTrollGrids();
         });
 
-        document.getElementById("troll-target").addEventListener("input", () => {
+        app.safeBind("troll-target", "input", () => {
             app.updateTrollGrids();
             app.updateActiveChainIfOpen();
         });
@@ -890,36 +926,32 @@ const app = {
         const chainModal = document.getElementById("chain-modal-overlay");
         const closeChainModalFn = () => {
             app.playClick();
-            chainModal.classList.remove("show");
-            setTimeout(() => {
-                chainModal.style.display = "none";
-            }, 250);
+            if (chainModal) {
+                chainModal.classList.remove("show");
+                setTimeout(() => {
+                    chainModal.style.display = "none";
+                }, 250);
+            }
             activeChainId = null;
         };
 
-        document.getElementById("btn-close-chain-modal").addEventListener("click", closeChainModalFn);
-        document.getElementById("btn-close-chain-modal-bottom").addEventListener("click", closeChainModalFn);
-        chainModal.addEventListener("click", (e) => {
-            if (e.target === chainModal) closeChainModalFn();
-        });
+        app.safeBind("btn-close-chain-modal", "click", closeChainModalFn);
+        app.safeBind("btn-close-chain-modal-bottom", "click", closeChainModalFn);
+        if (chainModal) {
+            chainModal.addEventListener("click", (e) => {
+                if (e.target === chainModal) closeChainModalFn();
+            });
+        }
 
         // --- PRESET ACTIONS ---
-        document.getElementById("btn-save-preset").addEventListener("click", () => {
-            app.saveCurrentPreset();
-        });
-
-        document.getElementById("btn-import-preset").addEventListener("click", () => {
-            app.importPreset();
-        });
-
-        document.getElementById("btn-clear-share").addEventListener("click", () => {
+        app.safeBind("btn-save-preset", "click", () => app.saveCurrentPreset());
+        app.safeBind("btn-import-preset", "click", () => app.importPreset());
+        app.safeBind("btn-clear-share", "click", () => {
             app.playClick();
-            document.getElementById("preset-json-area").value = "";
+            const shareArea = document.getElementById("preset-json-area");
+            if (shareArea) shareArea.value = "";
         });
-
-        document.getElementById("btn-copy-command").addEventListener("click", () => {
-            app.copyToClipboard();
-        });
+        app.safeBind("btn-copy-command", "click", () => app.copyToClipboard());
     },
 
     // ==========================================================================
@@ -1001,33 +1033,45 @@ const app = {
 
     // 10. Central Command State Synthesizer
     recalculateCurrentCommand() {
-        const targetVersion = document.getElementById("version-select").value;
+        const versionEl = document.getElementById("version-select");
+        const targetVersion = versionEl ? versionEl.value : "java_modern";
 
         if (activeTab === "mobs-pane") {
+            const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
+            const getChecked = (id) => { const el = document.getElementById(id); return el ? el.checked : false; };
+
             const config = {
-                type: document.getElementById("mob-type").value,
-                name: document.getElementById("mob-name").value,
-                health: document.getElementById("mob-health").value,
-                speed: document.getElementById("mob-speed").value,
-                silent: document.getElementById("mob-silent").checked,
-                noAI: document.getElementById("mob-noai").checked,
-                glowing: document.getElementById("mob-glowing").checked,
-                invulnerable: document.getElementById("mob-invulnerable").checked,
+                type: getVal("mob-type", "minecraft:zombie"),
+                name: getVal("mob-name"),
+                health: getVal("mob-health", "20"),
+                speed: getVal("mob-speed", "1.0"),
+                silent: getChecked("mob-silent"),
+                noAI: getChecked("mob-noai"),
+                glowing: getChecked("mob-glowing"),
+                invulnerable: getChecked("mob-invulnerable"),
+                noGravity: getChecked("mob-nogravity"),
+                fireImmune: getChecked("mob-fireimmune"),
+                activeEffects: {
+                    speed: getChecked("mob-eff-speed"),
+                    strength: getChecked("mob-eff-strength"),
+                    invisibility: getChecked("mob-eff-invisibility"),
+                    resistance: getChecked("mob-eff-resistance")
+                },
                 gear: {
-                    hand: document.getElementById("eq-hand").value,
-                    offhand: document.getElementById("eq-offhand").value,
-                    head: document.getElementById("eq-head").value,
-                    chest: document.getElementById("eq-chest").value,
-                    legs: document.getElementById("eq-legs").value,
-                    feet: document.getElementById("eq-feet").value
+                    hand: getVal("eq-hand", "none"),
+                    offhand: getVal("eq-offhand", "none"),
+                    head: getVal("eq-head", "none"),
+                    chest: getVal("eq-chest", "none"),
+                    legs: getVal("eq-legs", "none"),
+                    feet: getVal("eq-feet", "none")
                 },
                 gearEnch: {
-                    hand: document.getElementById("eq-hand-ench").checked,
-                    offhand: document.getElementById("eq-offhand-ench").checked,
-                    head: document.getElementById("eq-head-ench").checked,
-                    chest: document.getElementById("eq-chest-ench").checked,
-                    legs: document.getElementById("eq-legs-ench").checked,
-                    feet: document.getElementById("eq-feet-ench").checked
+                    hand: getChecked("eq-hand-ench"),
+                    offhand: getChecked("eq-offhand-ench"),
+                    head: getChecked("eq-head-ench"),
+                    chest: getChecked("eq-chest-ench"),
+                    legs: getChecked("eq-legs-ench"),
+                    feet: getChecked("eq-feet-ench")
                 },
                 specials: {}
             };
@@ -1052,27 +1096,33 @@ const app = {
             app.displayCommand(cmd);
 
         } else if (activeTab === "items-pane") {
+            const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
+            const getChecked = (id) => { const el = document.getElementById(id); return el ? el.checked : false; };
+
             // Read active enchants
             let selectedEnchs = [];
             document.querySelectorAll(".ench-cb:checked").forEach(cb => {
                 const id = cb.dataset.enchId;
-                const lvl = parseInt(document.querySelector(`.ench-slider[data-ench-id="${id}"]`).value) || 1;
+                const slider = document.querySelector(`.ench-slider[data-ench-id="${id}"]`);
+                const lvl = slider ? (parseInt(slider.value) || 1) : 1;
                 selectedEnchs.push({ id, lvl });
             });
 
             const config = {
-                id: document.getElementById("item-type").value,
-                name: document.getElementById("item-name").value,
-                lore: document.getElementById("item-lore").value,
-                unbreakable: document.getElementById("item-unbreakable").checked,
-                hideFlags: document.getElementById("item-hideflags").checked,
+                id: getVal("item-type", "minecraft:diamond_sword"),
+                name: getVal("item-name"),
+                lore: getVal("item-lore"),
+                unbreakable: getChecked("item-unbreakable"),
+                hideFlags: getChecked("item-hideflags"),
+                glint: getChecked("item-glint"),
+                count: parseInt(getVal("item-count", "1")) || 1,
                 enchantments: selectedEnchs,
                 attributes: {
-                    attack_damage: parseFloat(document.getElementById("attr-attack-damage").value) || 0,
-                    attack_speed: parseFloat(document.getElementById("attr-attack-speed").value) || 0,
-                    max_health: parseFloat(document.getElementById("attr-max-health").value) || 0,
-                    knockback_resistance: parseFloat(document.getElementById("attr-knockback-res").value) || 0,
-                    movement_speed: parseFloat(document.getElementById("attr-movement-speed").value) || 0
+                    attack_damage: parseFloat(getVal("attr-attack-damage", "0")) || 0,
+                    attack_speed: parseFloat(getVal("attr-attack-speed", "0")) || 0,
+                    max_health: parseFloat(getVal("attr-max-health", "0")) || 0,
+                    knockback_resistance: parseFloat(getVal("attr-knockback-res", "0")) || 0,
+                    movement_speed: parseFloat(getVal("attr-movement-speed", "0")) || 0
                 }
             };
 
@@ -1258,3 +1308,6 @@ const app = {
 window.addEventListener("DOMContentLoaded", () => {
     app.init();
 });
+
+// Expose app globally to support inline HTML event handlers (e.g. preset cards load/delete)
+window.app = app;

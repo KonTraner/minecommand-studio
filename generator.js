@@ -68,6 +68,8 @@ const Generator = {
         const loreLines = config.lore ? config.lore.split("\n").filter(l => l.trim() !== "") : [];
         const isUnbreakable = !!config.unbreakable;
         const hideFlags = !!config.hideFlags;
+        const isGlint = !!config.glint;
+        const count = parseInt(config.count) || 1;
         const enchantments = config.enchantments || []; // Array of {id, lvl}
         const attributes = config.attributes || {}; // Object: attack_damage, etc.
 
@@ -89,6 +91,11 @@ const Generator = {
             // Unbreakable
             if (isUnbreakable) {
                 components.push(hideFlags ? "minecraft:unbreakable={show_in_tooltip:false}" : "minecraft:unbreakable={}");
+            }
+
+            // Glint Override
+            if (isGlint) {
+                components.push("minecraft:enchantment_glint_override=true");
             }
 
             // Enchantments
@@ -129,7 +136,7 @@ const Generator = {
             }
 
             const compString = components.length > 0 ? `[${components.join(",")}]` : "";
-            return `/give @p ${itemId}${compString} 1`;
+            return `/give @p ${itemId}${compString} ${count}`;
         }
 
         // --- LEGACY JAVA (1.16 - 1.20.4) ---
@@ -155,6 +162,11 @@ const Generator = {
             // Unbreakable
             if (isUnbreakable) {
                 nbtTags.push("Unbreakable:1b");
+            }
+
+            // Glint / Force Glow
+            if (isGlint && enchantments.length === 0) {
+                nbtTags.push("Enchantments:[{}]");
             }
 
             // Enchantments
@@ -192,7 +204,7 @@ const Generator = {
             }
 
             const nbtString = nbtTags.length > 0 ? `{${nbtTags.join(",")}}` : "";
-            return `/give @p ${itemId}${nbtString} 1`;
+            return `/give @p ${itemId}${nbtString} ${count}`;
         }
 
         // --- BEDROCK EDITION ---
@@ -200,7 +212,7 @@ const Generator = {
             // Bedrock `/give` does not support inline NBT tags directly.
             // We output a clean `/give` command followed by `/enchant` calls for convenience.
             let commands = [];
-            commands.push(`/give @p ${itemId.replace("minecraft:", "")} 1`);
+            commands.push(`/give @p ${itemId.replace("minecraft:", "")} ${count}`);
             
             if (enchantments.length > 0) {
                 commands.push("# Apply Enchantments (Run while holding item):");
@@ -209,7 +221,7 @@ const Generator = {
                 });
             }
 
-            if (customName || isUnbreakable || loreLines.length > 0) {
+            if (customName || isUnbreakable || loreLines.length > 0 || isGlint) {
                 commands.push("\n# NOTE: Custom Name, Lore, Unbreakable NBTs require Anvils or external Loot Tables in Bedrock!");
             }
             
@@ -250,6 +262,9 @@ const Generator = {
         const noAI = !!config.noAI;
         const isGlowing = !!config.glowing;
         const isInvulnerable = !!config.invulnerable;
+        const noGravity = !!config.noGravity;
+        const fireImmune = !!config.fireImmune;
+        const activeEffects = config.activeEffects || {};
 
         // Gear slots
         const gear = config.gear || { hand: "none", offhand: "none", head: "none", chest: "none", legs: "none", feet: "none" };
@@ -276,6 +291,8 @@ const Generator = {
         if (noAI) nbt.push("NoAI:1b");
         if (isGlowing) nbt.push("Glowing:1b");
         if (isInvulnerable) nbt.push("Invulnerable:1b");
+        if (noGravity) nbt.push("NoGravity:1b");
+        if (fireImmune) nbt.push("FireImmune:1b");
 
         // HP and Attributes
         let attributesList = [];
@@ -292,6 +309,29 @@ const Generator = {
 
         if (attributesList.length > 0) {
             nbt.push(`Attributes:[${attributesList.join(",")}]`);
+        }
+
+        // Active Potion Effects
+        let effectsList = [];
+        if (version === "java_modern") {
+            if (activeEffects.speed) effectsList.push("{id:\"minecraft:speed\",amplifier:1,duration:20000,show_particles:1b}");
+            if (activeEffects.strength) effectsList.push("{id:\"minecraft:strength\",amplifier:1,duration:20000,show_particles:1b}");
+            if (activeEffects.invisibility) effectsList.push("{id:\"minecraft:invisibility\",amplifier:0,duration:20000,show_particles:0b}");
+            if (activeEffects.resistance) effectsList.push("{id:\"minecraft:resistance\",amplifier:4,duration:20000,show_particles:1b}");
+            
+            if (effectsList.length > 0) {
+                nbt.push(`active_effects:[${effectsList.join(",")}]`);
+            }
+        } else {
+            // Java Legacy
+            if (activeEffects.speed) effectsList.push("{Id:1b,Amplifier:1b,Duration:20000}");
+            if (activeEffects.strength) effectsList.push("{Id:5b,Amplifier:1b,Duration:20000}");
+            if (activeEffects.invisibility) effectsList.push("{Id:14b,Amplifier:0b,Duration:20000,ShowParticles:0b}");
+            if (activeEffects.resistance) effectsList.push("{Id:11b,Amplifier:4b,Duration:20000}");
+            
+            if (effectsList.length > 0) {
+                nbt.push(`ActiveEffects:[${effectsList.join(",")}]`);
+            }
         }
 
         // Equipment Lists (ArmorItems & HandItems)
@@ -330,7 +370,7 @@ const Generator = {
         }
 
         const nbtString = nbt.length > 0 ? ` {${nbt.join(",")}}` : "";
-        return `/summon ${mobType}~ ~ ~${nbtString}`;
+        return `/summon ${mobType} ~ ~ ~${nbtString}`;
     },
 
     // 3. GENERATE TROLL MENU COMMANDS
