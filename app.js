@@ -542,8 +542,15 @@ const app = {
                 const badgeText = t.type === "harmless" ? "🎈 Harmless" : "🔥 Grief-y";
                 const badgeClass = t.type === "harmless" ? "harmless" : "grief";
 
+                const requiresCmd = t.requires_command_block || false;
+                const cmdClass = requiresCmd ? "req-cb" : "chat-ok";
+                const cmdLabel = requiresCmd ? "⚙️ CMD Block" : "💬 Chat";
+
                 card.innerHTML = `
-                    <span class="troll-badge ${badgeClass}">${badgeText}</span>
+                    <div class="card-badges">
+                        <span class="troll-badge ${badgeClass}">${badgeText}</span>
+                        <span class="cmd-badge ${cmdClass}">${cmdLabel}</span>
+                    </div>
                     <h4>${t.name}</h4>
                     <p>${t.desc}</p>
                     <div class="troll-action-row">

@@ -1009,14 +1009,21 @@ input[type="range"]::-webkit-slider-thumb:active {
     border-color: var(--text-gold);
 }
 
-.troll-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 11px;
+.card-badges {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+}
+
+.troll-badge, .cmd-badge {
+    font-size: 10px;
     font-weight: 700;
     padding: 2px 6px;
     border: 1px solid var(--mc-black);
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
 }
 
 .troll-badge.harmless {
@@ -1031,10 +1038,21 @@ input[type="range"]::-webkit-slider-thumb:active {
     color: var(--color-redstone-light);
 }
 
+.cmd-badge.req-cb {
+    background-color: rgba(176, 95, 46, 0.15);
+    border-color: #d48348;
+    color: #e6a06c;
+}
+
+.cmd-badge.chat-ok {
+    background-color: rgba(77, 237, 229, 0.15);
+    border-color: var(--color-diamond-light);
+    color: var(--color-diamond-light);
+}
+
 .troll-card h4 {
     font-size: 20px;
     color: var(--text-primary);
-    padding-right: 64px;
 }
 
 .troll-card p {
