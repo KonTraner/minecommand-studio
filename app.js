@@ -636,29 +636,34 @@ const app = {
         modal.offsetHeight; // force layout reflow
         modal.classList.add("show");
 
-        // Hydrate the visual diagram labels
-        // Block 2 details
-        const b2 = chain.blocks[1];
-        const condB2 = document.getElementById("diagram-cond-b2");
-        if (condB2) {
-            condB2.textContent = b2.cond;
-            if (b2.cond.toLowerCase() === "conditional") {
-                condB2.style.color = "var(--color-diamond-light)";
-            } else {
-                condB2.style.color = "#cccccc";
-            }
-        }
-
-        // Block 3 details
-        const b3 = chain.blocks[2];
-        const condB3 = document.getElementById("diagram-cond-b3");
-        if (condB3) {
-            condB3.textContent = b3.cond;
-            if (b3.cond.toLowerCase() === "conditional") {
-                condB3.style.color = "var(--color-diamond-light)";
-            } else {
-                condB3.style.color = "#cccccc";
-            }
+        // Hydrate the visual diagram dynamically
+        const diagramBox = document.querySelector(".command-block-diagram");
+        if (diagramBox) {
+            diagramBox.innerHTML = "";
+            chain.blocks.forEach((block, idx) => {
+                if (idx > 0) {
+                    const arrow = document.createElement("div");
+                    arrow.className = "cb-arrow";
+                    arrow.textContent = "▶";
+                    diagramBox.appendChild(arrow);
+                }
+                
+                const node = document.createElement("div");
+                const isRepeater = block.type.toLowerCase() === "repeat";
+                node.className = `cb-node ${isRepeater ? 'cb-node-repeater' : 'cb-node-chain'}`;
+                
+                const isCond = block.cond.toLowerCase() === "conditional";
+                const condColor = isCond ? "color: var(--color-diamond-light);" : "color: #cccccc;";
+                
+                node.innerHTML = `
+                    <span class="cb-face">${isRepeater ? 'R' : 'C'}</span>
+                    <div class="cb-details">
+                        <span class="cb-type">${block.type.toUpperCase()}</span>
+                        <span class="cb-cond" style="${condColor}">${block.cond}</span>
+                    </div>
+                `;
+                diagramBox.appendChild(node);
+            });
         }
 
         // Hydrate step stack

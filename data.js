@@ -838,8 +838,422 @@ const MC_DATA = {
             java_legacy: "/effect give [TARGET] levitation 10 20",
             bedrock: "/effect [TARGET] levitation 10 20",
             requires_command_block: false
+        },
+        // LEVEL 1 (Subtle Spooks)
+        {
+            level: 1,
+            id: "wood_pecker",
+            name: "Subtle Wood Pecker",
+            type: "harmless",
+            desc: "Plays a very quiet wood hit sound in the target's ears, simulating a woodpecker on their base.",
+            java_modern: "/playsound minecraft:block.wood.hit player [TARGET] ~ ~ ~ 0.2 1.5",
+            java_legacy: "/playsound block.wood.hit player [TARGET] ~ ~ ~ 0.2 1.5",
+            bedrock: "/playsound hit.wood [TARGET] ~ ~ ~ 0.2 1.5",
+            requires_command_block: false
+        },
+        {
+            level: 1,
+            id: "bat_flutter",
+            name: "Subtle Bat Wings",
+            type: "harmless",
+            desc: "Simulates bat wing flutter noises in their immediate proximity to make them think one is trapped in their walls.",
+            java_modern: "/playsound minecraft:entity.bat.loop player [TARGET] ~ ~ ~ 0.3 1.1",
+            java_legacy: "/playsound entity.bat.loop player [TARGET] ~ ~ ~ 0.3 1.1",
+            bedrock: "/playsound mob.bat.takeoff [TARGET] ~ ~ ~ 0.3 1.1",
+            requires_command_block: false
+        },
+        {
+            level: 1,
+            id: "fake_chat_lag",
+            name: "Fake Server Connection Lag",
+            type: "harmless",
+            desc: "Fakes a grey system message warning them of extremely high server latency spikes.",
+            java_modern: '/tellraw [TARGET] {"text":"[Server] Warning: Latency spike detected (842ms)","color":"gray"}',
+            java_legacy: '/tellraw [TARGET] {"text":"[Server] Warning: Latency spike detected (842ms)","color":"gray"}',
+            bedrock: '/tellraw [TARGET] {"rawtext":[{"text":"§7[Server] Warning: Latency spike detected (842ms)"}]}',
+            requires_command_block: false
+        },
+        // LEVEL 2 (Subtle Sabotage)
+        {
+            level: 2,
+            id: "camera_drift",
+            name: "Subtle Mouse Drift",
+            type: "harmless",
+            desc: "Slightly rotates the player's camera pitch and yaw by a fraction of a degree, simulating mouse dust.",
+            java_modern: "/execute as [TARGET] at @s run tp @s ~ ~ ~ ~0.25 ~0.2",
+            java_legacy: "/execute as [TARGET] at @s run tp @s ~ ~ ~ ~0.25 ~0.2",
+            bedrock: "/execute as [TARGET] at @s run tp @s ~ ~ ~ ~0.25 ~0.2",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "item_repulsion",
+            name: "Hovering Item Repulsion",
+            type: "grief",
+            desc: "Constantly teleports dropped block items 0.1 blocks upwards whenever the target tries to pick them up.",
+            java_modern: "/execute as @e[type=minecraft:item,distance=..2.5] at @s run tp @s ~ ~0.1 ~",
+            java_legacy: "/execute as @e[type=item,distance=..2.5] at @s run tp @s ~ ~0.1 ~",
+            bedrock: "/execute as @e[type=item,r=2] run tp @s ~ ~0.1 ~",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "silent_footstep",
+            name: "Fake Grass Footstep",
+            type: "harmless",
+            desc: "Plays soft grass stepping sounds behind them while they are actually walking on solid stone.",
+            java_modern: "/execute as [TARGET] at @s if block ~ ~-1 ~ #minecraft:base_stone_overworld run playsound minecraft:block.grass.step player @s ~ ~-1 ~ 0.4 1",
+            java_legacy: "/execute as [TARGET] at @s run playsound block.grass.step player @s ~ ~-1 ~ 0.4 1",
+            bedrock: "/execute as [TARGET] at @s run playsound step.grass [TARGET] ~ ~-1 ~ 0.4",
+            requires_command_block: false
+        },
+        // LEVEL 3 (Subtle Traps)
+        {
+            level: 3,
+            id: "warden_dim",
+            name: "Subtle Screen Dimming",
+            type: "harmless",
+            desc: "Applies a short Warden darkness overlay pulse without showing any potion particle effects.",
+            java_modern: "/effect give [TARGET] minecraft:darkness 3 0 true",
+            java_legacy: "/effect give [TARGET] darkness 3 0 true",
+            bedrock: "/effect [TARGET] darkness 3 0 true",
+            requires_command_block: false
+        },
+        {
+            level: 3,
+            id: "fake_fall",
+            name: "Spooky Ceiling Thud",
+            type: "harmless",
+            desc: "Plays a heavy rock impact landing sound right above their head to make them think a block fell.",
+            java_modern: "/playsound minecraft:block.stone.fall player [TARGET] ~ ~ ~ 0.5 0.7",
+            java_legacy: "/playsound block.stone.fall player [TARGET] ~ ~ ~ 0.5 0.7",
+            bedrock: "/playsound fall.stone [TARGET] ~ ~ ~ 0.5 0.7",
+            requires_command_block: false
+        },
+        {
+            level: 3,
+            id: "torch_snuffer",
+            name: "Subtle Torch Snuffer",
+            type: "grief",
+            desc: "Extinguishes and deletes any placed wall/floor Torches within 2 blocks of the target player.",
+            java_modern: "/execute at [TARGET] run fill ~-2 ~-1 ~-2 ~2 ~1 ~2 minecraft:air replace minecraft:torch",
+            java_legacy: "/execute at [TARGET] run fill ~-2 ~-1 ~-2 ~2 ~1 ~2 air replace torch",
+            bedrock: "/execute at [TARGET] run fill ~-2 ~-1 ~-2 ~2 ~1 ~2 air replace torch",
+            requires_command_block: true
+        },
+        // LEVEL 4 (Subtle Swarms & Spooks)
+        {
+            level: 4,
+            id: "phantom_raid",
+            name: "Silent Phantom Swarm",
+            type: "grief",
+            desc: "Summons 2 completely silent Flying Phantoms in the high cloud level directly above them.",
+            java_modern: "/summon minecraft:phantom ~ ~15 ~ {Silent:1b,Size:1}\n/summon minecraft:phantom ~ ~16 ~ {Silent:1b,Size:1}",
+            java_legacy: "/summon phantom ~ ~15 ~ {Silent:1b,Size:1}\n/summon phantom ~ ~16 ~ {Silent:1b,Size:1}",
+            bedrock: "/summon phantom ~ ~15 ~\n/summon phantom ~ ~16 ~",
+            requires_command_block: true
+        },
+        {
+            level: 4,
+            id: "fake_dragon_death",
+            name: "Ender Dragon Death Panic",
+            type: "harmless",
+            desc: "Sounds the booming global sound of the Ender Dragon dying directly to the target's coordinates.",
+            java_modern: "/playsound minecraft:entity.ender_dragon.death master [TARGET] ~ ~ ~ 1 1",
+            java_legacy: "/playsound entity.ender_dragon.death master [TARGET] ~ ~ ~ 1 1",
+            bedrock: "/playsound mob.enderdragon.death [TARGET] ~ ~ ~ 1 1",
+            requires_command_block: false
+        },
+        {
+            level: 4,
+            id: "lava_paranoia",
+            name: "Quiet Lava Popping",
+            type: "harmless",
+            desc: "Plays the quiet crackle pop sounds of hot lava pools directly inside their ears.",
+            java_modern: "/playsound minecraft:block.lava.pop player [TARGET] ~ ~ ~ 0.4 1",
+            java_legacy: "/playsound block.lava.pop player [TARGET] ~ ~ ~ 0.4 1",
+            bedrock: "/playsound block.lava.lava [TARGET] ~ ~ ~ 0.4",
+            requires_command_block: false
+        },
+        // LEVEL 5 (Subtle Apocalypse)
+        {
+            level: 5,
+            id: "biome_swamp",
+            name: "Swamp Biome Shifter",
+            type: "grief",
+            desc: "Converts the local 10x10 chunk biome coordinates to Swamp, permanently muddying grass/water.",
+            java_modern: "/fillbiome ~-5 ~-5 ~-5 ~5 ~5 ~5 minecraft:swamp",
+            java_legacy: "/tellraw [TARGET] {\"text\":\"[Biome shifting requires modern Java 1.20+]\",\"color\":\"red\"}",
+            bedrock: "/fillbiome ~-5 ~-5 ~-5 ~5 ~5 ~5 swamp",
+            requires_command_block: true
+        },
+        {
+            level: 5,
+            id: "ghost_tnt_primed",
+            name: "primed TNT Panic Trigger",
+            type: "grief",
+            desc: "Summons a primed TNT block with a very long 10-second fuse right next to them, causing instant panic.",
+            java_modern: "/execute at [TARGET] run summon minecraft:tnt ~ ~ ~ {Fuse:200}",
+            java_legacy: "/execute at [TARGET] run summon tnt ~ ~ ~ {Fuse:200}",
+            bedrock: "/execute at [TARGET] run summon tnt ~ ~ ~",
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "infinite_xp_ding",
+            name: "XP Pickup Loop Noise",
+            type: "harmless",
+            desc: "Plays the loud ding sound of experience orb pickups repeatedly in their ears.",
+            java_modern: "/execute at [TARGET] run playsound minecraft:entity.experience_orb.pickup player [TARGET] ~ ~ ~ 0.5 1",
+            java_legacy: "/execute at [TARGET] run playsound entity.experience_orb.pickup player [TARGET] ~ ~ ~ 0.5 1",
+            bedrock: "/execute at [TARGET] run playsound random.levelup [TARGET] ~ ~ ~ 0.5 1",
+            requires_command_block: false
+        },
+        // --- NEW SUBTLE AND COMMUNITY TROLL COMMANDS ---
+        {
+            level: 1,
+            id: "phantom_swoop",
+            name: "Ghost Phantom Swoop",
+            type: "harmless",
+            desc: "Plays the terrifying swoop sound of an attacking phantom directly above their head, prompting them to look up in panic.",
+            java_modern: "/playsound minecraft:entity.phantom.swoop master [TARGET] ~ ~ ~ 1 1",
+            java_legacy: "/playsound entity.phantom.swoop master [TARGET] ~ ~ ~ 1 1",
+            bedrock: "/playsound mob.phantom.swoop [TARGET] ~ ~ ~ 1 1",
+            requires_command_block: false
+        },
+        {
+            level: 1,
+            id: "bat_takeoff",
+            name: "Bat Flight Flutter",
+            type: "harmless",
+            desc: "Plays a quick burst of fluttering bat wings and bat squeaks near their head, simulating a roosting bat nesting in their hair.",
+            java_modern: "/playsound minecraft:entity.bat.takeoff master [TARGET] ~ ~ ~ 1 1.2\n/playsound minecraft:entity.bat.ambient master [TARGET] ~ ~ ~ 1 1",
+            java_legacy: "/playsound entity.bat.takeoff master [TARGET] ~ ~ ~ 1 1.2\n/playsound entity.bat.ambient master [TARGET] ~ ~ ~ 1 1",
+            bedrock: "/playsound mob.bat.takeoff [TARGET] ~ ~ ~ 1 1.2\n/playsound mob.bat.say [TARGET] ~ ~ ~ 1 1",
+            requires_command_block: true
+        },
+        {
+            level: 1,
+            id: "damp_torch",
+            name: "Damp Torch Fizzle",
+            type: "harmless",
+            desc: "Plays the realistic fizzle sound of a flame or torch getting extinguished with water directly under their feet.",
+            java_modern: "/playsound minecraft:block.fire.extinguish master [TARGET] ~ ~ ~ 0.8 1",
+            java_legacy: "/playsound block.fire.extinguish master [TARGET] ~ ~ ~ 0.8 1",
+            bedrock: "/playsound random.fizz [TARGET] ~ ~ ~ 0.8 1",
+            requires_command_block: false
+        },
+        {
+            level: 1,
+            id: "witch_chuckle",
+            name: "Ghostly Witch Giggle",
+            type: "harmless",
+            desc: "Plays a faint, spooky witch giggle sound 5 blocks behind them, suggesting an invisible witch is nearby.",
+            java_modern: "/execute at [TARGET] run playsound minecraft:entity.witch.ambient ambient [TARGET] ^ ^ ^-5 0.5 1",
+            java_legacy: "/execute at [TARGET] run playsound entity.witch.ambient ambient [TARGET] ^ ^ ^-5 0.5 1",
+            bedrock: "/execute at [TARGET] run playsound mob.witch.ambient [TARGET] ^ ^ ^-5 0.5 1",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "arrow_whiz",
+            name: "Phantom Sniper Shot",
+            type: "harmless",
+            desc: "Simulates a nearby arrow whizzing right past their ear with a high-pitched bow release sound.",
+            java_modern: "/playsound minecraft:entity.arrow.shoot master [TARGET] ~ ~1 ~ 1 1.6",
+            java_legacy: "/playsound entity.arrow.shoot master [TARGET] ~ ~1 ~ 1 1.6",
+            bedrock: "/playsound random.bow [TARGET] ~ ~1 ~ 1 1.6",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "totem_pop_sound",
+            name: "Fake Totem Pop",
+            type: "harmless",
+            desc: "Plays the distinctive golden crackling chime of a Totem of Undying popping, sending them into immediate inventory panic.",
+            java_modern: "/playsound minecraft:item.totem.use master [TARGET] ~ ~ ~ 0.9 0.9",
+            java_legacy: "/playsound item.totem.use master [TARGET] ~ ~ ~ 0.9 0.9",
+            bedrock: "/playsound random.totem [TARGET] ~ ~ ~ 0.9 0.9",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "creeper_fuse_distant",
+            name: "Distant Creeper Hiss",
+            type: "harmless",
+            desc: "Plays a slightly muffled Creeper fuse countdown sound 4 blocks behind them, creating a split-second jump scare.",
+            java_modern: "/execute at [TARGET] run playsound minecraft:entity.creeper.primed master [TARGET] ^ ^ ^-4 0.6 0.8",
+            java_legacy: "/execute at [TARGET] run playsound entity.creeper.primed master [TARGET] ^ ^ ^-4 0.6 0.8",
+            bedrock: "/execute at [TARGET] run playsound random.fuse [TARGET] ^ ^ ^-4 0.6 0.8",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "anvil_drop_distant",
+            name: "Falling Anvil Thud",
+            type: "harmless",
+            desc: "Plays a heavy falling anvil impact thud 4 blocks above them, triggering their shield and look-up reflex.",
+            java_modern: "/playsound minecraft:block.anvil.land master [TARGET] ~ ~4 ~ 0.4 1",
+            java_legacy: "/playsound block.anvil.land master [TARGET] ~ ~4 ~ 0.4 1",
+            bedrock: "/playsound random.anvil_land [TARGET] ~ ~4 ~ 0.4",
+            requires_command_block: false
+        },
+        {
+            level: 2,
+            id: "item_pusher",
+            name: "Inventory Repulsion Field",
+            type: "harmless",
+            desc: "Teleports dropped items nearby slightly away from the target, making it incredibly tedious to collect loot.",
+            java_modern: "/execute at [TARGET] run tp @e[type=minecraft:item,distance=..2.5] ~1 ~ ~1",
+            java_legacy: "/execute at [TARGET] run tp @e[type=item,r=2.5] ~1 ~ ~1",
+            bedrock: "/execute at [TARGET] run tp @e[type=item,r=2.5] ~1 ~ ~1",
+            requires_command_block: false
+        },
+        {
+            level: 3,
+            id: "bee_swarm",
+            name: "Ghost Bee Swarm",
+            type: "harmless",
+            desc: "Simulates an angry hive of bees buzzing persistently in their ears, causing extreme auditory distraction.",
+            java_modern: "/playsound minecraft:entity.bee.loop master [TARGET] ~ ~ ~ 1 1",
+            java_legacy: "/playsound entity.bee.loop master [TARGET] ~ ~ ~ 1 1",
+            bedrock: "/playsound mob.bee.loop [TARGET] ~ ~ ~ 1 1",
+            requires_command_block: false
+        },
+        {
+            level: 3,
+            id: "silverfish_crawl",
+            name: "Silverfish Infestation Sound",
+            type: "harmless",
+            desc: "Plays scurrying silverfish crawling footsteps and minor hisses directly under their feet.",
+            java_modern: "/playsound minecraft:entity.silverfish.step master [TARGET] ~ ~ ~ 0.8 1.2\n/playsound minecraft:entity.silverfish.ambient master [TARGET] ~ ~ ~ 0.8 1",
+            java_legacy: "/playsound entity.silverfish.step master [TARGET] ~ ~ ~ 0.8 1.2\n/playsound entity.silverfish.ambient master [TARGET] ~ ~ ~ 0.8 1",
+            bedrock: "/playsound mob.silverfish.step [TARGET] ~ ~ ~ 0.8 1.2\n/playsound mob.silverfish.say [TARGET] ~ ~ ~ 0.8 1",
+            requires_command_block: true
+        },
+        {
+            level: 3,
+            id: "ghast_screamer",
+            name: "Overworld Ghast Alert",
+            type: "harmless",
+            desc: "Plays a loud Ghast warning shriek and firing blast directly in their ears, simulating a portal spillover.",
+            java_modern: "/playsound minecraft:entity.ghast.warn master [TARGET] ~ ~ ~ 1 1\n/playsound minecraft:entity.ghast.shoot master [TARGET] ~ ~ ~ 1 1",
+            java_legacy: "/playsound entity.ghast.warn master [TARGET] ~ ~ ~ 1 1\n/playsound entity.ghast.shoot master [TARGET] ~ ~ ~ 1 1",
+            bedrock: "/playsound mob.ghast.charge [TARGET] ~ ~ ~ 1 1\n/playsound mob.ghast.fireball [TARGET] ~ ~ ~ 1 1",
+            requires_command_block: true
+        },
+        {
+            level: 3,
+            id: "chest_creaker",
+            name: "Creaking Chest Shadow",
+            type: "harmless",
+            desc: "Plays a slow creaking chest open sound right behind them, simulating a ghost opening storage vaults.",
+            java_modern: "/execute at [TARGET] run playsound minecraft:block.chest.open block [TARGET] ^ ^ ^-2 0.7 0.7",
+            java_legacy: "/execute at [TARGET] run playsound block.chest.open block [TARGET] ^ ^ ^-2 0.7 0.7",
+            bedrock: "/execute at [TARGET] run playsound random.chestopen [TARGET] ^ ^ ^-2 0.7 0.7",
+            requires_command_block: false
+        },
+        {
+            level: 3,
+            id: "sculk_shrieker_ambient",
+            name: "Sculk Vibration Scare",
+            type: "harmless",
+            desc: "Plays the clicking vibration of a sculk sensor followed by a distant shrieker cry, triggering Warden fears.",
+            java_modern: "/playsound minecraft:block.sculk_sensor.clicking master [TARGET] ~ ~ ~ 0.8 1\n/playsound minecraft:entity.warden.nearby_close master [TARGET] ~ ~ ~ 0.5 1",
+            java_legacy: "/playsound block.sculk_sensor.clicking master [TARGET] ~ ~ ~ 0.8 1\n/playsound entity.warden.nearby_close master [TARGET] ~ ~ ~ 0.5 1",
+            bedrock: "/playsound block.sculk_shrieker.shriek [TARGET] ~ ~ ~ 0.6 1",
+            requires_command_block: true
+        },
+        {
+            level: 4,
+            id: "elder_guardian_curse",
+            name: "Elder Guardian jumpscare",
+            type: "harmless",
+            desc: "Plays the elder guardian curse chime and applies 1 second mining fatigue, flash-projecting the giant ghostly fish on their screen.",
+            java_modern: "/playsound minecraft:entity.elder_guardian.curse master [TARGET] ~ ~ ~ 1 1\n/effect give [TARGET] minecraft:mining_fatigue 1 0 true",
+            java_legacy: "/playsound entity.elder_guardian.curse master [TARGET] ~ ~ ~ 1 1\n/effect give [TARGET] mining_fatigue 1 0 true",
+            bedrock: "/playsound mob.elderguardian.curse [TARGET] ~ ~ ~ 1 1\n/effect [TARGET] mining_fatigue 1 0",
+            requires_command_block: true
+        },
+        {
+            level: 4,
+            id: "fake_diamond_advancement",
+            name: "Fake Dedication Achievement",
+            type: "harmless",
+            desc: "Sends a fake chat broadcast announcing the victim just completed a top-tier legendary netherite advancement.",
+            java_modern: `/tellraw @a [{"selector":"[TARGET]"},{"text":" has made the advancement ","color":"white"},{"text":"[Cover Me in Debris]","color":"purple","hoverEvent":{"action":"show_text","contents":{"text":"Complete Netherite armor set"}}}]`,
+            java_legacy: `/tellraw @a [{"selector":"[TARGET]"},{"text":" has made the advancement ","color":"white"},{"text":"[Cover Me in Debris]","color":"purple"}]`,
+            bedrock: `/tellraw @a {"rawtext":[{"selector":"[TARGET]"},{"text":" has made the advancement §d[Cover Me in Debris]"}]}`,
+            requires_command_block: false
+        },
+        {
+            level: 4,
+            id: "fake_op_whisper",
+            name: "Operator Status Revoked",
+            type: "harmless",
+            desc: "Spams a gray server system chat notifying them that they have been de-opped and can no longer command.",
+            java_modern: `/tellraw [TARGET] {"text":"You are no longer server operator","color":"gray","italic":true}`,
+            java_legacy: `/tellraw [TARGET] {"text":"You are no longer server operator","color":"gray","italic":true}`,
+            bedrock: `/tellraw [TARGET] {"rawtext":[{"text":"§7§oYou are no longer server operator"}]}`,
+            requires_command_block: false
+        },
+        {
+            level: 4,
+            id: "lightning_strike_fake",
+            name: "Silent Lightning Bolt",
+            type: "harmless",
+            desc: "Spawns a massive lightning strike directly on their body but silences the damage, generating a brilliant screen flash.",
+            java_modern: "/execute at [TARGET] run summon minecraft:lightning_bolt ~ ~ ~ {Silent:1b}",
+            java_legacy: "/execute at [TARGET] run summon lightning_bolt ~ ~ ~ {Silent:1b}",
+            bedrock: "/execute at [TARGET] run summon lightning_bolt ~ ~ ~",
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "item_void",
+            name: "Offhand Void Eraser",
+            type: "grief",
+            desc: "Clears their active offhand slot instantly, removing shields or weapons in the heat of combat.",
+            java_modern: "/item replace entity [TARGET] weapon.offhand with minecraft:air",
+            java_legacy: "/replaceitem entity [TARGET] slot.weapon.offhand 0 minecraft:air",
+            bedrock: "/replaceitem entity [TARGET] slot.weapon.offhand 0 air",
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "fake_crash",
+            name: "Fake Connection Exception",
+            type: "harmless",
+            desc: "Sends a dark-red system message mimicking a severe Java IOException server connection reset.",
+            java_modern: `/tellraw [TARGET] {"text":"Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host.","color":"dark_red"}`,
+            java_legacy: `/tellraw [TARGET] {"text":"Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host.","color":"dark_red"}`,
+            bedrock: `/tellraw [TARGET] {"rawtext":[{"text":"§4Internal Exception: java.io.IOException: Connection reset by peer."}]}`,
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "portal_spill",
+            name: "Nether Portal Hallucinations",
+            type: "harmless",
+            desc: "Plays continuous dark nether portal loop portals inside their ears, driving them to find the ghost portal.",
+            java_modern: "/playsound minecraft:block.portal.ambient master [TARGET] ~ ~ ~ 0.5 1",
+            java_legacy: "/playsound block.portal.ambient master [TARGET] ~ ~ ~ 0.5 1",
+            bedrock: "/playsound portal.portal [TARGET] ~ ~ ~ 0.5 1",
+            requires_command_block: false
+        },
+        {
+            level: 5,
+            id: "sudden_void",
+            name: "End Void Fall Simulator",
+            type: "harmless",
+            desc: "Applies a split-second darkness effect and plays a massive falling impact rush to mimic dropping into the End void.",
+            java_modern: "/effect give [TARGET] minecraft:darkness 1 0 true\n/playsound minecraft:entity.player.hurt_on_fire master [TARGET] ~ ~ ~ 0.5 1.5",
+            java_legacy: "/effect give [TARGET] darkness 1 0 true\n/playsound entity.player.hurt_on_fire master [TARGET] ~ ~ ~ 0.5 1.5",
+            bedrock: "/effect [TARGET] darkness 1 0\n/playsound damage.fallbig [TARGET] ~ ~ ~ 0.5 1.5",
+            requires_command_block: true
         }
     ],
+
 
     // 6. Multi-Block "Command Block Chains" Troll Configurations & Alignment Guide Mappings
     trolls_chains: [
@@ -952,6 +1366,223 @@ const MC_DATA = {
                     cond: "Unconditional",
                     active: "Always Active",
                     cmd: "/execute at [TARGET] run kill @e[type=minecraft:item,distance=..6]"
+                }
+            ]
+        },
+        {
+            id: "chain_warden_heartbeat",
+            name: "⛓️ Warden Heartbeat Hunt",
+            desc: "Simulates the Warden hunting them down: pulse low darkness visual effects, emit loud thumping heartbeat plays, emit kinetic sonic blasts, and end with an echoing warden scream.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/playsound minecraft:entity.warden.heartbeat master [TARGET] ~ ~ ~ 1.2 0.8"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/effect give [TARGET] minecraft:darkness 4 0 true"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run particle minecraft:sonic_boom ~ ~1 ~ 0 0 0 0 1"
+                },
+                {
+                    step: 4,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run playsound minecraft:entity.warden.roar master [TARGET] ~ ~ ~ 0.8 0.6"
+                }
+            ]
+        },
+        {
+            id: "chain_lightning_magnet",
+            name: "⛓️ Sprinting Thunder Magnet",
+            desc: "Detonates silent thunder bolts directly behind them whenever they run, spawning glowing sparks and giving a dynamic kinetic speed buff.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run summon minecraft:lightning_bolt ^ ^ ^-4 {Silent:1b}"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run particle minecraft:electric_spark ~ ~1 ~ 0.4 0.4 0.4 0.1 12"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/playsound minecraft:entity.lightning_bolt.thunder master [TARGET] ~ ~ ~ 0.5 1"
+                },
+                {
+                    step: 4,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/effect give [TARGET] minecraft:speed 2 4 true"
+                }
+            ]
+        },
+        {
+            id: "chain_glitch_tp",
+            name: "⛓️ Packet Loss Glitch Drift",
+            desc: "Rotates and slips their position slightly back whenever they trigger the loop, emitting void enderman portals and fake console sync logs.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run tp [TARGET] ~ ~ ~ ~3 ~"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/playsound minecraft:entity.enderman.teleport master [TARGET] ~ ~ ~ 0.3 1.4"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run particle minecraft:portal ~ ~1 ~ 0.3 0.3 0.3 0.05 6"
+                },
+                {
+                    step: 4,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/tellraw [TARGET] {\"text\":\"[System] Warning: High packet loss detected. Synced coordinate drift.\",\"color\":\"gray\"}"
+                }
+            ]
+        },
+        {
+            id: "chain_floor_decay",
+            name: "⛓️ Stepping-Stone Floor Decay",
+            desc: "Causes standard Stone blocks directly beneath their feet to decay into Gravel blocks, play thud block hit warnings, then crumble to Sand and spawn heavy sand dust particles.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] if block ~ ~-1 ~ minecraft:stone run setblock ~ ~-1 ~ minecraft:gravel"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Conditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run playsound minecraft:block.gravel.hit master [TARGET] ~ ~-1 ~ 1 0.8"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] if block ~ ~-2 ~ minecraft:grass_block run setblock ~ ~-2 ~ minecraft:sand"
+                },
+                {
+                    step: 4,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run particle minecraft:dust 0.6 0.5 0.4 1 ~ ~-1 ~ 0.3 0.1 0.3 0.01 10"
+                }
+            ]
+        },
+        {
+            id: "chain_herobrine_ghost",
+            name: "⛓️ Herobrine Stalker Sighting",
+            desc: "Constructs a repeating chain that spawns a silent, invulnerable Herobrine figure (armor stand with custom skull) behind them. Rings ambient cave notes, emits dark soot, and safely kills it when they turn around.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] unless entity @e[tag=herobrine,distance=..15] run summon minecraft:armor_stand ^ ^1 ^-4 {Tags:[\"herobrine\"],Invisible:1b,ArmorItems:[{},{},{},{id:\"minecraft:player_head\",Count:1b,tag:{SkullOwner:\"MHF_Herobrine\"}}],DisabledSlots:2039583}"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] as @e[tag=herobrine] run tp @s ^ ^1 ^-4"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] if entity @e[tag=herobrine,age=..20] run playsound minecraft:ambient.cave master [TARGET] ~ ~ ~ 1 0.7"
+                },
+                {
+                    step: 4,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at @e[tag=herobrine] run particle minecraft:large_smoke ~ ~1.5 ~ 0.1 0.1 0.1 0.01 3"
+                },
+                {
+                    step: 5,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run kill @e[tag=herobrine,distance=..2.2]"
+                }
+            ]
+        },
+        {
+            id: "chain_potato_clutter",
+            name: "⛓️ Poisonous Potato Clutterer",
+            desc: "Constantly spams poisonous potatoes into their inventory slots: forces their offhand item out of existence, plays squishing sounds, feeds hotbar slots, and releases toxic green particles.",
+            blocks: [
+                {
+                    step: 1,
+                    type: "Repeat",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/item replace entity [TARGET] weapon.offhand with minecraft:poisonous_potato"
+                },
+                {
+                    step: 2,
+                    type: "Chain",
+                    cond: "Conditional",
+                    active: "Always Active",
+                    cmd: "/playsound minecraft:entity.slime.squish master [TARGET] ~ ~ ~ 0.8 1"
+                },
+                {
+                    step: 3,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/give [TARGET] minecraft:poisonous_potato 1"
+                },
+                {
+                    step: 4,
+                    type: "Chain",
+                    cond: "Unconditional",
+                    active: "Always Active",
+                    cmd: "/execute at [TARGET] run particle minecraft:spore_blossom_air ~ ~1 ~ 0.4 0.4 0.4 0 5"
                 }
             ]
         }

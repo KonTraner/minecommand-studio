@@ -1355,6 +1355,7 @@ input[type="range"]::-webkit-slider-thumb:active {
     justify-content: center;
     gap: 6px;
     margin: 4px 0;
+    flex-wrap: wrap;
 }
 
 .cb-node {
