@@ -29,6 +29,7 @@ const app = {
         app.loadPresetsFromStorage();
         app.initAllCustomDropdowns();
         app.hydrateEnchantments();
+        app.hydrateMobEffects();
         app.registerEventListeners();
         app.switchTab("home-pane");
         app.updateTrollGrids();
@@ -151,7 +152,9 @@ const app = {
             "Chestplates": MC_DATA.items.chestplates,
             "Leggings": MC_DATA.items.leggings,
             "Boots": MC_DATA.items.boots,
-            "Fun & Blocks": MC_DATA.items.fun
+            "Tools": MC_DATA.items.tools,
+            "Blocks": MC_DATA.items.blocks,
+            "Misc & Materials": MC_DATA.items.misc
         };
 
         app.buildGroupedCustomDropdown(
@@ -164,7 +167,9 @@ const app = {
         // Dropdowns 3-8: Mob Equipment Slots
         const handSlots = {
             "Weapons": MC_DATA.items.weapons,
-            "Blocks & Fun": MC_DATA.items.fun
+            "Tools": MC_DATA.items.tools,
+            "Blocks": MC_DATA.items.blocks,
+            "Misc": MC_DATA.items.misc
         };
 
         const armorSlots = {
@@ -182,7 +187,8 @@ const app = {
         for (const [dropId, data] of Object.entries(armorSlots)) {
             const groups = {};
             groups[data.label] = data.list;
-            groups["Blocks & Fun"] = MC_DATA.items.fun;
+            groups["Blocks"] = MC_DATA.items.blocks;
+            groups["Misc"] = MC_DATA.items.misc;
             app.buildGroupedCustomDropdown(dropId, groups, "none", () => app.recalculateCurrentCommand(), true);
         }
 
@@ -453,6 +459,38 @@ const app = {
                             <span id="ench-lbl-${e.id}">Level 1</span>
                         </div>
                         <input type="range" class="ench-slider" data-ench-id="${e.id}" min="1" max="255" value="1">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    },
+
+    hydrateMobEffects() {
+        const container = document.getElementById("mob-effects-checklist-container");
+        if (!container) return;
+        container.innerHTML = "";
+
+        MC_DATA.effects.forEach(eff => {
+            const div = document.createElement("div");
+            div.className = "enchant-item";
+            div.dataset.name = eff.name.toLowerCase();
+
+            div.innerHTML = `
+                <div class="enchant-row-top">
+                    <label class="mc-checkbox-label">
+                        <input type="checkbox" class="mob-eff-cb" data-eff-id="${eff.id}">
+                        <span class="mc-checkbox"></span>
+                        ${eff.icon} ${eff.name}
+                    </label>
+                </div>
+                <div class="enchant-row-bottom" id="mob-eff-slider-row-${eff.id}">
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label>Effect Amplifier</label>
+                            <span id="mob-eff-lbl-${eff.id}">Level 1</span>
+                        </div>
+                        <input type="range" class="mob-eff-slider" data-eff-id="${eff.id}" min="1" max="255" value="1">
                     </div>
                 </div>
             `;
@@ -914,10 +952,39 @@ const app = {
             });
         }
 
+        // Mob effects checklist handlers
+        const mobEffectsContainer = document.getElementById("mob-effects-checklist-container");
+        if (mobEffectsContainer) {
+            mobEffectsContainer.addEventListener("change", (e) => {
+                if (e.target.classList.contains("mob-eff-cb")) {
+                    app.playClick();
+                    const id = e.target.dataset.effId;
+                    const row = document.getElementById(`mob-eff-slider-row-${id}`);
+                    if (row) {
+                        if (e.target.checked) {
+                            row.classList.add("show");
+                        } else {
+                            row.classList.remove("show");
+                        }
+                    }
+                    app.recalculateCurrentCommand();
+                }
+            });
+
+            mobEffectsContainer.addEventListener("input", (e) => {
+                if (e.target.classList.contains("mob-eff-slider")) {
+                    const id = e.target.dataset.effId;
+                    const lbl = document.getElementById(`mob-eff-lbl-${id}`);
+                    if (lbl) lbl.textContent = `Level ${e.target.value}`;
+                    app.recalculateCurrentCommand();
+                }
+            });
+        }
+
         // Search enchants filter
         app.safeBind("enchant-search", "input", (e) => {
             const query = e.target.value.toLowerCase().trim();
-            document.querySelectorAll(".enchant-item").forEach(item => {
+            document.querySelectorAll("#enchantments-checklist-container .enchant-item").forEach(item => {
                 const name = item.dataset.name;
                 if (name && name.includes(query)) {
                     item.style.display = "block";
@@ -1130,6 +1197,14 @@ const app = {
             const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
             const getChecked = (id) => { const el = document.getElementById(id); return el ? el.checked : false; };
 
+            const activeEffects = [];
+            document.querySelectorAll("#mob-effects-checklist-container .mob-eff-cb:checked").forEach(cb => {
+                const id = cb.dataset.effId;
+                const slider = document.querySelector(`.mob-eff-slider[data-eff-id="${id}"]`);
+                const amp = slider ? parseInt(slider.value) : 1;
+                activeEffects.push({ id: id, amplifier: amp });
+            });
+
             const config = {
                 type: getVal("mob-type", "minecraft:zombie"),
                 name: getVal("mob-name"),
@@ -1141,12 +1216,7 @@ const app = {
                 invulnerable: getChecked("mob-invulnerable"),
                 noGravity: getChecked("mob-nogravity"),
                 fireImmune: getChecked("mob-fireimmune"),
-                activeEffects: {
-                    speed: getChecked("mob-eff-speed"),
-                    strength: getChecked("mob-eff-strength"),
-                    invisibility: getChecked("mob-eff-invisibility"),
-                    resistance: getChecked("mob-eff-resistance")
-                },
+                activeEffects: activeEffects,
                 gear: {
                     hand: getVal("eq-hand", "none"),
                     offhand: getVal("eq-offhand", "none"),

@@ -115,7 +115,7 @@ const Generator = {
             if (attributes.attack_damage > 0) {
                 attrModifiers.push(`{type:"minecraft:generic.attack_damage",amount:${attributes.attack_damage},operation:"add_value",id:"custom_atk",slot:"any"}`);
             }
-            if (attributes.attack_speed !== 0) {
+            if (attributes.attack_speed !== undefined && attributes.attack_speed !== 0) {
                 attrModifiers.push(`{type:"minecraft:generic.attack_speed",amount:${attributes.attack_speed},operation:"add_value",id:"custom_speed",slot:"any"}`);
             }
             if (attributes.max_health > 0) {
@@ -180,7 +180,7 @@ const Generator = {
             if (attributes.attack_damage > 0) {
                 attrList.push(`{AttributeName:"generic.attack_damage",Name:"custom_atk",Amount:${attributes.attack_damage},Operation:0,UUID:[I;1,2,3,4]}`);
             }
-            if (attributes.attack_speed !== 0) {
+            if (attributes.attack_speed !== undefined && attributes.attack_speed !== 0) {
                 attrList.push(`{AttributeName:"generic.attack_speed",Name:"custom_spd",Amount:${attributes.attack_speed},Operation:0,UUID:[I;5,6,7,8]}`);
             }
             if (attributes.max_health > 0) {
@@ -264,7 +264,7 @@ const Generator = {
         const isInvulnerable = !!config.invulnerable;
         const noGravity = !!config.noGravity;
         const fireImmune = !!config.fireImmune;
-        const activeEffects = config.activeEffects || {};
+        const activeEffects = config.activeEffects || [];
 
         // Gear slots
         const gear = config.gear || { hand: "none", offhand: "none", head: "none", chest: "none", legs: "none", feet: "none" };
@@ -276,7 +276,19 @@ const Generator = {
         // --- BEDROCK ---
         if (version === "bedrock") {
             const rawName = customName ? `"${this.escapeString(customName)}"` : "";
-            return `/summon ${mobType.replace("minecraft:", "")} ~ ~ ~ ${rawName}`;
+            const baseCmd = `/summon ${mobType.replace("minecraft:", "")} ~ ~ ~ ${rawName}`;
+            if (activeEffects.length > 0) {
+                const effectCmds = activeEffects.map(eff => {
+                    const cleanId = eff.id.replace("minecraft:", "");
+                    const ampVal = eff.amplifier - 1;
+                    const targetSelector = customName 
+                        ? `@e[type=${mobType.replace("minecraft:", "")},name="${this.escapeString(customName)}",c=1]`
+                        : `@e[type=${mobType.replace("minecraft:", "")},c=1]`;
+                    return `/effect ${targetSelector} ${cleanId} 99999 ${ampVal}`;
+                });
+                return [baseCmd].concat(effectCmds).join("\n");
+            }
+            return baseCmd;
         }
 
         // --- JAVA (Legacy & Modern share summon base NBT, but equipment items differ) ---
@@ -314,21 +326,24 @@ const Generator = {
         // Active Potion Effects
         let effectsList = [];
         if (version === "java_modern") {
-            if (activeEffects.speed) effectsList.push("{id:\"minecraft:speed\",amplifier:1,duration:20000,show_particles:1b}");
-            if (activeEffects.strength) effectsList.push("{id:\"minecraft:strength\",amplifier:1,duration:20000,show_particles:1b}");
-            if (activeEffects.invisibility) effectsList.push("{id:\"minecraft:invisibility\",amplifier:0,duration:20000,show_particles:0b}");
-            if (activeEffects.resistance) effectsList.push("{id:\"minecraft:resistance\",amplifier:4,duration:20000,show_particles:1b}");
-            
+            activeEffects.forEach(eff => {
+                const ampVal = eff.amplifier - 1;
+                const showParticles = eff.id === "minecraft:invisibility" ? "0b" : "1b";
+                effectsList.push(`{id:"${eff.id}",amplifier:${ampVal},duration:20000,show_particles:${showParticles}}`);
+            });
             if (effectsList.length > 0) {
                 nbt.push(`active_effects:[${effectsList.join(",")}]`);
             }
         } else {
             // Java Legacy
-            if (activeEffects.speed) effectsList.push("{Id:1b,Amplifier:1b,Duration:20000}");
-            if (activeEffects.strength) effectsList.push("{Id:5b,Amplifier:1b,Duration:20000}");
-            if (activeEffects.invisibility) effectsList.push("{Id:14b,Amplifier:0b,Duration:20000,ShowParticles:0b}");
-            if (activeEffects.resistance) effectsList.push("{Id:11b,Amplifier:4b,Duration:20000}");
-            
+            const effectsDb = (typeof MC_DATA !== "undefined" && MC_DATA.effects) || [];
+            activeEffects.forEach(eff => {
+                const ampVal = eff.amplifier - 1;
+                const dbEff = effectsDb.find(e => e.id === eff.id);
+                const numId = dbEff ? dbEff.numeric_id : 1;
+                const showParticles = eff.id === "minecraft:invisibility" ? ",ShowParticles:0b" : "";
+                effectsList.push(`{Id:${numId}b,Amplifier:${ampVal}b,Duration:20000${showParticles}}`);
+            });
             if (effectsList.length > 0) {
                 nbt.push(`ActiveEffects:[${effectsList.join(",")}]`);
             }
