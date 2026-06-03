@@ -129,6 +129,24 @@ const itemConfig = {
     ]
 };
 
+const containerConfig = {
+    type: "minecraft:shulker_box",
+    title: "Legendary Loot Box",
+    contents: {
+        0: {
+            id: "minecraft:diamond_sword",
+            count: 1,
+            isPreset: true,
+            command: "/give @p minecraft:diamond_sword[minecraft:custom_name='{\"text\":\"Excalibur\"}',minecraft:enchantments={levels:{\"minecraft:sharpness\":5}}] 1"
+        },
+        4: {
+            id: "minecraft:gold_block",
+            count: 64,
+            isPreset: false
+        }
+    }
+};
+
 versions.forEach(v => {
     console.log(`\n=== Testing Version: ${v} ===`);
     
@@ -156,5 +174,13 @@ versions.forEach(v => {
         console.log(`Item Command: ${itemCmd}`);
     } catch (err) {
         console.error("❌ Item Test Failed:", err);
+    }
+
+    console.log("\n--- Container Generator Test ---");
+    try {
+        const containerCmd = Generator.generateContainer(containerConfig, v);
+        console.log(`Container Command:\n${containerCmd}`);
+    } catch (err) {
+        console.error("❌ Container Test Failed:", err);
     }
 });

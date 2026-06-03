@@ -3690,6 +3690,488 @@ const MC_DATA = {
                 "name": "Boots Slot",
                 "icon": "🥾"
         }
+],
+
+    // Preserved Biomes List
+    biomes: [
+        {
+                "id": "minecraft:plains",
+                "name": "Plains",
+                "icon": "🌱",
+                "desc": "Grassland biome with open views, passive mobs, and occasional oak/birch trees."
+        },
+        {
+                "id": "minecraft:desert",
+                "name": "Desert",
+                "icon": "🌵",
+                "desc": "Dry, sandy biome with cacti, dead bushes, sandstone structures, and husk spawn overrides."
+        },
+        {
+                "id": "minecraft:forest",
+                "name": "Forest",
+                "icon": "🌳",
+                "desc": "Dense tree biome featuring oak and birch trees, wolves, and mushrooms."
+        },
+        {
+                "id": "minecraft:taiga",
+                "name": "Taiga",
+                "icon": "🌲",
+                "desc": "Cold biome with spruce trees, sweet berry bushes, foxes, and wolves."
+        },
+        {
+                "id": "minecraft:snowy_plains",
+                "name": "Snowy Plains",
+                "icon": "❄️",
+                "desc": "Vast snowy fields spawning strays, polar bears, and rabbits."
+        },
+        {
+                "id": "minecraft:swamp",
+                "name": "Swamp",
+                "icon": "🐊",
+                "desc": "Murky waters spawning slime at night, boggy trees, blue orchids, and witch huts."
+        },
+        {
+                "id": "minecraft:jungle",
+                "name": "Jungle",
+                "icon": "🌴",
+                "desc": "Lush tropical jungle with towering trees, cocoa beans, ocelots, parrots, and pandas."
+        },
+        {
+                "id": "minecraft:savanna",
+                "name": "Savanna",
+                "icon": "🦁",
+                "desc": "Dry grassland featuring acacia trees, llamas, horses, and villages."
+        },
+        {
+                "id": "minecraft:badlands",
+                "name": "Badlands",
+                "icon": "🏜️",
+                "desc": "Colorful terracotta mounds with extra gold ore generation and mineshafts."
+        },
+        {
+                "id": "minecraft:meadow",
+                "name": "Meadow",
+                "icon": "🌸",
+                "desc": "Grassy plateau filled with flowers, sheep, and bees."
+        },
+        {
+                "id": "minecraft:grove",
+                "name": "Grove",
+                "icon": "❄️",
+                "desc": "Spruce forest covered in snow, wolves, and rabbits."
+        },
+        {
+                "id": "minecraft:snowy_slopes",
+                "name": "Snowy Slopes",
+                "icon": "🏔️",
+                "desc": "Slopes covered in snow and ice, spawning goats."
+        },
+        {
+                "id": "minecraft:jagged_peaks",
+                "name": "Jagged Peaks",
+                "icon": "🏔️",
+                "desc": "Tall mountains capped with snow, stone, and goats."
+        },
+        {
+                "id": "minecraft:frozen_peaks",
+                "name": "Frozen Peaks",
+                "icon": "🏔️",
+                "desc": "Ice-covered mountain peaks spawning goats."
+        },
+        {
+                "id": "minecraft:stony_peaks",
+                "name": "Stony Peaks",
+                "icon": "⛰️",
+                "desc": "Mountain tops containing stone, calcite, and no snow."
+        },
+        {
+                "id": "minecraft:cherry_grove",
+                "name": "Cherry Grove",
+                "icon": "🌸",
+                "desc": "Mountain biome covered in pink cherry blossom petals and sheep."
+        },
+        {
+                "id": "minecraft:birch_forest",
+                "name": "Birch Forest",
+                "icon": "🌳",
+                "desc": "Pure birch trees, flowers, and peaceful animals."
+        },
+        {
+                "id": "minecraft:dark_forest",
+                "name": "Dark Forest",
+                "icon": "🍄",
+                "desc": "Dense dark oak forest spawning hostile mobs even during daytime, containing Woodland Mansions."
+        },
+        {
+                "id": "minecraft:mangrove_swamp",
+                "name": "Mangrove Swamp",
+                "icon": "🐊",
+                "desc": "Warm swamp featuring mangrove trees, mud blocks, and frogs."
+        },
+        {
+                "id": "minecraft:snowy_taiga",
+                "name": "Snowy Taiga",
+                "icon": "❄️",
+                "desc": "Cold spruce forest covered in snow."
+        },
+        {
+                "id": "minecraft:old_growth_pine_taiga",
+                "name": "Old Growth Pine Taiga",
+                "icon": "🌲",
+                "desc": "Spruce biome with giant pine trees, podzol, and mossy cobblestone."
+        },
+        {
+                "id": "minecraft:old_growth_birch_forest",
+                "name": "Old Growth Birch Forest",
+                "icon": "🌳",
+                "desc": "Forest with tall birch trees."
+        },
+        {
+                "id": "minecraft:ocean",
+                "name": "Ocean",
+                "icon": "🌊",
+                "desc": "Standard ocean containing kelp, fish, and dolphins."
+        },
+        {
+                "id": "minecraft:warm_ocean",
+                "name": "Warm Ocean",
+                "icon": "🐠",
+                "desc": "Shallow, warm water biome with coral reefs and sea pickles."
+        },
+        {
+                "id": "minecraft:lukewarm_ocean",
+                "name": "Lukewarm Ocean",
+                "icon": "🐬",
+                "desc": "Deep, greenish waters with seagrass and fish."
+        },
+        {
+                "id": "minecraft:cold_ocean",
+                "name": "Cold Ocean",
+                "icon": "🐟",
+                "desc": "Deep, cold waters with cod and salmon."
+        },
+        {
+                "id": "minecraft:frozen_ocean",
+                "name": "Frozen Ocean",
+                "icon": "🧊",
+                "desc": "Ice sheet covered ocean spawning polar bears and strays."
+        },
+        {
+                "id": "minecraft:mushroom_fields",
+                "name": "Mushroom Fields",
+                "icon": "🍄",
+                "desc": "Rare biome covered in mycelium, giant mushrooms, and mooshrooms. No hostile mobs can spawn here."
+        },
+        {
+                "id": "minecraft:deep_dark",
+                "name": "Deep Dark",
+                "icon": "👁️",
+                "desc": "Deep cavern biome filled with sculk blocks, sculk sensors, and the Warden."
+        },
+        {
+                "id": "minecraft:nether_wastes",
+                "name": "Nether Wastes",
+                "icon": "🔥",
+                "desc": "The primary Nether biome of netherrack, magma blocks, ghasts, and piglins."
+        },
+        {
+                "id": "minecraft:soul_sand_valley",
+                "name": "Soul Sand Valley",
+                "icon": "💀",
+                "desc": "Nether valley covered in soul sand, soul soil, basalt pillars, skeletons, and ghasts."
+        },
+        {
+                "id": "minecraft:crimson_forest",
+                "name": "Crimson Forest",
+                "icon": "🍄",
+                "desc": "Red Nether forest containing crimson fungi, hoglins, and piglins."
+        },
+        {
+                "id": "minecraft:warped_forest",
+                "name": "Warped Forest",
+                "icon": "🍄",
+                "desc": "Blue Nether forest containing warped fungi, endermen, and no hostile piglins."
+        },
+        {
+                "id": "minecraft:basalt_deltas",
+                "name": "Basalt Deltas",
+                "icon": "🌋",
+                "desc": "Volcanic Nether biome filled with basalt, blackstone, ash particles, and magma cubes."
+        },
+        {
+                "id": "minecraft:the_end",
+                "name": "The End",
+                "icon": "🌌",
+                "desc": "The barren dimension of end stone, obsidian towers, endermen, and the Ender Dragon."
+        }
+],
+
+    // Preserved Structures List
+    structures: [
+        {
+                "id": "minecraft:ancient_city",
+                "name": "Ancient City",
+                "icon": "🏛️",
+                "desc": "Mammoth underground ruins in the Deep Dark containing sculk shriekers and high-loot chest rooms."
+        },
+        {
+                "id": "minecraft:bastion_remnant",
+                "name": "Bastion Remnant",
+                "icon": "🏰",
+                "desc": "Large obsidian and blackstone castles in the Nether guarded by Piglin Brutes."
+        },
+        {
+                "id": "minecraft:buried_treasure",
+                "name": "Buried Treasure",
+                "icon": "🪙",
+                "desc": "Hidden chests containing Heart of the Sea and gold, located on beaches."
+        },
+        {
+                "id": "minecraft:desert_pyramid",
+                "name": "Desert Pyramid",
+                "icon": "🏜️",
+                "desc": "Sandstone temple containing a treasure chamber with a TNT trap."
+        },
+        {
+                "id": "minecraft:end_city",
+                "name": "End City",
+                "icon": "🏰",
+                "desc": "Tall towers in the outer islands of the End containing Shulkers, Elytras, and dragon heads."
+        },
+        {
+                "id": "minecraft:fortress",
+                "name": "Nether Fortress",
+                "icon": "🌉",
+                "desc": "Nether bridge network filled with Blaze spawners and Wither Skeletons."
+        },
+        {
+                "id": "minecraft:igloo",
+                "name": "Igloo",
+                "icon": "❄️",
+                "desc": "Snow huts containing a bed and occasionally a basement with a zombie cure lab."
+        },
+        {
+                "id": "minecraft:jungle_pyramid",
+                "name": "Jungle Pyramid",
+                "icon": "🏺",
+                "desc": "Mossy cobblestone temple containing tripwire traps and puzzle chests."
+        },
+        {
+                "id": "minecraft:mansion",
+                "name": "Woodland Mansion",
+                "icon": "🏠",
+                "desc": "Large woodland estate filled with Evokers, Vindicators, and hidden rooms."
+        },
+        {
+                "id": "minecraft:mineshaft",
+                "name": "Abandoned Mineshaft",
+                "icon": "🕸️",
+                "desc": "Abandoned mine tunnels containing rails, cave spider spawners, and loot chest minecarts."
+        },
+        {
+                "id": "minecraft:monument",
+                "name": "Ocean Monument",
+                "icon": "🔱",
+                "desc": "Submerged ocean temple filled with Guardians, Elder Guardians, and gold blocks."
+        },
+        {
+                "id": "minecraft:nether_fossil",
+                "name": "Nether Fossil",
+                "icon": "🦴",
+                "desc": "Skeletal bone structures found throughout Soul Sand Valleys in the Nether."
+        },
+        {
+                "id": "minecraft:ocean_ruin",
+                "name": "Ocean Ruin",
+                "icon": "🌊",
+                "desc": "Submerged stone or sandstone structures containing Drowned and sniffer eggs in suspicious sand."
+        },
+        {
+                "id": "minecraft:pillager_outpost",
+                "name": "Pillager Outpost",
+                "icon": "🏹",
+                "desc": "Cobblestone tower manned by Pillagers, containing an iron cage and loot chest."
+        },
+        {
+                "id": "minecraft:ruined_portal",
+                "name": "Ruined Portal",
+                "icon": "🔥",
+                "desc": "Damaged obsidian portals surrounded by netherrack and magma blocks in both dimensions."
+        },
+        {
+                "id": "minecraft:shipwreck",
+                "name": "Shipwreck",
+                "icon": "⛵",
+                "desc": "Sunken oak or spruce vessels containing map chests, treasure chests, and supply chests."
+        },
+        {
+                "id": "minecraft:stronghold",
+                "name": "Stronghold",
+                "icon": "🗝️",
+                "desc": "Underground stone brick fortresses containing libraries, chest rooms, and the End Portal."
+        },
+        {
+                "id": "minecraft:swamp_hut",
+                "name": "Swamp Hut (Witch Hut)",
+                "icon": "🧹",
+                "desc": "Raised wooden huts occupied by a Witch and a black Cat."
+        },
+        {
+                "id": "minecraft:trail_ruins",
+                "name": "Trail Ruins",
+                "icon": "🧱",
+                "desc": "Partially buried ancient structures composed of gravel, terracotta, and suspicious clay."
+        },
+        {
+                "id": "minecraft:village",
+                "name": "Village",
+                "icon": "🏡",
+                "desc": "Settlement containing houses, job blocks, Villagers, and Iron Golems. Available in plains, desert, savanna, taiga, and snowy plains."
+        }
+],
+
+    // Preserved Commands List
+    commands: [
+        {
+                "id": "/give",
+                "name": "/give",
+                "icon": "📜",
+                "desc": "Grants specific items with custom NBT / components to players.",
+                "meta": "/give <player> <item> [count]"
+        },
+        {
+                "id": "/summon",
+                "name": "/summon",
+                "icon": "📜",
+                "desc": "Spawns a custom living mob or object at specified coordinates.",
+                "meta": "/summon <entity> [pos] [nbt]"
+        },
+        {
+                "id": "/execute",
+                "name": "/execute",
+                "icon": "📜",
+                "desc": "Conditional compiler that executes commands on behalf of other entities or under environmental tests.",
+                "meta": "/execute <subcommands> run <command>"
+        },
+        {
+                "id": "/effect",
+                "name": "/effect",
+                "icon": "📜",
+                "desc": "Modifies active potion effects and amplifiers on players or mobs.",
+                "meta": "/effect <give|clear> <player> <effect> [seconds] [amplifier]"
+        },
+        {
+                "id": "/tp",
+                "name": "/tp",
+                "icon": "📜",
+                "desc": "Teleports players or entities to coordinates or another target.",
+                "meta": "/tp [target] <destination>"
+        },
+        {
+                "id": "/setblock",
+                "name": "/setblock",
+                "icon": "📜",
+                "desc": "Changes a single block at specified coordinates to another block type.",
+                "meta": "/setblock <pos> <block> [destroy|keep|replace]"
+        },
+        {
+                "id": "/fill",
+                "name": "/fill",
+                "icon": "📜",
+                "desc": "Fills a cubic region of blocks with a specified block type.",
+                "meta": "/fill <from> <to> <block> [replace|destroy|keep]"
+        },
+        {
+                "id": "/gamerule",
+                "name": "/gamerule",
+                "icon": "📜",
+                "desc": "Toggles global server configuration parameters like daylight cycle, mob griefing, and inventory keeping.",
+                "meta": "/gamerule <rule> [value]"
+        },
+        {
+                "id": "/kill",
+                "name": "/kill",
+                "icon": "📜",
+                "desc": "Instantly inflicts lethal damage to players or selected living mobs.",
+                "meta": "/kill [target]"
+        },
+        {
+                "id": "/gamemode",
+                "name": "/gamemode",
+                "icon": "📜",
+                "desc": "Sets the target player's gameplay interaction mode.",
+                "meta": "/gamemode <survival|creative|adventure|spectator> [player]"
+        },
+        {
+                "id": "/attribute",
+                "name": "/attribute",
+                "icon": "📜",
+                "desc": "Gets or modifies attribute modifiers (like base health or movement speed) of entities in real time.",
+                "meta": "/attribute <target> <attribute> <get|base|modifier> ..."
+        },
+        {
+                "id": "/clear",
+                "name": "/clear",
+                "icon": "📜",
+                "desc": "Empties items matching filters from target players' inventories.",
+                "meta": "/clear [player] [item] [maxCount]"
+        },
+        {
+                "id": "/difficulty",
+                "name": "/difficulty",
+                "icon": "📜",
+                "desc": "Modifies global combat challenge parameters and mob aggressiveness.",
+                "meta": "/difficulty <peaceful|easy|normal|hard>"
+        },
+        {
+                "id": "/enchant",
+                "name": "/enchant",
+                "icon": "📜",
+                "desc": "Applies compatible enchantments directly to the item held in the player's main hand.",
+                "meta": "/enchant <player> <enchantment> [level]"
+        },
+        {
+                "id": "/particle",
+                "name": "/particle",
+                "icon": "📜",
+                "desc": "Spawns custom cosmetic visual particles in the environment.",
+                "meta": "/particle <name> [pos] [speed] [count]"
+        },
+        {
+                "id": "/playsound",
+                "name": "/playsound",
+                "icon": "📜",
+                "desc": "Plays a sound effect to selected players from a coordinate source.",
+                "meta": "/playsound <sound> <source> <targets> [pos]"
+        },
+        {
+                "id": "/seed",
+                "name": "/seed",
+                "icon": "📜",
+                "desc": "Displays the world's generation integer seed in the chat console.",
+                "meta": "/seed"
+        },
+        {
+                "id": "/time",
+                "name": "/time",
+                "icon": "📜",
+                "desc": "Changes or queries the daylight time cycle of the current world.",
+                "meta": "/time <set|add|query> <value>"
+        },
+        {
+                "id": "/weather",
+                "name": "/weather",
+                "icon": "📜",
+                "desc": "Alters weather states of the world for a set time.",
+                "meta": "/weather <clear|rain|thunder> [duration]"
+        },
+        {
+                "id": "/xp",
+                "name": "/xp",
+                "icon": "📜",
+                "desc": "Grants or queries player experience points and levels.",
+                "meta": "/experience <add|set|query> <player> <amount> [points|levels]"
+        }
 ]
 };
 

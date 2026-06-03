@@ -65,6 +65,10 @@
                     <span class="nav-icon">⚡</span>
                     <span class="nav-text">Execute Builder</span>
                 </button>
+                <button class="nav-tab" data-target="containers-pane" aria-selected="false">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Containers</span>
+                </button>
                 <button class="nav-tab" data-target="presets-pane" aria-selected="false">
                     <span class="nav-icon">🧰</span>
                     <span class="nav-text">My Presets</span>
@@ -218,11 +222,12 @@
                                         </div>
                                         <input type="hidden" id="eq-hand" value="none">
                                     </div>
-                                    <div class="slot-enchant-wrapper">
-                                        <label class="mc-checkbox-label">
-                                            <input type="checkbox" id="eq-hand-ench" class="slot-ench-toggle">
+                                    <div class="slot-enchant-wrapper" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                                        <label class="mc-checkbox-label" style="flex: 1;">
+                                            <input type="checkbox" id="eq-hand-ench" class="slot-ench-toggle" data-slot="hand">
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-hand-ench-edit" data-slot="hand" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
                                     </div>
                                 </div>
                                 <!-- Off Hand -->
@@ -239,11 +244,12 @@
                                         </div>
                                         <input type="hidden" id="eq-offhand" value="none">
                                     </div>
-                                    <div class="slot-enchant-wrapper">
-                                        <label class="mc-checkbox-label">
-                                            <input type="checkbox" id="eq-offhand-ench" class="slot-ench-toggle">
+                                    <div class="slot-enchant-wrapper" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                                        <label class="mc-checkbox-label" style="flex: 1;">
+                                            <input type="checkbox" id="eq-offhand-ench" class="slot-ench-toggle" data-slot="offhand">
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-offhand-ench-edit" data-slot="offhand" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
                                     </div>
                                 </div>
                                 <!-- Helmet -->
@@ -260,11 +266,12 @@
                                         </div>
                                         <input type="hidden" id="eq-head" value="none">
                                     </div>
-                                    <div class="slot-enchant-wrapper">
-                                        <label class="mc-checkbox-label">
-                                            <input type="checkbox" id="eq-head-ench" class="slot-ench-toggle">
+                                    <div class="slot-enchant-wrapper" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                                        <label class="mc-checkbox-label" style="flex: 1;">
+                                            <input type="checkbox" id="eq-head-ench" class="slot-ench-toggle" data-slot="head">
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-head-ench-edit" data-slot="head" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
                                     </div>
                                 </div>
                                 <!-- Chestplate -->
@@ -281,11 +288,12 @@
                                         </div>
                                         <input type="hidden" id="eq-chest" value="none">
                                     </div>
-                                    <div class="slot-enchant-wrapper">
-                                        <label class="mc-checkbox-label">
-                                            <input type="checkbox" id="eq-chest-ench" class="slot-ench-toggle">
+                                    <div class="slot-enchant-wrapper" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                                        <label class="mc-checkbox-label" style="flex: 1;">
+                                            <input type="checkbox" id="eq-chest-ench" class="slot-ench-toggle" data-slot="chest">
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-chest-ench-edit" data-slot="chest" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
                                     </div>
                                 </div>
                                 <!-- Leggings -->
@@ -302,11 +310,12 @@
                                         </div>
                                         <input type="hidden" id="eq-legs" value="none">
                                     </div>
-                                    <div class="slot-enchant-wrapper">
-                                        <label class="mc-checkbox-label">
-                                            <input type="checkbox" id="eq-legs-ench" class="slot-ench-toggle">
+                                    <div class="slot-enchant-wrapper" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                                        <label class="mc-checkbox-label" style="flex: 1;">
+                                            <input type="checkbox" id="eq-legs-ench" class="slot-ench-toggle" data-slot="legs">
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-legs-ench-edit" data-slot="legs" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
                                     </div>
                                 </div>
                                 <!-- Boots -->
@@ -323,11 +332,12 @@
                                         </div>
                                         <input type="hidden" id="eq-feet" value="none">
                                     </div>
-                                    <div class="slot-enchant-wrapper">
-                                        <label class="mc-checkbox-label">
-                                            <input type="checkbox" id="eq-feet-ench" class="slot-ench-toggle">
+                                    <div class="slot-enchant-wrapper" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                                        <label class="mc-checkbox-label" style="flex: 1;">
+                                            <input type="checkbox" id="eq-feet-ench" class="slot-ench-toggle" data-slot="feet">
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-feet-ench-edit" data-slot="feet" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -1041,6 +1051,101 @@
                     </div>
                 </section>
 
+                <!-- Pane 6.5: Custom Container Maker -->
+                <section id="containers-pane" class="pane" aria-hidden="true">
+                    <div class="pane-header">
+                        <h2>📦 CUSTOM CONTAINER SMITHY</h2>
+                        <p>Configure custom chests, shulker boxes, barrels, dispensers, droppers, and hoppers with normal items or saved presets.</p>
+                    </div>
+
+                    <div class="form-container">
+                        <!-- Left Panel: Setup & Slot Config -->
+                        <div class="form-panel">
+                            <h3 class="panel-title">1. Container Setup</h3>
+                            <div class="form-grid" style="display: flex; flex-direction: column; gap: 14px;">
+                                <div class="input-field">
+                                    <label for="container-type">Container Block Type</label>
+                                    <select id="container-type" style="width: 100%;">
+                                        <option value="minecraft:chest">Chest 📦</option>
+                                        <option value="minecraft:trapped_chest">Trapped Chest 📦⚠️</option>
+                                        <option value="minecraft:barrel">Barrel 🛢️</option>
+                                        <option value="minecraft:dispenser">Dispenser 🏹</option>
+                                        <option value="minecraft:dropper">Dropper 🕳️</option>
+                                        <option value="minecraft:hopper">Hopper 🌪️</option>
+                                        <option value="minecraft:shulker_box">Shulker Box (Default) 🟪</option>
+                                        <option value="minecraft:white_shulker_box">White Shulker Box ⬜</option>
+                                        <option value="minecraft:orange_shulker_box">Orange Shulker Box 🟧</option>
+                                        <option value="minecraft:magenta_shulker_box">Magenta Shulker Box 🟪</option>
+                                        <option value="minecraft:light_blue_shulker_box">Light Blue Shulker Box 🟦</option>
+                                        <option value="minecraft:yellow_shulker_box">Yellow Shulker Box 🟨</option>
+                                        <option value="minecraft:lime_shulker_box">Lime Shulker Box 🟩</option>
+                                        <option value="minecraft:pink_shulker_box">Pink Shulker Box 🟪</option>
+                                        <option value="minecraft:gray_shulker_box">Gray Shulker Box ⬛</option>
+                                        <option value="minecraft:light_gray_shulker_box">Light Gray Shulker Box ⬜</option>
+                                        <option value="minecraft:cyan_shulker_box">Cyan Shulker Box 🟦</option>
+                                        <option value="minecraft:purple_shulker_box">Purple Shulker Box 🟪</option>
+                                        <option value="minecraft:blue_shulker_box">Blue Shulker Box 🟦</option>
+                                        <option value="minecraft:brown_shulker_box">Brown Shulker Box 🟫</option>
+                                        <option value="minecraft:green_shulker_box">Green Shulker Box 🟩</option>
+                                        <option value="minecraft:red_shulker_box">Red Shulker Box 🟥</option>
+                                        <option value="minecraft:black_shulker_box">Black Shulker Box ⬛</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="container-title">Custom Title (Name)</label>
+                                    <input type="text" id="container-title" placeholder="e.g. Loot Chest" style="width: 100%;">
+                                </div>
+                                <div style="border-top: 2px solid var(--mc-black); margin-top: 8px; padding-top: 12px;">
+                                    <h4 style="color: var(--text-gold); margin-bottom: 8px; font-family: 'Minecraft', 'VT323', monospace; font-size: 16px;">Active Slot Editor</h4>
+                                    <div id="container-slot-editor" class="mc-card" style="padding: 12px; background: #161618; border: 2px solid #373737; border-radius: 0; box-shadow: inset -2px -2px 0 #101012, inset 2px 2px 0 #333338;">
+                                        <p id="slot-editor-info" style="font-size: 13px; color: #888; margin-bottom: 0;">Select a slot to configure contents.</p>
+                                        <div id="slot-editor-controls" style="display: none; flex-direction: column; gap: 8px;">
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <span id="slot-editor-icon-preview" style="font-size: 24px;">🟩</span>
+                                                <div style="flex: 1; min-width: 0;">
+                                                    <div id="slot-editor-item-name" style="font-weight: bold; font-size: 14px; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Empty Slot</div>
+                                                    <div id="slot-editor-item-id" style="font-size: 11px; color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">none</div>
+                                                </div>
+                                            </div>
+                                            <div class="input-field slider-group" style="margin-top: 4px;">
+                                                <div class="slider-header">
+                                                    <label for="slot-item-count-input">Stack Count</label>
+                                                    <span id="slot-item-count-lbl">1x</span>
+                                                </div>
+                                                <input type="range" id="slot-item-count-input" min="1" max="64" value="1" style="width: 100%;">
+                                            </div>
+                                            <div style="display: flex; gap: 8px; margin-top: 4px;">
+                                                <button id="btn-slot-choose-item" class="mc-btn green-btn mc-btn-sm" style="flex: 1;">Set Item</button>
+                                                <button id="btn-slot-clear" class="mc-btn red-btn mc-btn-sm">Clear</button>
+                                            </div>
+                                            <div style="display: flex; gap: 8px; margin-top: 4px; border-top: 1px solid #2d2d30; padding-top: 6px;">
+                                                <button id="btn-container-fill-all" class="mc-btn secondary-btn mc-btn-sm" style="flex: 1; font-size: 11px; padding: 4px 6px;" title="Fill ALL slots in the container with this item">Fill All</button>
+                                                <button id="btn-container-fill-empty" class="mc-btn secondary-btn mc-btn-sm" style="flex: 1; font-size: 11px; padding: 4px 6px;" title="Fill only empty slots in the container with this item">Fill Empty</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="btn-container-clear-all" class="mc-btn red-btn" style="margin-top: 8px; width: 100%;">🗑️ Clear Container</button>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Visual Container Grid -->
+                        <div class="form-panel" style="display: flex; align-items: center; justify-content: center;">
+                            <h3 class="panel-title" style="width: 100%;">2. Container Grid</h3>
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 280px; gap: 15px;">
+                                <div class="container-grid-wrapper">
+                                    <div id="container-grid" class="container-grid">
+                                        <!-- Populated dynamically by app.js -->
+                                    </div>
+                                </div>
+                                <div style="font-size: 12px; color: #888; text-align: center; max-width: 320px;">
+                                    <p>💡 Tip: Click any slot to select it, then use the "Active Slot Editor" on the left to set custom preset creations or normal items.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Pane 7: Wiki & Documentation -->
                 <section id="docs-pane" class="pane" aria-hidden="true">
                     <div class="pane-header">
@@ -1055,6 +1160,10 @@
                                 <button class="docs-tab" data-cat="mobs" type="button">Mobs</button>
                                 <button class="docs-tab" data-cat="particles" type="button">Particles</button>
                                 <button class="docs-tab" data-cat="items" type="button">Items & Blocks</button>
+                                <button class="docs-tab" data-cat="sounds" type="button">Sounds</button>
+                                <button class="docs-tab" data-cat="biomes" type="button">Biomes</button>
+                                <button class="docs-tab" data-cat="structures" type="button">Structures</button>
+                                <button class="docs-tab" data-cat="commands" type="button">Commands</button>
                             </div>
                             <input type="text" id="docs-search" placeholder="🔍 Search documentation..." class="mc-input-sm" style="width: 250px; font-family: 'VT323', monospace; font-size: 16px;">
                         </div>
@@ -1160,9 +1269,31 @@
         </div>
     </div>
 
+    <!-- Mob Gear Enchantment Selection Modal -->
+    <div id="mob-gear-ench-modal" class="mc-modal-overlay" style="display: none;">
+        <div class="mc-modal-card" style="max-width: 600px;">
+            <div class="mc-modal-header">
+                <h3 id="mob-gear-ench-modal-title" style="color: var(--text-gold); font-size: 18px;">Edit Equipment Enchantments</h3>
+                <button class="mc-close-btn" id="btn-close-mob-gear-ench-modal">✕</button>
+            </div>
+            <div class="mc-modal-body scroll-pane" style="padding: 20px; overflow-y: auto; max-height: 50vh;">
+                <p style="margin-bottom: 12px; font-size: 13px; color: #888;">Select enchantments and levels for the selected slot. Unchecked enchantments will not be applied.</p>
+                <div style="margin-bottom: 12px;">
+                    <input type="text" id="mob-gear-ench-search" placeholder="🔍 Search enchantments..." class="mc-input-sm" style="width: 100%;">
+                </div>
+                <div id="mob-gear-ench-list" style="display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+            <div class="mc-modal-footer" style="padding: 14px 20px; background-color: #202022; border-top: 4px solid var(--mc-black); display: flex; justify-content: flex-end; gap: 10px;">
+                <button id="btn-save-mob-gear-ench" class="mc-btn green-btn">Done</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
-    <script src="data.js?v=2.0.4"></script>
-    <script src="generator.js?v=2.0.4"></script>
-    <script src="app.js?v=2.0.4"></script>
+    <script src="data.js?v=2.0.5"></script>
+    <script src="generator.js?v=2.0.5"></script>
+    <script src="app.js?v=2.0.5"></script>
 </body>
 </html>

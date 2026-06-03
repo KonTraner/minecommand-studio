@@ -30,6 +30,8 @@ const app = {
         app.hydrateEnchantments();
         app.hydrateMobEffects();
         app.initCreativeInventory();
+        app.initContainerMaker();
+        app.initMobGearEnch();
         app.initDocs();
         app.renderDocs();
         app.registerEventListeners();
@@ -511,6 +513,10 @@ const app = {
 
         btnOpen.addEventListener("click", () => {
             app.playClick();
+            app.creativeCallback = (item) => {
+                app.selectDropdownByValue("dropdown-item-type", item.id);
+                app.recalculateCurrentCommand();
+            };
             modal.style.display = "flex";
             modal.offsetHeight; // force layout reflow
             modal.classList.add("show");
@@ -560,7 +566,8 @@ const app = {
             { id: "boots", name: "Boots" },
             { id: "tools", name: "Tools" },
             { id: "blocks", name: "Blocks" },
-            { id: "misc", name: "Misc" }
+            { id: "misc", name: "Misc" },
+            { id: "presets", name: "Saved Presets" }
         ];
 
         categories.forEach(cat => {
@@ -585,6 +592,57 @@ const app = {
         grid.innerHTML = "";
 
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+
+        if (app.activeCreativeTab === "presets") {
+            const list = presets.filter(p => p.type === "item");
+            if (list.length === 0) {
+                grid.innerHTML = `<div class="no-presets-msg col-span-2" style="border: none; padding: 20px; font-size: 14px;">No custom items saved. Build an item and click "Save Preset" in the Custom Items tab!</div>`;
+                return;
+            }
+            list.forEach(p => {
+                const itemId = app.getItemIdFromCommand(p.command);
+                const iconPath = getItemIconPath(itemId);
+
+                if (query && !p.name.toLowerCase().includes(query) && !itemId.toLowerCase().includes(query)) {
+                    return;
+                }
+
+                const cell = document.createElement("div");
+                cell.className = "creative-item-cell preset-cell";
+                cell.innerHTML = `
+                    ${app.renderIcon(iconPath)}
+                    <div class="creative-tooltip">★ Preset: ${p.name} (${itemId.replace("minecraft:", "")})</div>
+                `;
+
+                cell.addEventListener("click", () => {
+                    app.playClick();
+                    if (app.creativeCallback) {
+                        app.creativeCallback({
+                            id: itemId,
+                            name: p.name,
+                            icon: iconPath,
+                            isPreset: true,
+                            presetId: p.id,
+                            command: p.command,
+                            itemConfig: p.itemConfig || null
+                        });
+                    } else {
+                        app.selectDropdownByValue("dropdown-item-type", itemId);
+                        app.recalculateCurrentCommand();
+                    }
+                    const creativeModal = document.getElementById("creative-inventory-modal");
+                    if (creativeModal) {
+                        creativeModal.classList.remove("show");
+                        setTimeout(() => {
+                            creativeModal.style.display = "none";
+                        }, 250);
+                    }
+                });
+                grid.appendChild(cell);
+            });
+            return;
+        }
+
         const list = MC_DATA.items[app.activeCreativeTab] || [];
 
         list.forEach(item => {
@@ -601,7 +659,12 @@ const app = {
 
             cell.addEventListener("click", () => {
                 app.playClick();
-                app.selectDropdownByValue("dropdown-item-type", item.id);
+                if (app.creativeCallback) {
+                    app.creativeCallback(item);
+                } else {
+                    app.selectDropdownByValue("dropdown-item-type", item.id);
+                    app.recalculateCurrentCommand();
+                }
                 const creativeModal = document.getElementById("creative-inventory-modal");
                 if (creativeModal) {
                     creativeModal.classList.remove("show");
@@ -609,7 +672,6 @@ const app = {
                         creativeModal.style.display = "none";
                     }, 250);
                 }
-                app.recalculateCurrentCommand();
             });
 
             grid.appendChild(cell);
@@ -1344,12 +1406,12 @@ const app = {
                     feet: getVal("eq-feet", "none")
                 },
                 gearEnch: {
-                    hand: getChecked("eq-hand-ench"),
-                    offhand: getChecked("eq-offhand-ench"),
-                    head: getChecked("eq-head-ench"),
-                    chest: getChecked("eq-chest-ench"),
-                    legs: getChecked("eq-legs-ench"),
-                    feet: getChecked("eq-feet-ench")
+                    hand: getChecked("eq-hand-ench") ? (app.mobEquipEnchants.hand && app.mobEquipEnchants.hand.length > 0 ? app.mobEquipEnchants.hand : true) : [],
+                    offhand: getChecked("eq-offhand-ench") ? (app.mobEquipEnchants.offhand && app.mobEquipEnchants.offhand.length > 0 ? app.mobEquipEnchants.offhand : true) : [],
+                    head: getChecked("eq-head-ench") ? (app.mobEquipEnchants.head && app.mobEquipEnchants.head.length > 0 ? app.mobEquipEnchants.head : true) : [],
+                    chest: getChecked("eq-chest-ench") ? (app.mobEquipEnchants.chest && app.mobEquipEnchants.chest.length > 0 ? app.mobEquipEnchants.chest : true) : [],
+                    legs: getChecked("eq-legs-ench") ? (app.mobEquipEnchants.legs && app.mobEquipEnchants.legs.length > 0 ? app.mobEquipEnchants.legs : true) : [],
+                    feet: getChecked("eq-feet-ench") ? (app.mobEquipEnchants.feet && app.mobEquipEnchants.feet.length > 0 ? app.mobEquipEnchants.feet : true) : []
                 },
                 specials: {}
             };
@@ -1470,6 +1532,15 @@ const app = {
 
             const cmd = Generator.generateExecute(config, targetVersion);
             app.displayCommand(cmd);
+        } else if (activeTab === "containers-pane") {
+            const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
+            const config = {
+                type: getVal("container-type", "minecraft:chest"),
+                title: getVal("container-title"),
+                contents: app.containerContents
+            };
+            const cmd = Generator.generateContainer(config, targetVersion);
+            app.displayCommand(cmd);
         }
     },
 
@@ -1532,6 +1603,7 @@ const app = {
 
         let pType = "item";
         let pDetails = "";
+        let itemConfig = null;
 
         if (activeTab === "mobs-pane") {
             pType = "mob";
@@ -1539,6 +1611,35 @@ const app = {
         } else if (activeTab === "items-pane") {
             pType = "item";
             pDetails = "Item: " + document.getElementById("item-type").value.replace("minecraft:", "");
+            
+            const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
+            const getChecked = (id) => { const el = document.getElementById(id); return el ? el.checked : false; };
+
+            let selectedEnchs = [];
+            document.querySelectorAll(".ench-cb:checked").forEach(cb => {
+                const id = cb.dataset.enchId;
+                const slider = document.querySelector(`.ench-slider[data-ench-id="${id}"]`);
+                const lvl = slider ? (parseInt(slider.value) || 1) : 1;
+                selectedEnchs.push({ id, lvl });
+            });
+
+            itemConfig = {
+                id: getVal("item-type", "minecraft:diamond_sword"),
+                name: getVal("item-name"),
+                lore: getVal("item-lore"),
+                unbreakable: getChecked("item-unbreakable"),
+                hideFlags: getChecked("item-hideflags"),
+                glint: getChecked("item-glint"),
+                count: parseInt(getVal("item-count", "1")) || 1,
+                enchantments: selectedEnchs,
+                attributes: {
+                    attack_damage: parseFloat(getVal("attr-attack-damage", "0")) || 0,
+                    attack_speed: parseFloat(getVal("attr-attack-speed", "0")) || 0,
+                    max_health: parseFloat(getVal("attr-max-health", "0")) || 0,
+                    knockback_resistance: parseFloat(getVal("attr-knockback-res", "0")) || 0,
+                    movement_speed: parseFloat(getVal("attr-movement-speed", "0")) || 0
+                }
+            };
         } else if (activeTab === "execute-pane") {
             pType = "execute";
             pDetails = "Execute: " + document.getElementById("exec-action").value;
@@ -1551,6 +1652,9 @@ const app = {
             command: rawCmd,
             details: pDetails
         };
+        if (itemConfig) {
+            presetObj.itemConfig = itemConfig;
+        }
 
         presets.push(presetObj);
         app.savePresetsToStorage();
@@ -1826,6 +1930,38 @@ const app = {
                 desc: "Block or Item asset ID. Useful for /give, /setblock, or execute checks.",
                 meta: `ID: ${i.id}`
             }));
+        } else if (tab === "sounds") {
+            itemsList = (MC_DATA.sounds || []).map(s => ({
+                id: s.id,
+                name: s.name,
+                icon: s.icon || "🔊",
+                desc: "Vanilla sound event ID. Can be played using the /playsound command.",
+                meta: `Sound Event ID: ${s.id}`
+            }));
+        } else if (tab === "biomes") {
+            itemsList = (MC_DATA.biomes || []).map(b => ({
+                id: b.id,
+                name: b.name,
+                icon: b.icon || "🏔️",
+                desc: b.desc || "Vanilla biome type.",
+                meta: `Biome Resource Key: ${b.id}`
+            }));
+        } else if (tab === "structures") {
+            itemsList = (MC_DATA.structures || []).map(s => ({
+                id: s.id,
+                name: s.name,
+                icon: s.icon || "🏰",
+                desc: s.desc || "In-game generation structure.",
+                meta: `Structure Resource Key: ${s.id}`
+            }));
+        } else if (tab === "commands") {
+            itemsList = (MC_DATA.commands || []).map(c => ({
+                id: c.id,
+                name: c.name,
+                icon: c.icon || "📜",
+                desc: c.desc || "Vanilla chat command.",
+                meta: `Syntax: ${c.meta || c.id}`
+            }));
         }
 
         itemsList.forEach(item => {
@@ -1851,7 +1987,456 @@ const app = {
 
             grid.appendChild(card);
         });
-    }
+    },
+
+    containerContents: {},
+    selectedContainerSlot: 0,
+    mobEquipEnchants: {
+        hand: [],
+        offhand: [],
+        head: [],
+        chest: [],
+        legs: [],
+        feet: []
+    },
+    activeGearEnchSlot: null,
+    creativeCallback: null,
+
+    getItemIdFromCommand(cmd) {
+        if (!cmd) return "minecraft:stone";
+        let temp = cmd.trim();
+        if (temp.startsWith("/")) {
+            const parts = temp.split(/\s+/);
+            if (parts.length >= 3) {
+                let idPart = parts[2];
+                const idx = idPart.search(/[{[()]/);
+                if (idx !== -1) {
+                    idPart = idPart.substring(0, idx);
+                }
+                if (!idPart.includes(":")) {
+                    idPart = "minecraft:" + idPart;
+                }
+                return idPart;
+            }
+        }
+        return "minecraft:stone";
+    },
+
+    initContainerMaker() {
+        const typeSelect = document.getElementById("container-type");
+        const titleInput = document.getElementById("container-title");
+        const clearAllBtn = document.getElementById("btn-container-clear-all");
+        
+        const countInput = document.getElementById("slot-item-count-input");
+        const countLbl = document.getElementById("slot-item-count-lbl");
+        const btnChooseItem = document.getElementById("btn-slot-choose-item");
+        const btnClearSlot = document.getElementById("btn-slot-clear");
+        const btnFillAll = document.getElementById("btn-container-fill-all");
+        const btnFillEmpty = document.getElementById("btn-container-fill-empty");
+
+        if (typeSelect) {
+            typeSelect.addEventListener("change", () => {
+                app.playClick();
+                const maxSlots = app.getContainerMaxSlots(typeSelect.value);
+                if (app.selectedContainerSlot >= maxSlots) {
+                    app.selectedContainerSlot = 0;
+                }
+                app.renderContainerGrid();
+                app.updateSlotEditorUI();
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        if (titleInput) {
+            titleInput.addEventListener("input", () => {
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        if (clearAllBtn) {
+            clearAllBtn.addEventListener("click", () => {
+                app.playClick();
+                if (confirm("Are you sure you want to clear all slots in this container?")) {
+                    app.containerContents = {};
+                    app.selectedContainerSlot = 0;
+                    app.renderContainerGrid();
+                    app.updateSlotEditorUI();
+                    app.recalculateCurrentCommand();
+                }
+            });
+        }
+
+        if (countInput) {
+            countInput.addEventListener("input", (e) => {
+                const val = parseInt(e.target.value) || 1;
+                if (countLbl) countLbl.textContent = val + "x";
+                
+                const item = app.containerContents[app.selectedContainerSlot];
+                if (item) {
+                    item.count = val;
+                    app.renderContainerGrid();
+                    app.recalculateCurrentCommand();
+                }
+            });
+        }
+
+        if (btnChooseItem) {
+            btnChooseItem.addEventListener("click", () => {
+                app.playClick();
+                const modal = document.getElementById("creative-inventory-modal");
+                if (modal) {
+                    modal.style.display = "flex";
+                    modal.offsetHeight;
+                    modal.classList.add("show");
+                    
+                    app.activeCreativeTab = "weapons";
+                    
+                    app.creativeCallback = (selection) => {
+                        const count = parseInt(document.getElementById("slot-item-count-input").value) || 1;
+                        app.containerContents[app.selectedContainerSlot] = {
+                            id: selection.id,
+                            name: selection.name,
+                            icon: selection.icon,
+                            isPreset: !!selection.isPreset,
+                            presetId: selection.presetId || null,
+                            command: selection.command || null,
+                            itemConfig: selection.itemConfig || null,
+                            count: count
+                        };
+                        app.renderContainerGrid();
+                        app.updateSlotEditorUI();
+                        app.recalculateCurrentCommand();
+                    };
+
+                    app.renderCreativeTabs();
+                    app.renderCreativeGrid();
+                    const searchInput = document.getElementById("creative-modal-search");
+                    if (searchInput) {
+                        searchInput.value = "";
+                        searchInput.focus();
+                    }
+                }
+            });
+        }
+
+        if (btnClearSlot) {
+            btnClearSlot.addEventListener("click", () => {
+                app.playClick();
+                delete app.containerContents[app.selectedContainerSlot];
+                app.renderContainerGrid();
+                app.updateSlotEditorUI();
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        if (btnFillAll) {
+            btnFillAll.addEventListener("click", () => {
+                app.playClick();
+                const item = app.containerContents[app.selectedContainerSlot];
+                if (!item) {
+                    alert("Please select a slot and configure an item first!");
+                    return;
+                }
+                if (confirm(`Fill all slots with ${item.name} x${item.count}?`)) {
+                    const maxSlots = app.getContainerMaxSlots(document.getElementById("container-type").value);
+                    for (let i = 0; i < maxSlots; i++) {
+                        app.containerContents[i] = JSON.parse(JSON.stringify(item));
+                    }
+                    app.renderContainerGrid();
+                    app.recalculateCurrentCommand();
+                }
+            });
+        }
+
+        if (btnFillEmpty) {
+            btnFillEmpty.addEventListener("click", () => {
+                app.playClick();
+                const item = app.containerContents[app.selectedContainerSlot];
+                if (!item) {
+                    alert("Please select a slot and configure an item first!");
+                    return;
+                }
+                const maxSlots = app.getContainerMaxSlots(document.getElementById("container-type").value);
+                let filledAny = false;
+                for (let i = 0; i < maxSlots; i++) {
+                    if (!app.containerContents[i]) {
+                        app.containerContents[i] = JSON.parse(JSON.stringify(item));
+                        filledAny = true;
+                    }
+                }
+                if (filledAny) {
+                    app.renderContainerGrid();
+                    app.recalculateCurrentCommand();
+                } else {
+                    alert("No empty slots to fill!");
+                }
+            });
+        }
+
+        app.renderContainerGrid();
+        app.updateSlotEditorUI();
+    },
+
+    getContainerMaxSlots(type) {
+        if (type.includes("dispenser") || type.includes("dropper")) return 9;
+        if (type.includes("hopper")) return 5;
+        return 27;
+    },
+
+    renderContainerGrid() {
+        const grid = document.getElementById("container-grid");
+        const typeSelect = document.getElementById("container-type");
+        if (!grid || !typeSelect) return;
+
+        const type = typeSelect.value;
+        const maxSlots = app.getContainerMaxSlots(type);
+
+        if (maxSlots === 9) {
+            grid.style.gridTemplateColumns = "repeat(3, 48px)";
+        } else if (maxSlots === 5) {
+            grid.style.gridTemplateColumns = "repeat(5, 48px)";
+        } else {
+            grid.style.gridTemplateColumns = "repeat(9, 48px)";
+        }
+
+        grid.innerHTML = "";
+
+        for (let i = 0; i < maxSlots; i++) {
+            const slotEl = document.createElement("div");
+            slotEl.className = `container-slot ${app.selectedContainerSlot === i ? "selected" : ""}`;
+            slotEl.dataset.slot = i;
+
+            const item = app.containerContents[i];
+            if (item) {
+                slotEl.innerHTML = `
+                    <div class="slot-item-icon">${app.renderIcon(item.icon)}</div>
+                    <div class="slot-item-count">${item.count > 1 ? item.count : ""}</div>
+                    <div class="slot-number">${i}</div>
+                    <div class="creative-tooltip">${item.isPreset ? '★ Preset: ' : ''}${item.name}</div>
+                `;
+            } else {
+                slotEl.innerHTML = `
+                    <div class="slot-number">${i}</div>
+                `;
+            }
+
+            slotEl.addEventListener("click", () => {
+                app.playClick();
+                app.selectedContainerSlot = i;
+                
+                document.querySelectorAll(".container-slot").forEach(el => el.classList.remove("selected"));
+                slotEl.classList.add("selected");
+
+                app.updateSlotEditorUI();
+            });
+
+            grid.appendChild(slotEl);
+        }
+    },
+
+    updateSlotEditorUI() {
+        const info = document.getElementById("slot-editor-info");
+        const controls = document.getElementById("slot-editor-controls");
+        const nameEl = document.getElementById("slot-editor-item-name");
+        const idEl = document.getElementById("slot-editor-item-id");
+        const iconEl = document.getElementById("slot-editor-icon-preview");
+        const countInput = document.getElementById("slot-item-count-input");
+        const countLbl = document.getElementById("slot-item-count-lbl");
+
+        if (!info || !controls) return;
+
+        info.textContent = `Selected Slot: #${app.selectedContainerSlot}`;
+        controls.style.display = "flex";
+
+        const item = app.containerContents[app.selectedContainerSlot];
+        if (item) {
+            nameEl.textContent = (item.isPreset ? "★ " : "") + item.name;
+            idEl.textContent = item.id;
+            iconEl.innerHTML = app.renderIcon(item.icon);
+            countInput.value = item.count;
+            countLbl.textContent = item.count + "x";
+        } else {
+            nameEl.textContent = "Empty Slot";
+            idEl.textContent = "none";
+            iconEl.innerHTML = "🟩";
+            countInput.value = 1;
+            countLbl.textContent = "1x";
+        }
+    },
+
+    initMobGearEnch() {
+        const btnSave = document.getElementById("btn-save-mob-gear-ench");
+        const btnClose = document.getElementById("btn-close-mob-gear-ench-modal");
+        const searchInput = document.getElementById("mob-gear-ench-search");
+
+        document.querySelectorAll(".btn-slot-ench-edit").forEach(btn => {
+            btn.addEventListener("click", () => {
+                app.playClick();
+                app.openMobGearEnchModal(btn.dataset.slot);
+            });
+        });
+
+        if (btnClose) {
+            btnClose.addEventListener("click", () => {
+                app.playClick();
+                app.closeMobGearEnchModal();
+            });
+        }
+
+        if (btnSave) {
+            btnSave.addEventListener("click", () => {
+                app.playClick();
+                app.saveMobGearEnchants();
+            });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener("input", () => {
+                app.filterMobGearEnchants();
+            });
+        }
+
+        const listContainer = document.getElementById("mob-gear-ench-list");
+        if (listContainer) {
+            listContainer.addEventListener("change", (e) => {
+                if (e.target.classList.contains("gear-ench-cb")) {
+                    app.playClick();
+                    const id = e.target.dataset.enchId;
+                    const row = document.getElementById(`gear-ench-slider-row-${id}`);
+                    if (row) {
+                        if (e.target.checked) {
+                            row.classList.add("show");
+                        } else {
+                            row.classList.remove("show");
+                        }
+                    }
+                }
+            });
+
+            listContainer.addEventListener("input", (e) => {
+                if (e.target.classList.contains("gear-ench-slider")) {
+                    const id = e.target.dataset.enchId;
+                    const lbl = document.getElementById(`gear-ench-lbl-${id}`);
+                    if (lbl) lbl.textContent = `Level ${e.target.value}`;
+                }
+            });
+        }
+    },
+
+    openMobGearEnchModal(slot) {
+        app.activeGearEnchSlot = slot;
+        const modal = document.getElementById("mob-gear-ench-modal");
+        const title = document.getElementById("mob-gear-ench-modal-title");
+        const searchInput = document.getElementById("mob-gear-ench-search");
+
+        const slotLabels = {
+            hand: "Main Hand ⚔️",
+            offhand: "Off Hand 🛡️",
+            head: "Head 🪖",
+            chest: "Chest 👕",
+            legs: "Legs 👖",
+            feet: "Feet 🥾"
+        };
+
+        if (title) {
+            title.textContent = `Edit Enchantments for ${slotLabels[slot] || slot}`;
+        }
+        if (searchInput) {
+            searchInput.value = "";
+        }
+
+        app.renderMobGearEnchList(slot);
+
+        if (modal) {
+            modal.style.display = "flex";
+            modal.offsetHeight;
+            modal.classList.add("show");
+        }
+    },
+
+    closeMobGearEnchModal() {
+        const modal = document.getElementById("mob-gear-ench-modal");
+        if (modal) {
+            modal.classList.remove("show");
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 250);
+        }
+        app.activeGearEnchSlot = null;
+    },
+
+    renderMobGearEnchList(slot) {
+        const container = document.getElementById("mob-gear-ench-list");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const savedEnchs = app.mobEquipEnchants[slot] || [];
+
+        MC_DATA.enchantments.forEach(e => {
+            const saved = savedEnchs.find(s => s.id === e.id);
+            const isChecked = !!saved;
+            const lvl = saved ? saved.lvl : 1;
+
+            const div = document.createElement("div");
+            div.className = "enchant-item";
+            div.dataset.name = e.name.toLowerCase();
+
+            div.innerHTML = `
+                <div class="enchant-row-top">
+                    <label class="mc-checkbox-label">
+                        <input type="checkbox" class="gear-ench-cb" data-ench-id="${e.id}" ${isChecked ? "checked" : ""}>
+                        <span class="mc-checkbox"></span>
+                        ${e.name}
+                    </label>
+                </div>
+                <div class="enchant-row-bottom ${isChecked ? "show" : ""}" id="gear-ench-slider-row-${e.id}">
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label>Enchantment Level</label>
+                            <span id="gear-ench-lbl-${e.id}">Level ${lvl}</span>
+                        </div>
+                        <input type="range" class="gear-ench-slider" data-ench-id="${e.id}" min="1" max="255" value="${lvl}">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    },
+
+    filterMobGearEnchants() {
+        const query = document.getElementById("mob-gear-ench-search").value.toLowerCase().trim();
+        document.querySelectorAll("#mob-gear-ench-list .enchant-item").forEach(item => {
+            const name = item.dataset.name;
+            if (!query || name.includes(query)) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    },
+
+    saveMobGearEnchants() {
+        const slot = app.activeGearEnchSlot;
+        if (!slot) return;
+
+        let selected = [];
+        document.querySelectorAll("#mob-gear-ench-list .gear-ench-cb:checked").forEach(cb => {
+            const id = cb.dataset.enchId;
+            const slider = document.querySelector(`#mob-gear-ench-list .gear-ench-slider[data-ench-id="${id}"]`);
+            const lvl = slider ? (parseInt(slider.value) || 1) : 1;
+            selected.push({ id, lvl });
+        });
+
+        app.mobEquipEnchants[slot] = selected;
+
+        const checkbox = document.getElementById(`eq-${slot}-ench`);
+        if (checkbox) {
+            checkbox.checked = selected.length > 0;
+        }
+
+        app.closeMobGearEnchModal();
+        app.recalculateCurrentCommand();
+    },
 };
 
 window.addEventListener("DOMContentLoaded", () => {

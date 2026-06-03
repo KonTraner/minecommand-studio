@@ -232,21 +232,29 @@ const Generator = {
     },
 
     // Auxiliary compiler for items in equipment slots
-    compileEquipItem(itemId, hasEnchant, version) {
+    compileEquipItem(itemId, enchants, version) {
         if (itemId === "none") return null;
+
+        const actualEnchants = Array.isArray(enchants) 
+            ? enchants 
+            : (enchants ? [{ id: "protection", lvl: 3 }] : []);
 
         if (version === "java_modern") {
             let comps = [];
-            if (hasEnchant) {
-                comps.push('minecraft:enchantments={levels:{"minecraft:protection":3}}');
+            if (actualEnchants.length > 0) {
+                let levelsObj = [];
+                actualEnchants.forEach(e => {
+                    levelsObj.push(`"minecraft:${e.id}":${e.lvl}`);
+                });
+                comps.push(`minecraft:enchantments={levels:{${levelsObj.join(",")}}}`);
             }
-            const compString = comps.length > 0 ? `[${comps.join(",")}]` : "";
-            return `{id:"${itemId}",count:1${compString ? `,components:{${comps.join(",")}}` : ""}}`;
+            return `{id:"${itemId}",count:1${comps.length > 0 ? `,components:{${comps.join(",")}}` : ""}}`;
         } else {
             // Java Legacy
             let tag = "";
-            if (hasEnchant) {
-                tag = ',tag:{Enchantments:[{id:"minecraft:protection",lvl:3s}]}';
+            if (actualEnchants.length > 0) {
+                const enchList = actualEnchants.map(e => `{id:"minecraft:${e.id}",lvl:${e.lvl}s}`);
+                tag = `,tag:{Enchantments:[${enchList.join(",")}]}`;
             }
             return `{id:"${itemId}",Count:1b${tag}}`;
         }
@@ -350,12 +358,12 @@ const Generator = {
         }
 
         // Equipment Lists (ArmorItems & HandItems)
-        const compiledHead = this.compileEquipItem(gear.head, !!gearEnch.head, version);
-        const compiledChest = this.compileEquipItem(gear.chest, !!gearEnch.chest, version);
-        const compiledLegs = this.compileEquipItem(gear.legs, !!gearEnch.legs, version);
-        const compiledFeet = this.compileEquipItem(gear.feet, !!gearEnch.feet, version);
-        const compiledHand = this.compileEquipItem(gear.hand, !!gearEnch.hand, version);
-        const compiledOffhand = this.compileEquipItem(gear.offhand, !!gearEnch.offhand, version);
+        const compiledHead = this.compileEquipItem(gear.head, gearEnch.head, version);
+        const compiledChest = this.compileEquipItem(gear.chest, gearEnch.chest, version);
+        const compiledLegs = this.compileEquipItem(gear.legs, gearEnch.legs, version);
+        const compiledFeet = this.compileEquipItem(gear.feet, gearEnch.feet, version);
+        const compiledHand = this.compileEquipItem(gear.hand, gearEnch.hand, version);
+        const compiledOffhand = this.compileEquipItem(gear.offhand, gearEnch.offhand, version);
 
         if (compiledHead || compiledChest || compiledLegs || compiledFeet) {
             const boots = compiledFeet || "{}";
@@ -799,6 +807,187 @@ const Generator = {
         compiled += ` run ${actionCmd}`;
 
         return compiled;
+    },
+
+    parseGiveCommand(cmd) {
+        if (!cmd) return { id: "minecraft:stone", count: 1, components: [], tag: "" };
+        let temp = cmd.trim();
+        let parts = temp.split(/\s+/);
+        
+        let itemPart = parts[2] || "minecraft:stone";
+        let count = parseInt(parts[3]) || 1;
+
+        let id = itemPart;
+        let components = [];
+        let tag = "";
+
+        const bracketStart = itemPart.indexOf("[");
+        const bracketEnd = itemPart.lastIndexOf("]");
+        if (bracketStart !== -1 && bracketEnd !== -1 && bracketEnd > bracketStart) {
+            id = itemPart.substring(0, bracketStart);
+            const compsRaw = itemPart.substring(bracketStart + 1, bracketEnd);
+            components = this.splitTopLevelCommas(compsRaw, "[", "]", "{", "}");
+        } else {
+            const braceStart = itemPart.indexOf("{");
+            const braceEnd = itemPart.lastIndexOf("}");
+            if (braceStart !== -1 && braceEnd !== -1 && braceEnd > braceStart) {
+                id = itemPart.substring(0, braceStart);
+                tag = itemPart.substring(braceStart);
+            }
+        }
+
+        if (!id.includes(":")) {
+            id = "minecraft:" + id;
+        }
+
+        return { id, count, components, tag };
+    },
+
+    splitTopLevelCommas(str, openB, closeB, openBrace, closeBrace) {
+        let result = [];
+        let current = "";
+        let inQuotes = null;
+        let bracketLevel = 0;
+        let braceLevel = 0;
+
+        for (let i = 0; i < str.length; i++) {
+            const char = str[i];
+            if (inQuotes) {
+                if (char === inQuotes) {
+                    let escapes = 0;
+                    for (let j = i - 1; j >= 0; j--) {
+                        if (str[j] === "\\") escapes++;
+                        else break;
+                    }
+                    if (escapes % 2 === 0) {
+                        inQuotes = null;
+                    }
+                }
+                current += char;
+            } else if (char === "'" || char === '"') {
+                inQuotes = char;
+                current += char;
+            } else if (char === openB) {
+                bracketLevel++;
+                current += char;
+            } else if (char === closeB) {
+                bracketLevel--;
+                current += char;
+            } else if (char === openBrace) {
+                braceLevel++;
+                current += char;
+            } else if (char === closeBrace) {
+                braceLevel--;
+                current += char;
+            } else if (char === "," && bracketLevel === 0 && braceLevel === 0) {
+                result.push(current.trim());
+                current = "";
+            } else {
+                current += char;
+            }
+        }
+        if (current.trim()) {
+            result.push(current.trim());
+        }
+        return result;
+    },
+
+    generateContainer(config, version) {
+        const type = config.type || "minecraft:chest";
+        const title = config.title ? config.title.trim() : "";
+        const contents = config.contents || {};
+
+        // --- BEDROCK ---
+        if (version === "bedrock") {
+            const cleanType = type.replace("minecraft:", "");
+            let slotItems = [];
+            for (const [slotStr, item] of Object.entries(contents)) {
+                const slot = parseInt(slotStr);
+                const id = item.id || "minecraft:stone";
+                const count = item.count || 1;
+                const cleanId = id.replace("minecraft:", "");
+                slotItems.push(`{Slot:${slot}b,id:"${cleanId}",Count:${count}b}`);
+            }
+
+            let blockTags = [];
+            if (title) {
+                blockTags.push(`CustomName:"${this.escapeString(title)}"`);
+            }
+            if (slotItems.length > 0) {
+                blockTags.push(`Items:[${slotItems.join(",")}]`);
+            }
+            const tagStr = blockTags.length > 0 ? ` {${blockTags.join(",")}}` : "";
+            return `/setblock ~ ~ ~ ${cleanType} 0 destroy${tagStr}`;
+        }
+
+        // --- MODERN JAVA (1.20.5+) ---
+        if (version === "java_modern") {
+            let containerComps = [];
+            if (title) {
+                containerComps.push(`minecraft:custom_name='${this.textToJsonComponent(title)}'`);
+            }
+
+            let slotItems = [];
+            for (const [slotStr, item] of Object.entries(contents)) {
+                const slot = parseInt(slotStr);
+                const id = item.id || "minecraft:stone";
+                const count = item.count || 1;
+
+                if (item.isPreset && item.command) {
+                    const parsed = this.parseGiveCommand(item.command);
+                    const itemComps = parsed.components.map(c => {
+                        const eqIdx = c.indexOf("=");
+                        if (eqIdx !== -1) {
+                            return c.substring(0, eqIdx) + ":" + c.substring(eqIdx + 1);
+                        }
+                        return c;
+                    });
+                    const compStr = itemComps.length > 0 ? `,components:{${itemComps.join(",")}}` : "";
+                    slotItems.push(`{slot:${slot},item:{id:"${parsed.id}",count:${count}${compStr}}}`);
+                } else {
+                    slotItems.push(`{slot:${slot},item:{id:"${id}",count:${count}}}`);
+                }
+            }
+
+            if (slotItems.length > 0) {
+                containerComps.push(`minecraft:container=[${slotItems.join(",")}]`);
+            }
+
+            const compString = containerComps.length > 0 ? `[${containerComps.join(",")}]` : "";
+            return `/give @p ${type}${compString} 1`;
+        }
+
+        // --- LEGACY JAVA (up to 1.20.4) ---
+        let nbtTags = [];
+        let displayTags = [];
+        if (title) {
+            displayTags.push(`Name:'${this.textToJsonComponent(title)}'`);
+        }
+        if (displayTags.length > 0) {
+            nbtTags.push(`display:{${displayTags.join(",")}}`);
+        }
+
+        let slotItems = [];
+        for (const [slotStr, item] of Object.entries(contents)) {
+            const slot = parseInt(slotStr);
+            const id = item.id || "minecraft:stone";
+            const count = item.count || 1;
+
+            if (item.isPreset && item.command) {
+                const parsed = this.parseGiveCommand(item.command);
+                const tagStr = (parsed.tag && parsed.tag !== "{}") ? `,tag:${parsed.tag}` : "";
+                slotItems.push(`{Slot:${slot}b,id:"${parsed.id}",Count:${count}b${tagStr}}`);
+            } else {
+                slotItems.push(`{Slot:${slot}b,id:"${id}",Count:${count}b}`);
+            }
+        }
+
+        if (slotItems.length > 0) {
+            nbtTags.push(`BlockEntityTag:{Items:[${slotItems.join(",")}]}`);
+        }
+
+        const nbtString = nbtTags.length > 0 ? `{${nbtTags.join(",")}}` : "";
+        return `/give @p ${type}${nbtString} 1`;
     }
 };
 

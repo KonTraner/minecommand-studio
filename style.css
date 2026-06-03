@@ -2179,4 +2179,98 @@ input[type="range"]::-webkit-slider-thumb:active {
     font-family: 'VT323', monospace;
 }
 
+/* ==========================================================================
+   Custom Container Maker & Mob Equipment Enchantments Additions
+   ========================================================================== */
+.container-grid-wrapper {
+    background-color: #c6c6c6;
+    border: 3px solid var(--mc-black);
+    box-shadow: inset -3px -3px 0 #555555, inset 3px 3px 0 #ffffff;
+    padding: 12px;
+    display: inline-block;
+    image-rendering: pixelated;
+}
+
+.container-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 48px);
+    gap: 4px;
+    background-color: #8b8b8b;
+    border: 2px solid var(--mc-black);
+    box-shadow: inset 2px 2px 0 #555555, inset -2px -2px 0 #ffffff;
+    padding: 4px;
+}
+
+.container-slot {
+    width: 48px;
+    height: 48px;
+    background-color: #8b8b8b;
+    border: 2px solid var(--mc-black);
+    box-shadow: inset -2px -2px 0 #555555, inset 2px 2px 0 #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.container-slot:hover {
+    background-color: #c6c6c6;
+    border-color: #ffffff;
+    box-shadow: inset -2px -2px 0 #ffffff, inset 2px 2px 0 #555555;
+}
+
+.container-slot.selected {
+    outline: 3px solid #ffff55;
+    z-index: 10;
+}
+
+.container-slot img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.container-slot .slot-item-count {
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    color: #ffffff;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    line-height: 1;
+    text-shadow: 2px 2px 0px #3f3f3f;
+    pointer-events: none;
+}
+
+.container-slot .slot-number {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    color: #c6c6c6;
+    font-size: 11px;
+    font-family: 'VT323', monospace;
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.container-slot:hover .creative-tooltip {
+    display: block;
+}
+
+/* Preset item cell highlight in Creative modal */
+.creative-item-cell.preset-cell {
+    background-color: #3b2a47; /* purple-ish background for custom presets */
+    box-shadow: inset -2px -2px 0 #21152a, inset 2px 2px 0 #7e5c9b;
+}
+
+.creative-item-cell.preset-cell:hover {
+    background-color: #553e66;
+    border-color: #e5b6ff;
+    box-shadow: inset -2px -2px 0 #e5b6ff, inset 2px 2px 0 #21152a;
+}
+
+
 
