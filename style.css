@@ -1652,17 +1652,30 @@ input[type="range"]::-webkit-slider-thumb:active {
    11. Responsiveness and Mobile Adaptation
    ========================================================================== */
 @media (max-width: 900px) {
-    /* 1. Reset base height framework to allow natural page scrolling */
+    /* 1. Reset base height framework to allow natural page scrolling & prevent horizontal scroll */
+    html, body {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow-y: auto !important;
+    }
+
     .app-container {
-        height: auto;
-        min-height: 100vh;
-        overflow-y: visible;
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow-y: visible !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
     }
     
     .mc-body {
-        flex-direction: column;
-        height: auto;
-        overflow: visible;
+        flex-direction: column !important;
+        height: auto !important;
+        overflow: visible !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
     
     /* 2. Compact Sticky Header */
@@ -1676,6 +1689,7 @@ input[type="range"]::-webkit-slider-thumb:active {
         position: sticky;
         top: 0;
         z-index: 101;
+        box-sizing: border-box;
     }
     
     .mc-header h1 {
@@ -1705,6 +1719,49 @@ input[type="range"]::-webkit-slider-thumb:active {
     .segment {
         padding: 4px 8px !important;
         font-size: 13px !important;
+    }
+
+    /* Split mobile header to 2-row layout on screens under 600px */
+    @media (max-width: 600px) {
+        .mc-header {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            height: auto !important;
+            min-height: 104px !important;
+            padding: 8px 12px !important;
+            gap: 6px !important;
+            justify-content: space-between !important;
+        }
+        .logo-area {
+            order: 1 !important;
+            flex: 1 !important;
+        }
+        .header-actions {
+            display: contents !important; /* Direct children layout directly in .mc-header flexbox grid */
+        }
+        #sound-toggle {
+            order: 2 !important;
+            flex-shrink: 0 !important;
+        }
+        .control-group {
+            order: 3 !important;
+            flex: 1 1 100% !important; /* Wrap to row 2 */
+            margin-top: 4px !important;
+            margin-bottom: 2px !important;
+        }
+        .segmented-picker {
+            width: 100% !important;
+            display: flex !important;
+        }
+        .segment {
+            flex: 1 !important;
+            text-align: center !important;
+            padding: 6px 2px !important;
+            font-size: 12px !important;
+        }
+        .mc-sidebar {
+            top: 104px !important; /* Adjust sticky position since header is 2-row height */
+        }
     }
     
     /* 3. Sticky Tab Navigation Bar below header */
@@ -1749,17 +1806,32 @@ input[type="range"]::-webkit-slider-thumb:active {
         font-size: 14px !important;
     }
     
-    /* 4. Natural scrollable Workspace */
+    /* 4. Natural scrollable Workspace & scroll overrides */
     .mc-workspace {
         flex: none !important;
         height: auto !important;
         overflow: visible !important;
         padding: 12px !important;
         padding-bottom: 80px !important; /* Space for the bottom sheet header */
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .form-container {
+        height: auto !important;
+        overflow: visible !important;
+        padding-bottom: 0 !important;
+    }
+
+    .unified-troll-canvas {
+        height: auto !important;
+        overflow: visible !important;
+        flex: none !important;
+        padding-bottom: 0 !important;
     }
     
-    /* 5. Mobile Form Grid Layouts */
-    .form-container, .grid-2-col, .equipment-layout {
+    /* 5. Mobile Form Grid Layouts & Preset grids */
+    .form-container, .grid-2-col, .equipment-layout, .presets-workspace {
         grid-template-columns: 1fr !important;
         gap: 12px !important;
     }
@@ -1936,6 +2008,64 @@ input[type="range"]::-webkit-slider-thumb:active {
     .container-slot img {
         width: 80% !important;
         height: 80% !important;
+    }
+    
+    /* Creative Inventory Horizontal scrollable tabs on mobile */
+    .creative-tabs-container {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        width: 100% !important;
+        padding-bottom: 2px !important;
+        scrollbar-width: none !important;
+        box-sizing: border-box !important;
+    }
+    .creative-tabs-container::-webkit-scrollbar {
+        display: none !important;
+    }
+    .creative-tab {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+    }
+    
+    /* Documentation Pane overrides for mobile natural scrolling */
+    .docs-workspace {
+        height: auto !important;
+    }
+    
+    .docs-controls-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+    }
+    
+    #docs-search {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .docs-tabs {
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        justify-content: center !important;
+    }
+    
+    .docs-tab {
+        flex: 1 1 calc(33.33% - 6px) !important; /* 3 tabs per row */
+        text-align: center !important;
+        padding: 6px 4px !important;
+        font-size: 14px !important;
+        box-sizing: border-box !important;
+    }
+    
+    .docs-grid {
+        height: auto !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        padding: 8px !important;
     }
     
     /* 9. Troll Configurations & Chains on Mobile */

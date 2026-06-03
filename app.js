@@ -416,19 +416,21 @@ const app = {
         const triggerIcon = wrapper.querySelector(".dropdown-trigger-icon");
         const triggerText = wrapper.querySelector(".dropdown-trigger-text");
 
-        hiddenInput.value = val;
-        triggerIcon.innerHTML = iconHtml;
-        triggerText.textContent = label;
+        if (hiddenInput) hiddenInput.value = val;
+        if (triggerIcon) triggerIcon.innerHTML = iconHtml || "";
+        if (triggerText) triggerText.textContent = label || "";
 
         // Toggle active states in options list
         const optionsBox = wrapper.querySelector(".dropdown-options");
-        optionsBox.querySelectorAll(".dropdown-option").forEach(opt => {
-            if (opt.dataset.value === val) {
-                opt.classList.add("active");
-            } else {
-                opt.classList.remove("active");
-            }
-        });
+        if (optionsBox) {
+            optionsBox.querySelectorAll(".dropdown-option").forEach(opt => {
+                if (opt.dataset.value === val) {
+                    opt.classList.add("active");
+                } else {
+                    opt.classList.remove("active");
+                }
+            });
+        }
     },
 
     // Helper: Select option by Value lookup (useful for preset loads)
@@ -436,11 +438,14 @@ const app = {
         const wrapper = document.getElementById(dropdownId);
         if (!wrapper) return;
         const optionsBox = wrapper.querySelector(".dropdown-options");
+        if (!optionsBox) return;
         const option = optionsBox.querySelector(`.dropdown-option[data-value="${targetVal}"]`);
         
         if (option) {
-            const iconHtml = option.querySelector(".option-icon").innerHTML;
-            const name = option.querySelector(".dropdown-option-text").textContent;
+            const iconEl = option.querySelector(".option-icon");
+            const textEl = option.querySelector(".dropdown-option-text");
+            const iconHtml = iconEl ? iconEl.innerHTML : "";
+            const name = textEl ? textEl.textContent : "";
             app.selectCustomDropdownOption(dropdownId, targetVal, name, iconHtml);
         } else if (targetVal === "none") {
             app.selectCustomDropdownOption(dropdownId, "none", "Empty Slot", "❌");
