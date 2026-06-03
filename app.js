@@ -2103,7 +2103,7 @@ const app = {
         if (!command) return;
 
         // Check if command is too long for chat console (256 for Java, 512 for Bedrock)
-        const targetVersion = document.getElementById("version-selector") ? document.getElementById("version-selector").value : "java_modern";
+        const targetVersion = document.getElementById("version-select") ? document.getElementById("version-select").value : "java_modern";
         const limit = targetVersion.startsWith("java") ? 256 : 512;
 
         if (command.length > limit) {
@@ -2123,6 +2123,7 @@ const app = {
 
         if (overlay) {
             overlay.style.display = "flex";
+            overlay.offsetHeight; // force layout reflow
             overlay.classList.add("show");
         }
 
@@ -2157,8 +2158,12 @@ const app = {
     closeCommandBlockWarning() {
         const overlay = document.getElementById("command-block-warning-overlay");
         if (overlay) {
-            overlay.style.display = "none";
             overlay.classList.remove("show");
+            setTimeout(() => {
+                if (!overlay.classList.contains("show")) {
+                    overlay.style.display = "none";
+                }
+            }, 250);
         }
     },
 
