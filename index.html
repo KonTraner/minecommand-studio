@@ -1139,6 +1139,12 @@
                                     <label for="container-title">Custom Title (Name)</label>
                                     <input type="text" id="container-title" placeholder="e.g. Loot Chest" style="width: 100%;">
                                 </div>
+                                <div class="input-field">
+                                    <label for="container-loot-table">Pre-loaded Loot Table</label>
+                                    <select id="container-loot-table" style="width: 100%;">
+                                        <option value="none">-- None (Use Custom Slot Grid) --</option>
+                                    </select>
+                                </div>
                                 <div style="border-top: 2px solid var(--mc-black); margin-top: 8px; padding-top: 12px;">
                                     <h4 style="color: var(--text-gold); margin-bottom: 8px; font-family: 'Minecraft', 'VT323', monospace; font-size: 16px;">Active Slot Editor</h4>
                                     <div id="container-slot-editor" class="mc-card" style="padding: 12px; background: #161618; border: 2px solid #373737; border-radius: 0; box-shadow: inset -2px -2px 0 #101012, inset 2px 2px 0 #333338;">
@@ -1177,9 +1183,12 @@
                         <div class="form-panel" style="display: flex; align-items: center; justify-content: center;">
                             <h3 class="panel-title" style="width: 100%;">2. Container Grid</h3>
                             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 280px; gap: 15px;">
-                                <div class="container-grid-wrapper">
+                                <div class="container-grid-wrapper" style="position: relative;">
                                     <div id="container-grid" class="container-grid">
                                         <!-- Populated dynamically by app.js -->
+                                    </div>
+                                    <div id="container-grid-overlay" class="grid-overlay" style="display: none;">
+                                        <span>⚠️ Preloaded with Loot Table</span>
                                     </div>
                                 </div>
                                 <div style="font-size: 12px; color: #888; text-align: center; max-width: 320px;">

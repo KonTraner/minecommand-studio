@@ -3569,91 +3569,7431 @@ const MC_DATA = {
         }
 ],
 
-    // Preserved Sounds List
+    // Generated Sounds List (ALL 1485 entries)
     sounds: [
         {
-                "id": "minecraft:entity.creeper.primed",
-                "name": "Creeper Primed (Fuse)",
+                "id": "minecraft:ambient.basalt_deltas.additions",
+                "name": "Ambient Basalt Deltas Additions",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.basalt_deltas.loop",
+                "name": "Ambient Basalt Deltas Loop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.basalt_deltas.mood",
+                "name": "Ambient Basalt Deltas Mood",
                 "icon": "🔊"
         },
         {
                 "id": "minecraft:ambient.cave",
-                "name": "Cave Ambient Spook",
+                "name": "Ambient Cave",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.crimson_forest.additions",
+                "name": "Ambient Crimson Forest Additions",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.crimson_forest.loop",
+                "name": "Ambient Crimson Forest Loop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.crimson_forest.mood",
+                "name": "Ambient Crimson Forest Mood",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.nether_wastes.additions",
+                "name": "Ambient Nether Wastes Additions",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.nether_wastes.loop",
+                "name": "Ambient Nether Wastes Loop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.nether_wastes.mood",
+                "name": "Ambient Nether Wastes Mood",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.soul_sand_valley.additions",
+                "name": "Ambient Soul Sand Valley Additions",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.soul_sand_valley.loop",
+                "name": "Ambient Soul Sand Valley Loop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.soul_sand_valley.mood",
+                "name": "Ambient Soul Sand Valley Mood",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.underwater.enter",
+                "name": "Ambient Underwater Enter",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.underwater.exit",
+                "name": "Ambient Underwater Exit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.underwater.loop",
+                "name": "Ambient Underwater Loop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.underwater.loop.additions",
+                "name": "Ambient Underwater Loop Additions",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.underwater.loop.additions.rare",
+                "name": "Ambient Underwater Loop Additions Rare",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.underwater.loop.additions.ultra_rare",
+                "name": "Ambient Underwater Loop Additions Ultra Rare",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.warped_forest.additions",
+                "name": "Ambient Warped Forest Additions",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.warped_forest.loop",
+                "name": "Ambient Warped Forest Loop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ambient.warped_forest.mood",
+                "name": "Ambient Warped Forest Mood",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_block.break",
+                "name": "Block Amethyst Block Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_block.chime",
+                "name": "Block Amethyst Block Chime",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_block.fall",
+                "name": "Block Amethyst Block Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_block.hit",
+                "name": "Block Amethyst Block Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_block.place",
+                "name": "Block Amethyst Block Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_block.resonate",
+                "name": "Block Amethyst Block Resonate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_block.step",
+                "name": "Block Amethyst Block Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_cluster.break",
+                "name": "Block Amethyst Cluster Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_cluster.fall",
+                "name": "Block Amethyst Cluster Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_cluster.hit",
+                "name": "Block Amethyst Cluster Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_cluster.place",
+                "name": "Block Amethyst Cluster Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.amethyst_cluster.step",
+                "name": "Block Amethyst Cluster Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ancient_debris.break",
+                "name": "Block Ancient Debris Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ancient_debris.fall",
+                "name": "Block Ancient Debris Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ancient_debris.hit",
+                "name": "Block Ancient Debris Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ancient_debris.place",
+                "name": "Block Ancient Debris Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ancient_debris.step",
+                "name": "Block Ancient Debris Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.anvil.break",
+                "name": "Block Anvil Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.anvil.destroy",
+                "name": "Block Anvil Destroy",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.anvil.fall",
+                "name": "Block Anvil Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.anvil.hit",
+                "name": "Block Anvil Hit",
                 "icon": "🔊"
         },
         {
                 "id": "minecraft:block.anvil.land",
-                "name": "Anvil Impact",
+                "name": "Block Anvil Land",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.ghast.warn",
-                "name": "Ghast Scream",
+                "id": "minecraft:block.anvil.place",
+                "name": "Block Anvil Place",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.lightning_bolt.thunder",
-                "name": "Thunder Bolt",
+                "id": "minecraft:block.anvil.step",
+                "name": "Block Anvil Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.anvil.use",
+                "name": "Block Anvil Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea_leaves.break",
+                "name": "Block Azalea Leaves Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea_leaves.fall",
+                "name": "Block Azalea Leaves Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea_leaves.hit",
+                "name": "Block Azalea Leaves Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea_leaves.place",
+                "name": "Block Azalea Leaves Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea_leaves.step",
+                "name": "Block Azalea Leaves Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea.break",
+                "name": "Block Azalea Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea.fall",
+                "name": "Block Azalea Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea.hit",
+                "name": "Block Azalea Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea.place",
+                "name": "Block Azalea Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.azalea.step",
+                "name": "Block Azalea Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_sapling.break",
+                "name": "Block Bamboo Sapling Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_sapling.hit",
+                "name": "Block Bamboo Sapling Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_sapling.place",
+                "name": "Block Bamboo Sapling Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_button.click_off",
+                "name": "Block Bamboo Wood Button Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_button.click_on",
+                "name": "Block Bamboo Wood Button Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_door.close",
+                "name": "Block Bamboo Wood Door Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_door.open",
+                "name": "Block Bamboo Wood Door Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_fence_gate.close",
+                "name": "Block Bamboo Wood Fence Gate Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_fence_gate.open",
+                "name": "Block Bamboo Wood Fence Gate Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_hanging_sign.break",
+                "name": "Block Bamboo Wood Hanging Sign Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_hanging_sign.fall",
+                "name": "Block Bamboo Wood Hanging Sign Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_hanging_sign.hit",
+                "name": "Block Bamboo Wood Hanging Sign Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_hanging_sign.place",
+                "name": "Block Bamboo Wood Hanging Sign Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_hanging_sign.step",
+                "name": "Block Bamboo Wood Hanging Sign Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_pressure_plate.click_off",
+                "name": "Block Bamboo Wood Pressure Plate Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_pressure_plate.click_on",
+                "name": "Block Bamboo Wood Pressure Plate Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_trapdoor.close",
+                "name": "Block Bamboo Wood Trapdoor Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood_trapdoor.open",
+                "name": "Block Bamboo Wood Trapdoor Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood.break",
+                "name": "Block Bamboo Wood Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood.fall",
+                "name": "Block Bamboo Wood Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood.hit",
+                "name": "Block Bamboo Wood Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood.place",
+                "name": "Block Bamboo Wood Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo_wood.step",
+                "name": "Block Bamboo Wood Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo.break",
+                "name": "Block Bamboo Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo.fall",
+                "name": "Block Bamboo Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo.hit",
+                "name": "Block Bamboo Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo.place",
+                "name": "Block Bamboo Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bamboo.step",
+                "name": "Block Bamboo Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.barrel.close",
+                "name": "Block Barrel Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.barrel.open",
+                "name": "Block Barrel Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.basalt.break",
+                "name": "Block Basalt Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.basalt.fall",
+                "name": "Block Basalt Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.basalt.hit",
+                "name": "Block Basalt Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.basalt.place",
+                "name": "Block Basalt Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.basalt.step",
+                "name": "Block Basalt Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beacon.activate",
+                "name": "Block Beacon Activate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beacon.ambient",
+                "name": "Block Beacon Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beacon.deactivate",
+                "name": "Block Beacon Deactivate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beacon.power_select",
+                "name": "Block Beacon Power Select",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beehive.drip",
+                "name": "Block Beehive Drip",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beehive.enter",
+                "name": "Block Beehive Enter",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beehive.exit",
+                "name": "Block Beehive Exit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beehive.shear",
+                "name": "Block Beehive Shear",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.beehive.work",
+                "name": "Block Beehive Work",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bell.resonate",
+                "name": "Block Bell Resonate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bell.use",
+                "name": "Block Bell Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.big_dripleaf.break",
+                "name": "Block Big Dripleaf Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.big_dripleaf.fall",
+                "name": "Block Big Dripleaf Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.big_dripleaf.hit",
+                "name": "Block Big Dripleaf Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.big_dripleaf.place",
+                "name": "Block Big Dripleaf Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.big_dripleaf.step",
+                "name": "Block Big Dripleaf Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.big_dripleaf.tilt_down",
+                "name": "Block Big Dripleaf Tilt Down",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.big_dripleaf.tilt_up",
+                "name": "Block Big Dripleaf Tilt Up",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.blastfurnace.fire_crackle",
+                "name": "Block Blastfurnace Fire Crackle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bone_block.break",
+                "name": "Block Bone Block Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bone_block.fall",
+                "name": "Block Bone Block Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bone_block.hit",
+                "name": "Block Bone Block Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bone_block.place",
+                "name": "Block Bone Block Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bone_block.step",
+                "name": "Block Bone Block Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.brewing_stand.brew",
+                "name": "Block Brewing Stand Brew",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bubble_column.bubble_pop",
+                "name": "Block Bubble Column Bubble Pop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bubble_column.upwards_ambient",
+                "name": "Block Bubble Column Upwards Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bubble_column.upwards_inside",
+                "name": "Block Bubble Column Upwards Inside",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bubble_column.whirlpool_ambient",
+                "name": "Block Bubble Column Whirlpool Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.bubble_column.whirlpool_inside",
+                "name": "Block Bubble Column Whirlpool Inside",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cake.add_candle",
+                "name": "Block Cake Add Candle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.calcite.break",
+                "name": "Block Calcite Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.calcite.fall",
+                "name": "Block Calcite Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.calcite.hit",
+                "name": "Block Calcite Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.calcite.place",
+                "name": "Block Calcite Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.calcite.step",
+                "name": "Block Calcite Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.campfire.crackle",
+                "name": "Block Campfire Crackle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.candle.ambient",
+                "name": "Block Candle Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.candle.break",
+                "name": "Block Candle Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.candle.extinguish",
+                "name": "Block Candle Extinguish",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.candle.fall",
+                "name": "Block Candle Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.candle.hit",
+                "name": "Block Candle Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.candle.place",
+                "name": "Block Candle Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.candle.step",
+                "name": "Block Candle Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cave_vines.break",
+                "name": "Block Cave Vines Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cave_vines.fall",
+                "name": "Block Cave Vines Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cave_vines.hit",
+                "name": "Block Cave Vines Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cave_vines.pick_berries",
+                "name": "Block Cave Vines Pick Berries",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cave_vines.place",
+                "name": "Block Cave Vines Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cave_vines.step",
+                "name": "Block Cave Vines Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chain.break",
+                "name": "Block Chain Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chain.fall",
+                "name": "Block Chain Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chain.hit",
+                "name": "Block Chain Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chain.place",
+                "name": "Block Chain Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chain.step",
+                "name": "Block Chain Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_leaves.break",
+                "name": "Block Cherry Leaves Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_leaves.fall",
+                "name": "Block Cherry Leaves Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_leaves.hit",
+                "name": "Block Cherry Leaves Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_leaves.place",
+                "name": "Block Cherry Leaves Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_leaves.step",
+                "name": "Block Cherry Leaves Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_sapling.break",
+                "name": "Block Cherry Sapling Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_sapling.fall",
+                "name": "Block Cherry Sapling Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_sapling.hit",
+                "name": "Block Cherry Sapling Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_sapling.place",
+                "name": "Block Cherry Sapling Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_sapling.step",
+                "name": "Block Cherry Sapling Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_button.click_off",
+                "name": "Block Cherry Wood Button Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_button.click_on",
+                "name": "Block Cherry Wood Button Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_door.close",
+                "name": "Block Cherry Wood Door Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_door.open",
+                "name": "Block Cherry Wood Door Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_fence_gate.close",
+                "name": "Block Cherry Wood Fence Gate Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_fence_gate.open",
+                "name": "Block Cherry Wood Fence Gate Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_hanging_sign.break",
+                "name": "Block Cherry Wood Hanging Sign Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_hanging_sign.fall",
+                "name": "Block Cherry Wood Hanging Sign Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_hanging_sign.hit",
+                "name": "Block Cherry Wood Hanging Sign Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_hanging_sign.place",
+                "name": "Block Cherry Wood Hanging Sign Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_hanging_sign.step",
+                "name": "Block Cherry Wood Hanging Sign Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_pressure_plate.click_off",
+                "name": "Block Cherry Wood Pressure Plate Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_pressure_plate.click_on",
+                "name": "Block Cherry Wood Pressure Plate Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_trapdoor.close",
+                "name": "Block Cherry Wood Trapdoor Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood_trapdoor.open",
+                "name": "Block Cherry Wood Trapdoor Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood.break",
+                "name": "Block Cherry Wood Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood.fall",
+                "name": "Block Cherry Wood Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood.hit",
+                "name": "Block Cherry Wood Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood.place",
+                "name": "Block Cherry Wood Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.cherry_wood.step",
+                "name": "Block Cherry Wood Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chest.close",
+                "name": "Block Chest Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chest.locked",
+                "name": "Block Chest Locked",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chest.open",
+                "name": "Block Chest Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.break",
+                "name": "Block Chiseled Bookshelf Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.fall",
+                "name": "Block Chiseled Bookshelf Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.hit",
+                "name": "Block Chiseled Bookshelf Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.insert",
+                "name": "Block Chiseled Bookshelf Insert",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.insert.enchanted",
+                "name": "Block Chiseled Bookshelf Insert Enchanted",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.pickup",
+                "name": "Block Chiseled Bookshelf Pickup",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.pickup.enchanted",
+                "name": "Block Chiseled Bookshelf Pickup Enchanted",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.place",
+                "name": "Block Chiseled Bookshelf Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chiseled_bookshelf.step",
+                "name": "Block Chiseled Bookshelf Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chorus_flower.death",
+                "name": "Block Chorus Flower Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.chorus_flower.grow",
+                "name": "Block Chorus Flower Grow",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.comparator.click",
+                "name": "Block Comparator Click",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.composter.empty",
+                "name": "Block Composter Empty",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.composter.fill",
+                "name": "Block Composter Fill",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.composter.fill_success",
+                "name": "Block Composter Fill Success",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.composter.ready",
+                "name": "Block Composter Ready",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.conduit.activate",
+                "name": "Block Conduit Activate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.conduit.ambient",
+                "name": "Block Conduit Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.conduit.ambient.short",
+                "name": "Block Conduit Ambient Short",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.conduit.attack.target",
+                "name": "Block Conduit Attack Target",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.conduit.deactivate",
+                "name": "Block Conduit Deactivate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.copper.break",
+                "name": "Block Copper Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.copper.fall",
+                "name": "Block Copper Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.copper.hit",
+                "name": "Block Copper Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.copper.place",
+                "name": "Block Copper Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.copper.step",
+                "name": "Block Copper Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.coral_block.break",
+                "name": "Block Coral Block Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.coral_block.fall",
+                "name": "Block Coral Block Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.coral_block.hit",
+                "name": "Block Coral Block Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.coral_block.place",
+                "name": "Block Coral Block Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.coral_block.step",
+                "name": "Block Coral Block Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.crop.break",
+                "name": "Block Crop Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.decorated_pot.break",
+                "name": "Block Decorated Pot Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.decorated_pot.fall",
+                "name": "Block Decorated Pot Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.decorated_pot.hit",
+                "name": "Block Decorated Pot Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.decorated_pot.place",
+                "name": "Block Decorated Pot Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.decorated_pot.shatter",
+                "name": "Block Decorated Pot Shatter",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.decorated_pot.step",
+                "name": "Block Decorated Pot Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_bricks.break",
+                "name": "Block Deepslate Bricks Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_bricks.fall",
+                "name": "Block Deepslate Bricks Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_bricks.hit",
+                "name": "Block Deepslate Bricks Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_bricks.place",
+                "name": "Block Deepslate Bricks Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_bricks.step",
+                "name": "Block Deepslate Bricks Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_tiles.break",
+                "name": "Block Deepslate Tiles Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_tiles.fall",
+                "name": "Block Deepslate Tiles Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_tiles.hit",
+                "name": "Block Deepslate Tiles Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_tiles.place",
+                "name": "Block Deepslate Tiles Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate_tiles.step",
+                "name": "Block Deepslate Tiles Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate.break",
+                "name": "Block Deepslate Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate.fall",
+                "name": "Block Deepslate Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate.hit",
+                "name": "Block Deepslate Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate.place",
+                "name": "Block Deepslate Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.deepslate.step",
+                "name": "Block Deepslate Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.dispenser.dispense",
+                "name": "Block Dispenser Dispense",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.dispenser.fail",
+                "name": "Block Dispenser Fail",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.dispenser.launch",
+                "name": "Block Dispenser Launch",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.dripstone_block.break",
+                "name": "Block Dripstone Block Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.dripstone_block.fall",
+                "name": "Block Dripstone Block Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.dripstone_block.hit",
+                "name": "Block Dripstone Block Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.dripstone_block.place",
+                "name": "Block Dripstone Block Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.dripstone_block.step",
+                "name": "Block Dripstone Block Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.enchantment_table.use",
+                "name": "Block Enchantment Table Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.end_gateway.spawn",
+                "name": "Block End Gateway Spawn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.end_portal_frame.fill",
+                "name": "Block End Portal Frame Fill",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.end_portal.spawn",
+                "name": "Block End Portal Spawn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ender_chest.close",
+                "name": "Block Ender Chest Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ender_chest.open",
+                "name": "Block Ender Chest Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fence_gate.close",
+                "name": "Block Fence Gate Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fence_gate.open",
+                "name": "Block Fence Gate Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fire.ambient",
+                "name": "Block Fire Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fire.extinguish",
+                "name": "Block Fire Extinguish",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.flowering_azalea.break",
+                "name": "Block Flowering Azalea Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.flowering_azalea.fall",
+                "name": "Block Flowering Azalea Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.flowering_azalea.hit",
+                "name": "Block Flowering Azalea Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.flowering_azalea.place",
+                "name": "Block Flowering Azalea Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.flowering_azalea.step",
+                "name": "Block Flowering Azalea Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.froglight.break",
+                "name": "Block Froglight Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.froglight.fall",
+                "name": "Block Froglight Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.froglight.hit",
+                "name": "Block Froglight Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.froglight.place",
+                "name": "Block Froglight Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.froglight.step",
+                "name": "Block Froglight Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.frogspawn.break",
+                "name": "Block Frogspawn Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.frogspawn.fall",
+                "name": "Block Frogspawn Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.frogspawn.hatch",
+                "name": "Block Frogspawn Hatch",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.frogspawn.hit",
+                "name": "Block Frogspawn Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.frogspawn.place",
+                "name": "Block Frogspawn Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.frogspawn.step",
+                "name": "Block Frogspawn Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fungus.break",
+                "name": "Block Fungus Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fungus.fall",
+                "name": "Block Fungus Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fungus.hit",
+                "name": "Block Fungus Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fungus.place",
+                "name": "Block Fungus Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.fungus.step",
+                "name": "Block Fungus Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.furnace.fire_crackle",
+                "name": "Block Furnace Fire Crackle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gilded_blackstone.break",
+                "name": "Block Gilded Blackstone Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gilded_blackstone.fall",
+                "name": "Block Gilded Blackstone Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gilded_blackstone.hit",
+                "name": "Block Gilded Blackstone Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gilded_blackstone.place",
+                "name": "Block Gilded Blackstone Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gilded_blackstone.step",
+                "name": "Block Gilded Blackstone Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.glass.break",
+                "name": "Block Glass Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.glass.fall",
+                "name": "Block Glass Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.glass.hit",
+                "name": "Block Glass Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.glass.place",
+                "name": "Block Glass Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.glass.step",
+                "name": "Block Glass Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.grass.break",
+                "name": "Block Grass Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.grass.fall",
+                "name": "Block Grass Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.grass.hit",
+                "name": "Block Grass Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.grass.place",
+                "name": "Block Grass Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.grass.step",
+                "name": "Block Grass Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gravel.break",
+                "name": "Block Gravel Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gravel.fall",
+                "name": "Block Gravel Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gravel.hit",
+                "name": "Block Gravel Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gravel.place",
+                "name": "Block Gravel Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.gravel.step",
+                "name": "Block Gravel Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.grindstone.use",
+                "name": "Block Grindstone Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.growing_plant.crop",
+                "name": "Block Growing Plant Crop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_roots.break",
+                "name": "Block Hanging Roots Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_roots.fall",
+                "name": "Block Hanging Roots Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_roots.hit",
+                "name": "Block Hanging Roots Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_roots.place",
+                "name": "Block Hanging Roots Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_roots.step",
+                "name": "Block Hanging Roots Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_sign.break",
+                "name": "Block Hanging Sign Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_sign.fall",
+                "name": "Block Hanging Sign Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_sign.hit",
+                "name": "Block Hanging Sign Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_sign.place",
+                "name": "Block Hanging Sign Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.hanging_sign.step",
+                "name": "Block Hanging Sign Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.honey_block.break",
+                "name": "Block Honey Block Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.honey_block.fall",
+                "name": "Block Honey Block Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.honey_block.hit",
+                "name": "Block Honey Block Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.honey_block.place",
+                "name": "Block Honey Block Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.honey_block.slide",
+                "name": "Block Honey Block Slide",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.honey_block.step",
+                "name": "Block Honey Block Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.iron_door.close",
+                "name": "Block Iron Door Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.iron_door.open",
+                "name": "Block Iron Door Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.iron_trapdoor.close",
+                "name": "Block Iron Trapdoor Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.iron_trapdoor.open",
+                "name": "Block Iron Trapdoor Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ladder.break",
+                "name": "Block Ladder Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ladder.fall",
+                "name": "Block Ladder Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ladder.hit",
+                "name": "Block Ladder Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ladder.place",
+                "name": "Block Ladder Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.ladder.step",
+                "name": "Block Ladder Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lantern.break",
+                "name": "Block Lantern Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lantern.fall",
+                "name": "Block Lantern Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lantern.hit",
+                "name": "Block Lantern Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lantern.place",
+                "name": "Block Lantern Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lantern.step",
+                "name": "Block Lantern Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.large_amethyst_bud.break",
+                "name": "Block Large Amethyst Bud Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.large_amethyst_bud.place",
+                "name": "Block Large Amethyst Bud Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lava.ambient",
+                "name": "Block Lava Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lava.extinguish",
+                "name": "Block Lava Extinguish",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lava.pop",
+                "name": "Block Lava Pop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lever.click",
+                "name": "Block Lever Click",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lily_pad.place",
+                "name": "Block Lily Pad Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lodestone.break",
+                "name": "Block Lodestone Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lodestone.fall",
+                "name": "Block Lodestone Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lodestone.hit",
+                "name": "Block Lodestone Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lodestone.place",
+                "name": "Block Lodestone Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.lodestone.step",
+                "name": "Block Lodestone Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mangrove_roots.break",
+                "name": "Block Mangrove Roots Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mangrove_roots.fall",
+                "name": "Block Mangrove Roots Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mangrove_roots.hit",
+                "name": "Block Mangrove Roots Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mangrove_roots.place",
+                "name": "Block Mangrove Roots Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mangrove_roots.step",
+                "name": "Block Mangrove Roots Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.medium_amethyst_bud.break",
+                "name": "Block Medium Amethyst Bud Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.medium_amethyst_bud.place",
+                "name": "Block Medium Amethyst Bud Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.metal_pressure_plate.click_off",
+                "name": "Block Metal Pressure Plate Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.metal_pressure_plate.click_on",
+                "name": "Block Metal Pressure Plate Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.metal.break",
+                "name": "Block Metal Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.metal.fall",
+                "name": "Block Metal Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.metal.hit",
+                "name": "Block Metal Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.metal.place",
+                "name": "Block Metal Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.metal.step",
+                "name": "Block Metal Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss_carpet.break",
+                "name": "Block Moss Carpet Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss_carpet.fall",
+                "name": "Block Moss Carpet Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss_carpet.hit",
+                "name": "Block Moss Carpet Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss_carpet.place",
+                "name": "Block Moss Carpet Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss_carpet.step",
+                "name": "Block Moss Carpet Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss.break",
+                "name": "Block Moss Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss.fall",
+                "name": "Block Moss Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss.hit",
+                "name": "Block Moss Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss.place",
+                "name": "Block Moss Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.moss.step",
+                "name": "Block Moss Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud_bricks.break",
+                "name": "Block Mud Bricks Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud_bricks.fall",
+                "name": "Block Mud Bricks Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud_bricks.hit",
+                "name": "Block Mud Bricks Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud_bricks.place",
+                "name": "Block Mud Bricks Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud_bricks.step",
+                "name": "Block Mud Bricks Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud.break",
+                "name": "Block Mud Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud.fall",
+                "name": "Block Mud Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud.hit",
+                "name": "Block Mud Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud.place",
+                "name": "Block Mud Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.mud.step",
+                "name": "Block Mud Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.muddy_mangrove_roots.break",
+                "name": "Block Muddy Mangrove Roots Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.muddy_mangrove_roots.fall",
+                "name": "Block Muddy Mangrove Roots Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.muddy_mangrove_roots.hit",
+                "name": "Block Muddy Mangrove Roots Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.muddy_mangrove_roots.place",
+                "name": "Block Muddy Mangrove Roots Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.muddy_mangrove_roots.step",
+                "name": "Block Muddy Mangrove Roots Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_bricks.break",
+                "name": "Block Nether Bricks Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_bricks.fall",
+                "name": "Block Nether Bricks Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_bricks.hit",
+                "name": "Block Nether Bricks Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_bricks.place",
+                "name": "Block Nether Bricks Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_bricks.step",
+                "name": "Block Nether Bricks Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_gold_ore.break",
+                "name": "Block Nether Gold Ore Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_gold_ore.fall",
+                "name": "Block Nether Gold Ore Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_gold_ore.hit",
+                "name": "Block Nether Gold Ore Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_gold_ore.place",
+                "name": "Block Nether Gold Ore Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_gold_ore.step",
+                "name": "Block Nether Gold Ore Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_ore.break",
+                "name": "Block Nether Ore Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_ore.fall",
+                "name": "Block Nether Ore Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_ore.hit",
+                "name": "Block Nether Ore Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_ore.place",
+                "name": "Block Nether Ore Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_ore.step",
+                "name": "Block Nether Ore Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_sprouts.break",
+                "name": "Block Nether Sprouts Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_sprouts.fall",
+                "name": "Block Nether Sprouts Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_sprouts.hit",
+                "name": "Block Nether Sprouts Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_sprouts.place",
+                "name": "Block Nether Sprouts Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_sprouts.step",
+                "name": "Block Nether Sprouts Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wart.break",
+                "name": "Block Nether Wart Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_button.click_off",
+                "name": "Block Nether Wood Button Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_button.click_on",
+                "name": "Block Nether Wood Button Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_door.close",
+                "name": "Block Nether Wood Door Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_door.open",
+                "name": "Block Nether Wood Door Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_fence_gate.close",
+                "name": "Block Nether Wood Fence Gate Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_fence_gate.open",
+                "name": "Block Nether Wood Fence Gate Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_hanging_sign.break",
+                "name": "Block Nether Wood Hanging Sign Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_hanging_sign.fall",
+                "name": "Block Nether Wood Hanging Sign Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_hanging_sign.hit",
+                "name": "Block Nether Wood Hanging Sign Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_hanging_sign.place",
+                "name": "Block Nether Wood Hanging Sign Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_hanging_sign.step",
+                "name": "Block Nether Wood Hanging Sign Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_pressure_plate.click_off",
+                "name": "Block Nether Wood Pressure Plate Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_pressure_plate.click_on",
+                "name": "Block Nether Wood Pressure Plate Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_trapdoor.close",
+                "name": "Block Nether Wood Trapdoor Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood_trapdoor.open",
+                "name": "Block Nether Wood Trapdoor Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood.break",
+                "name": "Block Nether Wood Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood.fall",
+                "name": "Block Nether Wood Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood.hit",
+                "name": "Block Nether Wood Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood.place",
+                "name": "Block Nether Wood Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nether_wood.step",
+                "name": "Block Nether Wood Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherite_block.break",
+                "name": "Block Netherite Block Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherite_block.fall",
+                "name": "Block Netherite Block Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherite_block.hit",
+                "name": "Block Netherite Block Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherite_block.place",
+                "name": "Block Netherite Block Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherite_block.step",
+                "name": "Block Netherite Block Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherrack.break",
+                "name": "Block Netherrack Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherrack.fall",
+                "name": "Block Netherrack Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherrack.hit",
+                "name": "Block Netherrack Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherrack.place",
+                "name": "Block Netherrack Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.netherrack.step",
+                "name": "Block Netherrack Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.banjo",
+                "name": "Block Note Block Banjo",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.basedrum",
+                "name": "Block Note Block Basedrum",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.bass",
+                "name": "Block Note Block Bass",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.bell",
+                "name": "Block Note Block Bell",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.bit",
+                "name": "Block Note Block Bit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.chime",
+                "name": "Block Note Block Chime",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.cow_bell",
+                "name": "Block Note Block Cow Bell",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.didgeridoo",
+                "name": "Block Note Block Didgeridoo",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.flute",
+                "name": "Block Note Block Flute",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.guitar",
+                "name": "Block Note Block Guitar",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.harp",
+                "name": "Block Note Block Harp",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.hat",
+                "name": "Block Note Block Hat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.imitate.creeper",
+                "name": "Block Note Block Imitate Creeper",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.imitate.ender_dragon",
+                "name": "Block Note Block Imitate Ender Dragon",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.imitate.piglin",
+                "name": "Block Note Block Imitate Piglin",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.imitate.skeleton",
+                "name": "Block Note Block Imitate Skeleton",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.imitate.wither_skeleton",
+                "name": "Block Note Block Imitate Wither Skeleton",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.imitate.zombie",
+                "name": "Block Note Block Imitate Zombie",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.iron_xylophone",
+                "name": "Block Note Block Iron Xylophone",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.pling",
+                "name": "Block Note Block Pling",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.snare",
+                "name": "Block Note Block Snare",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.note_block.xylophone",
+                "name": "Block Note Block Xylophone",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nylium.break",
+                "name": "Block Nylium Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nylium.fall",
+                "name": "Block Nylium Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nylium.hit",
+                "name": "Block Nylium Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nylium.place",
+                "name": "Block Nylium Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.nylium.step",
+                "name": "Block Nylium Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.packed_mud.break",
+                "name": "Block Packed Mud Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.packed_mud.fall",
+                "name": "Block Packed Mud Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.packed_mud.hit",
+                "name": "Block Packed Mud Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.packed_mud.place",
+                "name": "Block Packed Mud Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.packed_mud.step",
+                "name": "Block Packed Mud Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pink_petals.break",
+                "name": "Block Pink Petals Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pink_petals.fall",
+                "name": "Block Pink Petals Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pink_petals.hit",
+                "name": "Block Pink Petals Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pink_petals.place",
+                "name": "Block Pink Petals Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pink_petals.step",
+                "name": "Block Pink Petals Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.piston.contract",
+                "name": "Block Piston Contract",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.piston.extend",
+                "name": "Block Piston Extend",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.break",
+                "name": "Block Pointed Dripstone Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.drip_lava",
+                "name": "Block Pointed Dripstone Drip Lava",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.drip_lava_into_cauldron",
+                "name": "Block Pointed Dripstone Drip Lava Into Cauldron",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.drip_water",
+                "name": "Block Pointed Dripstone Drip Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.drip_water_into_cauldron",
+                "name": "Block Pointed Dripstone Drip Water Into Cauldron",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.fall",
+                "name": "Block Pointed Dripstone Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.hit",
+                "name": "Block Pointed Dripstone Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.land",
+                "name": "Block Pointed Dripstone Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.place",
+                "name": "Block Pointed Dripstone Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pointed_dripstone.step",
+                "name": "Block Pointed Dripstone Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.polished_deepslate.break",
+                "name": "Block Polished Deepslate Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.polished_deepslate.fall",
+                "name": "Block Polished Deepslate Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.polished_deepslate.hit",
+                "name": "Block Polished Deepslate Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.polished_deepslate.place",
+                "name": "Block Polished Deepslate Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.polished_deepslate.step",
+                "name": "Block Polished Deepslate Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.portal.ambient",
+                "name": "Block Portal Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.portal.travel",
+                "name": "Block Portal Travel",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.portal.trigger",
+                "name": "Block Portal Trigger",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.powder_snow.break",
+                "name": "Block Powder Snow Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.powder_snow.fall",
+                "name": "Block Powder Snow Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.powder_snow.hit",
+                "name": "Block Powder Snow Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.powder_snow.place",
+                "name": "Block Powder Snow Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.powder_snow.step",
+                "name": "Block Powder Snow Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.pumpkin.carve",
+                "name": "Block Pumpkin Carve",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.redstone_torch.burnout",
+                "name": "Block Redstone Torch Burnout",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.respawn_anchor.ambient",
+                "name": "Block Respawn Anchor Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.respawn_anchor.charge",
+                "name": "Block Respawn Anchor Charge",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.respawn_anchor.deplete",
+                "name": "Block Respawn Anchor Deplete",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.respawn_anchor.set_spawn",
+                "name": "Block Respawn Anchor Set Spawn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.rooted_dirt.break",
+                "name": "Block Rooted Dirt Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.rooted_dirt.fall",
+                "name": "Block Rooted Dirt Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.rooted_dirt.hit",
+                "name": "Block Rooted Dirt Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.rooted_dirt.place",
+                "name": "Block Rooted Dirt Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.rooted_dirt.step",
+                "name": "Block Rooted Dirt Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.roots.break",
+                "name": "Block Roots Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.roots.fall",
+                "name": "Block Roots Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.roots.hit",
+                "name": "Block Roots Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.roots.place",
+                "name": "Block Roots Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.roots.step",
+                "name": "Block Roots Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sand.break",
+                "name": "Block Sand Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sand.fall",
+                "name": "Block Sand Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sand.hit",
+                "name": "Block Sand Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sand.place",
+                "name": "Block Sand Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sand.step",
+                "name": "Block Sand Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.scaffolding.break",
+                "name": "Block Scaffolding Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.scaffolding.fall",
+                "name": "Block Scaffolding Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.scaffolding.hit",
+                "name": "Block Scaffolding Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.scaffolding.place",
+                "name": "Block Scaffolding Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.scaffolding.step",
+                "name": "Block Scaffolding Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_catalyst.bloom",
+                "name": "Block Sculk Catalyst Bloom",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_catalyst.break",
+                "name": "Block Sculk Catalyst Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_catalyst.fall",
+                "name": "Block Sculk Catalyst Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_catalyst.hit",
+                "name": "Block Sculk Catalyst Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_catalyst.place",
+                "name": "Block Sculk Catalyst Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_catalyst.step",
+                "name": "Block Sculk Catalyst Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_sensor.break",
+                "name": "Block Sculk Sensor Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_sensor.clicking",
+                "name": "Block Sculk Sensor Clicking",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_sensor.clicking_stop",
+                "name": "Block Sculk Sensor Clicking Stop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_sensor.fall",
+                "name": "Block Sculk Sensor Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_sensor.hit",
+                "name": "Block Sculk Sensor Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_sensor.place",
+                "name": "Block Sculk Sensor Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_sensor.step",
+                "name": "Block Sculk Sensor Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_shrieker.break",
+                "name": "Block Sculk Shrieker Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_shrieker.fall",
+                "name": "Block Sculk Shrieker Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_shrieker.hit",
+                "name": "Block Sculk Shrieker Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_shrieker.place",
+                "name": "Block Sculk Shrieker Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_shrieker.shriek",
+                "name": "Block Sculk Shrieker Shriek",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_shrieker.step",
+                "name": "Block Sculk Shrieker Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_vein.break",
+                "name": "Block Sculk Vein Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_vein.fall",
+                "name": "Block Sculk Vein Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_vein.hit",
+                "name": "Block Sculk Vein Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_vein.place",
+                "name": "Block Sculk Vein Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk_vein.step",
+                "name": "Block Sculk Vein Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk.break",
+                "name": "Block Sculk Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk.charge",
+                "name": "Block Sculk Charge",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk.fall",
+                "name": "Block Sculk Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk.hit",
+                "name": "Block Sculk Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk.place",
+                "name": "Block Sculk Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk.spread",
+                "name": "Block Sculk Spread",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sculk.step",
+                "name": "Block Sculk Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.shroomlight.break",
+                "name": "Block Shroomlight Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.shroomlight.fall",
+                "name": "Block Shroomlight Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.shroomlight.hit",
+                "name": "Block Shroomlight Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.shroomlight.place",
+                "name": "Block Shroomlight Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.shroomlight.step",
+                "name": "Block Shroomlight Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.shulker_box.close",
+                "name": "Block Shulker Box Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.shulker_box.open",
+                "name": "Block Shulker Box Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sign.waxed_interact_fail",
+                "name": "Block Sign Waxed Interact Fail",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.slime_block.break",
+                "name": "Block Slime Block Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.slime_block.fall",
+                "name": "Block Slime Block Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.slime_block.hit",
+                "name": "Block Slime Block Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.slime_block.place",
+                "name": "Block Slime Block Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.slime_block.step",
+                "name": "Block Slime Block Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.small_amethyst_bud.break",
+                "name": "Block Small Amethyst Bud Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.small_amethyst_bud.place",
+                "name": "Block Small Amethyst Bud Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.small_dripleaf.break",
+                "name": "Block Small Dripleaf Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.small_dripleaf.fall",
+                "name": "Block Small Dripleaf Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.small_dripleaf.hit",
+                "name": "Block Small Dripleaf Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.small_dripleaf.place",
+                "name": "Block Small Dripleaf Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.small_dripleaf.step",
+                "name": "Block Small Dripleaf Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.smithing_table.use",
+                "name": "Block Smithing Table Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.smoker.smoke",
+                "name": "Block Smoker Smoke",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sniffer_egg.crack",
+                "name": "Block Sniffer Egg Crack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sniffer_egg.hatch",
+                "name": "Block Sniffer Egg Hatch",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sniffer_egg.plop",
+                "name": "Block Sniffer Egg Plop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.snow.break",
+                "name": "Block Snow Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.snow.fall",
+                "name": "Block Snow Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.snow.hit",
+                "name": "Block Snow Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.snow.place",
+                "name": "Block Snow Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.snow.step",
+                "name": "Block Snow Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_sand.break",
+                "name": "Block Soul Sand Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_sand.fall",
+                "name": "Block Soul Sand Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_sand.hit",
+                "name": "Block Soul Sand Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_sand.place",
+                "name": "Block Soul Sand Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_sand.step",
+                "name": "Block Soul Sand Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_soil.break",
+                "name": "Block Soul Soil Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_soil.fall",
+                "name": "Block Soul Soil Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_soil.hit",
+                "name": "Block Soul Soil Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_soil.place",
+                "name": "Block Soul Soil Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.soul_soil.step",
+                "name": "Block Soul Soil Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sponge.absorb",
+                "name": "Block Sponge Absorb",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sponge.break",
+                "name": "Block Sponge Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sponge.fall",
+                "name": "Block Sponge Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sponge.hit",
+                "name": "Block Sponge Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sponge.place",
+                "name": "Block Sponge Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sponge.step",
+                "name": "Block Sponge Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.spore_blossom.break",
+                "name": "Block Spore Blossom Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.spore_blossom.fall",
+                "name": "Block Spore Blossom Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.spore_blossom.hit",
+                "name": "Block Spore Blossom Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.spore_blossom.place",
+                "name": "Block Spore Blossom Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.spore_blossom.step",
+                "name": "Block Spore Blossom Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stem.break",
+                "name": "Block Stem Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stem.fall",
+                "name": "Block Stem Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stem.hit",
+                "name": "Block Stem Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stem.place",
+                "name": "Block Stem Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stem.step",
+                "name": "Block Stem Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone_button.click_off",
+                "name": "Block Stone Button Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone_button.click_on",
+                "name": "Block Stone Button Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone_pressure_plate.click_off",
+                "name": "Block Stone Pressure Plate Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone_pressure_plate.click_on",
+                "name": "Block Stone Pressure Plate Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone.break",
+                "name": "Block Stone Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone.fall",
+                "name": "Block Stone Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone.hit",
+                "name": "Block Stone Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone.place",
+                "name": "Block Stone Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.stone.step",
+                "name": "Block Stone Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_gravel.break",
+                "name": "Block Suspicious Gravel Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_gravel.fall",
+                "name": "Block Suspicious Gravel Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_gravel.hit",
+                "name": "Block Suspicious Gravel Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_gravel.place",
+                "name": "Block Suspicious Gravel Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_gravel.step",
+                "name": "Block Suspicious Gravel Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_sand.break",
+                "name": "Block Suspicious Sand Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_sand.fall",
+                "name": "Block Suspicious Sand Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_sand.hit",
+                "name": "Block Suspicious Sand Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_sand.place",
+                "name": "Block Suspicious Sand Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.suspicious_sand.step",
+                "name": "Block Suspicious Sand Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sweet_berry_bush.break",
+                "name": "Block Sweet Berry Bush Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sweet_berry_bush.pick_berries",
+                "name": "Block Sweet Berry Bush Pick Berries",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.sweet_berry_bush.place",
+                "name": "Block Sweet Berry Bush Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tripwire.attach",
+                "name": "Block Tripwire Attach",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tripwire.click_off",
+                "name": "Block Tripwire Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tripwire.click_on",
+                "name": "Block Tripwire Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tripwire.detach",
+                "name": "Block Tripwire Detach",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tuff.break",
+                "name": "Block Tuff Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tuff.fall",
+                "name": "Block Tuff Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tuff.hit",
+                "name": "Block Tuff Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tuff.place",
+                "name": "Block Tuff Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.tuff.step",
+                "name": "Block Tuff Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.vine.break",
+                "name": "Block Vine Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.vine.fall",
+                "name": "Block Vine Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.vine.hit",
+                "name": "Block Vine Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.vine.place",
+                "name": "Block Vine Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.vine.step",
+                "name": "Block Vine Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wart_block.break",
+                "name": "Block Wart Block Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wart_block.fall",
+                "name": "Block Wart Block Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wart_block.hit",
+                "name": "Block Wart Block Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wart_block.place",
+                "name": "Block Wart Block Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wart_block.step",
+                "name": "Block Wart Block Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.water.ambient",
+                "name": "Block Water Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.weeping_vines.break",
+                "name": "Block Weeping Vines Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.weeping_vines.fall",
+                "name": "Block Weeping Vines Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.weeping_vines.hit",
+                "name": "Block Weeping Vines Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.weeping_vines.place",
+                "name": "Block Weeping Vines Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.weeping_vines.step",
+                "name": "Block Weeping Vines Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_grass.break",
+                "name": "Block Wet Grass Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_grass.fall",
+                "name": "Block Wet Grass Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_grass.hit",
+                "name": "Block Wet Grass Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_grass.place",
+                "name": "Block Wet Grass Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_grass.step",
+                "name": "Block Wet Grass Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_sponge.break",
+                "name": "Block Wet Sponge Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_sponge.fall",
+                "name": "Block Wet Sponge Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_sponge.hit",
+                "name": "Block Wet Sponge Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_sponge.place",
+                "name": "Block Wet Sponge Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wet_sponge.step",
+                "name": "Block Wet Sponge Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wood.break",
+                "name": "Block Wood Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wood.fall",
+                "name": "Block Wood Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wood.hit",
+                "name": "Block Wood Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wood.place",
+                "name": "Block Wood Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wood.step",
+                "name": "Block Wood Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wooden_button.click_off",
+                "name": "Block Wooden Button Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wooden_button.click_on",
+                "name": "Block Wooden Button Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wooden_door.close",
+                "name": "Block Wooden Door Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wooden_door.open",
+                "name": "Block Wooden Door Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wooden_pressure_plate.click_off",
+                "name": "Block Wooden Pressure Plate Click Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wooden_pressure_plate.click_on",
+                "name": "Block Wooden Pressure Plate Click On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wooden_trapdoor.close",
+                "name": "Block Wooden Trapdoor Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wooden_trapdoor.open",
+                "name": "Block Wooden Trapdoor Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wool.break",
+                "name": "Block Wool Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wool.fall",
+                "name": "Block Wool Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wool.hit",
+                "name": "Block Wool Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wool.place",
+                "name": "Block Wool Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:block.wool.step",
+                "name": "Block Wool Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:enchant.thorns.hit",
+                "name": "Enchant Thorns Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.allay.ambient_with_item",
+                "name": "Entity Allay Ambient With Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.allay.ambient_without_item",
+                "name": "Entity Allay Ambient Without Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.allay.death",
+                "name": "Entity Allay Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.allay.hurt",
+                "name": "Entity Allay Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.allay.item_given",
+                "name": "Entity Allay Item Given",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.allay.item_taken",
+                "name": "Entity Allay Item Taken",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.allay.item_thrown",
+                "name": "Entity Allay Item Thrown",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.armor_stand.break",
+                "name": "Entity Armor Stand Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.armor_stand.fall",
+                "name": "Entity Armor Stand Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.armor_stand.hit",
+                "name": "Entity Armor Stand Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.armor_stand.place",
+                "name": "Entity Armor Stand Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.arrow.hit",
+                "name": "Entity Arrow Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.arrow.hit_player",
+                "name": "Entity Arrow Hit Player",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.arrow.shoot",
+                "name": "Entity Arrow Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.axolotl.attack",
+                "name": "Entity Axolotl Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.axolotl.death",
+                "name": "Entity Axolotl Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.axolotl.hurt",
+                "name": "Entity Axolotl Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.axolotl.idle_air",
+                "name": "Entity Axolotl Idle Air",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.axolotl.idle_water",
+                "name": "Entity Axolotl Idle Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.axolotl.splash",
+                "name": "Entity Axolotl Splash",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.axolotl.swim",
+                "name": "Entity Axolotl Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bat.ambient",
+                "name": "Entity Bat Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bat.death",
+                "name": "Entity Bat Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bat.hurt",
+                "name": "Entity Bat Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bat.loop",
+                "name": "Entity Bat Loop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bat.takeoff",
+                "name": "Entity Bat Takeoff",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bee.death",
+                "name": "Entity Bee Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bee.hurt",
+                "name": "Entity Bee Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bee.loop",
+                "name": "Entity Bee Loop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bee.loop_aggressive",
+                "name": "Entity Bee Loop Aggressive",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bee.pollinate",
+                "name": "Entity Bee Pollinate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.bee.sting",
+                "name": "Entity Bee Sting",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.blaze.ambient",
+                "name": "Entity Blaze Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.blaze.burn",
+                "name": "Entity Blaze Burn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.blaze.death",
+                "name": "Entity Blaze Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.blaze.hurt",
+                "name": "Entity Blaze Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.blaze.shoot",
+                "name": "Entity Blaze Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.boat.paddle_land",
+                "name": "Entity Boat Paddle Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.boat.paddle_water",
+                "name": "Entity Boat Paddle Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.ambient",
+                "name": "Entity Camel Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.dash",
+                "name": "Entity Camel Dash",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.dash_ready",
+                "name": "Entity Camel Dash Ready",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.death",
+                "name": "Entity Camel Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.eat",
+                "name": "Entity Camel Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.hurt",
+                "name": "Entity Camel Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.saddle",
+                "name": "Entity Camel Saddle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.sit",
+                "name": "Entity Camel Sit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.stand",
+                "name": "Entity Camel Stand",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.step",
+                "name": "Entity Camel Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.camel.step_sand",
+                "name": "Entity Camel Step Sand",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.ambient",
+                "name": "Entity Cat Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.beg_for_food",
+                "name": "Entity Cat Beg For Food",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.death",
+                "name": "Entity Cat Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.eat",
+                "name": "Entity Cat Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.hiss",
+                "name": "Entity Cat Hiss",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.hurt",
+                "name": "Entity Cat Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.purr",
+                "name": "Entity Cat Purr",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.purreow",
+                "name": "Entity Cat Purreow",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cat.stray_ambient",
+                "name": "Entity Cat Stray Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.chicken.ambient",
+                "name": "Entity Chicken Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.chicken.death",
+                "name": "Entity Chicken Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.chicken.egg",
+                "name": "Entity Chicken Egg",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.chicken.hurt",
+                "name": "Entity Chicken Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.chicken.step",
+                "name": "Entity Chicken Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cod.ambient",
+                "name": "Entity Cod Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cod.death",
+                "name": "Entity Cod Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cod.flop",
+                "name": "Entity Cod Flop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cod.hurt",
+                "name": "Entity Cod Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cow.ambient",
+                "name": "Entity Cow Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cow.death",
+                "name": "Entity Cow Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cow.hurt",
+                "name": "Entity Cow Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cow.milk",
+                "name": "Entity Cow Milk",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.cow.step",
+                "name": "Entity Cow Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.creeper.death",
+                "name": "Entity Creeper Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.creeper.hurt",
+                "name": "Entity Creeper Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.creeper.primed",
+                "name": "Entity Creeper Primed",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.ambient",
+                "name": "Entity Dolphin Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.ambient_water",
+                "name": "Entity Dolphin Ambient Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.attack",
+                "name": "Entity Dolphin Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.death",
+                "name": "Entity Dolphin Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.eat",
+                "name": "Entity Dolphin Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.hurt",
+                "name": "Entity Dolphin Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.jump",
+                "name": "Entity Dolphin Jump",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.play",
+                "name": "Entity Dolphin Play",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.splash",
+                "name": "Entity Dolphin Splash",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dolphin.swim",
+                "name": "Entity Dolphin Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.donkey.ambient",
+                "name": "Entity Donkey Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.donkey.angry",
+                "name": "Entity Donkey Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.donkey.chest",
+                "name": "Entity Donkey Chest",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.donkey.death",
+                "name": "Entity Donkey Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.donkey.eat",
+                "name": "Entity Donkey Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.donkey.hurt",
+                "name": "Entity Donkey Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.dragon_fireball.explode",
+                "name": "Entity Dragon Fireball Explode",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.ambient",
+                "name": "Entity Drowned Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.ambient_water",
+                "name": "Entity Drowned Ambient Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.death",
+                "name": "Entity Drowned Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.death_water",
+                "name": "Entity Drowned Death Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.hurt",
+                "name": "Entity Drowned Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.hurt_water",
+                "name": "Entity Drowned Hurt Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.shoot",
+                "name": "Entity Drowned Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.step",
+                "name": "Entity Drowned Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.drowned.swim",
+                "name": "Entity Drowned Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.egg.throw",
+                "name": "Entity Egg Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.elder_guardian.ambient",
+                "name": "Entity Elder Guardian Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.elder_guardian.ambient_land",
+                "name": "Entity Elder Guardian Ambient Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.elder_guardian.curse",
+                "name": "Entity Elder Guardian Curse",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.elder_guardian.death",
+                "name": "Entity Elder Guardian Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.elder_guardian.death_land",
+                "name": "Entity Elder Guardian Death Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.elder_guardian.flop",
+                "name": "Entity Elder Guardian Flop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.elder_guardian.hurt",
+                "name": "Entity Elder Guardian Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.elder_guardian.hurt_land",
+                "name": "Entity Elder Guardian Hurt Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ender_dragon.ambient",
+                "name": "Entity Ender Dragon Ambient",
                 "icon": "🔊"
         },
         {
                 "id": "minecraft:entity.ender_dragon.death",
-                "name": "Ender Dragon Death",
+                "name": "Entity Ender Dragon Death",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.warden.heartbeat",
-                "name": "Warden Heartbeat",
+                "id": "minecraft:entity.ender_dragon.flap",
+                "name": "Entity Ender Dragon Flap",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.phantom.swoop",
-                "name": "Phantom Swoop",
+                "id": "minecraft:entity.ender_dragon.growl",
+                "name": "Entity Ender Dragon Growl",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.witch.ambient",
-                "name": "Witch Ambient Giggle",
+                "id": "minecraft:entity.ender_dragon.hurt",
+                "name": "Entity Ender Dragon Hurt",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.enderman.teleport",
-                "name": "Enderman Teleport",
+                "id": "minecraft:entity.ender_dragon.shoot",
+                "name": "Entity Ender Dragon Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ender_eye.death",
+                "name": "Entity Ender Eye Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ender_eye.launch",
+                "name": "Entity Ender Eye Launch",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ender_pearl.throw",
+                "name": "Entity Ender Pearl Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.enderman.ambient",
+                "name": "Entity Enderman Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.enderman.death",
+                "name": "Entity Enderman Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.enderman.hurt",
+                "name": "Entity Enderman Hurt",
                 "icon": "🔊"
         },
         {
                 "id": "minecraft:entity.enderman.scream",
-                "name": "Enderman Angry Scream",
+                "name": "Entity Enderman Scream",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.zombie.ambient",
-                "name": "Zombie Groan",
+                "id": "minecraft:entity.enderman.stare",
+                "name": "Entity Enderman Stare",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.skeleton.ambient",
-                "name": "Skeleton Bone Rattle",
+                "id": "minecraft:entity.enderman.teleport",
+                "name": "Entity Enderman Teleport",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.wolf.growl",
-                "name": "Wolf Growl",
+                "id": "minecraft:entity.endermite.ambient",
+                "name": "Entity Endermite Ambient",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:entity.warden.sonic_boom",
-                "name": "Warden Sonic Boom Charge",
+                "id": "minecraft:entity.endermite.death",
+                "name": "Entity Endermite Death",
                 "icon": "🔊"
         },
         {
-                "id": "minecraft:block.tnt.primed",
-                "name": "TNT Primed Hiss",
+                "id": "minecraft:entity.endermite.hurt",
+                "name": "Entity Endermite Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.endermite.step",
+                "name": "Entity Endermite Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker_fangs.attack",
+                "name": "Entity Evoker Fangs Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker.ambient",
+                "name": "Entity Evoker Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker.cast_spell",
+                "name": "Entity Evoker Cast Spell",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker.celebrate",
+                "name": "Entity Evoker Celebrate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker.death",
+                "name": "Entity Evoker Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker.hurt",
+                "name": "Entity Evoker Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker.prepare_attack",
+                "name": "Entity Evoker Prepare Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker.prepare_summon",
+                "name": "Entity Evoker Prepare Summon",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.evoker.prepare_wololo",
+                "name": "Entity Evoker Prepare Wololo",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.experience_bottle.throw",
+                "name": "Entity Experience Bottle Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.experience_orb.pickup",
+                "name": "Entity Experience Orb Pickup",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.firework_rocket.blast",
+                "name": "Entity Firework Rocket Blast",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.firework_rocket.blast_far",
+                "name": "Entity Firework Rocket Blast Far",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.firework_rocket.large_blast",
+                "name": "Entity Firework Rocket Large Blast",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.firework_rocket.large_blast_far",
+                "name": "Entity Firework Rocket Large Blast Far",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.firework_rocket.launch",
+                "name": "Entity Firework Rocket Launch",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.firework_rocket.shoot",
+                "name": "Entity Firework Rocket Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.firework_rocket.twinkle",
+                "name": "Entity Firework Rocket Twinkle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.firework_rocket.twinkle_far",
+                "name": "Entity Firework Rocket Twinkle Far",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fish.swim",
+                "name": "Entity Fish Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fishing_bobber.retrieve",
+                "name": "Entity Fishing Bobber Retrieve",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fishing_bobber.splash",
+                "name": "Entity Fishing Bobber Splash",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fishing_bobber.throw",
+                "name": "Entity Fishing Bobber Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.aggro",
+                "name": "Entity Fox Aggro",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.ambient",
+                "name": "Entity Fox Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.bite",
+                "name": "Entity Fox Bite",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.death",
+                "name": "Entity Fox Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.eat",
+                "name": "Entity Fox Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.hurt",
+                "name": "Entity Fox Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.screech",
+                "name": "Entity Fox Screech",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.sleep",
+                "name": "Entity Fox Sleep",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.sniff",
+                "name": "Entity Fox Sniff",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.spit",
+                "name": "Entity Fox Spit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.fox.teleport",
+                "name": "Entity Fox Teleport",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.frog.ambient",
+                "name": "Entity Frog Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.frog.death",
+                "name": "Entity Frog Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.frog.eat",
+                "name": "Entity Frog Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.frog.hurt",
+                "name": "Entity Frog Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.frog.lay_spawn",
+                "name": "Entity Frog Lay Spawn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.frog.long_jump",
+                "name": "Entity Frog Long Jump",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.frog.step",
+                "name": "Entity Frog Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.frog.tongue",
+                "name": "Entity Frog Tongue",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.big_fall",
+                "name": "Entity Generic Big Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.burn",
+                "name": "Entity Generic Burn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.death",
+                "name": "Entity Generic Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.drink",
+                "name": "Entity Generic Drink",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.eat",
+                "name": "Entity Generic Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.explode",
+                "name": "Entity Generic Explode",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.extinguish_fire",
+                "name": "Entity Generic Extinguish Fire",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.hurt",
+                "name": "Entity Generic Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.small_fall",
+                "name": "Entity Generic Small Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.splash",
+                "name": "Entity Generic Splash",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.generic.swim",
+                "name": "Entity Generic Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ghast.ambient",
+                "name": "Entity Ghast Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ghast.death",
+                "name": "Entity Ghast Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ghast.hurt",
+                "name": "Entity Ghast Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ghast.scream",
+                "name": "Entity Ghast Scream",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ghast.shoot",
+                "name": "Entity Ghast Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ghast.warn",
+                "name": "Entity Ghast Warn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_item_frame.add_item",
+                "name": "Entity Glow Item Frame Add Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_item_frame.break",
+                "name": "Entity Glow Item Frame Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_item_frame.place",
+                "name": "Entity Glow Item Frame Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_item_frame.remove_item",
+                "name": "Entity Glow Item Frame Remove Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_item_frame.rotate_item",
+                "name": "Entity Glow Item Frame Rotate Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_squid.ambient",
+                "name": "Entity Glow Squid Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_squid.death",
+                "name": "Entity Glow Squid Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_squid.hurt",
+                "name": "Entity Glow Squid Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.glow_squid.squirt",
+                "name": "Entity Glow Squid Squirt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.ambient",
+                "name": "Entity Goat Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.death",
+                "name": "Entity Goat Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.eat",
+                "name": "Entity Goat Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.horn_break",
+                "name": "Entity Goat Horn Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.hurt",
+                "name": "Entity Goat Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.long_jump",
+                "name": "Entity Goat Long Jump",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.milk",
+                "name": "Entity Goat Milk",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.prepare_ram",
+                "name": "Entity Goat Prepare Ram",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.ram_impact",
+                "name": "Entity Goat Ram Impact",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.ambient",
+                "name": "Entity Goat Screaming Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.death",
+                "name": "Entity Goat Screaming Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.eat",
+                "name": "Entity Goat Screaming Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.horn_break",
+                "name": "Entity Goat Screaming Horn Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.hurt",
+                "name": "Entity Goat Screaming Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.long_jump",
+                "name": "Entity Goat Screaming Long Jump",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.milk",
+                "name": "Entity Goat Screaming Milk",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.prepare_ram",
+                "name": "Entity Goat Screaming Prepare Ram",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.screaming.ram_impact",
+                "name": "Entity Goat Screaming Ram Impact",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.goat.step",
+                "name": "Entity Goat Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.guardian.ambient",
+                "name": "Entity Guardian Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.guardian.ambient_land",
+                "name": "Entity Guardian Ambient Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.guardian.attack",
+                "name": "Entity Guardian Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.guardian.death",
+                "name": "Entity Guardian Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.guardian.death_land",
+                "name": "Entity Guardian Death Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.guardian.flop",
+                "name": "Entity Guardian Flop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.guardian.hurt",
+                "name": "Entity Guardian Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.guardian.hurt_land",
+                "name": "Entity Guardian Hurt Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hoglin.ambient",
+                "name": "Entity Hoglin Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hoglin.angry",
+                "name": "Entity Hoglin Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hoglin.attack",
+                "name": "Entity Hoglin Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hoglin.converted_to_zombified",
+                "name": "Entity Hoglin Converted To Zombified",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hoglin.death",
+                "name": "Entity Hoglin Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hoglin.hurt",
+                "name": "Entity Hoglin Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hoglin.retreat",
+                "name": "Entity Hoglin Retreat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hoglin.step",
+                "name": "Entity Hoglin Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.ambient",
+                "name": "Entity Horse Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.angry",
+                "name": "Entity Horse Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.armor",
+                "name": "Entity Horse Armor",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.breathe",
+                "name": "Entity Horse Breathe",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.death",
+                "name": "Entity Horse Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.eat",
+                "name": "Entity Horse Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.gallop",
+                "name": "Entity Horse Gallop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.hurt",
+                "name": "Entity Horse Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.jump",
+                "name": "Entity Horse Jump",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.land",
+                "name": "Entity Horse Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.saddle",
+                "name": "Entity Horse Saddle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.step",
+                "name": "Entity Horse Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.horse.step_wood",
+                "name": "Entity Horse Step Wood",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hostile.big_fall",
+                "name": "Entity Hostile Big Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hostile.death",
+                "name": "Entity Hostile Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hostile.hurt",
+                "name": "Entity Hostile Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hostile.small_fall",
+                "name": "Entity Hostile Small Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hostile.splash",
+                "name": "Entity Hostile Splash",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.hostile.swim",
+                "name": "Entity Hostile Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.husk.ambient",
+                "name": "Entity Husk Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.husk.converted_to_zombie",
+                "name": "Entity Husk Converted To Zombie",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.husk.death",
+                "name": "Entity Husk Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.husk.hurt",
+                "name": "Entity Husk Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.husk.step",
+                "name": "Entity Husk Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.illusioner.ambient",
+                "name": "Entity Illusioner Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.illusioner.cast_spell",
+                "name": "Entity Illusioner Cast Spell",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.illusioner.death",
+                "name": "Entity Illusioner Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.illusioner.hurt",
+                "name": "Entity Illusioner Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.illusioner.mirror_move",
+                "name": "Entity Illusioner Mirror Move",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.illusioner.prepare_blindness",
+                "name": "Entity Illusioner Prepare Blindness",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.illusioner.prepare_mirror",
+                "name": "Entity Illusioner Prepare Mirror",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.iron_golem.attack",
+                "name": "Entity Iron Golem Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.iron_golem.damage",
+                "name": "Entity Iron Golem Damage",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.iron_golem.death",
+                "name": "Entity Iron Golem Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.iron_golem.hurt",
+                "name": "Entity Iron Golem Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.iron_golem.repair",
+                "name": "Entity Iron Golem Repair",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.iron_golem.step",
+                "name": "Entity Iron Golem Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.item_frame.add_item",
+                "name": "Entity Item Frame Add Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.item_frame.break",
+                "name": "Entity Item Frame Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.item_frame.place",
+                "name": "Entity Item Frame Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.item_frame.remove_item",
+                "name": "Entity Item Frame Remove Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.item_frame.rotate_item",
+                "name": "Entity Item Frame Rotate Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.item.break",
+                "name": "Entity Item Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.item.pickup",
+                "name": "Entity Item Pickup",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.leash_knot.break",
+                "name": "Entity Leash Knot Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.leash_knot.place",
+                "name": "Entity Leash Knot Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.lightning_bolt.impact",
+                "name": "Entity Lightning Bolt Impact",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.lightning_bolt.thunder",
+                "name": "Entity Lightning Bolt Thunder",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.lingering_potion.throw",
+                "name": "Entity Lingering Potion Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.ambient",
+                "name": "Entity Llama Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.angry",
+                "name": "Entity Llama Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.chest",
+                "name": "Entity Llama Chest",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.death",
+                "name": "Entity Llama Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.eat",
+                "name": "Entity Llama Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.hurt",
+                "name": "Entity Llama Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.spit",
+                "name": "Entity Llama Spit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.step",
+                "name": "Entity Llama Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.llama.swag",
+                "name": "Entity Llama Swag",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.magma_cube.death",
+                "name": "Entity Magma Cube Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.magma_cube.death_small",
+                "name": "Entity Magma Cube Death Small",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.magma_cube.hurt",
+                "name": "Entity Magma Cube Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.magma_cube.hurt_small",
+                "name": "Entity Magma Cube Hurt Small",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.magma_cube.jump",
+                "name": "Entity Magma Cube Jump",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.magma_cube.squish",
+                "name": "Entity Magma Cube Squish",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.magma_cube.squish_small",
+                "name": "Entity Magma Cube Squish Small",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.minecart.inside",
+                "name": "Entity Minecart Inside",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.minecart.inside.underwater",
+                "name": "Entity Minecart Inside Underwater",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.minecart.riding",
+                "name": "Entity Minecart Riding",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mooshroom.convert",
+                "name": "Entity Mooshroom Convert",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mooshroom.eat",
+                "name": "Entity Mooshroom Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mooshroom.milk",
+                "name": "Entity Mooshroom Milk",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mooshroom.shear",
+                "name": "Entity Mooshroom Shear",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mooshroom.suspicious_milk",
+                "name": "Entity Mooshroom Suspicious Milk",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mule.ambient",
+                "name": "Entity Mule Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mule.angry",
+                "name": "Entity Mule Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mule.chest",
+                "name": "Entity Mule Chest",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mule.death",
+                "name": "Entity Mule Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mule.eat",
+                "name": "Entity Mule Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.mule.hurt",
+                "name": "Entity Mule Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ocelot.ambient",
+                "name": "Entity Ocelot Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ocelot.death",
+                "name": "Entity Ocelot Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ocelot.hurt",
+                "name": "Entity Ocelot Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.painting.break",
+                "name": "Entity Painting Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.painting.place",
+                "name": "Entity Painting Place",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.aggressive_ambient",
+                "name": "Entity Panda Aggressive Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.ambient",
+                "name": "Entity Panda Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.bite",
+                "name": "Entity Panda Bite",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.cant_breed",
+                "name": "Entity Panda Cant Breed",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.death",
+                "name": "Entity Panda Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.eat",
+                "name": "Entity Panda Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.hurt",
+                "name": "Entity Panda Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.pre_sneeze",
+                "name": "Entity Panda Pre Sneeze",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.sneeze",
+                "name": "Entity Panda Sneeze",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.step",
+                "name": "Entity Panda Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.panda.worried_ambient",
+                "name": "Entity Panda Worried Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.ambient",
+                "name": "Entity Parrot Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.death",
+                "name": "Entity Parrot Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.eat",
+                "name": "Entity Parrot Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.fly",
+                "name": "Entity Parrot Fly",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.hurt",
+                "name": "Entity Parrot Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.blaze",
+                "name": "Entity Parrot Imitate Blaze",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.creeper",
+                "name": "Entity Parrot Imitate Creeper",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.drowned",
+                "name": "Entity Parrot Imitate Drowned",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.elder_guardian",
+                "name": "Entity Parrot Imitate Elder Guardian",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.ender_dragon",
+                "name": "Entity Parrot Imitate Ender Dragon",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.endermite",
+                "name": "Entity Parrot Imitate Endermite",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.evoker",
+                "name": "Entity Parrot Imitate Evoker",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.ghast",
+                "name": "Entity Parrot Imitate Ghast",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.guardian",
+                "name": "Entity Parrot Imitate Guardian",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.hoglin",
+                "name": "Entity Parrot Imitate Hoglin",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.husk",
+                "name": "Entity Parrot Imitate Husk",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.illusioner",
+                "name": "Entity Parrot Imitate Illusioner",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.magma_cube",
+                "name": "Entity Parrot Imitate Magma Cube",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.phantom",
+                "name": "Entity Parrot Imitate Phantom",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.piglin",
+                "name": "Entity Parrot Imitate Piglin",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.piglin_brute",
+                "name": "Entity Parrot Imitate Piglin Brute",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.pillager",
+                "name": "Entity Parrot Imitate Pillager",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.ravager",
+                "name": "Entity Parrot Imitate Ravager",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.shulker",
+                "name": "Entity Parrot Imitate Shulker",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.silverfish",
+                "name": "Entity Parrot Imitate Silverfish",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.skeleton",
+                "name": "Entity Parrot Imitate Skeleton",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.slime",
+                "name": "Entity Parrot Imitate Slime",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.spider",
+                "name": "Entity Parrot Imitate Spider",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.stray",
+                "name": "Entity Parrot Imitate Stray",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.vex",
+                "name": "Entity Parrot Imitate Vex",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.vindicator",
+                "name": "Entity Parrot Imitate Vindicator",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.warden",
+                "name": "Entity Parrot Imitate Warden",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.witch",
+                "name": "Entity Parrot Imitate Witch",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.wither",
+                "name": "Entity Parrot Imitate Wither",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.wither_skeleton",
+                "name": "Entity Parrot Imitate Wither Skeleton",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.zoglin",
+                "name": "Entity Parrot Imitate Zoglin",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.zombie",
+                "name": "Entity Parrot Imitate Zombie",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.imitate.zombie_villager",
+                "name": "Entity Parrot Imitate Zombie Villager",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.parrot.step",
+                "name": "Entity Parrot Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.phantom.ambient",
+                "name": "Entity Phantom Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.phantom.bite",
+                "name": "Entity Phantom Bite",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.phantom.death",
+                "name": "Entity Phantom Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.phantom.flap",
+                "name": "Entity Phantom Flap",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.phantom.hurt",
+                "name": "Entity Phantom Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.phantom.swoop",
+                "name": "Entity Phantom Swoop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pig.ambient",
+                "name": "Entity Pig Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pig.death",
+                "name": "Entity Pig Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pig.hurt",
+                "name": "Entity Pig Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pig.saddle",
+                "name": "Entity Pig Saddle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pig.step",
+                "name": "Entity Pig Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin_brute.ambient",
+                "name": "Entity Piglin Brute Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin_brute.angry",
+                "name": "Entity Piglin Brute Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin_brute.converted_to_zombified",
+                "name": "Entity Piglin Brute Converted To Zombified",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin_brute.death",
+                "name": "Entity Piglin Brute Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin_brute.hurt",
+                "name": "Entity Piglin Brute Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin_brute.step",
+                "name": "Entity Piglin Brute Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.admiring_item",
+                "name": "Entity Piglin Admiring Item",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.ambient",
+                "name": "Entity Piglin Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.angry",
+                "name": "Entity Piglin Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.celebrate",
+                "name": "Entity Piglin Celebrate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.converted_to_zombified",
+                "name": "Entity Piglin Converted To Zombified",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.death",
+                "name": "Entity Piglin Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.hurt",
+                "name": "Entity Piglin Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.jealous",
+                "name": "Entity Piglin Jealous",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.retreat",
+                "name": "Entity Piglin Retreat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.piglin.step",
+                "name": "Entity Piglin Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pillager.ambient",
+                "name": "Entity Pillager Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pillager.celebrate",
+                "name": "Entity Pillager Celebrate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pillager.death",
+                "name": "Entity Pillager Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.pillager.hurt",
+                "name": "Entity Pillager Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.attack.crit",
+                "name": "Entity Player Attack Crit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.attack.knockback",
+                "name": "Entity Player Attack Knockback",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.attack.nodamage",
+                "name": "Entity Player Attack Nodamage",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.attack.strong",
+                "name": "Entity Player Attack Strong",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.attack.sweep",
+                "name": "Entity Player Attack Sweep",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.attack.weak",
+                "name": "Entity Player Attack Weak",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.big_fall",
+                "name": "Entity Player Big Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.breath",
+                "name": "Entity Player Breath",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.burp",
+                "name": "Entity Player Burp",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.death",
+                "name": "Entity Player Death",
                 "icon": "🔊"
         },
         {
                 "id": "minecraft:entity.player.hurt",
-                "name": "Player Hurt Sound",
+                "name": "Entity Player Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.hurt_drown",
+                "name": "Entity Player Hurt Drown",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.hurt_freeze",
+                "name": "Entity Player Hurt Freeze",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.hurt_on_fire",
+                "name": "Entity Player Hurt On Fire",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.hurt_sweet_berry_bush",
+                "name": "Entity Player Hurt Sweet Berry Bush",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.levelup",
+                "name": "Entity Player Levelup",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.small_fall",
+                "name": "Entity Player Small Fall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.splash",
+                "name": "Entity Player Splash",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.splash.high_speed",
+                "name": "Entity Player Splash High Speed",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.player.swim",
+                "name": "Entity Player Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.polar_bear.ambient",
+                "name": "Entity Polar Bear Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.polar_bear.ambient_baby",
+                "name": "Entity Polar Bear Ambient Baby",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.polar_bear.death",
+                "name": "Entity Polar Bear Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.polar_bear.hurt",
+                "name": "Entity Polar Bear Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.polar_bear.step",
+                "name": "Entity Polar Bear Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.polar_bear.warning",
+                "name": "Entity Polar Bear Warning",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.puffer_fish.ambient",
+                "name": "Entity Puffer Fish Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.puffer_fish.blow_out",
+                "name": "Entity Puffer Fish Blow Out",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.puffer_fish.blow_up",
+                "name": "Entity Puffer Fish Blow Up",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.puffer_fish.death",
+                "name": "Entity Puffer Fish Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.puffer_fish.flop",
+                "name": "Entity Puffer Fish Flop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.puffer_fish.hurt",
+                "name": "Entity Puffer Fish Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.puffer_fish.sting",
+                "name": "Entity Puffer Fish Sting",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.rabbit.ambient",
+                "name": "Entity Rabbit Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.rabbit.attack",
+                "name": "Entity Rabbit Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.rabbit.death",
+                "name": "Entity Rabbit Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.rabbit.hurt",
+                "name": "Entity Rabbit Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.rabbit.jump",
+                "name": "Entity Rabbit Jump",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ravager.ambient",
+                "name": "Entity Ravager Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ravager.attack",
+                "name": "Entity Ravager Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ravager.celebrate",
+                "name": "Entity Ravager Celebrate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ravager.death",
+                "name": "Entity Ravager Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ravager.hurt",
+                "name": "Entity Ravager Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ravager.roar",
+                "name": "Entity Ravager Roar",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ravager.step",
+                "name": "Entity Ravager Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.ravager.stunned",
+                "name": "Entity Ravager Stunned",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.salmon.ambient",
+                "name": "Entity Salmon Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.salmon.death",
+                "name": "Entity Salmon Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.salmon.flop",
+                "name": "Entity Salmon Flop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.salmon.hurt",
+                "name": "Entity Salmon Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sheep.ambient",
+                "name": "Entity Sheep Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sheep.death",
+                "name": "Entity Sheep Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sheep.hurt",
+                "name": "Entity Sheep Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sheep.shear",
+                "name": "Entity Sheep Shear",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sheep.step",
+                "name": "Entity Sheep Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker_bullet.hit",
+                "name": "Entity Shulker Bullet Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker_bullet.hurt",
+                "name": "Entity Shulker Bullet Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker.ambient",
+                "name": "Entity Shulker Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker.close",
+                "name": "Entity Shulker Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker.death",
+                "name": "Entity Shulker Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker.hurt",
+                "name": "Entity Shulker Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker.hurt_closed",
+                "name": "Entity Shulker Hurt Closed",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker.open",
+                "name": "Entity Shulker Open",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker.shoot",
+                "name": "Entity Shulker Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.shulker.teleport",
+                "name": "Entity Shulker Teleport",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.silverfish.ambient",
+                "name": "Entity Silverfish Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.silverfish.death",
+                "name": "Entity Silverfish Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.silverfish.hurt",
+                "name": "Entity Silverfish Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.silverfish.step",
+                "name": "Entity Silverfish Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton_horse.ambient",
+                "name": "Entity Skeleton Horse Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton_horse.ambient_water",
+                "name": "Entity Skeleton Horse Ambient Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton_horse.death",
+                "name": "Entity Skeleton Horse Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton_horse.gallop_water",
+                "name": "Entity Skeleton Horse Gallop Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton_horse.hurt",
+                "name": "Entity Skeleton Horse Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton_horse.jump_water",
+                "name": "Entity Skeleton Horse Jump Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton_horse.step_water",
+                "name": "Entity Skeleton Horse Step Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton_horse.swim",
+                "name": "Entity Skeleton Horse Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton.ambient",
+                "name": "Entity Skeleton Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton.converted_to_stray",
+                "name": "Entity Skeleton Converted To Stray",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton.death",
+                "name": "Entity Skeleton Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton.hurt",
+                "name": "Entity Skeleton Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton.shoot",
+                "name": "Entity Skeleton Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.skeleton.step",
+                "name": "Entity Skeleton Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.attack",
+                "name": "Entity Slime Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.death",
+                "name": "Entity Slime Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.death_small",
+                "name": "Entity Slime Death Small",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.hurt",
+                "name": "Entity Slime Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.hurt_small",
+                "name": "Entity Slime Hurt Small",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.jump",
+                "name": "Entity Slime Jump",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.jump_small",
+                "name": "Entity Slime Jump Small",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.squish",
+                "name": "Entity Slime Squish",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.slime.squish_small",
+                "name": "Entity Slime Squish Small",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.death",
+                "name": "Entity Sniffer Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.digging",
+                "name": "Entity Sniffer Digging",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.digging_stop",
+                "name": "Entity Sniffer Digging Stop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.drop_seed",
+                "name": "Entity Sniffer Drop Seed",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.eat",
+                "name": "Entity Sniffer Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.happy",
+                "name": "Entity Sniffer Happy",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.hurt",
+                "name": "Entity Sniffer Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.idle",
+                "name": "Entity Sniffer Idle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.scenting",
+                "name": "Entity Sniffer Scenting",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.searching",
+                "name": "Entity Sniffer Searching",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.sniffing",
+                "name": "Entity Sniffer Sniffing",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.sniffer.step",
+                "name": "Entity Sniffer Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.snow_golem.ambient",
+                "name": "Entity Snow Golem Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.snow_golem.death",
+                "name": "Entity Snow Golem Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.snow_golem.hurt",
+                "name": "Entity Snow Golem Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.snow_golem.shear",
+                "name": "Entity Snow Golem Shear",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.snow_golem.shoot",
+                "name": "Entity Snow Golem Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.snowball.throw",
+                "name": "Entity Snowball Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.spider.ambient",
+                "name": "Entity Spider Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.spider.death",
+                "name": "Entity Spider Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.spider.hurt",
+                "name": "Entity Spider Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.spider.step",
+                "name": "Entity Spider Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.splash_potion.break",
+                "name": "Entity Splash Potion Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.splash_potion.throw",
+                "name": "Entity Splash Potion Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.squid.ambient",
+                "name": "Entity Squid Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.squid.death",
+                "name": "Entity Squid Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.squid.hurt",
+                "name": "Entity Squid Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.squid.squirt",
+                "name": "Entity Squid Squirt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.stray.ambient",
+                "name": "Entity Stray Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.stray.death",
+                "name": "Entity Stray Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.stray.hurt",
+                "name": "Entity Stray Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.stray.step",
+                "name": "Entity Stray Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.ambient",
+                "name": "Entity Strider Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.death",
+                "name": "Entity Strider Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.eat",
+                "name": "Entity Strider Eat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.happy",
+                "name": "Entity Strider Happy",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.hurt",
+                "name": "Entity Strider Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.retreat",
+                "name": "Entity Strider Retreat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.saddle",
+                "name": "Entity Strider Saddle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.step",
+                "name": "Entity Strider Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.strider.step_lava",
+                "name": "Entity Strider Step Lava",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tadpole.death",
+                "name": "Entity Tadpole Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tadpole.flop",
+                "name": "Entity Tadpole Flop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tadpole.grow_up",
+                "name": "Entity Tadpole Grow Up",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tadpole.hurt",
+                "name": "Entity Tadpole Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tnt.primed",
+                "name": "Entity Tnt Primed",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tropical_fish.ambient",
+                "name": "Entity Tropical Fish Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tropical_fish.death",
+                "name": "Entity Tropical Fish Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tropical_fish.flop",
+                "name": "Entity Tropical Fish Flop",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.tropical_fish.hurt",
+                "name": "Entity Tropical Fish Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.ambient_land",
+                "name": "Entity Turtle Ambient Land",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.death",
+                "name": "Entity Turtle Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.death_baby",
+                "name": "Entity Turtle Death Baby",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.egg_break",
+                "name": "Entity Turtle Egg Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.egg_crack",
+                "name": "Entity Turtle Egg Crack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.egg_hatch",
+                "name": "Entity Turtle Egg Hatch",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.hurt",
+                "name": "Entity Turtle Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.hurt_baby",
+                "name": "Entity Turtle Hurt Baby",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.lay_egg",
+                "name": "Entity Turtle Lay Egg",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.shamble",
+                "name": "Entity Turtle Shamble",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.shamble_baby",
+                "name": "Entity Turtle Shamble Baby",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.turtle.swim",
+                "name": "Entity Turtle Swim",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.vex.ambient",
+                "name": "Entity Vex Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.vex.charge",
+                "name": "Entity Vex Charge",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.vex.death",
+                "name": "Entity Vex Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.vex.hurt",
+                "name": "Entity Vex Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.ambient",
+                "name": "Entity Villager Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.celebrate",
+                "name": "Entity Villager Celebrate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.death",
+                "name": "Entity Villager Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.hurt",
+                "name": "Entity Villager Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.no",
+                "name": "Entity Villager No",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.trade",
+                "name": "Entity Villager Trade",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_armorer",
+                "name": "Entity Villager Work Armorer",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_butcher",
+                "name": "Entity Villager Work Butcher",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_cartographer",
+                "name": "Entity Villager Work Cartographer",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_cleric",
+                "name": "Entity Villager Work Cleric",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_farmer",
+                "name": "Entity Villager Work Farmer",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_fisherman",
+                "name": "Entity Villager Work Fisherman",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_fletcher",
+                "name": "Entity Villager Work Fletcher",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_leatherworker",
+                "name": "Entity Villager Work Leatherworker",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_librarian",
+                "name": "Entity Villager Work Librarian",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_mason",
+                "name": "Entity Villager Work Mason",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_shepherd",
+                "name": "Entity Villager Work Shepherd",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_toolsmith",
+                "name": "Entity Villager Work Toolsmith",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.work_weaponsmith",
+                "name": "Entity Villager Work Weaponsmith",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.villager.yes",
+                "name": "Entity Villager Yes",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.vindicator.ambient",
+                "name": "Entity Vindicator Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.vindicator.celebrate",
+                "name": "Entity Vindicator Celebrate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.vindicator.death",
+                "name": "Entity Vindicator Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.vindicator.hurt",
+                "name": "Entity Vindicator Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.ambient",
+                "name": "Entity Wandering Trader Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.death",
+                "name": "Entity Wandering Trader Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.disappeared",
+                "name": "Entity Wandering Trader Disappeared",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.drink_milk",
+                "name": "Entity Wandering Trader Drink Milk",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.drink_potion",
+                "name": "Entity Wandering Trader Drink Potion",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.hurt",
+                "name": "Entity Wandering Trader Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.no",
+                "name": "Entity Wandering Trader No",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.reappeared",
+                "name": "Entity Wandering Trader Reappeared",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.trade",
+                "name": "Entity Wandering Trader Trade",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wandering_trader.yes",
+                "name": "Entity Wandering Trader Yes",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.agitated",
+                "name": "Entity Warden Agitated",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.ambient",
+                "name": "Entity Warden Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.angry",
+                "name": "Entity Warden Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.attack_impact",
+                "name": "Entity Warden Attack Impact",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.death",
+                "name": "Entity Warden Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.dig",
+                "name": "Entity Warden Dig",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.emerge",
+                "name": "Entity Warden Emerge",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.heartbeat",
+                "name": "Entity Warden Heartbeat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.hurt",
+                "name": "Entity Warden Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.listening",
+                "name": "Entity Warden Listening",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.listening_angry",
+                "name": "Entity Warden Listening Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.nearby_close",
+                "name": "Entity Warden Nearby Close",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.nearby_closer",
+                "name": "Entity Warden Nearby Closer",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.nearby_closest",
+                "name": "Entity Warden Nearby Closest",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.roar",
+                "name": "Entity Warden Roar",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.sniff",
+                "name": "Entity Warden Sniff",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.sonic_boom",
+                "name": "Entity Warden Sonic Boom",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.sonic_charge",
+                "name": "Entity Warden Sonic Charge",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.step",
+                "name": "Entity Warden Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.warden.tendril_clicks",
+                "name": "Entity Warden Tendril Clicks",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.witch.ambient",
+                "name": "Entity Witch Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.witch.celebrate",
+                "name": "Entity Witch Celebrate",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.witch.death",
+                "name": "Entity Witch Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.witch.drink",
+                "name": "Entity Witch Drink",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.witch.hurt",
+                "name": "Entity Witch Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.witch.throw",
+                "name": "Entity Witch Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither_skeleton.ambient",
+                "name": "Entity Wither Skeleton Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither_skeleton.death",
+                "name": "Entity Wither Skeleton Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither_skeleton.hurt",
+                "name": "Entity Wither Skeleton Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither_skeleton.step",
+                "name": "Entity Wither Skeleton Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither.ambient",
+                "name": "Entity Wither Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither.break_block",
+                "name": "Entity Wither Break Block",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither.death",
+                "name": "Entity Wither Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither.hurt",
+                "name": "Entity Wither Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither.shoot",
+                "name": "Entity Wither Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wither.spawn",
+                "name": "Entity Wither Spawn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.ambient",
+                "name": "Entity Wolf Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.death",
+                "name": "Entity Wolf Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.growl",
+                "name": "Entity Wolf Growl",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.howl",
+                "name": "Entity Wolf Howl",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.hurt",
+                "name": "Entity Wolf Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.pant",
+                "name": "Entity Wolf Pant",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.shake",
+                "name": "Entity Wolf Shake",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.step",
+                "name": "Entity Wolf Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.wolf.whine",
+                "name": "Entity Wolf Whine",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zoglin.ambient",
+                "name": "Entity Zoglin Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zoglin.angry",
+                "name": "Entity Zoglin Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zoglin.attack",
+                "name": "Entity Zoglin Attack",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zoglin.death",
+                "name": "Entity Zoglin Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zoglin.hurt",
+                "name": "Entity Zoglin Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zoglin.step",
+                "name": "Entity Zoglin Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_horse.ambient",
+                "name": "Entity Zombie Horse Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_horse.death",
+                "name": "Entity Zombie Horse Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_horse.hurt",
+                "name": "Entity Zombie Horse Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_villager.ambient",
+                "name": "Entity Zombie Villager Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_villager.converted",
+                "name": "Entity Zombie Villager Converted",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_villager.cure",
+                "name": "Entity Zombie Villager Cure",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_villager.death",
+                "name": "Entity Zombie Villager Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_villager.hurt",
+                "name": "Entity Zombie Villager Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie_villager.step",
+                "name": "Entity Zombie Villager Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.ambient",
+                "name": "Entity Zombie Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.attack_iron_door",
+                "name": "Entity Zombie Attack Iron Door",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.attack_wooden_door",
+                "name": "Entity Zombie Attack Wooden Door",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.break_wooden_door",
+                "name": "Entity Zombie Break Wooden Door",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.converted_to_drowned",
+                "name": "Entity Zombie Converted To Drowned",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.death",
+                "name": "Entity Zombie Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.destroy_egg",
+                "name": "Entity Zombie Destroy Egg",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.hurt",
+                "name": "Entity Zombie Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.infect",
+                "name": "Entity Zombie Infect",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombie.step",
+                "name": "Entity Zombie Step",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombified_piglin.ambient",
+                "name": "Entity Zombified Piglin Ambient",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombified_piglin.angry",
+                "name": "Entity Zombified Piglin Angry",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombified_piglin.death",
+                "name": "Entity Zombified Piglin Death",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:entity.zombified_piglin.hurt",
+                "name": "Entity Zombified Piglin Hurt",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:event.raid.horn",
+                "name": "Event Raid Horn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:intentionally_empty",
+                "name": "Intentionally Empty",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_chain",
+                "name": "Item Armor Equip Chain",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_diamond",
+                "name": "Item Armor Equip Diamond",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_elytra",
+                "name": "Item Armor Equip Elytra",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_generic",
+                "name": "Item Armor Equip Generic",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_gold",
+                "name": "Item Armor Equip Gold",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_iron",
+                "name": "Item Armor Equip Iron",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_leather",
+                "name": "Item Armor Equip Leather",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_netherite",
+                "name": "Item Armor Equip Netherite",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.armor.equip_turtle",
+                "name": "Item Armor Equip Turtle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.axe.scrape",
+                "name": "Item Axe Scrape",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.axe.strip",
+                "name": "Item Axe Strip",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.axe.wax_off",
+                "name": "Item Axe Wax Off",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bone_meal.use",
+                "name": "Item Bone Meal Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.book.page_turn",
+                "name": "Item Book Page Turn",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.book.put",
+                "name": "Item Book Put",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bottle.empty",
+                "name": "Item Bottle Empty",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bottle.fill",
+                "name": "Item Bottle Fill",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bottle.fill_dragonbreath",
+                "name": "Item Bottle Fill Dragonbreath",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.brush.brushing.generic",
+                "name": "Item Brush Brushing Generic",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.brush.brushing.gravel",
+                "name": "Item Brush Brushing Gravel",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.brush.brushing.gravel.complete",
+                "name": "Item Brush Brushing Gravel Complete",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.brush.brushing.sand",
+                "name": "Item Brush Brushing Sand",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.brush.brushing.sand.complete",
+                "name": "Item Brush Brushing Sand Complete",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.empty",
+                "name": "Item Bucket Empty",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.empty_axolotl",
+                "name": "Item Bucket Empty Axolotl",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.empty_fish",
+                "name": "Item Bucket Empty Fish",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.empty_lava",
+                "name": "Item Bucket Empty Lava",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.empty_powder_snow",
+                "name": "Item Bucket Empty Powder Snow",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.empty_tadpole",
+                "name": "Item Bucket Empty Tadpole",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.fill",
+                "name": "Item Bucket Fill",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.fill_axolotl",
+                "name": "Item Bucket Fill Axolotl",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.fill_fish",
+                "name": "Item Bucket Fill Fish",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.fill_lava",
+                "name": "Item Bucket Fill Lava",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.fill_powder_snow",
+                "name": "Item Bucket Fill Powder Snow",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bucket.fill_tadpole",
+                "name": "Item Bucket Fill Tadpole",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bundle.drop_contents",
+                "name": "Item Bundle Drop Contents",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bundle.insert",
+                "name": "Item Bundle Insert",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.bundle.remove_one",
+                "name": "Item Bundle Remove One",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.chorus_fruit.teleport",
+                "name": "Item Chorus Fruit Teleport",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crop.plant",
+                "name": "Item Crop Plant",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crossbow.hit",
+                "name": "Item Crossbow Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crossbow.loading_end",
+                "name": "Item Crossbow Loading End",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crossbow.loading_middle",
+                "name": "Item Crossbow Loading Middle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crossbow.loading_start",
+                "name": "Item Crossbow Loading Start",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crossbow.quick_charge_1",
+                "name": "Item Crossbow Quick Charge 1",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crossbow.quick_charge_2",
+                "name": "Item Crossbow Quick Charge 2",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crossbow.quick_charge_3",
+                "name": "Item Crossbow Quick Charge 3",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.crossbow.shoot",
+                "name": "Item Crossbow Shoot",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.dye.use",
+                "name": "Item Dye Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.elytra.flying",
+                "name": "Item Elytra Flying",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.firecharge.use",
+                "name": "Item Firecharge Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.flintandsteel.use",
+                "name": "Item Flintandsteel Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.glow_ink_sac.use",
+                "name": "Item Glow Ink Sac Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.play",
+                "name": "Item Goat Horn Play",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.sound.0",
+                "name": "Item Goat Horn Sound 0",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.sound.1",
+                "name": "Item Goat Horn Sound 1",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.sound.2",
+                "name": "Item Goat Horn Sound 2",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.sound.3",
+                "name": "Item Goat Horn Sound 3",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.sound.4",
+                "name": "Item Goat Horn Sound 4",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.sound.5",
+                "name": "Item Goat Horn Sound 5",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.sound.6",
+                "name": "Item Goat Horn Sound 6",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.goat_horn.sound.7",
+                "name": "Item Goat Horn Sound 7",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.hoe.till",
+                "name": "Item Hoe Till",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.honey_bottle.drink",
+                "name": "Item Honey Bottle Drink",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.honeycomb.wax_on",
+                "name": "Item Honeycomb Wax On",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.ink_sac.use",
+                "name": "Item Ink Sac Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.lodestone_compass.lock",
+                "name": "Item Lodestone Compass Lock",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.nether_wart.plant",
+                "name": "Item Nether Wart Plant",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.shield.block",
+                "name": "Item Shield Block",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.shield.break",
+                "name": "Item Shield Break",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.shovel.flatten",
+                "name": "Item Shovel Flatten",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.spyglass.stop_using",
+                "name": "Item Spyglass Stop Using",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.spyglass.use",
+                "name": "Item Spyglass Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.totem.use",
+                "name": "Item Totem Use",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.trident.hit",
+                "name": "Item Trident Hit",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.trident.hit_ground",
+                "name": "Item Trident Hit Ground",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.trident.return",
+                "name": "Item Trident Return",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.trident.riptide_1",
+                "name": "Item Trident Riptide 1",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.trident.riptide_2",
+                "name": "Item Trident Riptide 2",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.trident.riptide_3",
+                "name": "Item Trident Riptide 3",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.trident.throw",
+                "name": "Item Trident Throw",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:item.trident.thunder",
+                "name": "Item Trident Thunder",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.11",
+                "name": "Music Disc 11",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.13",
+                "name": "Music Disc 13",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.5",
+                "name": "Music Disc 5",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.blocks",
+                "name": "Music Disc Blocks",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.cat",
+                "name": "Music Disc Cat",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.chirp",
+                "name": "Music Disc Chirp",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.far",
+                "name": "Music Disc Far",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.mall",
+                "name": "Music Disc Mall",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.mellohi",
+                "name": "Music Disc Mellohi",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.otherside",
+                "name": "Music Disc Otherside",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.pigstep",
+                "name": "Music Disc Pigstep",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.relic",
+                "name": "Music Disc Relic",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.stal",
+                "name": "Music Disc Stal",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.strad",
+                "name": "Music Disc Strad",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.wait",
+                "name": "Music Disc Wait",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music_disc.ward",
+                "name": "Music Disc Ward",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.creative",
+                "name": "Music Creative",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.credits",
+                "name": "Music Credits",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.dragon",
+                "name": "Music Dragon",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.end",
+                "name": "Music End",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.game",
+                "name": "Music Game",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.menu",
+                "name": "Music Menu",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.nether.basalt_deltas",
+                "name": "Music Nether Basalt Deltas",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.nether.crimson_forest",
+                "name": "Music Nether Crimson Forest",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.nether.nether_wastes",
+                "name": "Music Nether Nether Wastes",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.nether.soul_sand_valley",
+                "name": "Music Nether Soul Sand Valley",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.nether.warped_forest",
+                "name": "Music Nether Warped Forest",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.badlands",
+                "name": "Music Overworld Badlands",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.bamboo_jungle",
+                "name": "Music Overworld Bamboo Jungle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.cherry_grove",
+                "name": "Music Overworld Cherry Grove",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.deep_dark",
+                "name": "Music Overworld Deep Dark",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.desert",
+                "name": "Music Overworld Desert",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.dripstone_caves",
+                "name": "Music Overworld Dripstone Caves",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.flower_forest",
+                "name": "Music Overworld Flower Forest",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.forest",
+                "name": "Music Overworld Forest",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.frozen_peaks",
+                "name": "Music Overworld Frozen Peaks",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.grove",
+                "name": "Music Overworld Grove",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.jagged_peaks",
+                "name": "Music Overworld Jagged Peaks",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.jungle",
+                "name": "Music Overworld Jungle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.lush_caves",
+                "name": "Music Overworld Lush Caves",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.meadow",
+                "name": "Music Overworld Meadow",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.old_growth_taiga",
+                "name": "Music Overworld Old Growth Taiga",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.snowy_slopes",
+                "name": "Music Overworld Snowy Slopes",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.sparse_jungle",
+                "name": "Music Overworld Sparse Jungle",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.stony_peaks",
+                "name": "Music Overworld Stony Peaks",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.overworld.swamp",
+                "name": "Music Overworld Swamp",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:music.under_water",
+                "name": "Music Under Water",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:particle.soul_escape",
+                "name": "Particle Soul Escape",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.button.click",
+                "name": "Ui Button Click",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.cartography_table.take_result",
+                "name": "Ui Cartography Table Take Result",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.loom.select_pattern",
+                "name": "Ui Loom Select Pattern",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.loom.take_result",
+                "name": "Ui Loom Take Result",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.stonecutter.select_recipe",
+                "name": "Ui Stonecutter Select Recipe",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.stonecutter.take_result",
+                "name": "Ui Stonecutter Take Result",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.toast.challenge_complete",
+                "name": "Ui Toast Challenge Complete",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.toast.in",
+                "name": "Ui Toast In",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:ui.toast.out",
+                "name": "Ui Toast Out",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:weather.rain",
+                "name": "Weather Rain",
+                "icon": "🔊"
+        },
+        {
+                "id": "minecraft:weather.rain.above",
+                "name": "Weather Rain Above",
                 "icon": "🔊"
         }
 ],
@@ -3692,221 +11032,395 @@ const MC_DATA = {
         }
 ],
 
-    // Preserved Biomes List
+    // Generated Biomes List (ALL 64 entries)
     biomes: [
-        {
-                "id": "minecraft:plains",
-                "name": "Plains",
-                "icon": "🌱",
-                "desc": "Grassland biome with open views, passive mobs, and occasional oak/birch trees."
-        },
-        {
-                "id": "minecraft:desert",
-                "name": "Desert",
-                "icon": "🌵",
-                "desc": "Dry, sandy biome with cacti, dead bushes, sandstone structures, and husk spawn overrides."
-        },
-        {
-                "id": "minecraft:forest",
-                "name": "Forest",
-                "icon": "🌳",
-                "desc": "Dense tree biome featuring oak and birch trees, wolves, and mushrooms."
-        },
-        {
-                "id": "minecraft:taiga",
-                "name": "Taiga",
-                "icon": "🌲",
-                "desc": "Cold biome with spruce trees, sweet berry bushes, foxes, and wolves."
-        },
-        {
-                "id": "minecraft:snowy_plains",
-                "name": "Snowy Plains",
-                "icon": "❄️",
-                "desc": "Vast snowy fields spawning strays, polar bears, and rabbits."
-        },
-        {
-                "id": "minecraft:swamp",
-                "name": "Swamp",
-                "icon": "🐊",
-                "desc": "Murky waters spawning slime at night, boggy trees, blue orchids, and witch huts."
-        },
-        {
-                "id": "minecraft:jungle",
-                "name": "Jungle",
-                "icon": "🌴",
-                "desc": "Lush tropical jungle with towering trees, cocoa beans, ocelots, parrots, and pandas."
-        },
-        {
-                "id": "minecraft:savanna",
-                "name": "Savanna",
-                "icon": "🦁",
-                "desc": "Dry grassland featuring acacia trees, llamas, horses, and villages."
-        },
         {
                 "id": "minecraft:badlands",
                 "name": "Badlands",
-                "icon": "🏜️",
-                "desc": "Colorful terracotta mounds with extra gold ore generation and mineshafts."
+                "icon": "🌵",
+                "desc": "A Overworld biome. Category: Mesa. Temp: 2. Precipitation: No."
         },
         {
-                "id": "minecraft:meadow",
-                "name": "Meadow",
-                "icon": "🌸",
-                "desc": "Grassy plateau filled with flowers, sheep, and bees."
+                "id": "minecraft:bamboo_jungle",
+                "name": "Bamboo Jungle",
+                "icon": "🌴",
+                "desc": "A Overworld biome. Category: Jungle. Temp: 0.95. Precipitation: Yes."
         },
         {
-                "id": "minecraft:grove",
-                "name": "Grove",
-                "icon": "❄️",
-                "desc": "Spruce forest covered in snow, wolves, and rabbits."
+                "id": "minecraft:basalt_deltas",
+                "name": "Basalt Deltas",
+                "icon": "🔥",
+                "desc": "A Nether biome. Category: Nether. Temp: 2. Precipitation: No."
         },
         {
-                "id": "minecraft:snowy_slopes",
-                "name": "Snowy Slopes",
-                "icon": "🏔️",
-                "desc": "Slopes covered in snow and ice, spawning goats."
-        },
-        {
-                "id": "minecraft:jagged_peaks",
-                "name": "Jagged Peaks",
-                "icon": "🏔️",
-                "desc": "Tall mountains capped with snow, stone, and goats."
-        },
-        {
-                "id": "minecraft:frozen_peaks",
-                "name": "Frozen Peaks",
-                "icon": "🏔️",
-                "desc": "Ice-covered mountain peaks spawning goats."
-        },
-        {
-                "id": "minecraft:stony_peaks",
-                "name": "Stony Peaks",
-                "icon": "⛰️",
-                "desc": "Mountain tops containing stone, calcite, and no snow."
-        },
-        {
-                "id": "minecraft:cherry_grove",
-                "name": "Cherry Grove",
-                "icon": "🌸",
-                "desc": "Mountain biome covered in pink cherry blossom petals and sheep."
+                "id": "minecraft:beach",
+                "name": "Beach",
+                "icon": "🌊",
+                "desc": "A Overworld biome. Category: Beach. Temp: 0.8. Precipitation: Yes."
         },
         {
                 "id": "minecraft:birch_forest",
                 "name": "Birch Forest",
                 "icon": "🌳",
-                "desc": "Pure birch trees, flowers, and peaceful animals."
+                "desc": "A Overworld biome. Category: Forest. Temp: 0.6. Precipitation: Yes."
         },
         {
-                "id": "minecraft:dark_forest",
-                "name": "Dark Forest",
-                "icon": "🍄",
-                "desc": "Dense dark oak forest spawning hostile mobs even during daytime, containing Woodland Mansions."
-        },
-        {
-                "id": "minecraft:mangrove_swamp",
-                "name": "Mangrove Swamp",
-                "icon": "🐊",
-                "desc": "Warm swamp featuring mangrove trees, mud blocks, and frogs."
-        },
-        {
-                "id": "minecraft:snowy_taiga",
-                "name": "Snowy Taiga",
+                "id": "minecraft:cherry_grove",
+                "name": "Cherry Grove",
                 "icon": "❄️",
-                "desc": "Cold spruce forest covered in snow."
-        },
-        {
-                "id": "minecraft:old_growth_pine_taiga",
-                "name": "Old Growth Pine Taiga",
-                "icon": "🌲",
-                "desc": "Spruce biome with giant pine trees, podzol, and mossy cobblestone."
-        },
-        {
-                "id": "minecraft:old_growth_birch_forest",
-                "name": "Old Growth Birch Forest",
-                "icon": "🌳",
-                "desc": "Forest with tall birch trees."
-        },
-        {
-                "id": "minecraft:ocean",
-                "name": "Ocean",
-                "icon": "🌊",
-                "desc": "Standard ocean containing kelp, fish, and dolphins."
-        },
-        {
-                "id": "minecraft:warm_ocean",
-                "name": "Warm Ocean",
-                "icon": "🐠",
-                "desc": "Shallow, warm water biome with coral reefs and sea pickles."
-        },
-        {
-                "id": "minecraft:lukewarm_ocean",
-                "name": "Lukewarm Ocean",
-                "icon": "🐬",
-                "desc": "Deep, greenish waters with seagrass and fish."
+                "desc": "A Overworld biome. Category: Forest. Temp: 0.5. Precipitation: Yes."
         },
         {
                 "id": "minecraft:cold_ocean",
                 "name": "Cold Ocean",
-                "icon": "🐟",
-                "desc": "Deep, cold waters with cod and salmon."
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0.5. Precipitation: Yes."
         },
         {
-                "id": "minecraft:frozen_ocean",
-                "name": "Frozen Ocean",
-                "icon": "🧊",
-                "desc": "Ice sheet covered ocean spawning polar bears and strays."
+                "id": "minecraft:crimson_forest",
+                "name": "Crimson Forest",
+                "icon": "🔥",
+                "desc": "A Nether biome. Category: Nether. Temp: 2. Precipitation: No."
         },
         {
-                "id": "minecraft:mushroom_fields",
-                "name": "Mushroom Fields",
-                "icon": "🍄",
-                "desc": "Rare biome covered in mycelium, giant mushrooms, and mooshrooms. No hostile mobs can spawn here."
+                "id": "minecraft:dark_forest",
+                "name": "Dark Forest",
+                "icon": "👁️",
+                "desc": "A Overworld biome. Category: Forest. Temp: 0.7. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:deep_cold_ocean",
+                "name": "Deep Cold Ocean",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0.5. Precipitation: Yes."
         },
         {
                 "id": "minecraft:deep_dark",
                 "name": "Deep Dark",
                 "icon": "👁️",
-                "desc": "Deep cavern biome filled with sculk blocks, sculk sensors, and the Warden."
+                "desc": "A Overworld biome. Category: Underground. Temp: 0.8. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:deep_frozen_ocean",
+                "name": "Deep Frozen Ocean",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:deep_lukewarm_ocean",
+                "name": "Deep Lukewarm Ocean",
+                "icon": "🌊",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:deep_ocean",
+                "name": "Deep Ocean",
+                "icon": "🌊",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:desert",
+                "name": "Desert",
+                "icon": "🌵",
+                "desc": "A Overworld biome. Category: Desert. Temp: 2. Precipitation: No."
+        },
+        {
+                "id": "minecraft:dripstone_caves",
+                "name": "Dripstone Caves",
+                "icon": "🌱",
+                "desc": "A Overworld biome. Category: Underground. Temp: 0.8. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:end_barrens",
+                "name": "End Barrens",
+                "icon": "🌌",
+                "desc": "A End biome. Category: The_end. Temp: 0.5. Precipitation: No."
+        },
+        {
+                "id": "minecraft:end_highlands",
+                "name": "End Highlands",
+                "icon": "🌌",
+                "desc": "A End biome. Category: The_end. Temp: 0.5. Precipitation: No."
+        },
+        {
+                "id": "minecraft:end_midlands",
+                "name": "End Midlands",
+                "icon": "🌌",
+                "desc": "A End biome. Category: The_end. Temp: 0.5. Precipitation: No."
+        },
+        {
+                "id": "minecraft:eroded_badlands",
+                "name": "Eroded Badlands",
+                "icon": "🌵",
+                "desc": "A Overworld biome. Category: Mesa. Temp: 2. Precipitation: No."
+        },
+        {
+                "id": "minecraft:flower_forest",
+                "name": "Flower Forest",
+                "icon": "🌳",
+                "desc": "A Overworld biome. Category: Forest. Temp: 0.7. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:forest",
+                "name": "Forest",
+                "icon": "🌳",
+                "desc": "A Overworld biome. Category: Forest. Temp: 0.7. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:frozen_ocean",
+                "name": "Frozen Ocean",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:frozen_peaks",
+                "name": "Frozen Peaks",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Ice. Temp: -0.7. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:frozen_river",
+                "name": "Frozen River",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Ice. Temp: 0. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:grove",
+                "name": "Grove",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Forest. Temp: -0.2. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:ice_spikes",
+                "name": "Ice Spikes",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Ice. Temp: 0. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:jagged_peaks",
+                "name": "Jagged Peaks",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Mountain. Temp: -0.7. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:jungle",
+                "name": "Jungle",
+                "icon": "🌴",
+                "desc": "A Overworld biome. Category: Jungle. Temp: 0.95. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:lukewarm_ocean",
+                "name": "Lukewarm Ocean",
+                "icon": "🌊",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:lush_caves",
+                "name": "Lush Caves",
+                "icon": "🌱",
+                "desc": "A Overworld biome. Category: Underground. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:mangrove_swamp",
+                "name": "Mangrove Swamp",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Forest. Temp: 0.8. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:meadow",
+                "name": "Meadow",
+                "icon": "🌱",
+                "desc": "A Overworld biome. Category: Mountain. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:mushroom_fields",
+                "name": "Mushroom Fields",
+                "icon": "🍄",
+                "desc": "A Overworld biome. Category: Mushroom. Temp: 0.9. Precipitation: Yes."
         },
         {
                 "id": "minecraft:nether_wastes",
                 "name": "Nether Wastes",
                 "icon": "🔥",
-                "desc": "The primary Nether biome of netherrack, magma blocks, ghasts, and piglins."
+                "desc": "A Nether biome. Category: Nether. Temp: 2. Precipitation: No."
+        },
+        {
+                "id": "minecraft:ocean",
+                "name": "Ocean",
+                "icon": "🌊",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:old_growth_birch_forest",
+                "name": "Old Growth Birch Forest",
+                "icon": "🌳",
+                "desc": "A Overworld biome. Category: Forest. Temp: 0.6. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:old_growth_pine_taiga",
+                "name": "Old Growth Pine Taiga",
+                "icon": "🌳",
+                "desc": "A Overworld biome. Category: Taiga. Temp: 0.3. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:old_growth_spruce_taiga",
+                "name": "Old Growth Spruce Taiga",
+                "icon": "🌳",
+                "desc": "A Overworld biome. Category: Taiga. Temp: 0.25. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:plains",
+                "name": "Plains",
+                "icon": "🌱",
+                "desc": "A Overworld biome. Category: Plains. Temp: 0.8. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:river",
+                "name": "River",
+                "icon": "🌊",
+                "desc": "A Overworld biome. Category: River. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:savanna",
+                "name": "Savanna",
+                "icon": "🦁",
+                "desc": "A Overworld biome. Category: Savanna. Temp: 2. Precipitation: No."
+        },
+        {
+                "id": "minecraft:savanna_plateau",
+                "name": "Savanna Plateau",
+                "icon": "🦁",
+                "desc": "A Overworld biome. Category: Savanna. Temp: 2. Precipitation: No."
+        },
+        {
+                "id": "minecraft:small_end_islands",
+                "name": "Small End Islands",
+                "icon": "🌌",
+                "desc": "A End biome. Category: The_end. Temp: 0.5. Precipitation: No."
+        },
+        {
+                "id": "minecraft:snowy_beach",
+                "name": "Snowy Beach",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Beach. Temp: 0.05. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:snowy_plains",
+                "name": "Snowy Plains",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Plains. Temp: 0. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:snowy_slopes",
+                "name": "Snowy Slopes",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Mountain. Temp: -0.3. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:snowy_taiga",
+                "name": "Snowy Taiga",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Taiga. Temp: -0.5. Precipitation: Yes."
         },
         {
                 "id": "minecraft:soul_sand_valley",
                 "name": "Soul Sand Valley",
-                "icon": "💀",
-                "desc": "Nether valley covered in soul sand, soul soil, basalt pillars, skeletons, and ghasts."
+                "icon": "🔥",
+                "desc": "A Nether biome. Category: Nether. Temp: 2. Precipitation: No."
         },
         {
-                "id": "minecraft:crimson_forest",
-                "name": "Crimson Forest",
-                "icon": "🍄",
-                "desc": "Red Nether forest containing crimson fungi, hoglins, and piglins."
+                "id": "minecraft:sparse_jungle",
+                "name": "Sparse Jungle",
+                "icon": "🌴",
+                "desc": "A Overworld biome. Category: Jungle. Temp: 0.95. Precipitation: Yes."
         },
         {
-                "id": "minecraft:warped_forest",
-                "name": "Warped Forest",
-                "icon": "🍄",
-                "desc": "Blue Nether forest containing warped fungi, endermen, and no hostile piglins."
+                "id": "minecraft:stony_peaks",
+                "name": "Stony Peaks",
+                "icon": "❄️",
+                "desc": "A Overworld biome. Category: Mountain. Temp: 1. Precipitation: Yes."
         },
         {
-                "id": "minecraft:basalt_deltas",
-                "name": "Basalt Deltas",
-                "icon": "🌋",
-                "desc": "Volcanic Nether biome filled with basalt, blackstone, ash particles, and magma cubes."
+                "id": "minecraft:stony_shore",
+                "name": "Stony Shore",
+                "icon": "🌊",
+                "desc": "A Overworld biome. Category: Beach. Temp: 0.2. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:sunflower_plains",
+                "name": "Sunflower Plains",
+                "icon": "🌱",
+                "desc": "A Overworld biome. Category: Plains. Temp: 0.8. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:swamp",
+                "name": "Swamp",
+                "icon": "🐊",
+                "desc": "A Overworld biome. Category: Swamp. Temp: 0.8. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:taiga",
+                "name": "Taiga",
+                "icon": "🌳",
+                "desc": "A Overworld biome. Category: Taiga. Temp: 0.25. Precipitation: Yes."
         },
         {
                 "id": "minecraft:the_end",
                 "name": "The End",
                 "icon": "🌌",
-                "desc": "The barren dimension of end stone, obsidian towers, endermen, and the Ender Dragon."
+                "desc": "A End biome. Category: The_end. Temp: 0.5. Precipitation: No."
+        },
+        {
+                "id": "minecraft:the_void",
+                "name": "The Void",
+                "icon": "🌱",
+                "desc": "A Overworld biome. Category: None. Temp: 0.5. Precipitation: No."
+        },
+        {
+                "id": "minecraft:warm_ocean",
+                "name": "Warm Ocean",
+                "icon": "🌊",
+                "desc": "A Overworld biome. Category: Ocean. Temp: 0.5. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:warped_forest",
+                "name": "Warped Forest",
+                "icon": "🔥",
+                "desc": "A Nether biome. Category: Nether. Temp: 2. Precipitation: No."
+        },
+        {
+                "id": "minecraft:windswept_forest",
+                "name": "Windswept Forest",
+                "icon": "🌳",
+                "desc": "A Overworld biome. Category: Forest. Temp: 0.2. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:windswept_gravelly_hills",
+                "name": "Windswept Gravelly Hills",
+                "icon": "🌱",
+                "desc": "A Overworld biome. Category: Extreme_hills. Temp: 0.2. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:windswept_hills",
+                "name": "Windswept Hills",
+                "icon": "🌱",
+                "desc": "A Overworld biome. Category: Extreme_hills. Temp: 0.2. Precipitation: Yes."
+        },
+        {
+                "id": "minecraft:windswept_savanna",
+                "name": "Windswept Savanna",
+                "icon": "🦁",
+                "desc": "A Overworld biome. Category: Savanna. Temp: 2. Precipitation: No."
+        },
+        {
+                "id": "minecraft:wooded_badlands",
+                "name": "Wooded Badlands",
+                "icon": "🌵",
+                "desc": "A Overworld biome. Category: Mesa. Temp: 2. Precipitation: No."
         }
 ],
 
-    // Preserved Structures List
+    // Default Structures List (20 entries)
     structures: [
         {
                 "id": "minecraft:ancient_city",
@@ -4030,49 +11544,140 @@ const MC_DATA = {
         }
 ],
 
-    // Preserved Commands List
+    // Generated Commands List (ALL 81 entries)
     commands: [
         {
-                "id": "/give",
-                "name": "/give",
+                "id": "/advancement",
+                "name": "/advancement",
                 "icon": "📜",
-                "desc": "Grants specific items with custom NBT / components to players.",
-                "meta": "/give <player> <item> [count]"
+                "desc": "Grants, revokes, or tests advancements for players.",
+                "meta": "/advancement <grant|revoke> <targets> ..."
         },
         {
-                "id": "/summon",
-                "name": "/summon",
+                "id": "/attribute",
+                "name": "/attribute",
                 "icon": "📜",
-                "desc": "Spawns a custom living mob or object at specified coordinates.",
-                "meta": "/summon <entity> [pos] [nbt]"
+                "desc": "Gets or modifies attribute modifiers of entities in real time.",
+                "meta": "/attribute <target> <attribute> <get|base|modifier> ..."
         },
         {
-                "id": "/execute",
-                "name": "/execute",
+                "id": "/ban",
+                "name": "/ban",
                 "icon": "📜",
-                "desc": "Conditional compiler that executes commands on behalf of other entities or under environmental tests.",
-                "meta": "/execute <subcommands> run <command>"
+                "desc": "Adds player to server ban list.",
+                "meta": "/ban <targets> [reason]"
+        },
+        {
+                "id": "/ban-ip",
+                "name": "/ban-ip",
+                "icon": "📜",
+                "desc": "Adds IP address to server ban list.",
+                "meta": "/ban-ip <target> [reason]"
+        },
+        {
+                "id": "/banlist",
+                "name": "/banlist",
+                "icon": "📜",
+                "desc": "Displays the server ban list.",
+                "meta": "/banlist [ips|players]"
+        },
+        {
+                "id": "/bossbar",
+                "name": "/bossbar",
+                "icon": "📜",
+                "desc": "Creates and modifies boss bars.",
+                "meta": "/bossbar <add|remove|list|set|get> ..."
+        },
+        {
+                "id": "/clear",
+                "name": "/clear",
+                "icon": "📜",
+                "desc": "Empties items matching filters from target players' inventories.",
+                "meta": "/clear [targets] [item] [maxCount]"
+        },
+        {
+                "id": "/clone",
+                "name": "/clone",
+                "icon": "📜",
+                "desc": "Clones blocks from one region to another.",
+                "meta": "/clone <begin> <end> <destination> [replace|masked] ..."
+        },
+        {
+                "id": "/damage",
+                "name": "/damage",
+                "icon": "📜",
+                "desc": "Applies custom damage to target entities.",
+                "meta": "/damage <target> <amount> [damageType] [at <location>]"
+        },
+        {
+                "id": "/data",
+                "name": "/data",
+                "icon": "📜",
+                "desc": "Gets, merges, modifies, and clears NBT data of blocks and entities.",
+                "meta": "/data <get|merge|modify|remove> <block|entity|storage> ..."
+        },
+        {
+                "id": "/datapack",
+                "name": "/datapack",
+                "icon": "📜",
+                "desc": "Controls loaded data packs.",
+                "meta": "/datapack <enable|disable|list> ..."
+        },
+        {
+                "id": "/debug",
+                "name": "/debug",
+                "icon": "📜",
+                "desc": "Starts or stops a profiling debug session.",
+                "meta": "/debug <start|stop|report>"
+        },
+        {
+                "id": "/defaultgamemode",
+                "name": "/defaultgamemode",
+                "icon": "📜",
+                "desc": "Sets the default gamemode for new players.",
+                "meta": "/defaultgamemode <survival|creative|adventure|spectator>"
+        },
+        {
+                "id": "/deop",
+                "name": "/deop",
+                "icon": "📜",
+                "desc": "Revokes operator status from a player.",
+                "meta": "/deop <targets>"
+        },
+        {
+                "id": "/difficulty",
+                "name": "/difficulty",
+                "icon": "📜",
+                "desc": "Modifies global combat challenge parameters.",
+                "meta": "/difficulty <peaceful|easy|normal|hard>"
         },
         {
                 "id": "/effect",
                 "name": "/effect",
                 "icon": "📜",
-                "desc": "Modifies active potion effects and amplifiers on players or mobs.",
-                "meta": "/effect <give|clear> <player> <effect> [seconds] [amplifier]"
+                "desc": "Modifies active potion effects on players or mobs.",
+                "meta": "/effect <give|clear> <targets> [effect] [seconds] [amplifier]"
         },
         {
-                "id": "/tp",
-                "name": "/tp",
+                "id": "/enchant",
+                "name": "/enchant",
                 "icon": "📜",
-                "desc": "Teleports players or entities to coordinates or another target.",
-                "meta": "/tp [target] <destination>"
+                "desc": "Applies compatible enchantments to the held item of a player.",
+                "meta": "/enchant <targets> <enchantment> [level]"
         },
         {
-                "id": "/setblock",
-                "name": "/setblock",
+                "id": "/execute",
+                "name": "/execute",
                 "icon": "📜",
-                "desc": "Changes a single block at specified coordinates to another block type.",
-                "meta": "/setblock <pos> <block> [destroy|keep|replace]"
+                "desc": "Executes commands under specific conditions or on behalf of other entities.",
+                "meta": "/execute <subcommands> run <command>"
+        },
+        {
+                "id": "/experience",
+                "name": "/experience",
+                "icon": "📜",
+                "desc": "Grants or queries player experience points and levels.",
+                "meta": "/experience <add|set|query> <targets> ..."
         },
         {
                 "id": "/fill",
@@ -4082,97 +11687,1005 @@ const MC_DATA = {
                 "meta": "/fill <from> <to> <block> [replace|destroy|keep]"
         },
         {
-                "id": "/gamerule",
-                "name": "/gamerule",
+                "id": "/fillbiome",
+                "name": "/fillbiome",
                 "icon": "📜",
-                "desc": "Toggles global server configuration parameters like daylight cycle, mob griefing, and inventory keeping.",
-                "meta": "/gamerule <rule> [value]"
+                "desc": "Fills a region with a specified biome.",
+                "meta": "/fillbiome <from> <to> <biome>"
         },
         {
-                "id": "/kill",
-                "name": "/kill",
+                "id": "/forceload",
+                "name": "/forceload",
                 "icon": "📜",
-                "desc": "Instantly inflicts lethal damage to players or selected living mobs.",
-                "meta": "/kill [target]"
+                "desc": "Forces chunks to remain loaded in memory.",
+                "meta": "/forceload <add|remove|query> ..."
+        },
+        {
+                "id": "/function",
+                "name": "/function",
+                "icon": "📜",
+                "desc": "Executes a list of commands from a function file.",
+                "meta": "/function <name>"
         },
         {
                 "id": "/gamemode",
                 "name": "/gamemode",
                 "icon": "📜",
                 "desc": "Sets the target player's gameplay interaction mode.",
-                "meta": "/gamemode <survival|creative|adventure|spectator> [player]"
+                "meta": "/gamemode <survival|creative|adventure|spectator> [targets]"
         },
         {
-                "id": "/attribute",
-                "name": "/attribute",
+                "id": "/gamerule",
+                "name": "/gamerule",
                 "icon": "📜",
-                "desc": "Gets or modifies attribute modifiers (like base health or movement speed) of entities in real time.",
-                "meta": "/attribute <target> <attribute> <get|base|modifier> ..."
+                "desc": "Toggles global server configuration parameters.",
+                "meta": "/gamerule <rule> [value]"
         },
         {
-                "id": "/clear",
-                "name": "/clear",
+                "id": "/give",
+                "name": "/give",
                 "icon": "📜",
-                "desc": "Empties items matching filters from target players' inventories.",
-                "meta": "/clear [player] [item] [maxCount]"
+                "desc": "Grants specific items with custom NBT / components to players.",
+                "meta": "/give <targets> <item> [count]"
         },
         {
-                "id": "/difficulty",
-                "name": "/difficulty",
+                "id": "/help",
+                "name": "/help",
                 "icon": "📜",
-                "desc": "Modifies global combat challenge parameters and mob aggressiveness.",
-                "meta": "/difficulty <peaceful|easy|normal|hard>"
+                "desc": "Shows help information for commands.",
+                "meta": "/help [command]"
         },
         {
-                "id": "/enchant",
-                "name": "/enchant",
+                "id": "/item",
+                "name": "/item",
                 "icon": "📜",
-                "desc": "Applies compatible enchantments directly to the item held in the player's main hand.",
-                "meta": "/enchant <player> <enchantment> [level]"
+                "desc": "Manipulates items in block or entity inventories.",
+                "meta": "/item <replace|modify> <block|entity> ..."
+        },
+        {
+                "id": "/jfr",
+                "name": "/jfr",
+                "icon": "📜",
+                "desc": "Controls Java Flight Recorder profiling.",
+                "meta": "/jfr start stop"
+        },
+        {
+                "id": "/kick",
+                "name": "/kick",
+                "icon": "📜",
+                "desc": "Kicks a player from the server.",
+                "meta": "/kick <targets> [reason]"
+        },
+        {
+                "id": "/kill",
+                "name": "/kill",
+                "icon": "📜",
+                "desc": "Instantly inflicts lethal damage to players or mobs.",
+                "meta": "/kill [targets]"
+        },
+        {
+                "id": "/list",
+                "name": "/list",
+                "icon": "📜",
+                "desc": "Lists online players on the server.",
+                "meta": "/list [uuids]"
+        },
+        {
+                "id": "/locate",
+                "name": "/locate",
+                "icon": "📜",
+                "desc": "Finds coordinates of structures, biomes, or points of interest.",
+                "meta": "/locate <structure|biome|poi> <id>"
+        },
+        {
+                "id": "/loot",
+                "name": "/loot",
+                "icon": "📜",
+                "desc": "Drops items from loot tables into inventories or the world.",
+                "meta": "/loot <replace|give|insert|spawn> ..."
+        },
+        {
+                "id": "/me",
+                "name": "/me",
+                "icon": "📜",
+                "desc": "Displays a narrative message in chat (* player action).",
+                "meta": "/me <action>"
+        },
+        {
+                "id": "/msg",
+                "name": "/msg",
+                "icon": "📜",
+                "desc": "Sends a private message to one or more players.",
+                "meta": "/msg <targets> <message>"
+        },
+        {
+                "id": "/op",
+                "name": "/op",
+                "icon": "📜",
+                "desc": "Grants operator status to a player.",
+                "meta": "/op <targets>"
+        },
+        {
+                "id": "/pardon",
+                "name": "/pardon",
+                "icon": "📜",
+                "desc": "Removes player from server ban list.",
+                "meta": "/pardon <targets>"
+        },
+        {
+                "id": "/pardon-ip",
+                "name": "/pardon-ip",
+                "icon": "📜",
+                "desc": "Removes IP address from server ban list.",
+                "meta": "/pardon-ip <target>"
         },
         {
                 "id": "/particle",
                 "name": "/particle",
                 "icon": "📜",
-                "desc": "Spawns custom cosmetic visual particles in the environment.",
+                "desc": "Spawns cosmetic particles in the environment.",
                 "meta": "/particle <name> [pos] [speed] [count]"
+        },
+        {
+                "id": "/perf",
+                "name": "/perf",
+                "icon": "📜",
+                "desc": "Captures performance metrics on the server.",
+                "meta": "/perf start stop"
+        },
+        {
+                "id": "/place",
+                "name": "/place",
+                "icon": "📜",
+                "desc": "Places a template, feature, jigsaw, or structure at coordinates.",
+                "meta": "/place <feature|structure|jigsaw|template> ..."
         },
         {
                 "id": "/playsound",
                 "name": "/playsound",
                 "icon": "📜",
-                "desc": "Plays a sound effect to selected players from a coordinate source.",
+                "desc": "Plays a sound effect to selected players.",
                 "meta": "/playsound <sound> <source> <targets> [pos]"
+        },
+        {
+                "id": "/publish",
+                "name": "/publish",
+                "icon": "📜",
+                "desc": "Opens singleplayer world to LAN.",
+                "meta": "/publish <allowCommands>"
+        },
+        {
+                "id": "/random",
+                "name": "/random",
+                "icon": "📜",
+                "desc": "Generates a random value or sets random roll parameters.",
+                "meta": "/random <value|roll> ..."
+        },
+        {
+                "id": "/recipe",
+                "name": "/recipe",
+                "icon": "📜",
+                "desc": "Grants or revokes crafting recipes for players.",
+                "meta": "/recipe <give|take> <targets> ..."
+        },
+        {
+                "id": "/reload",
+                "name": "/reload",
+                "icon": "📜",
+                "desc": "Reloads all datapacks and functions.",
+                "meta": "/reload"
+        },
+        {
+                "id": "/return",
+                "name": "/return",
+                "icon": "📜",
+                "desc": "Returns a value from a function.",
+                "meta": "/return <value>"
+        },
+        {
+                "id": "/ride",
+                "name": "/ride",
+                "icon": "📜",
+                "desc": "Makes an entity ride or stop riding another entity.",
+                "meta": "/ride <target> <mount|dismount> ..."
+        },
+        {
+                "id": "/save-all",
+                "name": "/save-all",
+                "icon": "📜",
+                "desc": "Saves the world to disk.",
+                "meta": "/save-all [flush]"
+        },
+        {
+                "id": "/save-off",
+                "name": "/save-off",
+                "icon": "📜",
+                "desc": "Disables automatic world saving.",
+                "meta": "/save-off"
+        },
+        {
+                "id": "/save-on",
+                "name": "/save-on",
+                "icon": "📜",
+                "desc": "Enables automatic world saving.",
+                "meta": "/save-on"
+        },
+        {
+                "id": "/say",
+                "name": "/say",
+                "icon": "📜",
+                "desc": "Sends a broadcast message to all players in chat.",
+                "meta": "/say <message>"
+        },
+        {
+                "id": "/schedule",
+                "name": "/schedule",
+                "icon": "📜",
+                "desc": "Schedules a function to run after a delay.",
+                "meta": "/schedule <function|clear> ..."
+        },
+        {
+                "id": "/scoreboard",
+                "name": "/scoreboard",
+                "icon": "📜",
+                "desc": "Manages scoreboard objectives, teams, and scores.",
+                "meta": "/scoreboard <objectives|players|teams> ..."
         },
         {
                 "id": "/seed",
                 "name": "/seed",
                 "icon": "📜",
-                "desc": "Displays the world's generation integer seed in the chat console.",
+                "desc": "Displays the world's generation integer seed.",
                 "meta": "/seed"
+        },
+        {
+                "id": "/setblock",
+                "name": "/setblock",
+                "icon": "📜",
+                "desc": "Changes a block at specified coordinates.",
+                "meta": "/setblock <pos> <block> [destroy|keep|replace]"
+        },
+        {
+                "id": "/setidletimeout",
+                "name": "/setidletimeout",
+                "icon": "📜",
+                "desc": "Sets the maximum idle time before players are kicked.",
+                "meta": "/setidletimeout <minutes>"
+        },
+        {
+                "id": "/setworldspawn",
+                "name": "/setworldspawn",
+                "icon": "📜",
+                "desc": "Sets the default spawn point for new players.",
+                "meta": "/setworldspawn [pos] [angle]"
+        },
+        {
+                "id": "/spawnpoint",
+                "name": "/spawnpoint",
+                "icon": "📜",
+                "desc": "Sets the individual spawn point for players.",
+                "meta": "/spawnpoint [targets] [pos] [angle]"
+        },
+        {
+                "id": "/spectate",
+                "name": "/spectate",
+                "icon": "📜",
+                "desc": "Forces a spectator player to spectate another entity.",
+                "meta": "/spectate [target] [player]"
+        },
+        {
+                "id": "/spreadplayers",
+                "name": "/spreadplayers",
+                "icon": "📜",
+                "desc": "Teleports entities to random locations within a range.",
+                "meta": "/spreadplayers <center> <spreadDistance> <maxRange> ..."
+        },
+        {
+                "id": "/stop",
+                "name": "/stop",
+                "icon": "📜",
+                "desc": "Gracefully shuts down the server.",
+                "meta": "/stop"
+        },
+        {
+                "id": "/stopsound",
+                "name": "/stopsound",
+                "icon": "📜",
+                "desc": "Stops a playing sound for players.",
+                "meta": "/stopsound <targets> [source] [sound]"
+        },
+        {
+                "id": "/summon",
+                "name": "/summon",
+                "icon": "📜",
+                "desc": "Spawns a custom living mob or object at specified coordinates.",
+                "meta": "/summon <entity> [pos] [nbt]"
+        },
+        {
+                "id": "/tag",
+                "name": "/tag",
+                "icon": "📜",
+                "desc": "Manages scoreboard tags on entities.",
+                "meta": "/tag <targets> <add|remove|list> ..."
+        },
+        {
+                "id": "/team",
+                "name": "/team",
+                "icon": "📜",
+                "desc": "Manages scoreboard teams.",
+                "meta": "/team <add|remove|join|leave|list|option> ..."
+        },
+        {
+                "id": "/teammsg",
+                "name": "/teammsg",
+                "icon": "📜",
+                "desc": "Sends a private message to team members.",
+                "meta": "/teammsg <message>"
+        },
+        {
+                "id": "/teleport",
+                "name": "/teleport",
+                "icon": "📜",
+                "desc": "Teleports entities to coordinates or targets.",
+                "meta": "/teleport <destination> or /teleport <targets> <destination>"
+        },
+        {
+                "id": "/tell",
+                "name": "/tell",
+                "icon": "📜",
+                "desc": "Sends a private message to players.",
+                "meta": "/tell <targets> <message>"
+        },
+        {
+                "id": "/tellraw",
+                "name": "/tellraw",
+                "icon": "📜",
+                "desc": "Sends a JSON formatted raw message to players.",
+                "meta": "/tellraw <targets> <message>"
         },
         {
                 "id": "/time",
                 "name": "/time",
                 "icon": "📜",
-                "desc": "Changes or queries the daylight time cycle of the current world.",
+                "desc": "Changes or queries the daylight time cycle.",
                 "meta": "/time <set|add|query> <value>"
+        },
+        {
+                "id": "/title",
+                "name": "/title",
+                "icon": "📜",
+                "desc": "Displays large titles/subtitles on player screens.",
+                "meta": "/title <targets> <title|subtitle|actionbar|clear|reset|times> ..."
+        },
+        {
+                "id": "/tm",
+                "name": "/tm",
+                "icon": "📜",
+                "desc": "Sends a private team message.",
+                "meta": "/tm <message>"
+        },
+        {
+                "id": "/tp",
+                "name": "/tp",
+                "icon": "📜",
+                "desc": "Teleports players or entities.",
+                "meta": "/tp <targets> <destination>"
+        },
+        {
+                "id": "/trigger",
+                "name": "/trigger",
+                "icon": "📜",
+                "desc": "Modifies scoreboard triggers for players.",
+                "meta": "/trigger <objective> [add|set]"
+        },
+        {
+                "id": "/w",
+                "name": "/w",
+                "icon": "📜",
+                "desc": "Sends a private message to players.",
+                "meta": "/w <targets> <message>"
         },
         {
                 "id": "/weather",
                 "name": "/weather",
                 "icon": "📜",
-                "desc": "Alters weather states of the world for a set time.",
+                "desc": "Alters weather states (clear, rain, thunder).",
                 "meta": "/weather <clear|rain|thunder> [duration]"
+        },
+        {
+                "id": "/whitelist",
+                "name": "/whitelist",
+                "icon": "📜",
+                "desc": "Manages server whitelist access.",
+                "meta": "/whitelist <add|remove|list|on|off|reload>"
+        },
+        {
+                "id": "/worldborder",
+                "name": "/worldborder",
+                "icon": "📜",
+                "desc": "Manages the boundaries of the world border.",
+                "meta": "/worldborder <set|center|damage|warning|add|get> ..."
         },
         {
                 "id": "/xp",
                 "name": "/xp",
                 "icon": "📜",
                 "desc": "Grants or queries player experience points and levels.",
-                "meta": "/experience <add|set|query> <player> <amount> [points|levels]"
+                "meta": "/xp <add|set|query> <targets> [points|levels]"
         }
-]
+],
+
+    // Loot Tables List (Chests, Villages, Gameplay, Mobs)
+    loot_tables: {
+        "chests": [
+                {
+                        "id": "minecraft:chests/abandoned_mineshaft",
+                        "name": "Abandoned Mineshaft"
+                },
+                {
+                        "id": "minecraft:chests/ancient_city",
+                        "name": "Ancient City"
+                },
+                {
+                        "id": "minecraft:chests/ancient_city_ice_box",
+                        "name": "Ancient City Ice Box"
+                },
+                {
+                        "id": "minecraft:chests/bastion_bridge",
+                        "name": "Bastion Bridge"
+                },
+                {
+                        "id": "minecraft:chests/bastion_hoglin_stable",
+                        "name": "Bastion Hoglin Stable"
+                },
+                {
+                        "id": "minecraft:chests/bastion_other",
+                        "name": "Bastion Other"
+                },
+                {
+                        "id": "minecraft:chests/bastion_treasure",
+                        "name": "Bastion Treasure"
+                },
+                {
+                        "id": "minecraft:chests/buried_treasure",
+                        "name": "Buried Treasure"
+                },
+                {
+                        "id": "minecraft:chests/desert_pyramid",
+                        "name": "Desert Pyramid"
+                },
+                {
+                        "id": "minecraft:chests/end_city_treasure",
+                        "name": "End City Treasure"
+                },
+                {
+                        "id": "minecraft:chests/jungle_temple",
+                        "name": "Jungle Temple"
+                },
+                {
+                        "id": "minecraft:chests/jungle_temple_dispenser",
+                        "name": "Jungle Temple Dispenser"
+                },
+                {
+                        "id": "minecraft:chests/nether_bridge",
+                        "name": "Nether Bridge"
+                },
+                {
+                        "id": "minecraft:chests/pillager_outpost",
+                        "name": "Pillager Outpost"
+                },
+                {
+                        "id": "minecraft:chests/ruined_portal",
+                        "name": "Ruined Portal"
+                },
+                {
+                        "id": "minecraft:chests/shipwreck_map",
+                        "name": "Shipwreck Map"
+                },
+                {
+                        "id": "minecraft:chests/shipwreck_supply",
+                        "name": "Shipwreck Supply"
+                },
+                {
+                        "id": "minecraft:chests/shipwreck_treasure",
+                        "name": "Shipwreck Treasure"
+                },
+                {
+                        "id": "minecraft:chests/simple_dungeon",
+                        "name": "Simple Dungeon"
+                },
+                {
+                        "id": "minecraft:chests/spawn_bonus_chest",
+                        "name": "Spawn Bonus Chest"
+                },
+                {
+                        "id": "minecraft:chests/stronghold_corridor",
+                        "name": "Stronghold Corridor"
+                },
+                {
+                        "id": "minecraft:chests/stronghold_crossing",
+                        "name": "Stronghold Crossing"
+                },
+                {
+                        "id": "minecraft:chests/stronghold_library",
+                        "name": "Stronghold Library"
+                },
+                {
+                        "id": "minecraft:chests/underwater_ruin_big",
+                        "name": "Underwater Ruin Big"
+                },
+                {
+                        "id": "minecraft:chests/underwater_ruin_small",
+                        "name": "Underwater Ruin Small"
+                },
+                {
+                        "id": "minecraft:chests/woodland_mansion",
+                        "name": "Woodland Mansion"
+                }
+        ],
+        "villages": [
+                {
+                        "id": "minecraft:chests/village/village_armorer",
+                        "name": "Village Armorer"
+                },
+                {
+                        "id": "minecraft:chests/village/village_butcher",
+                        "name": "Village Butcher"
+                },
+                {
+                        "id": "minecraft:chests/village/village_cartographer",
+                        "name": "Village Cartographer"
+                },
+                {
+                        "id": "minecraft:chests/village/village_desert_house",
+                        "name": "Village Desert House"
+                },
+                {
+                        "id": "minecraft:chests/village/village_fisher",
+                        "name": "Village Fisher"
+                },
+                {
+                        "id": "minecraft:chests/village/village_fletcher",
+                        "name": "Village Fletcher"
+                },
+                {
+                        "id": "minecraft:chests/village/village_mason",
+                        "name": "Village Mason"
+                },
+                {
+                        "id": "minecraft:chests/village/village_plains_house",
+                        "name": "Village Plains House"
+                },
+                {
+                        "id": "minecraft:chests/village/village_savanna_house",
+                        "name": "Village Savanna House"
+                },
+                {
+                        "id": "minecraft:chests/village/village_shepherd",
+                        "name": "Village Shepherd"
+                },
+                {
+                        "id": "minecraft:chests/village/village_snowy_house",
+                        "name": "Village Snowy House"
+                },
+                {
+                        "id": "minecraft:chests/village/village_taiga_house",
+                        "name": "Village Taiga House"
+                },
+                {
+                        "id": "minecraft:chests/village/village_tannery",
+                        "name": "Village Tannery"
+                },
+                {
+                        "id": "minecraft:chests/village/village_toolsmith",
+                        "name": "Village Toolsmith"
+                },
+                {
+                        "id": "minecraft:chests/village/village_weaponsmith",
+                        "name": "Village Weaponsmith"
+                }
+        ],
+        "gameplay": [
+                {
+                        "id": "minecraft:gameplay/cat_morning_gift",
+                        "name": "Cat Morning Gift"
+                },
+                {
+                        "id": "minecraft:gameplay/fishing",
+                        "name": "Fishing"
+                },
+                {
+                        "id": "minecraft:gameplay/fishing/fish",
+                        "name": "Fishing Fish"
+                },
+                {
+                        "id": "minecraft:gameplay/fishing/junk",
+                        "name": "Fishing Junk"
+                },
+                {
+                        "id": "minecraft:gameplay/fishing/treasure",
+                        "name": "Fishing Treasure"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/armorer_gift",
+                        "name": "Hero Gift: Armorer"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/butcher_gift",
+                        "name": "Hero Gift: Butcher"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/cartographer_gift",
+                        "name": "Hero Gift: Cartographer"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/cleric_gift",
+                        "name": "Hero Gift: Cleric"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/farmer_gift",
+                        "name": "Hero Gift: Farmer"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/fisher_gift",
+                        "name": "Hero Gift: Fisher"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/fletcher_gift",
+                        "name": "Hero Gift: Fletcher"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/leatherworker_gift",
+                        "name": "Hero Gift: Leatherworker"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/librarian_gift",
+                        "name": "Hero Gift: Librarian"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/mason_gift",
+                        "name": "Hero Gift: Mason"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/shepherd_gift",
+                        "name": "Hero Gift: Shepherd"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/toolsmith_gift",
+                        "name": "Hero Gift: Toolsmith"
+                },
+                {
+                        "id": "minecraft:gameplay/hero_of_the_village/weaponsmith_gift",
+                        "name": "Hero Gift: Weaponsmith"
+                },
+                {
+                        "id": "minecraft:gameplay/piglin_bartering",
+                        "name": "Piglin Bartering"
+                },
+                {
+                        "id": "minecraft:gameplay/sniffing",
+                        "name": "Sniffing"
+                }
+        ],
+        "entities": [
+                {
+                        "id": "minecraft:entities/allay",
+                        "name": "Allay Drop"
+                },
+                {
+                        "id": "minecraft:entities/axolotl",
+                        "name": "Axolotl Drop"
+                },
+                {
+                        "id": "minecraft:entities/bat",
+                        "name": "Bat Drop"
+                },
+                {
+                        "id": "minecraft:entities/bee",
+                        "name": "Bee Drop"
+                },
+                {
+                        "id": "minecraft:entities/blaze",
+                        "name": "Blaze Drop"
+                },
+                {
+                        "id": "minecraft:entities/camel",
+                        "name": "Camel Drop"
+                },
+                {
+                        "id": "minecraft:entities/cat",
+                        "name": "Cat Drop"
+                },
+                {
+                        "id": "minecraft:entities/cave_spider",
+                        "name": "Cave Spider Drop"
+                },
+                {
+                        "id": "minecraft:entities/chicken",
+                        "name": "Chicken Drop"
+                },
+                {
+                        "id": "minecraft:entities/cod",
+                        "name": "Cod Drop"
+                },
+                {
+                        "id": "minecraft:entities/cow",
+                        "name": "Cow Drop"
+                },
+                {
+                        "id": "minecraft:entities/creeper",
+                        "name": "Creeper Drop"
+                },
+                {
+                        "id": "minecraft:entities/dolphin",
+                        "name": "Dolphin Drop"
+                },
+                {
+                        "id": "minecraft:entities/donkey",
+                        "name": "Donkey Drop"
+                },
+                {
+                        "id": "minecraft:entities/drowned",
+                        "name": "Drowned Drop"
+                },
+                {
+                        "id": "minecraft:entities/elder_guardian",
+                        "name": "Elder Guardian Drop"
+                },
+                {
+                        "id": "minecraft:entities/ender_dragon",
+                        "name": "Ender Dragon Drop"
+                },
+                {
+                        "id": "minecraft:entities/enderman",
+                        "name": "Enderman Drop"
+                },
+                {
+                        "id": "minecraft:entities/endermite",
+                        "name": "Endermite Drop"
+                },
+                {
+                        "id": "minecraft:entities/evoker",
+                        "name": "Evoker Drop"
+                },
+                {
+                        "id": "minecraft:entities/fox",
+                        "name": "Fox Drop"
+                },
+                {
+                        "id": "minecraft:entities/frog",
+                        "name": "Frog Drop"
+                },
+                {
+                        "id": "minecraft:entities/ghast",
+                        "name": "Ghast Drop"
+                },
+                {
+                        "id": "minecraft:entities/giant",
+                        "name": "Giant Drop"
+                },
+                {
+                        "id": "minecraft:entities/glow_squid",
+                        "name": "Glow Squid Drop"
+                },
+                {
+                        "id": "minecraft:entities/goat",
+                        "name": "Goat Drop"
+                },
+                {
+                        "id": "minecraft:entities/guardian",
+                        "name": "Guardian Drop"
+                },
+                {
+                        "id": "minecraft:entities/hoglin",
+                        "name": "Hoglin Drop"
+                },
+                {
+                        "id": "minecraft:entities/horse",
+                        "name": "Horse Drop"
+                },
+                {
+                        "id": "minecraft:entities/husk",
+                        "name": "Husk Drop"
+                },
+                {
+                        "id": "minecraft:entities/illusioner",
+                        "name": "Illusioner Drop"
+                },
+                {
+                        "id": "minecraft:entities/iron_golem",
+                        "name": "Iron Golem Drop"
+                },
+                {
+                        "id": "minecraft:entities/llama",
+                        "name": "Llama Drop"
+                },
+                {
+                        "id": "minecraft:entities/magma_cube",
+                        "name": "Magma Cube Drop"
+                },
+                {
+                        "id": "minecraft:entities/mooshroom",
+                        "name": "Mooshroom Drop"
+                },
+                {
+                        "id": "minecraft:entities/mule",
+                        "name": "Mule Drop"
+                },
+                {
+                        "id": "minecraft:entities/ocelot",
+                        "name": "Ocelot Drop"
+                },
+                {
+                        "id": "minecraft:entities/panda",
+                        "name": "Panda Drop"
+                },
+                {
+                        "id": "minecraft:entities/parrot",
+                        "name": "Parrot Drop"
+                },
+                {
+                        "id": "minecraft:entities/phantom",
+                        "name": "Phantom Drop"
+                },
+                {
+                        "id": "minecraft:entities/pig",
+                        "name": "Pig Drop"
+                },
+                {
+                        "id": "minecraft:entities/piglin_brute",
+                        "name": "Piglin Brute Drop"
+                },
+                {
+                        "id": "minecraft:entities/piglin",
+                        "name": "Piglin Drop"
+                },
+                {
+                        "id": "minecraft:entities/pillager",
+                        "name": "Pillager Drop"
+                },
+                {
+                        "id": "minecraft:entities/polar_bear",
+                        "name": "Polar Bear Drop"
+                },
+                {
+                        "id": "minecraft:entities/pufferfish",
+                        "name": "Pufferfish Drop"
+                },
+                {
+                        "id": "minecraft:entities/rabbit",
+                        "name": "Rabbit Drop"
+                },
+                {
+                        "id": "minecraft:entities/ravager",
+                        "name": "Ravager Drop"
+                },
+                {
+                        "id": "minecraft:entities/salmon",
+                        "name": "Salmon Drop"
+                },
+                {
+                        "id": "minecraft:entities/sheep",
+                        "name": "Sheep Drop"
+                },
+                {
+                        "id": "minecraft:entities/shulker",
+                        "name": "Shulker Drop"
+                },
+                {
+                        "id": "minecraft:entities/silverfish",
+                        "name": "Silverfish Drop"
+                },
+                {
+                        "id": "minecraft:entities/skeleton",
+                        "name": "Skeleton Drop"
+                },
+                {
+                        "id": "minecraft:entities/skeleton_horse",
+                        "name": "Skeleton Horse Drop"
+                },
+                {
+                        "id": "minecraft:entities/slime",
+                        "name": "Slime Drop"
+                },
+                {
+                        "id": "minecraft:entities/sniffer",
+                        "name": "Sniffer Drop"
+                },
+                {
+                        "id": "minecraft:entities/snow_golem",
+                        "name": "Snow Golem Drop"
+                },
+                {
+                        "id": "minecraft:entities/spider",
+                        "name": "Spider Drop"
+                },
+                {
+                        "id": "minecraft:entities/squid",
+                        "name": "Squid Drop"
+                },
+                {
+                        "id": "minecraft:entities/stray",
+                        "name": "Stray Drop"
+                },
+                {
+                        "id": "minecraft:entities/strider",
+                        "name": "Strider Drop"
+                },
+                {
+                        "id": "minecraft:entities/tadpole",
+                        "name": "Tadpole Drop"
+                },
+                {
+                        "id": "minecraft:entities/trader_llama",
+                        "name": "Trader Llama Drop"
+                },
+                {
+                        "id": "minecraft:entities/tropical_fish",
+                        "name": "Tropical Fish Drop"
+                },
+                {
+                        "id": "minecraft:entities/turtle",
+                        "name": "Turtle Drop"
+                },
+                {
+                        "id": "minecraft:entities/vex",
+                        "name": "Vex Drop"
+                },
+                {
+                        "id": "minecraft:entities/villager",
+                        "name": "Villager Drop"
+                },
+                {
+                        "id": "minecraft:entities/vindicator",
+                        "name": "Vindicator Drop"
+                },
+                {
+                        "id": "minecraft:entities/wandering_trader",
+                        "name": "Wandering Trader Drop"
+                },
+                {
+                        "id": "minecraft:entities/warden",
+                        "name": "Warden Drop"
+                },
+                {
+                        "id": "minecraft:entities/witch",
+                        "name": "Witch Drop"
+                },
+                {
+                        "id": "minecraft:entities/wither",
+                        "name": "Wither Drop"
+                },
+                {
+                        "id": "minecraft:entities/wither_skeleton",
+                        "name": "Wither Skeleton Drop"
+                },
+                {
+                        "id": "minecraft:entities/wolf",
+                        "name": "Wolf Drop"
+                },
+                {
+                        "id": "minecraft:entities/zoglin",
+                        "name": "Zoglin Drop"
+                },
+                {
+                        "id": "minecraft:entities/zombie",
+                        "name": "Zombie Drop"
+                },
+                {
+                        "id": "minecraft:entities/zombie_horse",
+                        "name": "Zombie Horse Drop"
+                },
+                {
+                        "id": "minecraft:entities/zombie_villager",
+                        "name": "Zombie Villager Drop"
+                },
+                {
+                        "id": "minecraft:entities/zombified_piglin",
+                        "name": "Zombified Piglin Drop"
+                }
+        ]
+}
 };
 
 // Expose backward-compatible aliases for app / generator dropdown layers

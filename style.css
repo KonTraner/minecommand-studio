@@ -2272,5 +2272,39 @@ input[type="range"]::-webkit-slider-thumb:active {
     box-shadow: inset -2px -2px 0 #e5b6ff, inset 2px 2px 0 #21152a;
 }
 
+/* Container Grid Loot Table Overlay */
+.grid-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(16, 16, 18, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border: 2px solid #373737;
+    pointer-events: all;
+    cursor: not-allowed;
+}
+
+.grid-overlay span {
+    font-family: 'Minecraft', 'VT323', monospace;
+    color: var(--text-gold);
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    text-shadow: 2px 2px 0px #000;
+    border: 2px solid var(--text-gold);
+    background: #2b2b2b;
+    box-shadow: inset -2px -2px 0 #151515, inset 2px 2px 0 #5f5f5f;
+}
+
+.container-grid.disabled-grid {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
 
 

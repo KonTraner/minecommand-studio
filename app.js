@@ -1577,6 +1577,7 @@ const app = {
             const config = {
                 type: getVal("container-type", "minecraft:chest"),
                 title: getVal("container-title"),
+                lootTable: getVal("container-loot-table", "none"),
                 contents: app.containerContents
             };
             const cmd = Generator.generateContainer(config, targetVersion);
@@ -1691,6 +1692,7 @@ const app = {
             containerConfig = {
                 type: document.getElementById("container-type").value,
                 title: document.getElementById("container-title").value,
+                lootTable: document.getElementById("container-loot-table") ? document.getElementById("container-loot-table").value : "none",
                 contents: JSON.parse(JSON.stringify(app.containerContents || {}))
             };
         } else if (activeTab === "execute-pane") {
@@ -1738,11 +1740,14 @@ const app = {
             app.switchTab("containers-pane");
             const typeSel = document.getElementById("container-type");
             const titleInput = document.getElementById("container-title");
+            const lootSel = document.getElementById("container-loot-table");
             if (typeSel) typeSel.value = p.containerConfig.type;
             if (titleInput) titleInput.value = p.containerConfig.title || "";
+            if (lootSel) lootSel.value = p.containerConfig.lootTable || "none";
             app.containerContents = JSON.parse(JSON.stringify(p.containerConfig.contents || {}));
             app.renderContainerGrid();
             app.updateSlotEditorUI();
+            app.updateLootTableUIState();
             app.recalculateCurrentCommand();
         } else {
             app.displayCommand(p.command);
@@ -2097,6 +2102,7 @@ const app = {
         const typeSelect = document.getElementById("container-type");
         const titleInput = document.getElementById("container-title");
         const clearAllBtn = document.getElementById("btn-container-clear-all");
+        const lootTableSelect = document.getElementById("container-loot-table");
         
         const countInput = document.getElementById("slot-item-count-input");
         const countLbl = document.getElementById("slot-item-count-lbl");
@@ -2104,6 +2110,56 @@ const app = {
         const btnClearSlot = document.getElementById("btn-slot-clear");
         const btnFillAll = document.getElementById("btn-container-fill-all");
         const btnFillEmpty = document.getElementById("btn-container-fill-empty");
+
+        if (lootTableSelect) {
+            lootTableSelect.innerHTML = '<option value="none">-- None (Use Custom Slot Grid) --</option>';
+
+            const chestGroup = document.createElement("optgroup");
+            chestGroup.label = "Chest Loot (Dungeons & Structures)";
+            (MC_DATA.loot_tables.chests || []).forEach(lt => {
+                const opt = document.createElement("option");
+                opt.value = lt.id;
+                opt.textContent = lt.name;
+                chestGroup.appendChild(opt);
+            });
+            lootTableSelect.appendChild(chestGroup);
+
+            const villageGroup = document.createElement("optgroup");
+            villageGroup.label = "Village Chests";
+            (MC_DATA.loot_tables.villages || []).forEach(lt => {
+                const opt = document.createElement("option");
+                opt.value = lt.id;
+                opt.textContent = lt.name;
+                villageGroup.appendChild(opt);
+            });
+            lootTableSelect.appendChild(villageGroup);
+
+            const gameplayGroup = document.createElement("optgroup");
+            gameplayGroup.label = "Gameplay Loot";
+            (MC_DATA.loot_tables.gameplay || []).forEach(lt => {
+                const opt = document.createElement("option");
+                opt.value = lt.id;
+                opt.textContent = lt.name;
+                gameplayGroup.appendChild(opt);
+            });
+            lootTableSelect.appendChild(gameplayGroup);
+
+            const mobGroup = document.createElement("optgroup");
+            mobGroup.label = "Mob Drops (Entities)";
+            (MC_DATA.loot_tables.entities || []).forEach(lt => {
+                const opt = document.createElement("option");
+                opt.value = lt.id;
+                opt.textContent = lt.name;
+                mobGroup.appendChild(opt);
+            });
+            lootTableSelect.appendChild(mobGroup);
+
+            lootTableSelect.addEventListener("change", () => {
+                app.playClick();
+                app.updateLootTableUIState();
+                app.recalculateCurrentCommand();
+            });
+        }
 
         if (typeSelect) {
             typeSelect.addEventListener("change", () => {
@@ -2246,12 +2302,49 @@ const app = {
 
         app.renderContainerGrid();
         app.updateSlotEditorUI();
+        app.updateLootTableUIState();
     },
 
     getContainerMaxSlots(type) {
         if (type.includes("dispenser") || type.includes("dropper")) return 9;
         if (type.includes("hopper")) return 5;
         return 27;
+    },
+
+    updateLootTableUIState() {
+        const lootTableSelect = document.getElementById("container-loot-table");
+        const grid = document.getElementById("container-grid");
+        const overlay = document.getElementById("container-grid-overlay");
+        
+        if (!lootTableSelect) return;
+        const isActive = lootTableSelect.value !== "none";
+        
+        if (grid) {
+            if (isActive) {
+                grid.classList.add("disabled-grid");
+            } else {
+                grid.classList.remove("disabled-grid");
+            }
+        }
+        
+        if (overlay) {
+            overlay.style.display = isActive ? "flex" : "none";
+        }
+        
+        const slotEditorInfo = document.getElementById("slot-editor-info");
+        const slotEditorControls = document.getElementById("slot-editor-controls");
+        
+        if (isActive) {
+            if (slotEditorInfo) {
+                slotEditorInfo.textContent = "⚠️ Slot editor disabled because a pre-loaded Loot Table is selected.";
+                slotEditorInfo.style.display = "block";
+            }
+            if (slotEditorControls) {
+                slotEditorControls.style.display = "none";
+            }
+        } else {
+            app.updateSlotEditorUI();
+        }
     },
 
     renderContainerGrid() {

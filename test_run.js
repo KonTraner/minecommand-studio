@@ -254,3 +254,27 @@ versions.forEach(v => {
     }
 });
 
+// === NEW CONTAINER LOOT TABLE COMPILER TESTS ===
+console.log("\n==========================================");
+console.log("=== RUNNING CONTAINER LOOT TABLE TESTS ===");
+console.log("==========================================");
+
+const lootTableContainerConfig = {
+    type: "minecraft:chest",
+    title: "Structure Loot Chest",
+    lootTable: "minecraft:chests/simple_dungeon",
+    contents: {
+        0: { id: "minecraft:stone", count: 64 } // should be ignored when loot table is specified
+    }
+};
+
+versions.forEach(v => {
+    console.log(`\n--- Container Loot Table (Version: ${v}) ---`);
+    try {
+        const cmd = Generator.generateContainer(lootTableContainerConfig, v);
+        console.log(`Loot Table Container Command:\n${cmd}`);
+    } catch (err) {
+        console.error("❌ Container Loot Table Test Failed:", err);
+    }
+});
+

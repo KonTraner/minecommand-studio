@@ -1,46 +1,8 @@
 const fs = require('fs');
 const mcData = require('minecraft-data')('1.20.2');
 
-// Load current data.js content to preserve enchantments, effects, particles, sounds, trolls, trolls_chains, etc.
+// Load current data.js content to preserve enchantments, effects, particles, trolls, trolls_chains, execute_slots, etc.
 const dataContent = fs.readFileSync('data.js', 'utf8');
-
-const defaultBiomes = [
-    { id: "minecraft:plains", name: "Plains", icon: "🌱", desc: "Grassland biome with open views, passive mobs, and occasional oak/birch trees." },
-    { id: "minecraft:desert", name: "Desert", icon: "🌵", desc: "Dry, sandy biome with cacti, dead bushes, sandstone structures, and husk spawn overrides." },
-    { id: "minecraft:forest", name: "Forest", icon: "🌳", desc: "Dense tree biome featuring oak and birch trees, wolves, and mushrooms." },
-    { id: "minecraft:taiga", name: "Taiga", icon: "🌲", desc: "Cold biome with spruce trees, sweet berry bushes, foxes, and wolves." },
-    { id: "minecraft:snowy_plains", name: "Snowy Plains", icon: "❄️", desc: "Vast snowy fields spawning strays, polar bears, and rabbits." },
-    { id: "minecraft:swamp", name: "Swamp", icon: "🐊", desc: "Murky waters spawning slime at night, boggy trees, blue orchids, and witch huts." },
-    { id: "minecraft:jungle", name: "Jungle", icon: "🌴", desc: "Lush tropical jungle with towering trees, cocoa beans, ocelots, parrots, and pandas." },
-    { id: "minecraft:savanna", name: "Savanna", icon: "🦁", desc: "Dry grassland featuring acacia trees, llamas, horses, and villages." },
-    { id: "minecraft:badlands", name: "Badlands", icon: "🏜️", desc: "Colorful terracotta mounds with extra gold ore generation and mineshafts." },
-    { id: "minecraft:meadow", name: "Meadow", icon: "🌸", desc: "Grassy plateau filled with flowers, sheep, and bees." },
-    { id: "minecraft:grove", name: "Grove", icon: "❄️", desc: "Spruce forest covered in snow, wolves, and rabbits." },
-    { id: "minecraft:snowy_slopes", name: "Snowy Slopes", icon: "🏔️", desc: "Slopes covered in snow and ice, spawning goats." },
-    { id: "minecraft:jagged_peaks", name: "Jagged Peaks", icon: "🏔️", desc: "Tall mountains capped with snow, stone, and goats." },
-    { id: "minecraft:frozen_peaks", name: "Frozen Peaks", icon: "🏔️", desc: "Ice-covered mountain peaks spawning goats." },
-    { id: "minecraft:stony_peaks", name: "Stony Peaks", icon: "⛰️", desc: "Mountain tops containing stone, calcite, and no snow." },
-    { id: "minecraft:cherry_grove", name: "Cherry Grove", icon: "🌸", desc: "Mountain biome covered in pink cherry blossom petals and sheep." },
-    { id: "minecraft:birch_forest", name: "Birch Forest", icon: "🌳", desc: "Pure birch trees, flowers, and peaceful animals." },
-    { id: "minecraft:dark_forest", name: "Dark Forest", icon: "🍄", desc: "Dense dark oak forest spawning hostile mobs even during daytime, containing Woodland Mansions." },
-    { id: "minecraft:mangrove_swamp", name: "Mangrove Swamp", icon: "🐊", desc: "Warm swamp featuring mangrove trees, mud blocks, and frogs." },
-    { id: "minecraft:snowy_taiga", name: "Snowy Taiga", icon: "❄️", desc: "Cold spruce forest covered in snow." },
-    { id: "minecraft:old_growth_pine_taiga", name: "Old Growth Pine Taiga", icon: "🌲", desc: "Spruce biome with giant pine trees, podzol, and mossy cobblestone." },
-    { id: "minecraft:old_growth_birch_forest", name: "Old Growth Birch Forest", icon: "🌳", desc: "Forest with tall birch trees." },
-    { id: "minecraft:ocean", name: "Ocean", icon: "🌊", desc: "Standard ocean containing kelp, fish, and dolphins." },
-    { id: "minecraft:warm_ocean", name: "Warm Ocean", icon: "🐠", desc: "Shallow, warm water biome with coral reefs and sea pickles." },
-    { id: "minecraft:lukewarm_ocean", name: "Lukewarm Ocean", icon: "🐬", desc: "Deep, greenish waters with seagrass and fish." },
-    { id: "minecraft:cold_ocean", name: "Cold Ocean", icon: "🐟", desc: "Deep, cold waters with cod and salmon." },
-    { id: "minecraft:frozen_ocean", name: "Frozen Ocean", icon: "🧊", desc: "Ice sheet covered ocean spawning polar bears and strays." },
-    { id: "minecraft:mushroom_fields", name: "Mushroom Fields", icon: "🍄", desc: "Rare biome covered in mycelium, giant mushrooms, and mooshrooms. No hostile mobs can spawn here." },
-    { id: "minecraft:deep_dark", name: "Deep Dark", icon: "👁️", desc: "Deep cavern biome filled with sculk blocks, sculk sensors, and the Warden." },
-    { id: "minecraft:nether_wastes", name: "Nether Wastes", icon: "🔥", desc: "The primary Nether biome of netherrack, magma blocks, ghasts, and piglins." },
-    { id: "minecraft:soul_sand_valley", name: "Soul Sand Valley", icon: "💀", desc: "Nether valley covered in soul sand, soul soil, basalt pillars, skeletons, and ghasts." },
-    { id: "minecraft:crimson_forest", name: "Crimson Forest", icon: "🍄", desc: "Red Nether forest containing crimson fungi, hoglins, and piglins." },
-    { id: "minecraft:warped_forest", name: "Warped Forest", icon: "🍄", desc: "Blue Nether forest containing warped fungi, endermen, and no hostile piglins." },
-    { id: "minecraft:basalt_deltas", name: "Basalt Deltas", icon: "🌋", desc: "Volcanic Nether biome filled with basalt, blackstone, ash particles, and magma cubes." },
-    { id: "minecraft:the_end", name: "The End", icon: "🌌", desc: "The barren dimension of end stone, obsidian towers, endermen, and the Ender Dragon." }
-];
 
 const defaultStructures = [
     { id: "minecraft:ancient_city", name: "Ancient City", icon: "🏛️", desc: "Mammoth underground ruins in the Deep Dark containing sculk shriekers and high-loot chest rooms." },
@@ -65,39 +27,176 @@ const defaultStructures = [
     { id: "minecraft:village", name: "Village", icon: "🏡", desc: "Settlement containing houses, job blocks, Villagers, and Iron Golems. Available in plains, desert, savanna, taiga, and snowy plains." }
 ];
 
-const defaultCommands = [
-    { id: "/give", name: "/give", icon: "📜", desc: "Grants specific items with custom NBT / components to players.", meta: "/give <player> <item> [count]" },
-    { id: "/summon", name: "/summon", icon: "📜", desc: "Spawns a custom living mob or object at specified coordinates.", meta: "/summon <entity> [pos] [nbt]" },
-    { id: "/execute", name: "/execute", icon: "📜", desc: "Conditional compiler that executes commands on behalf of other entities or under environmental tests.", meta: "/execute <subcommands> run <command>" },
-    { id: "/effect", name: "/effect", icon: "📜", desc: "Modifies active potion effects and amplifiers on players or mobs.", meta: "/effect <give|clear> <player> <effect> [seconds] [amplifier]" },
-    { id: "/tp", name: "/tp", icon: "📜", desc: "Teleports players or entities to coordinates or another target.", meta: "/tp [target] <destination>" },
-    { id: "/setblock", name: "/setblock", icon: "📜", desc: "Changes a single block at specified coordinates to another block type.", meta: "/setblock <pos> <block> [destroy|keep|replace]" },
-    { id: "/fill", name: "/fill", icon: "📜", desc: "Fills a cubic region of blocks with a specified block type.", meta: "/fill <from> <to> <block> [replace|destroy|keep]" },
-    { id: "/gamerule", name: "/gamerule", icon: "📜", desc: "Toggles global server configuration parameters like daylight cycle, mob griefing, and inventory keeping.", meta: "/gamerule <rule> [value]" },
-    { id: "/kill", name: "/kill", icon: "📜", desc: "Instantly inflicts lethal damage to players or selected living mobs.", meta: "/kill [target]" },
-    { id: "/gamemode", name: "/gamemode", icon: "📜", desc: "Sets the target player's gameplay interaction mode.", meta: "/gamemode <survival|creative|adventure|spectator> [player]" },
-    { id: "/attribute", name: "/attribute", icon: "📜", desc: "Gets or modifies attribute modifiers (like base health or movement speed) of entities in real time.", meta: "/attribute <target> <attribute> <get|base|modifier> ..." },
-    { id: "/clear", name: "/clear", icon: "📜", desc: "Empties items matching filters from target players' inventories.", meta: "/clear [player] [item] [maxCount]" },
-    { id: "/difficulty", name: "/difficulty", icon: "📜", desc: "Modifies global combat challenge parameters and mob aggressiveness.", meta: "/difficulty <peaceful|easy|normal|hard>" },
-    { id: "/enchant", name: "/enchant", icon: "📜", desc: "Applies compatible enchantments directly to the item held in the player's main hand.", meta: "/enchant <player> <enchantment> [level]" },
-    { id: "/particle", name: "/particle", icon: "📜", desc: "Spawns custom cosmetic visual particles in the environment.", meta: "/particle <name> [pos] [speed] [count]" },
-    { id: "/playsound", name: "/playsound", icon: "📜", desc: "Plays a sound effect to selected players from a coordinate source.", meta: "/playsound <sound> <source> <targets> [pos]" },
-    { id: "/seed", name: "/seed", icon: "📜", desc: "Displays the world's generation integer seed in the chat console.", meta: "/seed" },
-    { id: "/time", name: "/time", icon: "📜", desc: "Changes or queries the daylight time cycle of the current world.", meta: "/time <set|add|query> <value>" },
-    { id: "/weather", name: "/weather", icon: "📜", desc: "Alters weather states of the world for a set time.", meta: "/weather <clear|rain|thunder> [duration]" },
-    { id: "/xp", name: "/xp", icon: "📜", desc: "Grants or queries player experience points and levels.", meta: "/experience <add|set|query> <player> <amount> [points|levels]" }
-];
+const commandDescriptions = {
+    advancement: "Grants, revokes, or tests advancements for players.",
+    attribute: "Gets or modifies attribute modifiers of entities in real time.",
+    ban: "Adds player to server ban list.",
+    "ban-ip": "Adds IP address to server ban list.",
+    banlist: "Displays the server ban list.",
+    bossbar: "Creates and modifies boss bars.",
+    clear: "Empties items matching filters from target players' inventories.",
+    clone: "Clones blocks from one region to another.",
+    damage: "Applies custom damage to target entities.",
+    data: "Gets, merges, modifies, and clears NBT data of blocks and entities.",
+    datapack: "Controls loaded data packs.",
+    debug: "Starts or stops a profiling debug session.",
+    defaultgamemode: "Sets the default gamemode for new players.",
+    deop: "Revokes operator status from a player.",
+    difficulty: "Modifies global combat challenge parameters.",
+    effect: "Modifies active potion effects on players or mobs.",
+    enchant: "Applies compatible enchantments to the held item of a player.",
+    execute: "Executes commands under specific conditions or on behalf of other entities.",
+    experience: "Grants or queries player experience points and levels.",
+    fill: "Fills a cubic region of blocks with a specified block type.",
+    fillbiome: "Fills a region with a specified biome.",
+    forceload: "Forces chunks to remain loaded in memory.",
+    function: "Executes a list of commands from a function file.",
+    gamemode: "Sets the target player's gameplay interaction mode.",
+    gamerule: "Toggles global server configuration parameters.",
+    give: "Grants specific items with custom NBT / components to players.",
+    help: "Shows help information for commands.",
+    item: "Manipulates items in block or entity inventories.",
+    jfr: "Controls Java Flight Recorder profiling.",
+    kick: "Kicks a player from the server.",
+    kill: "Instantly inflicts lethal damage to players or mobs.",
+    list: "Lists online players on the server.",
+    locate: "Finds coordinates of structures, biomes, or points of interest.",
+    loot: "Drops items from loot tables into inventories or the world.",
+    me: "Displays a narrative message in chat (* player action).",
+    msg: "Sends a private message to one or more players.",
+    op: "Grants operator status to a player.",
+    pardon: "Removes player from server ban list.",
+    "pardon-ip": "Removes IP address from server ban list.",
+    particle: "Spawns cosmetic particles in the environment.",
+    perf: "Captures performance metrics on the server.",
+    place: "Places a template, feature, jigsaw, or structure at coordinates.",
+    playsound: "Plays a sound effect to selected players.",
+    publish: "Opens singleplayer world to LAN.",
+    random: "Generates a random value or sets random roll parameters.",
+    recipe: "Grants or revokes crafting recipes for players.",
+    reload: "Reloads all datapacks and functions.",
+    return: "Returns a value from a function.",
+    ride: "Makes an entity ride or stop riding another entity.",
+    "save-all": "Saves the world to disk.",
+    "save-off": "Disables automatic world saving.",
+    "save-on": "Enables automatic world saving.",
+    say: "Sends a broadcast message to all players in chat.",
+    schedule: "Schedules a function to run after a delay.",
+    scoreboard: "Manages scoreboard objectives, teams, and scores.",
+    seed: "Displays the world's generation integer seed.",
+    setblock: "Changes a block at specified coordinates.",
+    setidletimeout: "Sets the maximum idle time before players are kicked.",
+    setworldspawn: "Sets the default spawn point for new players.",
+    spawnpoint: "Sets the individual spawn point for players.",
+    spectate: "Forces a spectator player to spectate another entity.",
+    spreadplayers: "Teleports entities to random locations within a range.",
+    stop: "Gracefully shuts down the server.",
+    stopsound: "Stops a playing sound for players.",
+    summon: "Spawns a custom living mob or object at specified coordinates.",
+    tag: "Manages scoreboard tags on entities.",
+    team: "Manages scoreboard teams.",
+    teammsg: "Sends a private message to team members.",
+    teleport: "Teleports entities to coordinates or targets.",
+    tell: "Sends a private message to players.",
+    tellraw: "Sends a JSON formatted raw message to players.",
+    time: "Changes or queries the daylight time cycle.",
+    title: "Displays large titles/subtitles on player screens.",
+    tm: "Sends a private team message.",
+    tp: "Teleports players or entities.",
+    trigger: "Modifies scoreboard triggers for players.",
+    w: "Sends a private message to players.",
+    weather: "Alters weather states (clear, rain, thunder).",
+    whitelist: "Manages server whitelist access.",
+    worldborder: "Manages the boundaries of the world border.",
+    xp: "Grants or queries player experience points and levels."
+};
+
+const commandSyntaxes = {
+    advancement: "/advancement <grant|revoke> <targets> ...",
+    attribute: "/attribute <target> <attribute> <get|base|modifier> ...",
+    ban: "/ban <targets> [reason]",
+    "ban-ip": "/ban-ip <target> [reason]",
+    banlist: "/banlist [ips|players]",
+    bossbar: "/bossbar <add|remove|list|set|get> ...",
+    clear: "/clear [targets] [item] [maxCount]",
+    clone: "/clone <begin> <end> <destination> [replace|masked] ...",
+    damage: "/damage <target> <amount> [damageType] [at <location>]",
+    data: "/data <get|merge|modify|remove> <block|entity|storage> ...",
+    datapack: "/datapack <enable|disable|list> ...",
+    debug: "/debug <start|stop|report>",
+    defaultgamemode: "/defaultgamemode <survival|creative|adventure|spectator>",
+    deop: "/deop <targets>",
+    difficulty: "/difficulty <peaceful|easy|normal|hard>",
+    effect: "/effect <give|clear> <targets> [effect] [seconds] [amplifier]",
+    enchant: "/enchant <targets> <enchantment> [level]",
+    execute: "/execute <subcommands> run <command>",
+    experience: "/experience <add|set|query> <targets> ...",
+    fill: "/fill <from> <to> <block> [replace|destroy|keep]",
+    fillbiome: "/fillbiome <from> <to> <biome>",
+    forceload: "/forceload <add|remove|query> ...",
+    function: "/function <name>",
+    gamemode: "/gamemode <survival|creative|adventure|spectator> [targets]",
+    gamerule: "/gamerule <rule> [value]",
+    give: "/give <targets> <item> [count]",
+    help: "/help [command]",
+    item: "/item <replace|modify> <block|entity> ...",
+    kick: "/kick <targets> [reason]",
+    kill: "/kill [targets]",
+    list: "/list [uuids]",
+    locate: "/locate <structure|biome|poi> <id>",
+    loot: "/loot <replace|give|insert|spawn> ...",
+    me: "/me <action>",
+    msg: "/msg <targets> <message>",
+    op: "/op <targets>",
+    pardon: "/pardon <targets>",
+    "pardon-ip": "/pardon-ip <target>",
+    particle: "/particle <name> [pos] [speed] [count]",
+    place: "/place <feature|structure|jigsaw|template> ...",
+    playsound: "/playsound <sound> <source> <targets> [pos]",
+    random: "/random <value|roll> ...",
+    recipe: "/recipe <give|take> <targets> ...",
+    reload: "/reload",
+    return: "/return <value>",
+    ride: "/ride <target> <mount|dismount> ...",
+    "save-all": "/save-all [flush]",
+    "save-off": "/save-off",
+    "save-on": "/save-on",
+    say: "/say <message>",
+    schedule: "/schedule <function|clear> ...",
+    scoreboard: "/scoreboard <objectives|players|teams> ...",
+    seed: "/seed",
+    setblock: "/setblock <pos> <block> [destroy|keep|replace]",
+    setidletimeout: "/setidletimeout <minutes>",
+    setworldspawn: "/setworldspawn [pos] [angle]",
+    spawnpoint: "/spawnpoint [targets] [pos] [angle]",
+    spectate: "/spectate [target] [player]",
+    spreadplayers: "/spreadplayers <center> <spreadDistance> <maxRange> ...",
+    stop: "/stop",
+    stopsound: "/stopsound <targets> [source] [sound]",
+    summon: "/summon <entity> [pos] [nbt]",
+    tag: "/tag <targets> <add|remove|list> ...",
+    team: "/team <add|remove|join|leave|list|option> ...",
+    teammsg: "/teammsg <message>",
+    teleport: "/teleport <destination> or /teleport <targets> <destination>",
+    tell: "/tell <targets> <message>",
+    tellraw: "/tellraw <targets> <message>",
+    time: "/time <set|add|query> <value>",
+    title: "/title <targets> <title|subtitle|actionbar|clear|reset|times> ...",
+    tp: "/tp <targets> <destination>",
+    trigger: "/trigger <objective> [add|set]",
+    w: "/w <targets> <message>",
+    weather: "/weather <clear|rain|thunder> [duration]",
+    whitelist: "/whitelist <add|remove|list|on|off|reload>",
+    worldborder: "/worldborder <set|center|damage|warning|add|get> ...",
+    xp: "/xp <add|set|query> <targets> [points|levels]"
+};
 
 let oldEnchantments = [];
 let oldEffects = [];
 let oldParticles = [];
-let oldSounds = [];
 let oldExecuteSlots = [];
 let oldTrolls = [];
 let oldTrollsChains = [];
-let oldBiomes = [];
-let oldStructures = [];
-let oldCommands = [];
 
 try {
     const mockObj = {};
@@ -110,28 +209,12 @@ try {
     oldEnchantments = mockObj.MC_DATA.enchantments;
     oldEffects = mockObj.MC_DATA.effects;
     oldParticles = mockObj.MC_DATA.particles;
-    oldSounds = mockObj.MC_DATA.sounds;
     oldExecuteSlots = mockObj.MC_DATA.execute_slots;
     oldTrolls = mockObj.MC_DATA.trolls;
     oldTrollsChains = mockObj.MC_DATA.trolls_chains;
-    oldBiomes = mockObj.MC_DATA.biomes || defaultBiomes;
-    oldStructures = mockObj.MC_DATA.structures || defaultStructures;
-    oldCommands = mockObj.MC_DATA.commands || defaultCommands;
-    console.log('Successfully parsed existing data arrays!');
-    console.log('- Enchantments:', oldEnchantments ? oldEnchantments.length : 0);
-    console.log('- Effects:', oldEffects ? oldEffects.length : 0);
-    console.log('- Particles:', oldParticles ? oldParticles.length : 0);
-    console.log('- Sounds:', oldSounds ? oldSounds.length : 0);
-    console.log('- Trolls:', oldTrolls ? oldTrolls.length : 0);
-    console.log('- Trolls Chains:', oldTrollsChains ? oldTrollsChains.length : 0);
-    console.log('- Biomes:', oldBiomes ? oldBiomes.length : 0);
-    console.log('- Structures:', oldStructures ? oldStructures.length : 0);
-    console.log('- Commands:', oldCommands ? oldCommands.length : 0);
+    console.log('Successfully parsed existing data arrays to preserve!');
 } catch (err) {
     console.error('Failed to parse existing data.js arrays, using fallback:', err);
-    oldBiomes = defaultBiomes;
-    oldStructures = defaultStructures;
-    oldCommands = defaultCommands;
 }
 
 // 1. Process Mobs (Entities)
@@ -144,14 +227,13 @@ const excludedEntities = [
     'fireball', 'dragon_fireball', 'area_effect_cloud', 'block_display', 'item_display', 'text_display',
     'chest_boat', 'command_block_minecart', 'chest_minecart', 'furnace_minecart', 'hopper_minecart',
     'tnt_minecart', 'spawner_minecart', 'boat', 'minecart', 'tnt', 'end_crystal', 'chest_boat',
-    'armor_stand' // Exclude armor stand from AI mobs list
+    'armor_stand'
 ];
 
 const validTypes = ['mob', 'living', 'animal', 'ambient', 'hostile', 'water_creature', 'passive'];
 
 const newMobs = [];
 mcData.entitiesArray.forEach(ent => {
-    // Filter summonable living mobs
     if (!validTypes.includes(ent.type)) return;
     if (excludedEntities.includes(ent.name)) return;
     if (ent.name.includes('boat') || ent.name.includes('minecart')) return;
@@ -159,7 +241,6 @@ mcData.entitiesArray.forEach(ent => {
     let category = 'Passive';
     if (ent.category === 'Hostile mobs' || ent.type === 'hostile') category = 'Hostile';
     
-    // Custom overrides for categories to match gameplay mechanics
     const neutralNames = [
         'enderman', 'zombified_piglin', 'piglin', 'polar_bear', 'bee', 'wolf', 
         'dolphin', 'goat', 'panda', 'llama', 'trader_llama', 'camel', 'sniffer'
@@ -175,7 +256,6 @@ mcData.entitiesArray.forEach(ent => {
         category = 'Neutral';
     }
 
-    // Specially handled mobs in specials pane
     let special = null;
     if (ent.name === 'creeper') special = 'creeper';
     else if (ent.name === 'slime') special = 'slime';
@@ -191,7 +271,6 @@ mcData.entitiesArray.forEach(ent => {
     newMobs.push(mobObj);
 });
 
-// Sort mobs by category, then name
 newMobs.sort((a, b) => {
     if (a.category !== b.category) return a.category.localeCompare(b.category);
     return a.name.localeCompare(b.name);
@@ -207,7 +286,6 @@ const newTools = [];
 const newBlocks = [];
 const newMisc = [];
 
-// Get set of block names to check placeables
 const blockNames = new Set(mcData.blocksArray.map(b => b.name));
 
 mcData.itemsArray.forEach(item => {
@@ -215,9 +293,8 @@ mcData.itemsArray.forEach(item => {
     const displayName = item.displayName;
     const id = `minecraft:${name}`;
 
-    if (name === 'air') return; // skip air
+    if (name === 'air') return;
 
-    // Categorization rules
     if (name.endsWith('_helmet') || name === 'turtle_helmet') {
         newHelmets.push({ id, name: displayName });
     } else if (name.endsWith('_chestplate') || name === 'elytra') {
@@ -259,7 +336,6 @@ mcData.itemsArray.forEach(item => {
     }
 });
 
-// Sort helper
 const sortByDisplayName = (a, b) => a.name.localeCompare(b.name);
 newWeapons.sort(sortByDisplayName);
 newHelmets.sort(sortByDisplayName);
@@ -270,15 +346,194 @@ newTools.sort(sortByDisplayName);
 newBlocks.sort(sortByDisplayName);
 newMisc.sort(sortByDisplayName);
 
-console.log('Processed mobs:', newMobs.length);
-console.log('Processed weapons:', newWeapons.length);
-console.log('Processed helmets:', newHelmets.length);
-console.log('Processed chestplates:', newChestplates.length);
-console.log('Processed leggings:', newLeggings.length);
-console.log('Processed boots:', newBoots.length);
-console.log('Processed tools:', newTools.length);
-console.log('Processed blocks:', newBlocks.length);
-console.log('Processed misc:', newMisc.length);
+// 3. Process Sounds (ALL 1485 entries)
+const newSounds = mcData.soundsArray.map(s => {
+    const id = `minecraft:${s.name}`;
+    const name = s.name.split(/[._\-/]/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    return {
+        id: id,
+        name: name,
+        icon: "🔊"
+    };
+});
+newSounds.sort((a, b) => a.id.localeCompare(b.id));
+
+// 4. Process Biomes (ALL 64 entries)
+const biomeIconMap = [
+    { keys: ["desert", "badlands", "mesa", "eroded"], icon: "🌵" },
+    { keys: ["snow", "frozen", "ice", "cold", "slope", "peak", "grove"], icon: "❄️" },
+    { keys: ["swamp", "mangrove"], icon: "🐊" },
+    { keys: ["jungle"], icon: "🌴" },
+    { keys: ["savanna"], icon: "🦁" },
+    { keys: ["ocean", "beach", "river"], icon: "🌊" },
+    { keys: ["mushroom"], icon: "🍄" },
+    { keys: ["nether", "crimson", "warped", "basalt", "soul"], icon: "🔥" },
+    { keys: ["end"], icon: "🌌" },
+    { keys: ["dark", "deep"], icon: "👁️" },
+    { keys: ["forest", "birch", "taiga", "wood"], icon: "🌳" }
+];
+
+function getBiomeIcon(name, category) {
+    const searchStr = `${name} ${category || ""}`.toLowerCase();
+    for (const mapping of biomeIconMap) {
+        if (mapping.keys.some(k => searchStr.includes(k))) {
+            return mapping.icon;
+        }
+    }
+    return "🌱";
+}
+
+function getBiomeDesc(b) {
+    const dim = b.dimension ? b.dimension.charAt(0).toUpperCase() + b.dimension.slice(1) : 'Overworld';
+    let desc = `A ${dim} biome.`;
+    if (b.category) {
+        desc += ` Category: ${b.category.charAt(0).toUpperCase() + b.category.slice(1)}.`;
+    }
+    if (b.temperature !== undefined) {
+        desc += ` Temp: ${b.temperature}.`;
+    }
+    if (b.has_precipitation !== undefined) {
+        desc += ` Precipitation: ${b.has_precipitation ? 'Yes' : 'No'}.`;
+    }
+    return desc;
+}
+
+const newBiomes = mcData.biomesArray.map(b => {
+    const id = `minecraft:${b.name}`;
+    return {
+        id: id,
+        name: b.displayName || b.name.split("_").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
+        icon: getBiomeIcon(b.name, b.category),
+        desc: getBiomeDesc(b)
+    };
+});
+newBiomes.sort((a, b) => a.name.localeCompare(b.name));
+
+// 5. Process Commands (ALL 81 entries)
+function getCommandMeta(name, node) {
+    let args = [];
+    if (node.children && node.children.length > 0) {
+        args = node.children.map(c => {
+            if (c.type === 'literal') {
+                return c.name;
+            } else if (c.type === 'argument') {
+                return `<${c.name}>`;
+            }
+            return c.name;
+        });
+    }
+    if (args.length > 0) {
+        if (args.length > 3) {
+            return `/${name} ${args.slice(0, 3).join(' ')}...`;
+        }
+        return `/${name} ${args.join(' ')}`;
+    }
+    return `/${name}`;
+}
+
+const rootCommands = (mcData.commands && mcData.commands.root && mcData.commands.root.children) || [];
+const newCommands = rootCommands.map(node => {
+    const name = node.name;
+    const id = `/${name}`;
+    const desc = commandDescriptions[name] || "Vanilla Minecraft chat command.";
+    const syntax = commandSyntaxes[name] || getCommandMeta(name, node);
+    return {
+        id: id,
+        name: id,
+        icon: "📜",
+        desc: desc,
+        meta: syntax
+    };
+});
+newCommands.sort((a, b) => a.id.localeCompare(b.id));
+
+// 6. Setup Loot Tables
+const defaultLootTables = {
+    chests: [
+        { id: "minecraft:chests/abandoned_mineshaft", name: "Abandoned Mineshaft" },
+        { id: "minecraft:chests/ancient_city", name: "Ancient City" },
+        { id: "minecraft:chests/ancient_city_ice_box", name: "Ancient City Ice Box" },
+        { id: "minecraft:chests/bastion_bridge", name: "Bastion Bridge" },
+        { id: "minecraft:chests/bastion_hoglin_stable", name: "Bastion Hoglin Stable" },
+        { id: "minecraft:chests/bastion_other", name: "Bastion Other" },
+        { id: "minecraft:chests/bastion_treasure", name: "Bastion Treasure" },
+        { id: "minecraft:chests/buried_treasure", name: "Buried Treasure" },
+        { id: "minecraft:chests/desert_pyramid", name: "Desert Pyramid" },
+        { id: "minecraft:chests/end_city_treasure", name: "End City Treasure" },
+        { id: "minecraft:chests/jungle_temple", name: "Jungle Temple" },
+        { id: "minecraft:chests/jungle_temple_dispenser", name: "Jungle Temple Dispenser" },
+        { id: "minecraft:chests/nether_bridge", name: "Nether Bridge" },
+        { id: "minecraft:chests/pillager_outpost", name: "Pillager Outpost" },
+        { id: "minecraft:chests/ruined_portal", name: "Ruined Portal" },
+        { id: "minecraft:chests/shipwreck_map", name: "Shipwreck Map" },
+        { id: "minecraft:chests/shipwreck_supply", name: "Shipwreck Supply" },
+        { id: "minecraft:chests/shipwreck_treasure", name: "Shipwreck Treasure" },
+        { id: "minecraft:chests/simple_dungeon", name: "Simple Dungeon" },
+        { id: "minecraft:chests/spawn_bonus_chest", name: "Spawn Bonus Chest" },
+        { id: "minecraft:chests/stronghold_corridor", name: "Stronghold Corridor" },
+        { id: "minecraft:chests/stronghold_crossing", name: "Stronghold Crossing" },
+        { id: "minecraft:chests/stronghold_library", name: "Stronghold Library" },
+        { id: "minecraft:chests/underwater_ruin_big", name: "Underwater Ruin Big" },
+        { id: "minecraft:chests/underwater_ruin_small", name: "Underwater Ruin Small" },
+        { id: "minecraft:chests/woodland_mansion", name: "Woodland Mansion" }
+    ],
+    villages: [
+        { id: "minecraft:chests/village/village_armorer", name: "Village Armorer" },
+        { id: "minecraft:chests/village/village_butcher", name: "Village Butcher" },
+        { id: "minecraft:chests/village/village_cartographer", name: "Village Cartographer" },
+        { id: "minecraft:chests/village/village_desert_house", name: "Village Desert House" },
+        { id: "minecraft:chests/village/village_fisher", name: "Village Fisher" },
+        { id: "minecraft:chests/village/village_fletcher", name: "Village Fletcher" },
+        { id: "minecraft:chests/village/village_mason", name: "Village Mason" },
+        { id: "minecraft:chests/village/village_plains_house", name: "Village Plains House" },
+        { id: "minecraft:chests/village/village_savanna_house", name: "Village Savanna House" },
+        { id: "minecraft:chests/village/village_shepherd", name: "Village Shepherd" },
+        { id: "minecraft:chests/village/village_snowy_house", name: "Village Snowy House" },
+        { id: "minecraft:chests/village/village_taiga_house", name: "Village Taiga House" },
+        { id: "minecraft:chests/village/village_tannery", name: "Village Tannery" },
+        { id: "minecraft:chests/village/village_toolsmith", name: "Village Toolsmith" },
+        { id: "minecraft:chests/village/village_weaponsmith", name: "Village Weaponsmith" }
+    ],
+    gameplay: [
+        { id: "minecraft:gameplay/cat_morning_gift", name: "Cat Morning Gift" },
+        { id: "minecraft:gameplay/fishing", name: "Fishing" },
+        { id: "minecraft:gameplay/fishing/fish", name: "Fishing Fish" },
+        { id: "minecraft:gameplay/fishing/junk", name: "Fishing Junk" },
+        { id: "minecraft:gameplay/fishing/treasure", name: "Fishing Treasure" },
+        { id: "minecraft:gameplay/hero_of_the_village/armorer_gift", name: "Hero Gift: Armorer" },
+        { id: "minecraft:gameplay/hero_of_the_village/butcher_gift", name: "Hero Gift: Butcher" },
+        { id: "minecraft:gameplay/hero_of_the_village/cartographer_gift", name: "Hero Gift: Cartographer" },
+        { id: "minecraft:gameplay/hero_of_the_village/cleric_gift", name: "Hero Gift: Cleric" },
+        { id: "minecraft:gameplay/hero_of_the_village/farmer_gift", name: "Hero Gift: Farmer" },
+        { id: "minecraft:gameplay/hero_of_the_village/fisher_gift", name: "Hero Gift: Fisher" },
+        { id: "minecraft:gameplay/hero_of_the_village/fletcher_gift", name: "Hero Gift: Fletcher" },
+        { id: "minecraft:gameplay/hero_of_the_village/leatherworker_gift", name: "Hero Gift: Leatherworker" },
+        { id: "minecraft:gameplay/hero_of_the_village/librarian_gift", name: "Hero Gift: Librarian" },
+        { id: "minecraft:gameplay/hero_of_the_village/mason_gift", name: "Hero Gift: Mason" },
+        { id: "minecraft:gameplay/hero_of_the_village/shepherd_gift", name: "Hero Gift: Shepherd" },
+        { id: "minecraft:gameplay/hero_of_the_village/toolsmith_gift", name: "Hero Gift: Toolsmith" },
+        { id: "minecraft:gameplay/hero_of_the_village/weaponsmith_gift", name: "Hero Gift: Weaponsmith" },
+        { id: "minecraft:gameplay/piglin_bartering", name: "Piglin Bartering" },
+        { id: "minecraft:gameplay/sniffing", name: "Sniffing" }
+    ]
+};
+
+const entityLootTables = newMobs.map(m => {
+    const mobName = m.id.replace("minecraft:", "");
+    const formattedName = mobName.split("_").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    return {
+        id: `minecraft:entities/${mobName}`,
+        name: `${formattedName} Drop`
+    };
+});
+entityLootTables.sort((a, b) => a.name.localeCompare(b.name));
+
+const finalLootTables = {
+    chests: defaultLootTables.chests,
+    villages: defaultLootTables.villages,
+    gameplay: defaultLootTables.gameplay,
+    entities: entityLootTables
+};
 
 // Generate JavaScript file content
 let newContent = `/* ==========================================================================
@@ -384,20 +639,23 @@ newContent += `        ]
     // Preserved Particles List
     particles: ${JSON.stringify(oldParticles, null, 8)},
 
-    // Preserved Sounds List
-    sounds: ${JSON.stringify(oldSounds, null, 8)},
+    // Generated Sounds List (ALL 1485 entries)
+    sounds: ${JSON.stringify(newSounds, null, 8)},
 
     // Preserved Execute Slots List
     execute_slots: ${JSON.stringify(oldExecuteSlots, null, 8)},
 
-    // Preserved Biomes List
-    biomes: ${JSON.stringify(oldBiomes, null, 8)},
+    // Generated Biomes List (ALL 64 entries)
+    biomes: ${JSON.stringify(newBiomes, null, 8)},
 
-    // Preserved Structures List
-    structures: ${JSON.stringify(oldStructures, null, 8)},
+    // Default Structures List (20 entries)
+    structures: ${JSON.stringify(defaultStructures, null, 8)},
 
-    // Preserved Commands List
-    commands: ${JSON.stringify(oldCommands, null, 8)}
+    // Generated Commands List (ALL 81 entries)
+    commands: ${JSON.stringify(newCommands, null, 8)},
+
+    // Loot Tables List (Chests, Villages, Gameplay, Mobs)
+    loot_tables: ${JSON.stringify(finalLootTables, null, 8)}
 };
 
 // Expose backward-compatible aliases for app / generator dropdown layers
@@ -411,3 +669,10 @@ MC_DATA.execute_sounds = MC_DATA.sounds;
 
 fs.writeFileSync('data.js', newContent, 'utf8');
 console.log('Successfully wrote new data.js!');
+console.log('- Total Sounds:', newSounds.length);
+console.log('- Total Biomes:', newBiomes.length);
+console.log('- Total Commands:', newCommands.length);
+console.log('- Total Loot Tables Chests:', finalLootTables.chests.length);
+console.log('- Total Loot Tables Villages:', finalLootTables.villages.length);
+console.log('- Total Loot Tables Gameplay:', finalLootTables.gameplay.length);
+console.log('- Total Loot Tables Entities:', finalLootTables.entities.length);

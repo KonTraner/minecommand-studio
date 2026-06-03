@@ -1065,28 +1065,39 @@ const Generator = {
         const type = config.type || "minecraft:chest";
         const title = config.title ? config.title.trim() : "";
         const contents = config.contents || {};
+        const lootTable = config.lootTable || "none";
 
         // --- BEDROCK ---
         if (version === "bedrock") {
             const cleanType = type.replace("minecraft:", "");
             let slotItems = [];
-            for (const [slotStr, item] of Object.entries(contents)) {
-                const slot = parseInt(slotStr);
-                const id = item.id || "minecraft:stone";
-                const count = item.count || 1;
-                const cleanId = id.replace("minecraft:", "");
-                slotItems.push(`{Slot:${slot}b,id:"${cleanId}",Count:${count}b}`);
+            
+            // Only add slot items if loot table is none
+            if (lootTable === "none") {
+                for (const [slotStr, item] of Object.entries(contents)) {
+                    const slot = parseInt(slotStr);
+                    const id = item.id || "minecraft:stone";
+                    const count = item.count || 1;
+                    const cleanId = id.replace("minecraft:", "");
+                    slotItems.push(`{Slot:${slot}b,id:"${cleanId}",Count:${count}b}`);
+                }
             }
 
             let blockTags = [];
             if (title) {
                 blockTags.push(`CustomName:"${this.escapeString(title)}"`);
             }
-            if (slotItems.length > 0) {
+            if (lootTable !== "none") {
+                blockTags.push(`LootTable:"${lootTable}"`);
+            } else if (slotItems.length > 0) {
                 blockTags.push(`Items:[${slotItems.join(",")}]`);
             }
             const tagStr = blockTags.length > 0 ? ` {${blockTags.join(",")}}` : "";
-            return `/setblock ~ ~ ~ ${cleanType} 0 destroy${tagStr}`;
+            let cmd = `/setblock ~ ~ ~ ${cleanType} 0 destroy${tagStr}`;
+            if (lootTable !== "none") {
+                cmd = `// WARNING: Bedrock /setblock has limited NBT/LootTable support in vanilla commands. Consider using a structure block.\n` + cmd;
+            }
+            return cmd;
         }
 
         // --- MODERN JAVA (1.20.5+) ---
@@ -1096,30 +1107,33 @@ const Generator = {
                 containerComps.push(`minecraft:custom_name='${this.textToJsonComponent(title)}'`);
             }
 
-            let slotItems = [];
-            for (const [slotStr, item] of Object.entries(contents)) {
-                const slot = parseInt(slotStr);
-                const id = item.id || "minecraft:stone";
-                const count = item.count || 1;
+            if (lootTable !== "none") {
+                containerComps.push(`minecraft:container_loot={loot_table:"${lootTable}"}`);
+            } else {
+                let slotItems = [];
+                for (const [slotStr, item] of Object.entries(contents)) {
+                    const slot = parseInt(slotStr);
+                    const id = item.id || "minecraft:stone";
+                    const count = item.count || 1;
 
-                if (item.isPreset && item.command) {
-                    const parsed = this.parseGiveCommand(item.command);
-                    const itemComps = parsed.components.map(c => {
-                        const eqIdx = c.indexOf("=");
-                        if (eqIdx !== -1) {
-                            return c.substring(0, eqIdx) + ":" + c.substring(eqIdx + 1);
-                        }
-                        return c;
-                    });
-                    const compStr = itemComps.length > 0 ? `,components:{${itemComps.join(",")}}` : "";
-                    slotItems.push(`{slot:${slot},item:{id:"${parsed.id}",count:${count}${compStr}}}`);
-                } else {
-                    slotItems.push(`{slot:${slot},item:{id:"${id}",count:${count}}}`);
+                    if (item.isPreset && item.command) {
+                        const parsed = this.parseGiveCommand(item.command);
+                        const itemComps = parsed.components.map(c => {
+                            const eqIdx = c.indexOf("=");
+                            if (eqIdx !== -1) {
+                                return c.substring(0, eqIdx) + ":" + c.substring(eqIdx + 1);
+                            }
+                            return c;
+                        });
+                        const compStr = itemComps.length > 0 ? `,components:{${itemComps.join(",")}}` : "";
+                        slotItems.push(`{slot:${slot},item:{id:"${parsed.id}",count:${count}${compStr}}}`);
+                    } else {
+                        slotItems.push(`{slot:${slot},item:{id:"${id}",count:${count}}}`);
+                    }
                 }
-            }
-
-            if (slotItems.length > 0) {
-                containerComps.push(`minecraft:container=[${slotItems.join(",")}]`);
+                if (slotItems.length > 0) {
+                    containerComps.push(`minecraft:container=[${slotItems.join(",")}]`);
+                }
             }
 
             const compString = containerComps.length > 0 ? `[${containerComps.join(",")}]` : "";
@@ -1136,23 +1150,26 @@ const Generator = {
             nbtTags.push(`display:{${displayTags.join(",")}}`);
         }
 
-        let slotItems = [];
-        for (const [slotStr, item] of Object.entries(contents)) {
-            const slot = parseInt(slotStr);
-            const id = item.id || "minecraft:stone";
-            const count = item.count || 1;
+        if (lootTable !== "none") {
+            nbtTags.push(`BlockEntityTag:{LootTable:"${lootTable}"}`);
+        } else {
+            let slotItems = [];
+            for (const [slotStr, item] of Object.entries(contents)) {
+                const slot = parseInt(slotStr);
+                const id = item.id || "minecraft:stone";
+                const count = item.count || 1;
 
-            if (item.isPreset && item.command) {
-                const parsed = this.parseGiveCommand(item.command);
-                const tagStr = (parsed.tag && parsed.tag !== "{}") ? `,tag:${parsed.tag}` : "";
-                slotItems.push(`{Slot:${slot}b,id:"${parsed.id}",Count:${count}b${tagStr}}`);
-            } else {
-                slotItems.push(`{Slot:${slot}b,id:"${id}",Count:${count}b}`);
+                if (item.isPreset && item.command) {
+                    const parsed = this.parseGiveCommand(item.command);
+                    const tagStr = (parsed.tag && parsed.tag !== "{}") ? `,tag:${parsed.tag}` : "";
+                    slotItems.push(`{Slot:${slot}b,id:"${parsed.id}",Count:${count}b${tagStr}}`);
+                } else {
+                    slotItems.push(`{Slot:${slot}b,id:"${id}",Count:${count}b}`);
+                }
             }
-        }
-
-        if (slotItems.length > 0) {
-            nbtTags.push(`BlockEntityTag:{Items:[${slotItems.join(",")}]}`);
+            if (slotItems.length > 0) {
+                nbtTags.push(`BlockEntityTag:{Items:[${slotItems.join(",")}]}`);
+            }
         }
 
         const nbtString = nbtTags.length > 0 ? `{${nbtTags.join(",")}}` : "";
