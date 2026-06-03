@@ -2729,5 +2729,68 @@ input[type="range"]::-webkit-slider-thumb:active {
     pointer-events: none;
 }
 
+/* ==========================================================================
+   Custom Banner Maker Styles
+   ========================================================================== */
+.banner-layer-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1a1a1c;
+    border: 2px solid #373737;
+    border-radius: 4px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.banner-layer-row .layer-number {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    color: #ffd700;
+    min-width: 28px;
+}
+
+.banner-layer-row select {
+    background: #100010;
+    border: 2px solid #555;
+    color: #fff;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.banner-layer-row .banner-pattern-type {
+    flex: 2;
+    min-width: 120px;
+}
+
+.banner-layer-row .banner-pattern-color {
+    flex: 1;
+    min-width: 80px;
+}
+
+.banner-layer-row .layer-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.banner-layer-row .layer-actions .icon-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    min-width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-preview-panel {
+    background-color: #2b2b2d !important;
+    border-color: #373737 !important;
+    box-shadow: inset -2px -2px 0 #151515, inset 2px 2px 0 #5f5f5f !important;
+}
+
 
 

@@ -9,6 +9,15 @@ function getMobIconPath(mobId) {
 }
 
 function getItemIconPath(itemId) {
+    if (itemId === "minecraft:chain") {
+        return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/item/chain.png";
+    }
+    if (itemId === "minecraft:grass") {
+        return "https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/SHORT_GRASS.png";
+    }
+    if (itemId === "minecraft:scute") {
+        return "https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/TURTLE_SCUTE.png";
+    }
     const cleanName = itemId.replace("minecraft:", "").toUpperCase();
     return `https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/${cleanName}.png`;
 }

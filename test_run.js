@@ -435,3 +435,46 @@ versions.forEach(v => {
     }
 });
 
+// === NEW BANNER & SHIELD TESTS ===
+console.log("\n==========================================");
+console.log("=== RUNNING BANNER & SHIELD TESTS ===");
+console.log("==========================================");
+
+const testBannerConfig = {
+    mode: "banner",
+    baseColor: "white",
+    name: "Royal Crest Banner",
+    patterns: [
+        { pattern: "minecraft:stripe_top", color: "red" },
+        { pattern: "minecraft:creeper", color: "black" }
+    ]
+};
+
+const testShieldConfig = {
+    mode: "shield",
+    baseColor: "black",
+    name: "Commander Shield",
+    patterns: [
+        { pattern: "minecraft:border", color: "yellow" }, // gold uses yellow in vanilla dye colors
+        { pattern: "minecraft:mojang", color: "red" }
+    ]
+};
+
+versions.forEach(v => {
+    console.log(`\n--- Banner & Shield (Version: ${v}) ---`);
+    try {
+        const cmd1 = Generator.generateBanner(testBannerConfig, v);
+        console.log(`Banner command:\n${cmd1}`);
+    } catch (err) {
+        console.error("❌ Banner Test Failed:", err);
+    }
+
+    try {
+        const cmd2 = Generator.generateShield(testShieldConfig, v);
+        console.log(`Shield command:\n${cmd2}`);
+    } catch (err) {
+        console.error("❌ Shield Test Failed:", err);
+    }
+});
+
+

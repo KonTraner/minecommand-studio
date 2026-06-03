@@ -1415,6 +1415,171 @@ const Generator = {
             
             return warnings.join("\n") + "\n" + cmd;
         }
+    },
+
+    colorToLegacyCode(color) {
+        const mapping = {
+            "black": 0, "red": 1, "green": 2, "brown": 3,
+            "blue": 4, "purple": 5, "cyan": 6, "light_gray": 7,
+            "gray": 8, "pink": 9, "lime": 10, "yellow": 11,
+            "light_blue": 12, "magenta": 13, "orange": 14, "white": 15
+        };
+        return mapping[color] !== undefined ? mapping[color] : 15;
+    },
+
+    patternToLegacyCode(patternId) {
+        const mapping = {
+            "minecraft:stripe_top": "ts",
+            "minecraft:stripe_bottom": "bs",
+            "minecraft:stripe_left": "ls",
+            "minecraft:stripe_right": "rs",
+            "minecraft:stripe_center": "ms",
+            "minecraft:stripe_middle": "cs",
+            "minecraft:stripe_downright": "drs",
+            "minecraft:stripe_downleft": "dls",
+            "minecraft:small_stripes": "ss",
+            "minecraft:cross": "cr",
+            "minecraft:straight_cross": "sc",
+            "minecraft:triangle_bottom": "bt",
+            "minecraft:triangle_top": "tt",
+            "minecraft:triangles_bottom": "bts",
+            "minecraft:triangles_top": "tts",
+            "minecraft:diagonal_left": "ld",
+            "minecraft:diagonal_right": "rd",
+            "minecraft:diagonal_up_left": "lud",
+            "minecraft:diagonal_up_right": "rud",
+            "minecraft:square_bottom_left": "bl",
+            "minecraft:square_bottom_right": "br",
+            "minecraft:square_top_left": "tl",
+            "minecraft:square_top_right": "tr",
+            "minecraft:circle": "mc",
+            "minecraft:rhombus": "mr",
+            "minecraft:half_vertical": "vh",
+            "minecraft:half_horizontal": "hh",
+            "minecraft:half_vertical_right": "vhr",
+            "minecraft:half_horizontal_bottom": "hhr",
+            "minecraft:border": "bo",
+            "minecraft:curly_border": "cbo",
+            "minecraft:brick": "bri",
+            "minecraft:gradient": "gra",
+            "minecraft:gradient_up": "gru",
+            "minecraft:creeper": "cre",
+            "minecraft:skull": "sku",
+            "minecraft:flower": "flo",
+            "minecraft:mojang": "moj",
+            "minecraft:globe": "glb",
+            "minecraft:piglin": "pig",
+            "minecraft:flow": "flw",
+            "minecraft:guster": "gus"
+        };
+        return mapping[patternId] || "ts";
+    },
+
+    generateBanner(config, version) {
+        const baseColor = config.baseColor || "white";
+        const customName = config.name ? config.name.trim() : "";
+        const patterns = config.patterns || [];
+        const itemId = `minecraft:${baseColor}_banner`;
+        const count = 1;
+
+        if (version === "java_modern") {
+            let components = [];
+            if (customName) {
+                components.push(`minecraft:custom_name='${this.textToJsonComponent(customName)}'`);
+            }
+            if (patterns.length > 0) {
+                const patternsList = patterns.map(p => {
+                    const cleanPat = p.pattern.includes(":") ? p.pattern : `minecraft:${p.pattern}`;
+                    return `{pattern:"${cleanPat}",color:"${p.color}"}`;
+                });
+                components.push(`minecraft:banner_patterns=[${patternsList.join(",")}]`);
+            }
+            const compString = components.length > 0 ? `[${components.join(",")}]` : "";
+            return `/give @p ${itemId}${compString} ${count}`;
+        }
+
+        if (version === "java_legacy") {
+            let nbtTags = [];
+            if (customName) {
+                nbtTags.push(`display:{Name:'${this.textToJsonComponent(customName)}'}`);
+            }
+            if (patterns.length > 0) {
+                const legacyPatterns = patterns.map(p => {
+                    const code = this.patternToLegacyCode(p.pattern);
+                    const colorVal = this.colorToLegacyCode(p.color);
+                    return `{Pattern:"${code}",Color:${colorVal}}`;
+                });
+                nbtTags.push(`BlockEntityTag:{Patterns:[${legacyPatterns.join(",")}]}`);
+            }
+            const nbtString = nbtTags.length > 0 ? `{${nbtTags.join(",")}}` : "";
+            return `/give @p ${itemId}${nbtString} ${count}`;
+        }
+
+        if (version === "bedrock") {
+            const colorVal = this.colorToLegacyCode(baseColor);
+            let commands = [];
+            commands.push(`# WARNING: Bedrock Edition does not support custom banner patterns or names in /give commands.`);
+            commands.push(`# Only a plain banner of the base color will be given.`);
+            commands.push(`/give @p banner 1 ${colorVal}`);
+            return commands.join("\n");
+        }
+
+        return "";
+    },
+
+    generateShield(config, version) {
+        const baseColor = config.baseColor || "white";
+        const customName = config.name ? config.name.trim() : "";
+        const patterns = config.patterns || [];
+        const itemId = "minecraft:shield";
+        const count = 1;
+
+        if (version === "java_modern") {
+            let components = [];
+            if (customName) {
+                components.push(`minecraft:custom_name='${this.textToJsonComponent(customName)}'`);
+            }
+            components.push(`minecraft:base_color="${baseColor}"`);
+            if (patterns.length > 0) {
+                const patternsList = patterns.map(p => {
+                    const cleanPat = p.pattern.includes(":") ? p.pattern : `minecraft:${p.pattern}`;
+                    return `{pattern:"${cleanPat}",color:"${p.color}"}`;
+                });
+                components.push(`minecraft:banner_patterns=[${patternsList.join(",")}]`);
+            }
+            const compString = components.length > 0 ? `[${components.join(",")}]` : "";
+            return `/give @p ${itemId}${compString} ${count}`;
+        }
+
+        if (version === "java_legacy") {
+            let nbtTags = [];
+            if (customName) {
+                nbtTags.push(`display:{Name:'${this.textToJsonComponent(customName)}'}`);
+            }
+            const baseColorVal = this.colorToLegacyCode(baseColor);
+            let blockEntityNbts = [`Base:${baseColorVal}`];
+            if (patterns.length > 0) {
+                const legacyPatterns = patterns.map(p => {
+                    const code = this.patternToLegacyCode(p.pattern);
+                    const colorVal = this.colorToLegacyCode(p.color);
+                    return `{Pattern:"${code}",Color:${colorVal}}`;
+                });
+                blockEntityNbts.push(`Patterns:[${legacyPatterns.join(",")}]`);
+            }
+            nbtTags.push(`BlockEntityTag:{${blockEntityNbts.join(",")}}`);
+            const nbtString = nbtTags.length > 0 ? `{${nbtTags.join(",")}}` : "";
+            return `/give @p ${itemId}${nbtString} ${count}`;
+        }
+
+        if (version === "bedrock") {
+            let commands = [];
+            commands.push(`# WARNING: Bedrock Edition does not support custom decorated shields in /give commands.`);
+            commands.push(`# A standard undecorated shield will be given.`);
+            commands.push(`/give @p shield 1`);
+            return commands.join("\n");
+        }
+
+        return "";
     }
 };
 

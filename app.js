@@ -9,6 +9,70 @@ let presets = [];
 
 let activeChainId = null;
 
+const BANNER_COLORS = [
+    { id: "white", name: "White", code: 15, emoji: "⚪" },
+    { id: "orange", name: "Orange", code: 14, emoji: "🟠" },
+    { id: "magenta", name: "Magenta", code: 13, emoji: "🌸" },
+    { id: "light_blue", name: "Light Blue", code: 12, emoji: "🐟" },
+    { id: "yellow", name: "Yellow", code: 11, emoji: "🟡" },
+    { id: "lime", name: "Lime", code: 10, emoji: "🟢" },
+    { id: "pink", name: "Pink", code: 9, emoji: "🌸" },
+    { id: "gray", name: "Gray", code: 8, emoji: "🔘" },
+    { id: "light_gray", name: "Light Gray", code: 7, emoji: "🔘" },
+    { id: "cyan", name: "Cyan", code: 6, emoji: "🐳" },
+    { id: "purple", name: "Purple", code: 5, emoji: "🟣" },
+    { id: "blue", name: "Blue", code: 4, emoji: "🔵" },
+    { id: "brown", name: "Brown", code: 3, emoji: "🟤" },
+    { id: "green", name: "Green", code: 2, emoji: "🟢" },
+    { id: "red", name: "Red", code: 1, emoji: "🔴" },
+    { id: "black", name: "Black", code: 0, emoji: "⚫" }
+];
+
+const BANNER_PATTERNS = [
+    { id: "minecraft:stripe_top", name: "Stripe Top (Chief)", code: "ts" },
+    { id: "minecraft:stripe_bottom", name: "Stripe Bottom (Base)", code: "bs" },
+    { id: "minecraft:stripe_left", name: "Stripe Left (Pale Dexter)", code: "ls" },
+    { id: "minecraft:stripe_right", name: "Stripe Right (Pale Sinister)", code: "rs" },
+    { id: "minecraft:stripe_center", name: "Stripe Center (Pale)", code: "ms" },
+    { id: "minecraft:stripe_middle", name: "Stripe Middle (Fess)", code: "cs" },
+    { id: "minecraft:stripe_downright", name: "Stripe Down Right (Bend)", code: "drs" },
+    { id: "minecraft:stripe_downleft", name: "Stripe Down Left (Bend Sinister)", code: "dls" },
+    { id: "minecraft:small_stripes", name: "Small Stripes (Pily)", code: "ss" },
+    { id: "minecraft:cross", name: "Cross (Saltire)", code: "cr" },
+    { id: "minecraft:straight_cross", name: "Straight Cross", code: "sc" },
+    { id: "minecraft:triangle_bottom", name: "Triangle Bottom (Chevron)", code: "bt" },
+    { id: "minecraft:triangle_top", name: "Triangle Top (Inverted Chevron)", code: "tt" },
+    { id: "minecraft:triangles_bottom", name: "Triangles Bottom (Base Indented)", code: "bts" },
+    { id: "minecraft:triangles_top", name: "Triangles Top (Chief Indented)", code: "tts" },
+    { id: "minecraft:diagonal_left", name: "Diagonal Left (Per Bend Sinister)", code: "ld" },
+    { id: "minecraft:diagonal_right", name: "Diagonal Right (Per Bend)", code: "rd" },
+    { id: "minecraft:diagonal_up_left", name: "Diagonal Up Left (Per Bend Inverted)", code: "lud" },
+    { id: "minecraft:diagonal_up_right", name: "Diagonal Up Right (Per Bend Sinister Inverted)", code: "rud" },
+    { id: "minecraft:square_bottom_left", name: "Square Bottom Left (Base Dexter Canton)", code: "bl" },
+    { id: "minecraft:square_bottom_right", name: "Square Bottom Right (Base Sinister Canton)", code: "br" },
+    { id: "minecraft:square_top_left", name: "Square Top Left (Chief Dexter Canton)", code: "tl" },
+    { id: "minecraft:square_top_right", name: "Square Top Right (Chief Sinister Canton)", code: "tr" },
+    { id: "minecraft:circle", name: "Circle (Roundel)", code: "mc" },
+    { id: "minecraft:rhombus", name: "Rhombus (Lozenge)", code: "mr" },
+    { id: "minecraft:half_vertical", name: "Half Vertical (Per Pale)", code: "vh" },
+    { id: "minecraft:half_horizontal", name: "Half Horizontal (Per Fess)", code: "hh" },
+    { id: "minecraft:half_vertical_right", name: "Half Vertical Right (Per Pale Inverted)", code: "vhr" },
+    { id: "minecraft:half_horizontal_bottom", name: "Half Horizontal Bottom (Per Fess Inverted)", code: "hhr" },
+    { id: "minecraft:border", name: "Border (Bordure)", code: "bo" },
+    { id: "minecraft:curly_border", name: "Border Indented (Bordure Indented)", code: "cbo" },
+    { id: "minecraft:brick", name: "Bricks (Field Masoned)", code: "bri" },
+    { id: "minecraft:gradient", name: "Gradient", code: "gra" },
+    { id: "minecraft:gradient_up", name: "Gradient Up (Inverted Gradient)", code: "gru" },
+    { id: "minecraft:creeper", name: "Creeper Charge", code: "cre" },
+    { id: "minecraft:skull", name: "Skull Charge", code: "sku" },
+    { id: "minecraft:flower", name: "Flower Charge", code: "flo" },
+    { id: "minecraft:mojang", name: "Thing (Mojang Logo)", code: "moj" },
+    { id: "minecraft:globe", name: "Globe", code: "glb" },
+    { id: "minecraft:piglin", name: "Snout (Piglin Snout)", code: "pig" },
+    { id: "minecraft:flow", name: "Flow", code: "flw" },
+    { id: "minecraft:guster", name: "Guster", code: "gus" }
+];
+
 const app = {
     // Safety Event Binders
     safeBind(id, event, callback) {
@@ -43,6 +107,7 @@ const app = {
         runSafe("initMobGearEnch", () => app.initMobGearEnch());
         runSafe("initMobGearPresetSelect", () => app.initMobGearPresetSelect());
         runSafe("initExecutePresetSelectors", () => app.initExecutePresetSelectors());
+        runSafe("initBannerMaker", () => app.initBannerMaker());
         runSafe("initDocs", () => app.initDocs());
         runSafe("renderDocs", () => app.renderDocs());
         runSafe("registerEventListeners", () => app.registerEventListeners());
@@ -113,17 +178,18 @@ const app = {
         if (cleanId.includes("lava")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/lava.png";
         if (cleanId.includes("nautilus")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/nautilus.png";
         if (cleanId.includes("portal")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/generic_5.png";
-        if (cleanId.includes("sculk")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/block/sculk.png";
-        if (cleanId.includes("smoke")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/generic_0.png";
-        if (cleanId.includes("soul")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/soul_0.png";
-        if (cleanId.includes("spit")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/spit.png";
-        if (cleanId.includes("witch")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/witch.png";
-        if (cleanId.includes("explosion")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/explosion.png";
-        if (cleanId.includes("dripping_water") || cleanId.includes("falling_water") || cleanId.includes("splash")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/splash_0.png";
-        if (cleanId.includes("dripping_lava") || cleanId.includes("falling_lava")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/lava.png";
-        if (cleanId.includes("dust") || cleanId.includes("effect")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/generic_2.png";
-        if (cleanId.includes("enchant")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/enchant.png";
-        return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/particle/generic_0.png";
+        if (cleanId.includes("sculk")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/block/sculk.png";
+        if (cleanId.includes("smoke")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/generic_0.png";
+        if (cleanId.includes("soul")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/soul_0.png";
+        if (cleanId.includes("spit")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/generic_0.png";
+        if (cleanId.includes("witch")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/spell_0.png";
+        if (cleanId.includes("explosion")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/explosion_0.png";
+        if (cleanId.includes("dripping_water") || cleanId.includes("falling_water") || cleanId.includes("splash")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/splash_0.png";
+        if (cleanId.includes("dripping_lava") || cleanId.includes("falling_lava")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/lava.png";
+        if (cleanId.includes("dust") || cleanId.includes("effect")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/generic_2.png";
+        if (cleanId.includes("enchanted_hit")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/enchanted_hit.png";
+        if (cleanId.includes("enchant")) return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/sga_a.png";
+        return "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/particle/generic_0.png";
     },
 
     // 2. Programmatic Sound FX Synthesis (Web Audio API)
@@ -211,7 +277,7 @@ const app = {
 
         // Hide/Show Save Presets widget in sticky command box
         const presetWidget = document.getElementById("preset-save-widget");
-        if (tabId === "mobs-pane" || tabId === "items-pane" || tabId === "execute-pane" || tabId === "potions-pane") {
+        if (tabId === "mobs-pane" || tabId === "items-pane" || tabId === "execute-pane" || tabId === "potions-pane" || tabId === "banners-pane") {
             presetWidget.style.display = "flex";
         } else {
             presetWidget.style.display = "none";
@@ -2004,6 +2070,21 @@ const app = {
 
             const cmd = Generator.generatePotion(config, targetVersion);
             app.displayCommand(cmd);
+        } else if (activeTab === "banners-pane") {
+            const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
+            const isShield = document.getElementById("banner-mode-shield") ? document.getElementById("banner-mode-shield").checked : false;
+            
+            const config = {
+                mode: isShield ? "shield" : "banner",
+                baseColor: getVal("banner-base-color", "white"),
+                name: getVal("banner-name"),
+                patterns: app.collectBannerPatterns()
+            };
+
+            const cmd = isShield 
+                ? Generator.generateShield(config, targetVersion)
+                : Generator.generateBanner(config, targetVersion);
+            app.displayCommand(cmd);
         }
     },
 
@@ -2142,6 +2223,34 @@ const app = {
                 command: modernCmd,
                 potionConfig: potionConfig
             };
+        } else if (activeTab === "banners-pane") {
+            pType = "item";
+            const isShield = document.getElementById("banner-mode-shield") ? document.getElementById("banner-mode-shield").checked : false;
+            const baseColor = document.getElementById("banner-base-color") ? document.getElementById("banner-base-color").value : "white";
+            const customName = document.getElementById("banner-name") ? document.getElementById("banner-name").value.trim() : "";
+            
+            pDetails = (isShield ? "Shield: " : "Banner: ") + baseColor + (customName ? ` ("${customName}")` : "");
+            
+            const patterns = app.collectBannerPatterns();
+            const bannerConfig = {
+                mode: isShield ? "shield" : "banner",
+                baseColor: baseColor,
+                name: customName,
+                patterns: patterns
+            };
+
+            const modernCmd = isShield 
+                ? Generator.generateShield(bannerConfig, "java_modern")
+                : Generator.generateBanner(bannerConfig, "java_modern");
+            rawCmd = modernCmd;
+
+            itemConfig = {
+                id: isShield ? "minecraft:shield" : `minecraft:${baseColor}_banner`,
+                name: customName || (isShield ? "Custom Shield" : "Custom Banner"),
+                count: 1,
+                command: modernCmd,
+                bannerConfig: bannerConfig
+            };
         } else if (activeTab === "containers-pane") {
             pType = "container";
             const customContainerName = document.getElementById("container-title") ? document.getElementById("container-title").value.trim() : "";
@@ -2261,6 +2370,25 @@ const app = {
                 });
             }
 
+            app.recalculateCurrentCommand();
+        } else if (p.type === "item" && p.itemConfig && p.itemConfig.bannerConfig) {
+            app.switchTab("banners-pane");
+            const conf = p.itemConfig.bannerConfig;
+            
+            const baseColorSel = document.getElementById("banner-base-color");
+            const nameInput = document.getElementById("banner-name");
+            const modeBanner = document.getElementById("banner-mode-banner");
+            const modeShield = document.getElementById("banner-mode-shield");
+
+            if (baseColorSel) baseColorSel.value = conf.baseColor || "white";
+            if (nameInput) nameInput.value = conf.name || "";
+            if (conf.mode === "shield") {
+                if (modeShield) modeShield.checked = true;
+            } else {
+                if (modeBanner) modeBanner.checked = true;
+            }
+
+            app.hydrateBannerPatternLayers(conf.patterns || []);
             app.recalculateCurrentCommand();
         } else {
             app.displayCommand(p.command);
@@ -3043,6 +3171,227 @@ const app = {
             iconEl.innerHTML = "🟩";
             countInput.value = 1;
             countLbl.textContent = "1x";
+        }
+    },
+
+    bannerPatterns: [],
+
+    initBannerMaker() {
+        app.safeBind("banner-base-color", "change", () => {
+            app.updateBannerPreview();
+            app.recalculateCurrentCommand();
+        });
+        
+        app.safeBind("banner-name", "input", () => app.recalculateCurrentCommand());
+
+        const modeBanner = document.getElementById("banner-mode-banner");
+        const modeShield = document.getElementById("banner-mode-shield");
+        
+        if (modeBanner) {
+            modeBanner.addEventListener("change", () => {
+                app.updateBannerPreview();
+                app.recalculateCurrentCommand();
+            });
+        }
+        if (modeShield) {
+            modeShield.addEventListener("change", () => {
+                app.updateBannerPreview();
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        app.safeBind("btn-banner-add-layer", "click", () => {
+            app.playClick();
+            app.addPatternLayer();
+        });
+
+        // Initialize with 0 layers or update preview
+        app.updateBannerPreview();
+    },
+
+    addPatternLayer(patternId = "minecraft:stripe_top", colorId = "red") {
+        if (app.bannerPatterns.length >= 16) {
+            alert("Banners are limited to a maximum of 16 pattern layers!");
+            return;
+        }
+        app.bannerPatterns.push({ pattern: patternId, color: colorId });
+        app.renderBannerLayers();
+        app.updateBannerPreview();
+        app.recalculateCurrentCommand();
+    },
+
+    deletePatternLayer(index) {
+        app.bannerPatterns.splice(index, 1);
+        app.renderBannerLayers();
+        app.updateBannerPreview();
+        app.recalculateCurrentCommand();
+    },
+
+    movePatternLayer(index, direction) {
+        const targetIdx = index + direction;
+        if (targetIdx < 0 || targetIdx >= app.bannerPatterns.length) return;
+        
+        // Swap elements
+        const temp = app.bannerPatterns[index];
+        app.bannerPatterns[index] = app.bannerPatterns[targetIdx];
+        app.bannerPatterns[targetIdx] = temp;
+        
+        app.renderBannerLayers();
+        app.updateBannerPreview();
+        app.recalculateCurrentCommand();
+    },
+
+    hydrateBannerPatternLayers(patternsList) {
+        app.bannerPatterns = JSON.parse(JSON.stringify(patternsList || []));
+        app.renderBannerLayers();
+        app.updateBannerPreview();
+    },
+
+    renderBannerLayers() {
+        const container = document.getElementById("banner-layers-container");
+        if (!container) return;
+        container.innerHTML = "";
+
+        if (app.bannerPatterns.length === 0) {
+            container.innerHTML = '<div style="color: #666; font-style: italic; text-align: center; padding: 12px;">No pattern layers added yet. Click "Add Layer" to begin!</div>';
+            return;
+        }
+
+        app.bannerPatterns.forEach((layer, idx) => {
+            const row = document.createElement("div");
+            row.className = "banner-layer-row";
+            row.dataset.index = idx;
+
+            // Generate Pattern select options
+            let patternOptions = "";
+            BANNER_PATTERNS.forEach(p => {
+                const selected = p.id === layer.pattern ? "selected" : "";
+                patternOptions += `<option value="${p.id}" ${selected}>${p.name}</option>`;
+            });
+
+            // Generate Color select options
+            let colorOptions = "";
+            BANNER_COLORS.forEach(c => {
+                const selected = c.id === layer.color ? "selected" : "";
+                colorOptions += `<option value="${c.id}" ${selected}>${c.emoji} ${c.name}</option>`;
+            });
+
+            row.innerHTML = `
+                <span class="layer-number">#${idx + 1}</span>
+                <select class="banner-pattern-type" style="flex: 2;">
+                    ${patternOptions}
+                </select>
+                <select class="banner-pattern-color" style="flex: 1; margin-left: 8px;">
+                    ${colorOptions}
+                </select>
+                <div class="layer-actions" style="margin-left: auto;">
+                    <button type="button" class="mc-btn icon-btn btn-layer-up" style="padding: 4px 8px; font-size: 11px;">▲</button>
+                    <button type="button" class="mc-btn icon-btn btn-layer-down" style="padding: 4px 8px; font-size: 11px;">▼</button>
+                    <button type="button" class="mc-btn red-btn icon-btn btn-layer-delete" style="padding: 4px 8px; font-size: 11px; margin-left: 4px;">❌</button>
+                </div>
+            `;
+
+            // Add event listeners inside row
+            const patternSelect = row.querySelector(".banner-pattern-type");
+            const colorSelect = row.querySelector(".banner-pattern-color");
+            const btnUp = row.querySelector(".btn-layer-up");
+            const btnDown = row.querySelector(".btn-layer-down");
+            const btnDelete = row.querySelector(".btn-layer-delete");
+
+            patternSelect.addEventListener("change", (e) => {
+                app.bannerPatterns[idx].pattern = e.target.value;
+                app.updateBannerPreview();
+                app.recalculateCurrentCommand();
+            });
+
+            colorSelect.addEventListener("change", (e) => {
+                app.bannerPatterns[idx].color = e.target.value;
+                app.updateBannerPreview();
+                app.recalculateCurrentCommand();
+            });
+
+            btnUp.addEventListener("click", () => {
+                app.playClick();
+                app.movePatternLayer(idx, -1);
+            });
+
+            btnDown.addEventListener("click", () => {
+                app.playClick();
+                app.movePatternLayer(idx, 1);
+            });
+
+            btnDelete.addEventListener("click", () => {
+                app.playClick();
+                app.deletePatternLayer(idx);
+            });
+
+            container.appendChild(row);
+        });
+    },
+
+    collectBannerPatterns() {
+        return JSON.parse(JSON.stringify(app.bannerPatterns));
+    },
+
+    updateBannerPreview() {
+        const isShield = document.getElementById("banner-mode-shield") ? document.getElementById("banner-mode-shield").checked : false;
+        const baseColor = document.getElementById("banner-base-color") ? document.getElementById("banner-base-color").value : "white";
+        
+        const previewBase = document.getElementById("banner-visual-base");
+        const modeLabel = document.getElementById("banner-mode-label");
+        const previewBaseText = document.getElementById("banner-preview-base-text");
+        const descDiv = document.getElementById("banner-patterns-description");
+
+        const colorMap = {
+            white: "#ffffff",
+            orange: "#f9801d",
+            magenta: "#c900c9",
+            light_blue: "#3db2ff",
+            yellow: "#fed83d",
+            lime: "#80c71f",
+            pink: "#f38caa",
+            gray: "#474f52",
+            light_gray: "#9d9d97",
+            cyan: "#169c9c",
+            purple: "#8932b8",
+            blue: "#3c44aa",
+            brown: "#835432",
+            green: "#5e7c16",
+            red: "#b02e26",
+            black: "#1d1d21"
+        };
+
+        if (previewBase) {
+            previewBase.style.backgroundColor = colorMap[baseColor] || "#ffffff";
+            // Set text color depending on background brightness
+            const darkColors = ["black", "blue", "gray", "brown", "green", "red", "purple"];
+            previewBase.style.color = darkColors.includes(baseColor) ? "#ffffff" : "#100010";
+        }
+
+        if (modeLabel) {
+            modeLabel.textContent = isShield ? "SHIELD" : "BANNER";
+            modeLabel.style.backgroundColor = isShield ? "#ffd700" : "#00cdcd";
+            modeLabel.style.color = "#000000";
+        }
+
+        const colorName = baseColor.replace("_", " ");
+        const baseColorDisplay = colorName.charAt(0).toUpperCase() + colorName.slice(1);
+        if (previewBaseText) {
+            previewBaseText.textContent = baseColorDisplay;
+        }
+
+        if (descDiv) {
+            if (app.bannerPatterns.length === 0) {
+                descDiv.textContent = `A clean ${baseColorDisplay} ${isShield ? "shield" : "banner"} with no patterns applied.`;
+            } else {
+                const descriptions = app.bannerPatterns.map(layer => {
+                    const pName = BANNER_PATTERNS.find(p => p.id === layer.pattern)?.name.split(" (")[0] || "Pattern";
+                    const cName = layer.color.replace("_", " ");
+                    const cDisplay = cName.charAt(0).toUpperCase() + cName.slice(1);
+                    return `${cDisplay} ${pName}`;
+                });
+                descDiv.textContent = `${baseColorDisplay} ${isShield ? "shield" : "banner"} layered with: ${descriptions.join(", ")}.`;
+            }
         }
     },
 
