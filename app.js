@@ -508,7 +508,8 @@ const app = {
                     <label class="mc-checkbox-label">
                         <input type="checkbox" class="mob-eff-cb" data-eff-id="${eff.id}">
                         <span class="mc-checkbox"></span>
-                        ${eff.icon} ${eff.name}
+                        ${app.renderIcon(eff.icon)}
+                        <span>${eff.name}</span>
                     </label>
                 </div>
                 <div class="enchant-row-bottom" id="mob-eff-slider-row-${eff.id}">
