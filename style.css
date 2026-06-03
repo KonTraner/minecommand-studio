@@ -244,10 +244,20 @@ h1, h2, h3, h4, .VT-font {
     height: 100%;
 }
 
+@keyframes paneFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .pane.active {
     display: flex;
-    opacity: 1;
-    transform: translateY(0);
+    animation: paneFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .pane-header {
@@ -1642,156 +1652,321 @@ input[type="range"]::-webkit-slider-thumb:active {
    11. Responsiveness and Mobile Adaptation
    ========================================================================== */
 @media (max-width: 900px) {
-    .mc-body {
-        flex-direction: column;
-        height: calc(100vh - var(--header-height) - var(--console-height));
-    }
-    
-    .mc-sidebar {
-        width: 100%;
+    /* 1. Reset base height framework to allow natural page scrolling */
+    .app-container {
         height: auto;
-        flex-direction: row;
-        border-right: none;
-        border-bottom: 4px solid var(--mc-black);
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding: 8px;
-        gap: 8px;
-        flex-shrink: 0;
-    }
-    
-    .nav-tab {
-        padding: 8px 12px;
-        font-size: 16px;
-        gap: 6px;
-        white-space: nowrap;
-    }
-    
-    .nav-text {
-        font-size: 15px;
-    }
-    
-    .presets-workspace {
-        grid-template-columns: 1fr;
-    }
-    
-    .console-body {
-        gap: 10px;
-    }
-    
-    .console-actions button {
-        padding: 0 16px;
-        font-size: 16px;
-    }
-
-    .chain-diagram-panel {
-        width: 100%;
-        margin-right: 0;
-        padding: 6px;
-    }
-    .chain-steps-stack {
-        max-height: 100px;
-    }
-}
-
-@media (max-width: 600px) {
-    .mc-header {
-        padding: 0 12px;
-        flex-direction: column;
-        height: 110px;
-        justify-content: center;
-        gap: 8px;
+        min-height: 100vh;
+        overflow-y: visible;
     }
     
     .mc-body {
-        height: calc(100vh - 110px - 220px);
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
     }
     
-    :root {
-        --header-height: 110px;
-        --console-height: 220px;
+    /* 2. Compact Sticky Header */
+    .mc-header {
+        height: 60px !important;
+        padding: 0 12px !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        position: sticky;
+        top: 0;
+        z-index: 101;
     }
     
     .mc-header h1 {
-        font-size: 22px;
+        font-size: 20px !important;
+    }
+    
+    .mc-header h1 span {
+        display: none !important; /* Hide 'STUDIO' text to save space */
     }
     
     .header-actions {
-        width: 100%;
-        justify-content: space-between;
+        gap: 8px !important;
     }
     
-    .segmented-picker .segment {
-        padding: 4px 8px;
-        font-size: 14px;
+    .control-group {
+        gap: 6px !important;
     }
     
+    .control-group label {
+        display: none !important; /* Hide 'Target Version:' label text */
+    }
+    
+    .segmented-picker {
+        padding: 2px !important;
+    }
+    
+    .segment {
+        padding: 4px 8px !important;
+        font-size: 13px !important;
+    }
+    
+    /* 3. Sticky Tab Navigation Bar below header */
+    .mc-sidebar {
+        position: sticky;
+        top: 60px; /* Right below header */
+        z-index: 100;
+        width: 100% !important;
+        height: 52px !important;
+        flex-direction: row !important;
+        border-right: none !important;
+        border-bottom: 4px solid var(--mc-black) !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        background-color: #202022 !important;
+        padding: 6px 12px !important;
+        gap: 8px !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+        scrollbar-width: none; /* Firefox */
+    }
+    .mc-sidebar::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    
+    .nav-tab {
+        padding: 6px 12px !important;
+        font-size: 16px !important;
+        white-space: nowrap !important;
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+        height: 36px !important;
+        border-width: 2px !important;
+    }
+    
+    .nav-icon {
+        font-size: 16px !important;
+    }
+    
+    .nav-text {
+        font-size: 14px !important;
+    }
+    
+    /* 4. Natural scrollable Workspace */
     .mc-workspace {
-        padding: 12px;
+        flex: none !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 12px !important;
+        padding-bottom: 80px !important; /* Space for the bottom sheet header */
     }
     
-    .form-container {
-        grid-template-columns: 1fr;
+    /* 5. Mobile Form Grid Layouts */
+    .form-container, .grid-2-col, .equipment-layout {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
     }
     
     .checkbox-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
     }
     
-    .equipment-layout {
-        grid-template-columns: 1fr;
+    /* 6. Mobile Custom Dropdown Scales */
+    .dropdown-trigger {
+        padding: 8px 10px !important;
+        font-size: 13px !important;
     }
     
+    /* 7. Mobile Floating Collapsible Command Console drawer */
     .mc-console-panel {
-        height: 220px;
-        padding: 10px;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 220px !important;
+        padding: 10px !important;
+        z-index: 1000 !important;
+        background-color: var(--mc-panel-bg) !important;
+        border-top: 4px solid var(--mc-black) !important;
+        box-shadow: 0 -6px 20px rgba(0,0,0,0.7) !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transform: translateY(calc(100% - 48px)) !important; /* Collapsed state */
+    }
+    
+    .mc-console-panel.expanded {
+        transform: translateY(0) !important; /* Expanded state */
+    }
+    
+    .console-header {
+        cursor: pointer !important;
+        position: relative !important;
+        padding-top: 14px !important;
+        height: 48px !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-top: -6px !important;
+    }
+    
+    /* Drag indicator pill */
+    .console-header::before {
+        display: block !important;
+        content: "" !important;
+        position: absolute !important;
+        top: 6px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 36px !important;
+        height: 4px !important;
+        background-color: rgba(255, 255, 255, 0.25) !important;
+        border-radius: 2px !important;
+    }
+    
+    /* Arrow indicator */
+    .console-header::after {
+        display: block !important;
+        content: "▲" !important;
+        position: absolute !important;
+        right: 16px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        font-size: 12px !important;
+        color: var(--text-gold) !important;
+        transition: transform 0.3s ease !important;
+    }
+    
+    .mc-console-panel.expanded .console-header::after {
+        transform: translateY(-50%) rotate(180deg) !important;
+    }
+    
+    .console-header h3 {
+        font-size: 16px !important;
+        margin: 0 !important;
+        text-shadow: 1px 1px 0 #000 !important;
+    }
+    
+    /* Console header form wrapping when expanded */
+    .mc-console-panel:not(.expanded) .preset-save-form {
+        display: none !important;
+    }
+    
+    .mc-console-panel.expanded .preset-save-form {
+        display: flex !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+        margin-top: 4px !important;
+    }
+    
+    .mc-console-panel.expanded .console-header {
+        flex-wrap: wrap !important;
+        height: auto !important;
+        padding-bottom: 8px !important;
+    }
+    
+    .preset-save-form input {
+        flex: 1 !important;
+        width: auto !important;
+        padding: 4px 8px !important;
+        font-size: 12px !important;
     }
     
     .console-body {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        margin-top: 8px !important;
+        height: calc(100% - 60px) !important;
     }
     
     .command-container {
-        height: 80px;
+        height: 70px !important;
+        padding: 8px !important;
+    }
+    
+    .command-code {
+        font-size: 12px !important;
     }
     
     .console-actions button {
-        height: 42px;
-        font-size: 16px;
+        height: 38px !important;
+        font-size: 15px !important;
+        padding: 0 16px !important;
     }
     
+    /* 8. Creative Inventory & Container Slots Scale */
+    .creative-inventory-box {
+        width: 95% !important;
+        max-width: 95vw !important;
+        padding: 4px !important;
+    }
+    
+    .creative-grid-container {
+        grid-template-columns: repeat(7, 1fr) !important; /* 7 columns instead of 9 */
+        height: 260px !important;
+    }
+    
+    .creative-item-cell {
+        width: auto !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+    }
+    
+    .creative-item-cell img {
+        width: 80% !important;
+        height: 80% !important;
+    }
+    
+    .container-grid-wrapper {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .container-grid {
+        grid-template-columns: repeat(9, 1fr) !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .container-slot {
+        width: auto !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+    }
+    
+    .container-slot img {
+        width: 80% !important;
+        height: 80% !important;
+    }
+    
+    /* 9. Troll Configurations & Chains on Mobile */
     .troll-inputs-bar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
     }
     
     .inline-field input {
-        width: 100%;
-        flex: 1;
+        width: 100% !important;
+        flex: 1 !important;
     }
-
+    
     .chain-diagram-panel {
-        width: 100%;
-        padding: 4px;
+        width: 100% !important;
+        margin-right: 0 !important;
+        padding: 6px !important;
     }
-    .cb-node {
-        min-width: 65px;
-        padding: 2px 4px;
-    }
-    .cb-type {
-        font-size: 12px;
-    }
+    
     .chain-steps-stack {
-        max-height: 120px;
+        max-height: 100px !important;
     }
-    .chain-step-row {
-        padding: 4px 6px;
+    
+    .cb-node {
+        min-width: 60px !important;
+        padding: 2px 4px !important;
     }
-    .chain-step-details {
-        min-width: 70px;
+    
+    .cb-type {
+        font-size: 11px !important;
     }
 }
 

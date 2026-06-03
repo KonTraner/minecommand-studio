@@ -1370,6 +1370,23 @@ const app = {
             if (shareArea) shareArea.value = "";
         });
         app.safeBind("btn-copy-command", "click", () => app.copyToClipboard());
+
+        // Mobile console collapse/expand toggle
+        const consoleHeader = document.querySelector(".console-header");
+        if (consoleHeader) {
+            consoleHeader.addEventListener("click", (e) => {
+                if (window.innerWidth <= 900) {
+                    // Check if clicked element was not the input, button or an active selector inside
+                    if (e.target.tagName !== "INPUT" && e.target.tagName !== "BUTTON" && !e.target.closest("button")) {
+                        const panel = document.querySelector(".mc-console-panel");
+                        if (panel) {
+                            panel.classList.toggle("expanded");
+                            app.playClick();
+                        }
+                    }
+                }
+            });
+        }
     },
 
     // ==========================================================================
