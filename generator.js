@@ -235,28 +235,55 @@ const Generator = {
     compileEquipItem(itemId, enchants, version) {
         if (itemId === "none") return null;
 
+        let parsedId = itemId;
+        let parsed = null;
+
+        // Check if itemId is actually a command (starts with / or give or setblock)
+        if (itemId.startsWith("/") || itemId.startsWith("give") || itemId.startsWith("setblock")) {
+            parsed = this.parseGiveCommand(itemId);
+            parsedId = parsed.id;
+        }
+
         const actualEnchants = Array.isArray(enchants) 
             ? enchants 
             : (enchants ? [{ id: "protection", lvl: 3 }] : []);
 
         if (version === "java_modern") {
             let comps = [];
+            if (parsed && parsed.components && parsed.components.length > 0) {
+                comps = [...parsed.components];
+            } else if (parsed && parsed.tag) {
+                comps.push(`minecraft:custom_data=${parsed.tag}`);
+            }
+
             if (actualEnchants.length > 0) {
+                comps = comps.filter(c => !c.startsWith("minecraft:enchantments"));
                 let levelsObj = [];
                 actualEnchants.forEach(e => {
                     levelsObj.push(`"minecraft:${e.id}":${e.lvl}`);
                 });
                 comps.push(`minecraft:enchantments={levels:{${levelsObj.join(",")}}}`);
             }
-            return `{id:"${itemId}",count:1${comps.length > 0 ? `,components:{${comps.join(",")}}` : ""}}`;
+            return `{id:"${parsedId}",count:1${comps.length > 0 ? `,components:{${comps.join(",")}}` : ""}}`;
         } else {
             // Java Legacy
-            let tag = "";
+            let tagStr = "";
+            if (parsed && parsed.tag) {
+                tagStr = parsed.tag;
+            }
+
             if (actualEnchants.length > 0) {
                 const enchList = actualEnchants.map(e => `{id:"minecraft:${e.id}",lvl:${e.lvl}s}`);
-                tag = `,tag:{Enchantments:[${enchList.join(",")}]}`;
+                const enchNbt = `Enchantments:[${enchList.join(",")}]`;
+                if (!tagStr) {
+                    tagStr = `{${enchNbt}}`;
+                } else {
+                    tagStr = `{${enchNbt},${tagStr.substring(1)}`;
+                }
             }
-            return `{id:"${itemId}",Count:1b${tag}}`;
+
+            let tagPart = tagStr ? `,tag:${tagStr}` : "";
+            return `{id:"${parsedId}",Count:1b${tagPart}}`;
         }
     },
 
@@ -695,7 +722,69 @@ const Generator = {
         let actionCmd = "";
         const action = config.action || "summon";
 
-        if (action === "summon") {
+        if (action === "give_preset") {
+            const presetCmd = config.givePresetCmd || "";
+            const target = config.givePresetTarget || "@s";
+            const count = config.givePresetCount !== undefined ? config.givePresetCount : 1;
+
+            if (presetCmd) {
+                let cmd = presetCmd.trim();
+                if (version === "bedrock") {
+                    if (cmd.startsWith("/setblock") || cmd.startsWith("setblock")) {
+                        if (cmd.startsWith("/")) cmd = cmd.substring(1);
+                        actionCmd = cmd;
+                    } else {
+                        if (cmd.startsWith("/")) cmd = cmd.substring(1);
+                        let parts = cmd.split(/\s+/);
+                        if (parts[0] === "give") {
+                            parts[1] = target;
+                            parts[3] = count;
+                            actionCmd = parts.join(" ");
+                        } else {
+                            actionCmd = cmd;
+                        }
+                    }
+                } else {
+                    const parsed = this.parseGiveCommand(presetCmd);
+                    const itemId = parsed.id;
+                    if (version === "java_modern") {
+                        const compStr = parsed.components.length > 0 ? `[${parsed.components.join(",")}]` : "";
+                        actionCmd = `give ${target} ${itemId}${compStr} ${count}`;
+                    } else {
+                        const nbtStr = parsed.tag ? parsed.tag : "";
+                        actionCmd = `give ${target} ${itemId}${nbtStr} ${count}`;
+                    }
+                }
+            } else {
+                actionCmd = `give ${target} minecraft:stone ${count}`;
+            }
+        }
+        else if (action === "summon_preset") {
+            const presetCmd = config.summonPresetCmd || "";
+            const offset = config.summonPresetOffset || "~ ~ ~";
+
+            if (presetCmd) {
+                let cmd = presetCmd.trim();
+                if (cmd.startsWith("/")) cmd = cmd.substring(1);
+
+                const match = cmd.match(/^(summon\s+[^\s]+)\s+([^\s]+\s+[^\s]+\s+[^\s]+)(.*)$/i);
+                if (match) {
+                    const prefix = match[1];
+                    const suffix = match[3];
+                    
+                    let finalPrefix = prefix;
+                    if (version === "bedrock") {
+                        finalPrefix = prefix.replace("minecraft:", "");
+                    }
+                    actionCmd = `${finalPrefix} ${offset}${suffix}`;
+                } else {
+                    actionCmd = cmd;
+                }
+            } else {
+                actionCmd = `summon minecraft:zombie ${offset}`;
+            }
+        }
+        else if (action === "summon") {
             const mob = config.actionMob || "minecraft:creeper";
             const offset = config.summonOffset || "~ ~ ~";
             if (version === "java_modern") {
@@ -812,10 +901,86 @@ const Generator = {
     parseGiveCommand(cmd) {
         if (!cmd) return { id: "minecraft:stone", count: 1, components: [], tag: "" };
         let temp = cmd.trim();
+
+        // Normalize /setblock container commands to /give commands for parsing
+        if (temp.startsWith("/setblock") || temp.startsWith("setblock")) {
+            const braceIdx = temp.indexOf("{");
+            let nbt = "";
+            if (braceIdx !== -1) {
+                nbt = temp.substring(braceIdx);
+            }
+            let cmdClean = temp;
+            if (cmdClean.startsWith("/")) cmdClean = cmdClean.substring(1);
+            let subParts = cmdClean.split(/\s+/);
+            let blockType = subParts[4] || "minecraft:chest";
+            temp = `/give @p ${blockType}${nbt} 1`;
+        }
+
+        // Clean leading slash
+        if (temp.startsWith("/")) temp = temp.substring(1);
+
         let parts = temp.split(/\s+/);
+        if (parts[0] !== "give") {
+            return { id: temp, count: 1, components: [], tag: "" };
+        }
+
+        let giveIdx = temp.indexOf("give");
+        let afterGive = temp.substring(giveIdx + 4).trim();
+        let selectorSpaceIdx = afterGive.indexOf(" ");
+        if (selectorSpaceIdx === -1) {
+            return { id: "minecraft:stone", count: 1, components: [], tag: "" };
+        }
+        let itemAndRest = afterGive.substring(selectorSpaceIdx + 1).trim();
+
+        let itemPart = itemAndRest;
+        let count = 1;
         
-        let itemPart = parts[2] || "minecraft:stone";
-        let count = parseInt(parts[3]) || 1;
+        let bracketLevel = 0;
+        let braceLevel = 0;
+        let inQuotes = null;
+        let splitIdx = -1;
+
+        for (let i = itemAndRest.length - 1; i >= 0; i--) {
+            const char = itemAndRest[i];
+            if (inQuotes) {
+                if (char === inQuotes) {
+                    let escapes = 0;
+                    for (let j = i - 1; j >= 0; j--) {
+                        if (itemAndRest[j] === "\\") escapes++;
+                        else break;
+                    }
+                    if (escapes % 2 === 0) {
+                        inQuotes = null;
+                    }
+                }
+            } else if (char === "'" || char === '"') {
+                let escapes = 0;
+                for (let j = i - 1; j >= 0; j--) {
+                    if (itemAndRest[j] === "\\") escapes++;
+                    else break;
+                }
+                if (escapes % 2 === 0) {
+                    inQuotes = char;
+                }
+            } else if (char === "]" || char === "}") {
+                if (char === "]") bracketLevel++;
+                else braceLevel++;
+            } else if (char === "[" || char === "{") {
+                if (char === "[") bracketLevel--;
+                else braceLevel--;
+            } else if (char === " " || char === "\t") {
+                if (bracketLevel === 0 && braceLevel === 0) {
+                    splitIdx = i;
+                    break;
+                }
+            }
+        }
+
+        if (splitIdx !== -1) {
+            itemPart = itemAndRest.substring(0, splitIdx).trim();
+            const countPart = itemAndRest.substring(splitIdx + 1).trim();
+            count = parseInt(countPart) || 1;
+        }
 
         let id = itemPart;
         let components = [];
@@ -823,16 +988,20 @@ const Generator = {
 
         const bracketStart = itemPart.indexOf("[");
         const bracketEnd = itemPart.lastIndexOf("]");
-        if (bracketStart !== -1 && bracketEnd !== -1 && bracketEnd > bracketStart) {
+        const braceStart = itemPart.indexOf("{");
+        
+        const isModern = bracketStart !== -1 && (braceStart === -1 || bracketStart < braceStart);
+
+        if (isModern && bracketEnd !== -1 && bracketEnd > bracketStart) {
             id = itemPart.substring(0, bracketStart);
             const compsRaw = itemPart.substring(bracketStart + 1, bracketEnd);
             components = this.splitTopLevelCommas(compsRaw, "[", "]", "{", "}");
         } else {
-            const braceStart = itemPart.indexOf("{");
-            const braceEnd = itemPart.lastIndexOf("}");
-            if (braceStart !== -1 && braceEnd !== -1 && braceEnd > braceStart) {
-                id = itemPart.substring(0, braceStart);
-                tag = itemPart.substring(braceStart);
+            const braceStartLocal = itemPart.indexOf("{");
+            const braceEndLocal = itemPart.lastIndexOf("}");
+            if (braceStartLocal !== -1 && braceEndLocal !== -1 && braceEndLocal > braceStartLocal) {
+                id = itemPart.substring(0, braceStartLocal);
+                tag = itemPart.substring(braceStartLocal);
             }
         }
 

@@ -184,3 +184,73 @@ versions.forEach(v => {
         console.error("❌ Container Test Failed:", err);
     }
 });
+
+// === NEW EXTENDED PRESETS COMPILER TESTS ===
+console.log("\n==========================================");
+console.log("=== RUNNING EXTENDED PRESETS TESTS ===");
+console.log("==========================================");
+
+const extendedMobConfig = {
+    type: "minecraft:skeleton",
+    name: "Gear Preset Skeleton",
+    gear: {
+        hand: "/give @p minecraft:diamond_sword[minecraft:custom_name='{\"text\":\"Excalibur\"}',minecraft:enchantments={levels:{\"minecraft:sharpness\":5}}] 1",
+        offhand: "/setblock ~ ~ ~ chest 0 destroy {CustomName:\"Loot Chest\",Items:[{Slot:0b,id:\"minecraft:gold_ingot\",Count:10b}]}",
+        head: "minecraft:iron_helmet",
+        chest: "none",
+        legs: "none",
+        feet: "none"
+    },
+    gearEnch: {
+        hand: true, // Should merge enchantments!
+        offhand: false,
+        head: false,
+        chest: false,
+        legs: false,
+        feet: false
+    }
+};
+
+const execGivePreset = {
+    targetBase: "@a",
+    anchor: "as_at",
+    condType: "none",
+    action: "give_preset",
+    givePresetCmd: "/give @p minecraft:shulker_box[minecraft:custom_name='{\"text\":\"Boss Box\"}'] 1",
+    givePresetTarget: "@p",
+    givePresetCount: 5
+};
+
+const execSummonPreset = {
+    targetBase: "@a",
+    anchor: "at",
+    condType: "none",
+    action: "summon_preset",
+    summonPresetCmd: "/summon minecraft:creeper ~ ~-1 ~ {powered:1b}",
+    summonPresetOffset: "~ ~2 ~"
+};
+
+versions.forEach(v => {
+    console.log(`\n--- Extended Presets (Version: ${v}) ---`);
+    try {
+        const mobCmd = Generator.generateMob(extendedMobConfig, v);
+        console.log(`Mob presets summon command:\n${mobCmd}`);
+    } catch (err) {
+        console.error("❌ Extended Mob Test Failed:", err);
+    }
+
+    try {
+        const giveCmd = Generator.generateExecute(execGivePreset, v);
+        console.log(`Execute Give Preset command: ${giveCmd}`);
+    } catch (err) {
+        console.error("❌ Execute Give Preset Test Failed:", err);
+    }
+
+    try {
+        const summonCmd = Generator.generateExecute(execSummonPreset, v);
+        console.log(`Execute Summon Preset command: ${summonCmd}`);
+    } catch (err) {
+        console.error("❌ Execute Summon Preset Test Failed:", err);
+    }
+});
+

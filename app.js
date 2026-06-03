@@ -32,6 +32,8 @@ const app = {
         app.initCreativeInventory();
         app.initContainerMaker();
         app.initMobGearEnch();
+        app.initMobGearPresetSelect();
+        app.initExecutePresetSelectors();
         app.initDocs();
         app.renderDocs();
         app.registerEventListeners();
@@ -567,7 +569,9 @@ const app = {
             { id: "tools", name: "Tools" },
             { id: "blocks", name: "Blocks" },
             { id: "misc", name: "Misc" },
-            { id: "presets", name: "Saved Presets" }
+            { id: "presets", name: "Saved Items" },
+            { id: "containers", name: "Saved Containers" },
+            { id: "presets_mobs", name: "Saved Mobs" }
         ];
 
         categories.forEach(cat => {
@@ -593,15 +597,44 @@ const app = {
 
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
-        if (app.activeCreativeTab === "presets") {
-            const list = presets.filter(p => p.type === "item");
+        if (app.activeCreativeTab === "presets" || app.activeCreativeTab === "containers" || app.activeCreativeTab === "presets_mobs") {
+            let list = [];
+            let noPresetsMsg = "";
+            if (app.activeCreativeTab === "presets") {
+                list = presets.filter(p => p.type === "item");
+                noPresetsMsg = "No custom items saved. Build an item and click 'Save Preset' in the Custom Items tab!";
+            } else if (app.activeCreativeTab === "containers") {
+                list = presets.filter(p => p.type === "container");
+                noPresetsMsg = "No custom containers saved. Build a container and click 'Save Preset' in the Containers tab!";
+            } else {
+                list = presets.filter(p => p.type === "mob");
+                noPresetsMsg = "No custom mobs saved. Build a mob and click 'Save Preset' in the Custom Mobs tab!";
+            }
+
             if (list.length === 0) {
-                grid.innerHTML = `<div class="no-presets-msg col-span-2" style="border: none; padding: 20px; font-size: 14px;">No custom items saved. Build an item and click "Save Preset" in the Custom Items tab!</div>`;
+                grid.innerHTML = `<div class="no-presets-msg col-span-2" style="border: none; padding: 20px; font-size: 14px;">${noPresetsMsg}</div>`;
                 return;
             }
+
             list.forEach(p => {
-                const itemId = app.getItemIdFromCommand(p.command);
-                const iconPath = getItemIconPath(itemId);
+                let itemId = "minecraft:stone";
+                let iconPath = "🟩";
+                let prefixLabel = "★ Item Preset: ";
+
+                if (p.type === "item") {
+                    itemId = app.getItemIdFromCommand(p.command);
+                    iconPath = getItemIconPath(itemId);
+                    prefixLabel = "★ Item Preset: ";
+                } else if (p.type === "container") {
+                    itemId = p.containerConfig ? p.containerConfig.type : "minecraft:chest";
+                    iconPath = getItemIconPath(itemId);
+                    prefixLabel = "★ Container Preset: ";
+                } else if (p.type === "mob") {
+                    const mobName = p.details.split(": ")[1]?.split(" ")[0] || "zombie";
+                    itemId = "minecraft:" + mobName;
+                    iconPath = getMobIconPath(itemId);
+                    prefixLabel = "★ Mob Preset: ";
+                }
 
                 if (query && !p.name.toLowerCase().includes(query) && !itemId.toLowerCase().includes(query)) {
                     return;
@@ -611,7 +644,7 @@ const app = {
                 cell.className = "creative-item-cell preset-cell";
                 cell.innerHTML = `
                     ${app.renderIcon(iconPath)}
-                    <div class="creative-tooltip">★ Preset: ${p.name} (${itemId.replace("minecraft:", "")})</div>
+                    <div class="creative-tooltip">${prefixLabel}${p.name} (${itemId.replace("minecraft:", "")})</div>
                 `;
 
                 cell.addEventListener("click", () => {
@@ -624,7 +657,8 @@ const app = {
                             isPreset: true,
                             presetId: p.id,
                             command: p.command,
-                            itemConfig: p.itemConfig || null
+                            itemConfig: p.itemConfig || null,
+                            containerConfig: p.containerConfig || null
                         });
                     } else {
                         app.selectDropdownByValue("dropdown-item-type", itemId);
@@ -1273,7 +1307,8 @@ const app = {
             "exec-summon-offset", "exec-sound-volume", "exec-sound-pitch", "exec-sound-category",
             "exec-particle-count", "exec-particle-speed", "exec-particle-offset",
             "exec-effect-duration", "exec-effect-amp", "exec-effect-hide-particles",
-            "exec-block-place-offset", "exec-tellraw-text", "exec-tellraw-color", "exec-custom-cmd"
+            "exec-block-place-offset", "exec-tellraw-text", "exec-tellraw-color", "exec-custom-cmd",
+            "exec-give-preset-val", "exec-give-preset-target", "exec-give-preset-count", "exec-summon-preset-val", "exec-summon-preset-offset"
         ];
         execInputs.forEach(id => {
             app.safeBind(id, "input", () => app.recalculateCurrentCommand());
@@ -1500,6 +1535,11 @@ const app = {
                 action: getVal("exec-action", "summon"),
                 actionMob: getVal("exec-mob-summon", "minecraft:creeper"),
                 summonOffset: getVal("exec-summon-offset", "~ ~ ~"),
+                givePresetCmd: getVal("exec-give-preset-val"),
+                givePresetTarget: getVal("exec-give-preset-target", "@s"),
+                givePresetCount: parseInt(getVal("exec-give-preset-count", "1")) || 1,
+                summonPresetCmd: getVal("exec-summon-preset-val"),
+                summonPresetOffset: getVal("exec-summon-preset-offset", "~ ~ ~"),
                 actionSound: getVal("exec-sound", "minecraft:entity.creeper.primed"),
                 soundVolume: parseFloat(getVal("exec-sound-volume", "1.0")),
                 soundPitch: parseFloat(getVal("exec-sound-pitch", "1.0")),
@@ -1604,13 +1644,16 @@ const app = {
         let pType = "item";
         let pDetails = "";
         let itemConfig = null;
+        let containerConfig = null;
 
         if (activeTab === "mobs-pane") {
             pType = "mob";
-            pDetails = "Mob: " + document.getElementById("mob-type").value.replace("minecraft:", "");
+            const customMobName = document.getElementById("mob-name") ? document.getElementById("mob-name").value.trim() : "";
+            pDetails = "Mob: " + document.getElementById("mob-type").value.replace("minecraft:", "") + (customMobName ? ` ("${customMobName}")` : "");
         } else if (activeTab === "items-pane") {
             pType = "item";
-            pDetails = "Item: " + document.getElementById("item-type").value.replace("minecraft:", "");
+            const customItemName = document.getElementById("item-name") ? document.getElementById("item-name").value.trim() : "";
+            pDetails = "Item: " + document.getElementById("item-type").value.replace("minecraft:", "") + (customItemName ? ` ("${customItemName}")` : "");
             
             const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
             const getChecked = (id) => { const el = document.getElementById(id); return el ? el.checked : false; };
@@ -1640,6 +1683,16 @@ const app = {
                     movement_speed: parseFloat(getVal("attr-movement-speed", "0")) || 0
                 }
             };
+        } else if (activeTab === "containers-pane") {
+            pType = "container";
+            const customContainerName = document.getElementById("container-title") ? document.getElementById("container-title").value.trim() : "";
+            pDetails = "Container: " + document.getElementById("container-type").value.replace("minecraft:", "") + (customContainerName ? ` ("${customContainerName}")` : "");
+            
+            containerConfig = {
+                type: document.getElementById("container-type").value,
+                title: document.getElementById("container-title").value,
+                contents: JSON.parse(JSON.stringify(app.containerContents || {}))
+            };
         } else if (activeTab === "execute-pane") {
             pType = "execute";
             pDetails = "Execute: " + document.getElementById("exec-action").value;
@@ -1655,7 +1708,9 @@ const app = {
         if (itemConfig) {
             presetObj.itemConfig = itemConfig;
         }
-
+        if (containerConfig) {
+            presetObj.containerConfig = containerConfig;
+        }
         presets.push(presetObj);
         app.savePresetsToStorage();
         nameInput.value = "";
@@ -1679,7 +1734,19 @@ const app = {
         const p = presets.find(p => p.id === id);
         if (!p) return;
 
-        app.displayCommand(p.command);
+        if (p.type === "container" && p.containerConfig) {
+            app.switchTab("containers-pane");
+            const typeSel = document.getElementById("container-type");
+            const titleInput = document.getElementById("container-title");
+            if (typeSel) typeSel.value = p.containerConfig.type;
+            if (titleInput) titleInput.value = p.containerConfig.title || "";
+            app.containerContents = JSON.parse(JSON.stringify(p.containerConfig.contents || {}));
+            app.renderContainerGrid();
+            app.updateSlotEditorUI();
+            app.recalculateCurrentCommand();
+        } else {
+            app.displayCommand(p.command);
+        }
         
         // Push notification toast
         const toast = document.getElementById("toast");
@@ -1744,7 +1811,10 @@ const app = {
             const card = document.createElement("div");
             card.className = "preset-card";
 
-            const badgeText = p.type === "mob" ? "🧟 Mob" : "⚔️ Item";
+            let badgeText = "⚔️ Item";
+            if (p.type === "mob") badgeText = "🧟 Mob";
+            else if (p.type === "container") badgeText = "📦 Container";
+            else if (p.type === "execute") badgeText = "⚙️ Exec";
 
             card.innerHTML = `
                 <div class="preset-card-header">
@@ -1758,6 +1828,7 @@ const app = {
                     <button class="mc-btn secondary-btn sm-btn" onclick="app.deletePreset('${p.id}')">Delete</button>
                 </div>
             `;
+            container.appendChild(card);
         });
     },
 
@@ -2319,6 +2390,83 @@ const app = {
                     const lbl = document.getElementById(`gear-ench-lbl-${id}`);
                     if (lbl) lbl.textContent = `Level ${e.target.value}`;
                 }
+            });
+        }
+    },
+
+    initMobGearPresetSelect() {
+        document.querySelectorAll(".btn-slot-preset-select").forEach(btn => {
+            btn.addEventListener("click", () => {
+                app.playClick();
+                const slot = btn.dataset.slot;
+                const modal = document.getElementById("creative-inventory-modal");
+                if (!modal) return;
+
+                app.creativeCallback = (selection) => {
+                    const dropdownId = `dropdown-eq-${slot}`;
+                    const command = selection.command || `give @p ${selection.id} 1`;
+                    const label = selection.isPreset ? `★ ${selection.name}` : selection.name;
+                    app.selectCustomDropdownOption(dropdownId, command, label, app.renderIcon(selection.icon));
+                    app.recalculateCurrentCommand();
+                };
+
+                modal.style.display = "flex";
+                modal.offsetHeight;
+                modal.classList.add("show");
+                
+                app.activeCreativeTab = "presets";
+                app.renderCreativeTabs();
+                app.renderCreativeGrid();
+                
+                const searchInput = document.getElementById("creative-modal-search");
+                if (searchInput) {
+                    searchInput.value = "";
+                    searchInput.focus();
+                }
+            });
+        });
+    },
+
+    initExecutePresetSelectors() {
+        const btnGive = document.getElementById("btn-exec-give-preset-browse");
+        const btnSummon = document.getElementById("btn-exec-summon-preset-browse");
+        const modal = document.getElementById("creative-inventory-modal");
+
+        if (btnGive && modal) {
+            btnGive.addEventListener("click", () => {
+                app.playClick();
+                app.creativeCallback = (selection) => {
+                    const presetNameInput = document.getElementById("exec-give-preset-name");
+                    const presetValInput = document.getElementById("exec-give-preset-val");
+                    if (presetNameInput) presetNameInput.value = selection.name;
+                    if (presetValInput) presetValInput.value = selection.command || `give @p ${selection.id} 1`;
+                    app.recalculateCurrentCommand();
+                };
+                modal.style.display = "flex";
+                modal.offsetHeight;
+                modal.classList.add("show");
+                app.activeCreativeTab = "presets";
+                app.renderCreativeTabs();
+                app.renderCreativeGrid();
+            });
+        }
+
+        if (btnSummon && modal) {
+            btnSummon.addEventListener("click", () => {
+                app.playClick();
+                app.creativeCallback = (selection) => {
+                    const presetNameInput = document.getElementById("exec-summon-preset-name");
+                    const presetValInput = document.getElementById("exec-summon-preset-val");
+                    if (presetNameInput) presetNameInput.value = selection.name;
+                    if (presetValInput) presetValInput.value = selection.command || `summon ${selection.id} ~ ~ ~`;
+                    app.recalculateCurrentCommand();
+                };
+                modal.style.display = "flex";
+                modal.offsetHeight;
+                modal.classList.add("show");
+                app.activeCreativeTab = "presets_mobs";
+                app.renderCreativeTabs();
+                app.renderCreativeGrid();
             });
         }
     },

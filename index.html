@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.0.5">
 </head>
 <body>
     <!-- Sound Toggle & Toast Notification Overlay -->
@@ -228,6 +228,7 @@
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
                                         <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-hand-ench-edit" data-slot="hand" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-preset-select" id="btn-eq-hand-preset" data-slot="hand" style="padding: 2px 6px; font-size: 11px;" title="Set from Saved Presets or Custom Containers">★ Custom</button>
                                     </div>
                                 </div>
                                 <!-- Off Hand -->
@@ -250,6 +251,7 @@
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
                                         <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-offhand-ench-edit" data-slot="offhand" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-preset-select" id="btn-eq-offhand-preset" data-slot="offhand" style="padding: 2px 6px; font-size: 11px;" title="Set from Saved Presets or Custom Containers">★ Custom</button>
                                     </div>
                                 </div>
                                 <!-- Helmet -->
@@ -272,6 +274,7 @@
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
                                         <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-head-ench-edit" data-slot="head" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-preset-select" id="btn-eq-head-preset" data-slot="head" style="padding: 2px 6px; font-size: 11px;" title="Set from Saved Presets or Custom Containers">★ Custom</button>
                                     </div>
                                 </div>
                                 <!-- Chestplate -->
@@ -294,6 +297,7 @@
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
                                         <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-chest-ench-edit" data-slot="chest" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-preset-select" id="btn-eq-chest-preset" data-slot="chest" style="padding: 2px 6px; font-size: 11px;" title="Set from Saved Presets or Custom Containers">★ Custom</button>
                                     </div>
                                 </div>
                                 <!-- Leggings -->
@@ -316,6 +320,7 @@
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
                                         <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-legs-ench-edit" data-slot="legs" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-preset-select" id="btn-eq-legs-preset" data-slot="legs" style="padding: 2px 6px; font-size: 11px;" title="Set from Saved Presets or Custom Containers">★ Custom</button>
                                     </div>
                                 </div>
                                 <!-- Boots -->
@@ -338,6 +343,7 @@
                                             <span class="mc-checkbox"></span> Enchanted?
                                         </label>
                                         <button type="button" class="mc-btn mc-btn-sm btn-slot-ench-edit" id="btn-eq-feet-ench-edit" data-slot="feet" style="padding: 2px 6px; font-size: 11px;">⚙️ Edit</button>
+                                        <button type="button" class="mc-btn mc-btn-sm btn-slot-preset-select" id="btn-eq-feet-preset" data-slot="feet" style="padding: 2px 6px; font-size: 11px;" title="Set from Saved Presets or Custom Containers">★ Custom</button>
                                     </div>
                                 </div>
                             </div>
@@ -836,6 +842,8 @@
                                     <label for="exec-action">Action Payload Type</label>
                                     <select id="exec-action">
                                         <option value="summon" selected>👾 Summon Custom Mob</option>
+                                        <option value="summon_preset">👾 Summon Preset Mob</option>
+                                        <option value="give_preset">🎁 Give Preset Item or Container</option>
                                         <option value="playsound">🔊 Trigger Audio Sound Effect</option>
                                         <option value="particle">✨ Spawn Particle Trail</option>
                                         <option value="effect">🧪 Apply Potion Status Effect</option>
@@ -867,6 +875,42 @@
                                     <div class="input-field" style="margin-top: 8px;">
                                         <label for="exec-summon-offset">Summon Offset Coordinates (X Y Z)</label>
                                         <input type="text" id="exec-summon-offset" value="~ ~ ~">
+                                    </div>
+                                </div>
+                                <!-- Give Preset Action -->
+                                <div id="exec-action-param-give_preset" class="exec-action-group" style="display: none; flex-direction: column; gap: 8px; width: 100%;">
+                                    <div class="input-field">
+                                        <label>Select Preset Item / Container</label>
+                                        <div style="display: flex; gap: 8px;">
+                                            <input type="text" id="exec-give-preset-name" placeholder="No preset selected..." readonly style="flex: 1; background: #1a1a1c; cursor: default;">
+                                            <button type="button" class="mc-btn gold-btn" id="btn-exec-give-preset-browse" style="padding: 4px 12px; font-size: 13px;">Browse...</button>
+                                        </div>
+                                        <input type="hidden" id="exec-give-preset-val" value="">
+                                    </div>
+                                    <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                        <div class="input-field">
+                                            <label for="exec-give-preset-target">Target Selector</label>
+                                            <input type="text" id="exec-give-preset-target" value="@s" style="width: 100%;">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="exec-give-preset-count">Count</label>
+                                            <input type="number" id="exec-give-preset-count" value="1" min="1" max="64" style="width: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Summon Preset Action -->
+                                <div id="exec-action-param-summon_preset" class="exec-action-group" style="display: none; flex-direction: column; gap: 8px; width: 100%;">
+                                    <div class="input-field">
+                                        <label>Select Preset Mob</label>
+                                        <div style="display: flex; gap: 8px;">
+                                            <input type="text" id="exec-summon-preset-name" placeholder="No preset selected..." readonly style="flex: 1; background: #1a1a1c; cursor: default;">
+                                            <button type="button" class="mc-btn gold-btn" id="btn-exec-summon-preset-browse" style="padding: 4px 12px; font-size: 13px;">Browse...</button>
+                                        </div>
+                                        <input type="hidden" id="exec-summon-preset-val" value="">
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="exec-summon-preset-offset">Summon Offset Coordinates (X Y Z)</label>
+                                        <input type="text" id="exec-summon-preset-offset" value="~ ~ ~" style="width: 100%;">
                                     </div>
                                 </div>
 
