@@ -46,38 +46,48 @@
         <div class="mc-body">
             <!-- Sidebar Navigation (Responsive) -->
             <aside class="mc-sidebar" role="navigation">
-                <button class="nav-tab active" data-target="home-pane" aria-selected="true">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-text">Home</span>
+                <!-- Mobile Navigation Header Trigger -->
+                <button class="mobile-nav-trigger" id="mobile-nav-trigger" type="button" aria-expanded="false" aria-controls="mobile-nav-menu">
+                    <div class="trigger-content">
+                        <span class="trigger-icon">🏠</span>
+                        <span class="trigger-text">Home</span>
+                    </div>
+                    <span class="trigger-arrow">▼</span>
                 </button>
-                <button class="nav-tab" data-target="mobs-pane" aria-selected="false">
-                    <span class="nav-icon">🧟</span>
-                    <span class="nav-text">Custom Mobs</span>
-                </button>
-                <button class="nav-tab" data-target="items-pane" aria-selected="false">
-                    <span class="nav-icon">⚔️</span>
-                    <span class="nav-text">Custom Items</span>
-                </button>
-                <button class="nav-tab" data-target="trolls-pane" aria-selected="false">
-                    <span class="nav-icon">🧨</span>
-                    <span class="nav-text">Troll Menu</span>
-                </button>
-                <button class="nav-tab" data-target="execute-pane" aria-selected="false">
-                    <span class="nav-icon">⚡</span>
-                    <span class="nav-text">Execute Builder</span>
-                </button>
-                <button class="nav-tab" data-target="containers-pane" aria-selected="false">
-                    <span class="nav-icon">📦</span>
-                    <span class="nav-text">Containers</span>
-                </button>
-                <button class="nav-tab" data-target="presets-pane" aria-selected="false">
-                    <span class="nav-icon">🧰</span>
-                    <span class="nav-text">My Presets</span>
-                </button>
-                <button class="nav-tab" data-target="docs-pane" aria-selected="false">
-                    <span class="nav-icon">📖</span>
-                    <span class="nav-text">Wiki & Docs</span>
-                </button>
+                <div class="nav-tabs-wrapper" id="mobile-nav-menu">
+                    <button class="nav-tab active" data-target="home-pane" aria-selected="true">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-text">Home</span>
+                    </button>
+                    <button class="nav-tab" data-target="mobs-pane" aria-selected="false">
+                        <span class="nav-icon">🧟</span>
+                        <span class="nav-text">Custom Mobs</span>
+                    </button>
+                    <button class="nav-tab" data-target="items-pane" aria-selected="false">
+                        <span class="nav-icon">⚔️</span>
+                        <span class="nav-text">Custom Items</span>
+                    </button>
+                    <button class="nav-tab" data-target="trolls-pane" aria-selected="false">
+                        <span class="nav-icon">🧨</span>
+                        <span class="nav-text">Troll Menu</span>
+                    </button>
+                    <button class="nav-tab" data-target="execute-pane" aria-selected="false">
+                        <span class="nav-icon">⚡</span>
+                        <span class="nav-text">Execute Builder</span>
+                    </button>
+                    <button class="nav-tab" data-target="containers-pane" aria-selected="false">
+                        <span class="nav-icon">📦</span>
+                        <span class="nav-text">Containers</span>
+                    </button>
+                    <button class="nav-tab" data-target="presets-pane" aria-selected="false">
+                        <span class="nav-icon">🧰</span>
+                        <span class="nav-text">My Presets</span>
+                    </button>
+                    <button class="nav-tab" data-target="docs-pane" aria-selected="false">
+                        <span class="nav-icon">📖</span>
+                        <span class="nav-text">Wiki & Docs</span>
+                    </button>
+                </div>
             </aside>
 
             <!-- Active Studio Canvas Workspace -->

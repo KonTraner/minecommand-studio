@@ -100,11 +100,31 @@ const app = {
         activeTab = tabId;
         if (!silent) app.playClick();
 
+        // Collapse mobile menu if open
+        const sidebar = document.querySelector(".mc-sidebar");
+        const mobileTrigger = document.getElementById("mobile-nav-trigger");
+        if (sidebar) {
+            sidebar.classList.remove("open");
+        }
+        if (mobileTrigger) {
+            mobileTrigger.setAttribute("aria-expanded", "false");
+        }
+
         // Manage sidebar buttons
         document.querySelectorAll('.nav-tab').forEach(btn => {
             if (btn.dataset.target === tabId) {
                 btn.classList.add('active');
                 btn.setAttribute('aria-selected', 'true');
+                
+                // Update mobile trigger button text and icon
+                if (mobileTrigger) {
+                    const iconSpan = btn.querySelector(".nav-icon");
+                    const textSpan = btn.querySelector(".nav-text");
+                    const triggerIcon = mobileTrigger.querySelector(".trigger-icon");
+                    const triggerText = mobileTrigger.querySelector(".trigger-text");
+                    if (triggerIcon && iconSpan) triggerIcon.textContent = iconSpan.textContent;
+                    if (triggerText && textSpan) triggerText.textContent = textSpan.textContent;
+                }
             } else {
                 btn.classList.remove('active');
                 btn.setAttribute('aria-selected', 'false');
@@ -1053,6 +1073,22 @@ const app = {
 
     // 8. Register DOM Event Handlers
     registerEventListeners() {
+        // Mobile Sidebar Navigation Dropdown Trigger
+        const mobileTrigger = document.getElementById("mobile-nav-trigger");
+        const sidebar = document.querySelector(".mc-sidebar");
+        if (mobileTrigger && sidebar) {
+            mobileTrigger.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isOpen = sidebar.classList.toggle("open");
+                mobileTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            });
+            // Close sidebar when clicking outside
+            document.addEventListener("click", () => {
+                sidebar.classList.remove("open");
+                mobileTrigger.setAttribute("aria-expanded", "false");
+            });
+        }
+
         // Tab routing clicks
         app.safeBindAll('.nav-tab', 'click', (e) => {
             const target = e.currentTarget.dataset.target;
