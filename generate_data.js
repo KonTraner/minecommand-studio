@@ -1,23 +1,23 @@
 const fs = require('fs');
 const mcData = require('minecraft-data')('1.20.2');
 
-// Load current data.js content to preserve enchantments, effects, particles, sounds, etc.
+// Load current data.js content to preserve enchantments, effects, particles, sounds, trolls, trolls_chains, etc.
 const dataContent = fs.readFileSync('data.js', 'utf8');
 
-// We will use eval to read the existing arrays from data.js
 let oldEnchantments = [];
 let oldEffects = [];
 let oldParticles = [];
 let oldSounds = [];
 let oldExecuteSlots = [];
+let oldTrolls = [];
+let oldTrollsChains = [];
 
 try {
-    // Mock the browser stuff
     const mockObj = {};
     const evalEnv = `
         const window = {};
-        var MC_DATA = mockObj.MC_DATA = {};
-        ${dataContent.replace(/const\s+MC_DATA\s*=/, 'MC_DATA =')}
+        ${dataContent}
+        mockObj.MC_DATA = MC_DATA;
     `;
     eval(evalEnv);
     oldEnchantments = mockObj.MC_DATA.enchantments;
@@ -25,7 +25,15 @@ try {
     oldParticles = mockObj.MC_DATA.particles;
     oldSounds = mockObj.MC_DATA.sounds;
     oldExecuteSlots = mockObj.MC_DATA.execute_slots;
+    oldTrolls = mockObj.MC_DATA.trolls;
+    oldTrollsChains = mockObj.MC_DATA.trolls_chains;
     console.log('Successfully parsed existing data arrays!');
+    console.log('- Enchantments:', oldEnchantments ? oldEnchantments.length : 0);
+    console.log('- Effects:', oldEffects ? oldEffects.length : 0);
+    console.log('- Particles:', oldParticles ? oldParticles.length : 0);
+    console.log('- Sounds:', oldSounds ? oldSounds.length : 0);
+    console.log('- Trolls:', oldTrolls ? oldTrolls.length : 0);
+    console.log('- Trolls Chains:', oldTrollsChains ? oldTrollsChains.length : 0);
 } catch (err) {
     console.error('Failed to parse existing data.js arrays, using fallback:', err);
     process.exit(1);
@@ -299,6 +307,12 @@ newContent += `        ]
 
     // Preserved Enchantments List
     enchantments: ${JSON.stringify(oldEnchantments, null, 8)},
+
+    // Preserved Trolls List
+    trolls: ${JSON.stringify(oldTrolls, null, 8)},
+
+    // Preserved Trolls Chains List
+    trolls_chains: ${JSON.stringify(oldTrollsChains, null, 8)},
 
     // Preserved Effects List
     effects: ${JSON.stringify(oldEffects, null, 8)},
