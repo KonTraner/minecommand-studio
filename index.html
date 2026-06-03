@@ -69,6 +69,10 @@
                     <span class="nav-icon">🧰</span>
                     <span class="nav-text">My Presets</span>
                 </button>
+                <button class="nav-tab" data-target="docs-pane" aria-selected="false">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Wiki & Docs</span>
+                </button>
             </aside>
 
             <!-- Active Studio Canvas Workspace -->
@@ -1036,6 +1040,29 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- Pane 7: Wiki & Documentation -->
+                <section id="docs-pane" class="pane" aria-hidden="true">
+                    <div class="pane-header">
+                        <h2>📖 MINECRAFT WIKI & DOCUMENTATION</h2>
+                        <p>In-game ID lookups, effect guidelines, enchantment caps, and particles reference guide. Click any ID to copy it.</p>
+                    </div>
+                    <div class="docs-workspace">
+                        <div class="docs-controls-row">
+                            <div class="docs-tabs" id="docs-modal-tabs">
+                                <button class="docs-tab active" data-cat="enchantments" type="button">Enchantments</button>
+                                <button class="docs-tab" data-cat="effects" type="button">Effects</button>
+                                <button class="docs-tab" data-cat="mobs" type="button">Mobs</button>
+                                <button class="docs-tab" data-cat="particles" type="button">Particles</button>
+                                <button class="docs-tab" data-cat="items" type="button">Items & Blocks</button>
+                            </div>
+                            <input type="text" id="docs-search" placeholder="🔍 Search documentation..." class="mc-input-sm" style="width: 250px; font-family: 'VT323', monospace; font-size: 16px;">
+                        </div>
+                        <div class="docs-grid scroll-pane" id="docs-grid-container">
+                            <!-- Documentation cards will render here dynamically -->
+                        </div>
+                    </div>
+                </section>
             </main>
         </div>
 
@@ -1134,8 +1161,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="data.js?v=2.0.3"></script>
-    <script src="generator.js?v=2.0.3"></script>
-    <script src="app.js?v=2.0.3"></script>
+    <script src="data.js?v=2.0.4"></script>
+    <script src="generator.js?v=2.0.4"></script>
+    <script src="app.js?v=2.0.4"></script>
 </body>
 </html>

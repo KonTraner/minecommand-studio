@@ -190,46 +190,15 @@ let newContent = `/* ===========================================================
    MineCommand Studio - Game Data (Unified & Complete Database)
    ========================================================================== */
 
-// 1. Mojang Official Avatars & In-game PNG Texture CDN Mappings
-const mobHeadMapping = {
-    "minecraft:zombie": "MHF_Zombie",
-    "minecraft:skeleton": "MHF_Skeleton",
-    "minecraft:creeper": "MHF_Creeper",
-    "minecraft:spider": "MHF_Spider",
-    "minecraft:cave_spider": "MHF_CaveSpider",
-    "minecraft:wither_skeleton": "MHF_WSkeleton",
-    "minecraft:blaze": "MHF_Blaze",
-    "minecraft:witch": "MHF_Witch",
-    "minecraft:enderman": "MHF_Enderman",
-    "minecraft:iron_golem": "MHF_Golem",
-    "minecraft:villager": "MHF_Villager",
-    "minecraft:pig": "MHF_Pig",
-    "minecraft:cow": "MHF_Cow",
-    "minecraft:chicken": "MHF_Chicken",
-    "minecraft:slime": "MHF_Slime",
-    "minecraft:squid": "MHF_Squid",
-    "minecraft:sheep": "MHF_Sheep",
-    "minecraft:guardian": "MHF_Guardian",
-    "minecraft:ghast": "MHF_Ghast",
-    "minecraft:llama": "MHF_Llama"
-};
-
+// 1. High-Fidelity rendered block and item icons CDN Mappings
 function getMobIconPath(mobId) {
-    const skinName = mobHeadMapping[mobId] || "MHF_Zombie";
-    return \`https://mc-heads.net/avatar/\${skinName}/32\`;
+    const cleanName = mobId.replace("minecraft:", "").toUpperCase();
+    return \`https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/entity-assets/flat/\${cleanName}.png\`;
 }
 
 function getItemIconPath(itemId) {
-    const cleanName = itemId.replace("minecraft:", "");
-    // Block textures reside in textures/block/
-    const blockTextures = ["dirt", "bedrock", "stone", "sand", "gravel", "obsidian", "glass", "tnt", "sponge", "cobweb"];
-    if (blockTextures.some(b => cleanName.includes(b))) {
-        // Fallback or direct repo block asset mapping
-        const textureName = cleanName === "tnt" ? "tnt_side" : cleanName;
-        return \`https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.4/assets/minecraft/textures/block/\${textureName}.png\`;
-    }
-    // Items reside in textures/item/
-    return \`https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.4/assets/minecraft/textures/item/\${cleanName}.png\`;
+    const cleanName = itemId.replace("minecraft:", "").toUpperCase();
+    return \`https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/\${cleanName}.png\`;
 }
 
 const MC_DATA = {

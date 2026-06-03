@@ -24,13 +24,14 @@ const app = {
         });
     },
 
-    // 1. Initializer Hook
     init() {
         app.loadPresetsFromStorage();
         app.initAllCustomDropdowns();
         app.hydrateEnchantments();
         app.hydrateMobEffects();
         app.initCreativeInventory();
+        app.initDocs();
+        app.renderDocs();
         app.registerEventListeners();
         app.switchTab("home-pane", true);
         app.updateTrollGrids();
@@ -38,10 +39,9 @@ const app = {
         app.recalculateCurrentCommand();
     },
 
-    // 1.5. Render visual in-game texture image tag or fallback unicode
     renderIcon(icon) {
         if (icon && (icon.startsWith('http') || icon.startsWith('data:'))) {
-            return `<img src="${icon}" class="mc-dropdown-icon-img" alt="icon" loading="lazy">`;
+            return `<img src="${icon}" class="mc-dropdown-icon-img" alt="icon" loading="lazy" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/BARRIER.png';">`;
         }
         return icon || "🟩";
     },
@@ -1654,7 +1654,202 @@ const app = {
                     <button class="mc-btn secondary-btn sm-btn" onclick="app.deletePreset('${p.id}')">Delete</button>
                 </div>
             `;
-            container.appendChild(card);
+        });
+    },
+
+    // 13. Copy Text Helper
+    copyText(text, label = "Copied to Clipboard!") {
+        app.playClick();
+        navigator.clipboard.writeText(text).then(() => {
+            const toast = document.getElementById("toast");
+            if (toast) {
+                toast.textContent = label;
+                toast.classList.add("show");
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 1500);
+            }
+        }).catch(err => {
+            console.error("Clipboard copy error:", err);
+        });
+    },
+
+    activeDocsTab: "enchantments",
+
+    initDocs() {
+        const searchInput = document.getElementById("docs-search");
+        if (searchInput) {
+            searchInput.addEventListener("input", () => {
+                app.renderDocs();
+            });
+        }
+
+        const tabs = document.querySelectorAll("#docs-modal-tabs .docs-tab");
+        tabs.forEach(tab => {
+            tab.addEventListener("click", (e) => {
+                app.playClick();
+                tabs.forEach(t => t.classList.remove("active"));
+                e.currentTarget.classList.add("active");
+                app.activeDocsTab = e.currentTarget.dataset.cat;
+                app.renderDocs();
+            });
+        });
+    },
+
+    renderDocs() {
+        const grid = document.getElementById("docs-grid-container");
+        const searchInput = document.getElementById("docs-search");
+        if (!grid) return;
+        grid.innerHTML = "";
+
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const tab = app.activeDocsTab;
+
+        // Custom descriptions mappings
+        const enchDescs = {
+            protection: "Reduces overall damage taken from all sources by 4% per level.",
+            fire_protection: "Reduces fire damage and burn duration.",
+            feather_falling: "Reduces fall damage by 12% per level (caps at IV).",
+            blast_protection: "Reduces blast damage and knockback.",
+            projectile_protection: "Reduces damage from arrows, tridents, and fireballs.",
+            respiration: "Extends underwater breathing time and improves vision.",
+            aqua_affinity: "Removes the mining speed penalty when underwater.",
+            thorns: "Chance to damage attackers at the cost of durability.",
+            depth_strider: "Increases underwater movement speed.",
+            frost_walker: "Turns water under feet into temporary ice.",
+            soul_speed: "Increases movement speed on soul sand and soul soil.",
+            swift_sneak: "Increases sneaking movement speed.",
+            sharpness: "Increases melee weapon damage (+0.5 per level).",
+            smite: "Increases damage dealt to undead mobs (zombies, skeletons, etc.).",
+            bane_of_arthropods: "Increases damage to spiders, cave spiders, bees, and silverfish.",
+            knockback: "Knocks back targets when struck.",
+            fire_aspect: "Sets targets on fire for several seconds.",
+            looting: "Increases the amount and rarity of drops from mobs.",
+            sweeping: "Increases sweeping attack damage (Java only).",
+            efficiency: "Increases block mining speed.",
+            silk_touch: "Blocks mined drop themselves instead of items.",
+            unbreaking: "Gives a chance to not consume durability when used.",
+            fortune: "Chance to multiply block drops (coal, diamonds, etc.).",
+            power: "Increases bow damage.",
+            punch: "Increases bow knockback.",
+            flame: "Sets bow arrows on fire.",
+            infinity: "Allows shooting unlimited arrows with at least one in inventory.",
+            luck_of_the_sea: "Increases chance of catching treasure when fishing.",
+            lure: "Decreases hook wait time when fishing.",
+            loyalty: "Trident returns to the player after being thrown.",
+            impaling: "Deals extra damage to aquatic mobs.",
+            riptide: "Launches the player forward when thrown in water/rain.",
+            channeling: "Summons a lightning bolt on targets when thrown during a storm.",
+            multishot: "Shoots 3 projectiles for the cost of 1.",
+            quick_charge: "Reduces crossbow reload duration.",
+            piercing: "Crossbow arrows pierce through multiple targets.",
+            mending: "Consumes XP to repair item durability.",
+            binding_curse: "Prevents removing the item from armor slots once equipped.",
+            vanishing_curse: "Item vanishes completely upon player death."
+        };
+
+        const effectDescs = {
+            "minecraft:speed": "Increases movement speed by 20% per level.",
+            "minecraft:slowness": "Decreases movement speed by 15% per level.",
+            "minecraft:haste": "Increases mining speed and attack speed by 20% per level.",
+            "minecraft:mining_fatigue": "Decreases mining and attack speed.",
+            "minecraft:strength": "Increases melee damage by 3 per level (1.5 hearts).",
+            "minecraft:instant_health": "Heals 4 HP (2 hearts) per level instantly. Damages undead.",
+            "minecraft:instant_damage": "Deals 6 HP (3 hearts) damage instantly. Heals undead.",
+            "minecraft:jump_boost": "Increases jump height and reduces fall damage.",
+            "minecraft:nausea": "Wobbles and distorts the player camera.",
+            "minecraft:regeneration": "Restores health over time.",
+            "minecraft:resistance": "Reduces incoming damage by 20% per level.",
+            "minecraft:fire_resistance": "Protects completely against fire, lava, and magma.",
+            "minecraft:water_breathing": "Allows breathing underwater without drowning.",
+            "minecraft:invisibility": "Hides the player model (armor and hand items remain visible).",
+            "minecraft:blindness": "Limits vision distance and disables sprinting.",
+            "minecraft:night_vision": "Illuminates all dark areas.",
+            "minecraft:hunger": "Depletes the hunger bar rapidly.",
+            "minecraft:weakness": "Reduces melee attack damage by 4 per level.",
+            "minecraft:poison": "Deals damage over time down to 1 HP.",
+            "minecraft:wither": "Deals damage over time; can kill the player.",
+            "minecraft:health_boost": "Adds extra temporary heart containers.",
+            "minecraft:absorption": "Adds golden hearts that absorb damage and do not regenerate.",
+            "minecraft:saturation": "Restores hunger and saturation.",
+            "minecraft:glowing": "Outlines the entity silhouette through blocks.",
+            "minecraft:levitation": "Causes the entity to float upwards.",
+            "minecraft:luck": "Increases attributes when opening loot chests.",
+            "minecraft:bad_luck": "Decreases loot luck.",
+            "minecraft:slow_falling": "Slowing fall rate and negates fall damage completely.",
+            "minecraft:conduit_power": "Grants water breathing, night vision, and mining speed underwater.",
+            "minecraft:dolphins_grace": "Increases swim speed when swimming near dolphins.",
+            "minecraft:bad_omen": "Triggers a village raid when entering a village.",
+            "minecraft:hero_of_the_village": "Discounts item prices from villagers.",
+            "minecraft:darkness": "Fades vision to black rhythmically."
+        };
+
+        let itemsList = [];
+
+        if (tab === "enchantments") {
+            itemsList = MC_DATA.enchantments.map(e => ({
+                id: e.id,
+                name: e.name,
+                icon: "✨",
+                desc: enchDescs[e.id] || "Vanilla Minecraft enchantment.",
+                meta: `Max Level: ${e.max} | Type: ${e.type.toUpperCase()}`
+            }));
+        } else if (tab === "effects") {
+            itemsList = MC_DATA.effects.map(e => ({
+                id: e.id,
+                name: e.name,
+                icon: e.icon || "🧪",
+                desc: effectDescs[e.id] || "Vanilla Minecraft status effect.",
+                meta: `Effect ID: ${e.id}`
+            }));
+        } else if (tab === "mobs") {
+            itemsList = MC_DATA.mobs.map(m => ({
+                id: m.id,
+                name: m.name,
+                icon: m.icon,
+                desc: `Spawnable entity category: ${m.category}. Can be summoned using commands.`,
+                meta: `Entity ID: ${m.id}`
+            }));
+        } else if (tab === "particles") {
+            itemsList = MC_DATA.particles.map(p => ({
+                id: p.id,
+                name: p.name,
+                icon: p.icon || "✨",
+                desc: "In-game particle effect used for ambient/visual command block designs.",
+                meta: `Particle ID: ${p.id}`
+            }));
+        } else if (tab === "items") {
+            itemsList = MC_DATA.all_items.map(i => ({
+                id: i.id,
+                name: i.name,
+                icon: i.icon,
+                desc: "Block or Item asset ID. Useful for /give, /setblock, or execute checks.",
+                meta: `ID: ${i.id}`
+            }));
+        }
+
+        itemsList.forEach(item => {
+            if (query && !item.name.toLowerCase().includes(query) && !item.id.toLowerCase().includes(query)) {
+                return;
+            }
+
+            const card = document.createElement("div");
+            card.className = "docs-card";
+            card.innerHTML = `
+                <div class="docs-card-icon">${app.renderIcon(item.icon)}</div>
+                <div class="docs-card-info">
+                    <div class="docs-card-name">${item.name}</div>
+                    <div class="docs-card-id">${item.id}</div>
+                    <div class="docs-card-desc">${item.desc}</div>
+                    <div class="docs-card-meta">${item.meta}</div>
+                </div>
+            `;
+
+            card.addEventListener("click", () => {
+                app.copyText(item.id, `Copied ID: ${item.id}`);
+            });
+
+            grid.appendChild(card);
         });
     }
 };
