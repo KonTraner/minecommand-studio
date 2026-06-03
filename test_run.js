@@ -278,3 +278,64 @@ versions.forEach(v => {
     }
 });
 
+// === NEW SCALE, STEP HEIGHT & MOUNT TESTS ===
+console.log("\n==========================================");
+console.log("=== RUNNING SCALE, STEP HEIGHT & MOUNT TESTS ===");
+console.log("==========================================");
+
+const scaleStepMobConfig = {
+    type: "minecraft:zombie",
+    name: "Giant Climber",
+    health: "20",
+    speed: "1.0",
+    scale: "2.5",
+    stepHeight: "2.0",
+    mountType: "none"
+};
+
+const defaultMountMobConfig = {
+    type: "minecraft:creeper",
+    name: "Riding Creeper",
+    health: "20",
+    speed: "1.0",
+    scale: "1.0",
+    stepHeight: "0.6",
+    mountType: "default",
+    mountMob: "minecraft:chicken"
+};
+
+const presetMountMobConfig = {
+    type: "minecraft:skeleton",
+    name: "Riding Skeleton",
+    health: "20",
+    speed: "1.0",
+    scale: "1.0",
+    stepHeight: "0.6",
+    mountType: "preset",
+    mountPresetCmd: "/summon minecraft:spider ~ ~ ~ {Health:30.0f,Passengers:[{id:\"minecraft:cave_spider\"}]}"
+};
+
+versions.forEach(v => {
+    console.log(`\n--- Scale & Step Height & Mount (Version: ${v}) ---`);
+    try {
+        const cmd1 = Generator.generateMob(scaleStepMobConfig, v);
+        console.log(`Scale/Step Height Mob:\n${cmd1}`);
+    } catch (err) {
+        console.error("❌ Scale/Step Mob Test Failed:", err);
+    }
+
+    try {
+        const cmd2 = Generator.generateMob(defaultMountMobConfig, v);
+        console.log(`Default Mount Mob:\n${cmd2}`);
+    } catch (err) {
+        console.error("❌ Default Mount Mob Test Failed:", err);
+    }
+
+    try {
+        const cmd3 = Generator.generateMob(presetMountMobConfig, v);
+        console.log(`Preset Mount Mob:\n${cmd3}`);
+    } catch (err) {
+        console.error("❌ Preset Mount Mob Test Failed:", err);
+    }
+});
+

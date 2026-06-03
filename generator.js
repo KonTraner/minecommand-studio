@@ -9,6 +9,27 @@ const Generator = {
         return str.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
     },
 
+    parseSummonCommand(cmd) {
+        if (!cmd) return null;
+        let clean = cmd.trim();
+        if (clean.startsWith("/")) clean = clean.substring(1);
+        const match = clean.match(/^summon\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)(?:\s+(.*))?$/s);
+        if (!match) {
+            const fallback = clean.match(/^summon\s+([^\s]+)(?:\s+(.*))?$/s);
+            if (fallback) {
+                return {
+                    id: fallback[1],
+                    nbt: fallback[2] ? fallback[2].trim() : ""
+                };
+            }
+            return null;
+        }
+        return {
+            id: match[1],
+            nbt: match[5] ? match[5].trim() : ""
+        };
+    },
+
     // Convert Minecraft color codes (e.g., §cText) into simple JSON components for display
     textToJsonComponent(str) {
         if (!str) return '""';
@@ -311,7 +332,7 @@ const Generator = {
         // --- BEDROCK ---
         if (version === "bedrock") {
             const rawName = customName ? `"${this.escapeString(customName)}"` : "";
-            const baseCmd = `/summon ${mobType.replace("minecraft:", "")} ~ ~ ~ ${rawName}`;
+            let baseCmd = `/summon ${mobType.replace("minecraft:", "")} ~ ~ ~ ${rawName}`;
             if (activeEffects.length > 0) {
                 const effectCmds = activeEffects.map(eff => {
                     const cleanId = eff.id.replace("minecraft:", "");
@@ -321,7 +342,10 @@ const Generator = {
                         : `@e[type=${mobType.replace("minecraft:", "")},c=1]`;
                     return `/effect ${targetSelector} ${cleanId} 99999 ${ampVal}`;
                 });
-                return [baseCmd].concat(effectCmds).join("\n");
+                baseCmd = [baseCmd].concat(effectCmds).join("\n");
+            }
+            if (config.mountType && config.mountType !== "none") {
+                baseCmd = `# Note: Bedrock Edition does not support entity mounting/passengers in the /summon command.\n` + baseCmd;
             }
             return baseCmd;
         }
@@ -352,6 +376,16 @@ const Generator = {
             const speedVal = 0.23 * movementSpeed; // 0.23 is average default speed
             const speedAttr = version === "java_modern" ? "minecraft:generic.movement_speed" : "generic.movement_speed";
             attributesList.push(`{Name:"${speedAttr}",Base:${speedVal.toFixed(3)}f}`);
+        }
+        if (version === "java_modern") {
+            const scale = parseFloat(config.scale);
+            const stepHeight = parseFloat(config.stepHeight);
+            if (!isNaN(scale) && scale !== 1.0) {
+                attributesList.push(`{Name:"minecraft:generic.scale",Base:${scale}f}`);
+            }
+            if (!isNaN(stepHeight) && stepHeight !== 0.6) {
+                attributesList.push(`{Name:"minecraft:generic.step_height",Base:${stepHeight}f}`);
+            }
         }
 
         if (attributesList.length > 0) {
@@ -416,6 +450,50 @@ const Generator = {
         } else if (mobType === "minecraft:villager") {
             if (specials.villagerProfession && specials.villagerProfession !== "none") {
                 nbt.push(`VillagerData:{profession:"minecraft:${specials.villagerProfession}",level:1,type:"minecraft:plains"}`);
+            }
+        }
+
+        // Passenger / Rider Mount Assembly (Java only)
+        if (config.mountType && config.mountType !== "none") {
+            const activePassengerNBT = `{id:"${mobType}"${nbt.length > 0 ? "," + nbt.join(",") : ""}}`;
+
+            if (config.mountType === "default") {
+                const mountMob = config.mountMob || "minecraft:chicken";
+                return `/summon ${mountMob} ~ ~ ~ {Passengers:[${activePassengerNBT}]}`;
+            } else if (config.mountType === "preset") {
+                const presetCmd = config.mountPresetCmd;
+                const parsed = this.parseSummonCommand(presetCmd);
+                if (parsed) {
+                    const mountId = parsed.id;
+                    const mountNbtStr = parsed.nbt;
+                    
+                    let finalNbt = "";
+                    if (mountNbtStr && mountNbtStr.includes("Passengers:[{")) {
+                        const index = mountNbtStr.lastIndexOf("Passengers:[{");
+                        const insertPos = index + "Passengers:[{".length;
+                        finalNbt = mountNbtStr.substring(0, insertPos) + `Passengers:[${activePassengerNBT}], ` + mountNbtStr.substring(insertPos);
+                    } else {
+                        if (mountNbtStr) {
+                            const trimmed = mountNbtStr.trim();
+                            if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+                                const inner = trimmed.substring(1, trimmed.length - 1).trim();
+                                if (inner) {
+                                    finalNbt = `{${inner},Passengers:[${activePassengerNBT}]}`;
+                                } else {
+                                    finalNbt = `{Passengers:[${activePassengerNBT}]}`;
+                                }
+                            } else {
+                                finalNbt = `{${trimmed},Passengers:[${activePassengerNBT}]}`;
+                            }
+                        } else {
+                            finalNbt = `{Passengers:[${activePassengerNBT}]}`;
+                        }
+                    }
+                    return `/summon ${mountId} ~ ~ ~ ${finalNbt}`;
+                } else {
+                    const fallbackMount = "minecraft:pig";
+                    return `/summon ${fallbackMount} ~ ~ ~ {Passengers:[${activePassengerNBT}]}`;
+                }
             }
         }
 

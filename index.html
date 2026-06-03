@@ -20,7 +20,7 @@
         <!-- Top Navigation / Header -->
         <header class="mc-header">
             <div class="logo-area">
-                <span class="logo-icon">🟩</span>
+                <img src="favicon.png" class="logo-icon" alt="MineCommand Studio Logo" style="width: 28px; height: 28px; image-rendering: pixelated;">
                 <h1>MINECOMMAND <span>STUDIO</span></h1>
             </div>
             <div class="header-actions">
@@ -158,12 +158,26 @@
                                     <input type="range" id="mob-health" min="1" max="1000" value="20">
                                 </div>
                                 <div class="input-field col-span-2 slider-group">
-                                    <div class="slider-header">
-                                        <label for="mob-speed">Movement Speed Multiplier</label>
-                                        <span id="mob-speed-val">1.0x</span>
-                                    </div>
-                                    <input type="range" id="mob-speed" min="0.1" max="3" step="0.1" value="1.0">
-                                </div>
+                                     <div class="slider-header">
+                                         <label for="mob-speed">Movement Speed Multiplier</label>
+                                         <span id="mob-speed-val">1.0x</span>
+                                     </div>
+                                     <input type="range" id="mob-speed" min="0.1" max="3" step="0.1" value="1.0">
+                                 </div>
+                                 <div class="input-field col-span-2 slider-group">
+                                     <div class="slider-header">
+                                         <label for="mob-scale">Mob Scale (Size)</label>
+                                         <span id="mob-scale-val">1.0x</span>
+                                     </div>
+                                     <input type="range" id="mob-scale" min="0.1" max="10.0" step="0.1" value="1.0">
+                                 </div>
+                                 <div class="input-field col-span-2 slider-group">
+                                     <div class="slider-header">
+                                         <label for="mob-step-height">Step Height (Blocks)</label>
+                                         <span id="mob-step-height-val">0.6 blocks</span>
+                                     </div>
+                                     <input type="range" id="mob-step-height" min="0.6" max="10.0" step="0.1" value="0.6">
+                                 </div>
                                 <div class="checkbox-grid">
                                     <label class="mc-checkbox-label">
                                         <input type="checkbox" id="mob-silent">
@@ -201,6 +215,33 @@
                                     <div class="scroll-pane enchant-list-pane" id="mob-effects-checklist-container" style="max-height: 180px; margin-top: 6px;">
                                         <!-- Populated dynamically from MC_DATA.effects -->
                                     </div>
+                                </div>
+                                <div class="input-field col-span-2" style="border-top: 2px solid var(--mc-black); padding-top: 14px; margin-top: 10px;">
+                                    <label for="mob-mount-type">Riding Mount</label>
+                                    <select id="mob-mount-type" style="width: 100%;">
+                                        <option value="none">-- None (Not Riding) --</option>
+                                        <option value="default">Default Minecraft Mob 🐔</option>
+                                        <option value="preset">Saved Mob Preset 💾</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col-span-2" id="mob-mount-default-row" style="display: none;">
+                                    <label for="mob-mount-default">Select Default Mob</label>
+                                    <div class="mc-custom-dropdown" id="dropdown-mob-mount-default">
+                                        <div class="dropdown-trigger">
+                                            <span class="dropdown-trigger-text">Select Mob...</span>
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <input type="text" class="dropdown-search" placeholder="🔍 Search mobs...">
+                                            <div class="dropdown-options" id="options-mob-mount-default"></div>
+                                        </div>
+                                        <input type="hidden" id="mob-mount-default" value="minecraft:chicken">
+                                    </div>
+                                </div>
+                                <div class="input-field col-span-2" id="mob-mount-preset-row" style="display: none;">
+                                    <label for="mob-mount-preset">Select Saved Mob Preset</label>
+                                    <select id="mob-mount-preset" style="width: 100%;">
+                                        <!-- Will be dynamically populated with saved mob presets -->
+                                    </select>
                                 </div>
                             </div>
                         </div>

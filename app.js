@@ -37,6 +37,7 @@ const app = {
         app.initDocs();
         app.renderDocs();
         app.registerEventListeners();
+        app.updateMountUIState();
         app.switchTab("home-pane", true);
         app.updateTrollGrids();
         app.updateSpecialMobPanel();
@@ -148,6 +149,14 @@ const app = {
                 app.updateSpecialMobPanel();
                 app.recalculateCurrentCommand();
             }
+        );
+
+        // Dropdown for Mob Mount Default Select
+        app.buildCustomDropdown(
+            "dropdown-mob-mount-default",
+            MC_DATA.mobs,
+            "minecraft:chicken",
+            () => app.recalculateCurrentCommand()
         );
 
         // Dropdown 2: Item Smith select
@@ -1100,6 +1109,43 @@ const app = {
             });
         }
 
+        // Scale slider
+        const scaleSlider = document.getElementById("mob-scale");
+        if (scaleSlider) {
+            scaleSlider.addEventListener("input", (e) => {
+                const valEl = document.getElementById("mob-scale-val");
+                if (valEl) valEl.textContent = `${e.target.value}x`;
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        // Step height slider
+        const stepSlider = document.getElementById("mob-step-height");
+        if (stepSlider) {
+            stepSlider.addEventListener("input", (e) => {
+                const valEl = document.getElementById("mob-step-height-val");
+                if (valEl) valEl.textContent = `${e.target.value} blocks`;
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        // Mount type dropdown change listener
+        const mountTypeSelect = document.getElementById("mob-mount-type");
+        if (mountTypeSelect) {
+            mountTypeSelect.addEventListener("change", () => {
+                app.updateMountUIState();
+                app.recalculateCurrentCommand();
+            });
+        }
+
+        // Mount preset change listener
+        const mountPresetSelect = document.getElementById("mob-mount-preset");
+        if (mountPresetSelect) {
+            mountPresetSelect.addEventListener("change", () => {
+                app.recalculateCurrentCommand();
+            });
+        }
+
         // Mob Checkboxes
         app.safeBind("mob-silent", "change", () => app.recalculateCurrentCommand());
         app.safeBind("mob-noai", "change", () => app.recalculateCurrentCommand());
@@ -1420,11 +1466,26 @@ const app = {
                 activeEffects.push({ id: id, amplifier: amp });
             });
 
+            let mountPresetCmd = "";
+            const presetId = getVal("mob-mount-preset", "");
+            if (presetId) {
+                const foundPreset = presets.find(p => p.id === presetId);
+                if (foundPreset) {
+                    mountPresetCmd = foundPreset.command;
+                }
+            }
+
             const config = {
                 type: getVal("mob-type", "minecraft:zombie"),
                 name: getVal("mob-name"),
                 health: getVal("mob-health", "20"),
                 speed: getVal("mob-speed", "1.0"),
+                scale: getVal("mob-scale", "1.0"),
+                stepHeight: getVal("mob-step-height", "0.6"),
+                mountType: getVal("mob-mount-type", "none"),
+                mountMob: getVal("mob-mount-default", "minecraft:chicken"),
+                mountPresetId: presetId,
+                mountPresetCmd: mountPresetCmd,
                 silent: getChecked("mob-silent"),
                 noAI: getChecked("mob-noai"),
                 glowing: getChecked("mob-glowing"),
@@ -1835,6 +1896,7 @@ const app = {
             `;
             container.appendChild(card);
         });
+        app.populateMountPresets();
     },
 
     // 13. Copy Text Helper
@@ -2382,6 +2444,40 @@ const app = {
             }
         } else {
             app.updateSlotEditorUI();
+        }
+    },
+
+    updateMountUIState() {
+        const typeSelect = document.getElementById("mob-mount-type");
+        const defaultRow = document.getElementById("mob-mount-default-row");
+        const presetRow = document.getElementById("mob-mount-preset-row");
+        if (!typeSelect) return;
+
+        const val = typeSelect.value;
+        if (defaultRow) defaultRow.style.display = val === "default" ? "block" : "none";
+        if (presetRow) presetRow.style.display = val === "preset" ? "block" : "none";
+        
+        if (val === "preset") {
+            app.populateMountPresets();
+        }
+    },
+
+    populateMountPresets() {
+        const select = document.getElementById("mob-mount-preset");
+        if (!select) return;
+        
+        const mobPresets = presets.filter(p => p.type === "mob");
+        
+        select.innerHTML = "";
+        if (mobPresets.length === 0) {
+            select.innerHTML = '<option value="">-- No Saved Mob Presets Found --</option>';
+        } else {
+            mobPresets.forEach(p => {
+                const opt = document.createElement("option");
+                opt.value = p.id;
+                opt.textContent = p.name;
+                select.appendChild(opt);
+            });
         }
     },
 
