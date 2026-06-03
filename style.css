@@ -2445,6 +2445,12 @@ input[type="range"]::-webkit-slider-thumb:active {
     display: block;
 }
 
+.creative-item-cell:nth-child(-n+9) .creative-tooltip,
+.container-slot:nth-child(-n+9) .creative-tooltip {
+    bottom: auto !important;
+    top: 54px !important;
+}
+
 /* ==========================================================================
    Wiki & Documentation Styles
    ========================================================================== */

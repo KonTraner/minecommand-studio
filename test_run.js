@@ -139,6 +139,12 @@ const containerConfig = {
             isPreset: true,
             command: "/give @p minecraft:diamond_sword[minecraft:custom_name='{\"text\":\"Excalibur\"}',minecraft:enchantments={levels:{\"minecraft:sharpness\":5}}] 1"
         },
+        1: {
+            id: "minecraft:zombie_spawn_egg",
+            count: 1,
+            isPreset: true,
+            command: "/give @p minecraft:zombie_spawn_egg[minecraft:entity_data={id:\"minecraft:zombie\",CustomName:'{\"text\":\"Troll King\"}',Health:100f}] 1"
+        },
         4: {
             id: "minecraft:gold_block",
             count: 64,

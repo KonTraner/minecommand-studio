@@ -273,7 +273,13 @@ const Generator = {
             let comps = [];
             if (parsed && parsed.components && parsed.components.length > 0) {
                 comps = [...parsed.components];
-            } else if (parsed && parsed.tag) {
+            }
+            if (parsed && parsed.tag && parsed.tag.includes("EntityTag:")) {
+                const match = parsed.tag.match(/EntityTag:\s*(\{.*\})/s);
+                if (match) {
+                    comps.push(`minecraft:entity_data=${match[1]}`);
+                }
+            } else if (parsed && parsed.tag && parsed.tag !== "{}") {
                 comps.push(`minecraft:custom_data=${parsed.tag}`);
             }
 
@@ -291,6 +297,13 @@ const Generator = {
             let tagStr = "";
             if (parsed && parsed.tag) {
                 tagStr = parsed.tag;
+            } else if (parsed && parsed.components && parsed.components.length > 0) {
+                const entityDataComp = parsed.components.find(c => c.includes("entity_data="));
+                if (entityDataComp) {
+                    const eqIdx = entityDataComp.indexOf("=");
+                    const val = entityDataComp.substring(eqIdx + 1);
+                    tagStr = `{EntityTag:${val}}`;
+                }
             }
 
             if (actualEnchants.length > 0) {
@@ -841,11 +854,28 @@ const Generator = {
                     const parsed = this.parseGiveCommand(presetCmd);
                     const itemId = parsed.id;
                     if (version === "java_modern") {
-                        const compStr = parsed.components.length > 0 ? `[${parsed.components.join(",")}]` : "";
+                        let comps = [...parsed.components];
+                        if (parsed.tag && parsed.tag.includes("EntityTag:")) {
+                            const match = parsed.tag.match(/EntityTag:\s*(\{.*\})/s);
+                            if (match) {
+                                comps.push(`minecraft:entity_data=${match[1]}`);
+                            }
+                        } else if (parsed.tag && parsed.tag !== "{}") {
+                            comps.push(`minecraft:custom_data=${parsed.tag}`);
+                        }
+                        const compStr = comps.length > 0 ? `[${comps.join(",")}]` : "";
                         actionCmd = `give ${target} ${itemId}${compStr} ${count}`;
                     } else {
-                        const nbtStr = parsed.tag ? parsed.tag : "";
-                        actionCmd = `give ${target} ${itemId}${nbtStr} ${count}`;
+                        let tagStr = parsed.tag ? parsed.tag : "";
+                        if (!tagStr && parsed.components && parsed.components.length > 0) {
+                            const entityDataComp = parsed.components.find(c => c.includes("entity_data="));
+                            if (entityDataComp) {
+                                const eqIdx = entityDataComp.indexOf("=");
+                                const val = entityDataComp.substring(eqIdx + 1);
+                                tagStr = `{EntityTag:${val}}`;
+                            }
+                        }
+                        actionCmd = `give ${target} ${itemId}${tagStr} ${count}`;
                     }
                 }
             } else {
@@ -1222,13 +1252,21 @@ const Generator = {
 
                     if (item.isPreset && item.command) {
                         const parsed = this.parseGiveCommand(item.command);
-                        const itemComps = parsed.components.map(c => {
+                        let itemComps = parsed.components.map(c => {
                             const eqIdx = c.indexOf("=");
                             if (eqIdx !== -1) {
                                 return c.substring(0, eqIdx) + ":" + c.substring(eqIdx + 1);
                             }
                             return c;
                         });
+                        if (parsed.tag && parsed.tag.includes("EntityTag:")) {
+                            const match = parsed.tag.match(/EntityTag:\s*(\{.*\})/s);
+                            if (match) {
+                                itemComps.push(`"minecraft:entity_data":${match[1]}`);
+                            }
+                        } else if (parsed.tag && parsed.tag !== "{}") {
+                            itemComps.push(`"minecraft:custom_data":${parsed.tag}`);
+                        }
                         const compStr = itemComps.length > 0 ? `,components:{${itemComps.join(",")}}` : "";
                         slotItems.push(`{slot:${slot},item:{id:"${parsed.id}",count:${count}${compStr}}}`);
                     } else {
@@ -1265,8 +1303,17 @@ const Generator = {
 
                 if (item.isPreset && item.command) {
                     const parsed = this.parseGiveCommand(item.command);
-                    const tagStr = (parsed.tag && parsed.tag !== "{}") ? `,tag:${parsed.tag}` : "";
-                    slotItems.push(`{Slot:${slot}b,id:"${parsed.id}",Count:${count}b${tagStr}}`);
+                    let tagStr = (parsed.tag && parsed.tag !== "{}") ? parsed.tag : "";
+                    if (!tagStr && parsed.components && parsed.components.length > 0) {
+                        const entityDataComp = parsed.components.find(c => c.includes("entity_data="));
+                        if (entityDataComp) {
+                            const eqIdx = entityDataComp.indexOf("=");
+                            const val = entityDataComp.substring(eqIdx + 1);
+                            tagStr = `{EntityTag:${val}}`;
+                        }
+                    }
+                    const tagPart = tagStr ? `,tag:${tagStr}` : "";
+                    slotItems.push(`{Slot:${slot}b,id:"${parsed.id}",Count:${count}b${tagPart}}`);
                 } else {
                     slotItems.push(`{Slot:${slot}b,id:"${id}",Count:${count}b}`);
                 }

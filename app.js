@@ -2772,13 +2772,45 @@ const app = {
                     
                     app.creativeCallback = (selection) => {
                         const count = parseInt(document.getElementById("slot-item-count-input").value) || 1;
+                        
+                        let itemId = selection.id;
+                        let itemName = selection.name;
+                        let itemIcon = selection.icon;
+                        let itemCommand = selection.command;
+
+                        // Check if this is a custom mob preset (starts with /summon or summon)
+                        const isMobPreset = selection.command && (selection.command.startsWith("/summon") || selection.command.startsWith("summon"));
+                        if (isMobPreset) {
+                            if (!itemId.endsWith("_spawn_egg")) {
+                                itemId = itemId + "_spawn_egg";
+                            }
+                            itemName = itemName + " Spawn Egg";
+                            itemIcon = getItemIconPath(itemId);
+                            
+                            const braceIdx = selection.command.indexOf("{");
+                            let nbt = "";
+                            if (braceIdx !== -1) {
+                                nbt = selection.command.substring(braceIdx);
+                            }
+                            
+                            const entityId = selection.id;
+                            let innerNbt = `id:"${entityId}"`;
+                            if (nbt) {
+                                const cleanNbt = nbt.trim().slice(1, -1).trim();
+                                if (cleanNbt) {
+                                    innerNbt += "," + cleanNbt;
+                                }
+                            }
+                            itemCommand = `/give @p ${itemId}[minecraft:entity_data={${innerNbt}}] 1`;
+                        }
+
                         app.containerContents[app.selectedContainerSlot] = {
-                            id: selection.id,
-                            name: selection.name,
-                            icon: selection.icon,
+                            id: itemId,
+                            name: itemName,
+                            icon: itemIcon,
                             isPreset: !!selection.isPreset,
                             presetId: selection.presetId || null,
-                            command: selection.command || null,
+                            command: itemCommand || null,
                             itemConfig: selection.itemConfig || null,
                             count: count
                         };
