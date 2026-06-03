@@ -32,7 +32,7 @@ const app = {
         app.hydrateMobEffects();
         app.initCreativeInventory();
         app.registerEventListeners();
-        app.switchTab("home-pane");
+        app.switchTab("home-pane", true);
         app.updateTrollGrids();
         app.updateSpecialMobPanel();
         app.recalculateCurrentCommand();
@@ -83,9 +83,9 @@ const app = {
     },
 
     // 3. Tab Navigation & Routing
-    switchTab(tabId) {
+    switchTab(tabId, silent = false) {
         activeTab = tabId;
-        app.playClick();
+        if (!silent) app.playClick();
 
         // Manage sidebar buttons
         document.querySelectorAll('.nav-tab').forEach(btn => {
@@ -512,6 +512,8 @@ const app = {
         btnOpen.addEventListener("click", () => {
             app.playClick();
             modal.style.display = "flex";
+            modal.offsetHeight; // force layout reflow
+            modal.classList.add("show");
             app.renderCreativeTabs();
             app.renderCreativeGrid();
             if (searchInput) {
@@ -520,17 +522,21 @@ const app = {
             }
         });
 
-        if (btnClose) {
-            btnClose.addEventListener("click", () => {
-                app.playClick();
+        const closeCreativeModal = () => {
+            app.playClick();
+            modal.classList.remove("show");
+            setTimeout(() => {
                 modal.style.display = "none";
-            });
+            }, 250);
+        };
+
+        if (btnClose) {
+            btnClose.addEventListener("click", closeCreativeModal);
         }
 
         modal.addEventListener("click", (e) => {
             if (e.target === modal) {
-                app.playClick();
-                modal.style.display = "none";
+                closeCreativeModal();
             }
         });
 
@@ -596,7 +602,13 @@ const app = {
             cell.addEventListener("click", () => {
                 app.playClick();
                 app.selectDropdownByValue("dropdown-item-type", item.id);
-                document.getElementById("creative-inventory-modal").style.display = "none";
+                const creativeModal = document.getElementById("creative-inventory-modal");
+                if (creativeModal) {
+                    creativeModal.classList.remove("show");
+                    setTimeout(() => {
+                        creativeModal.style.display = "none";
+                    }, 250);
+                }
                 app.recalculateCurrentCommand();
             });
 
