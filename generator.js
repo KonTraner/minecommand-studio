@@ -337,10 +337,11 @@ const Generator = {
                 const effectCmds = activeEffects.map(eff => {
                     const cleanId = eff.id.replace("minecraft:", "");
                     const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
+                    const durationVal = eff.infinite ? 99999 : (eff.duration || 60);
                     const targetSelector = customName 
                         ? `@e[type=${mobType.replace("minecraft:", "")},name="${this.escapeString(customName)}",c=1]`
                         : `@e[type=${mobType.replace("minecraft:", "")},c=1]`;
-                    return `/effect ${targetSelector} ${cleanId} 99999 ${ampVal}`;
+                    return `/effect ${targetSelector} ${cleanId} ${durationVal} ${ampVal}`;
                 });
                 baseCmd = [baseCmd].concat(effectCmds).join("\n");
             }
@@ -398,7 +399,8 @@ const Generator = {
             activeEffects.forEach(eff => {
                 const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
                 const showParticles = eff.id === "minecraft:invisibility" ? "0b" : "1b";
-                effectsList.push(`{id:"${eff.id}",amplifier:${ampVal},duration:20000,show_particles:${showParticles}}`);
+                const durVal = eff.infinite ? -1 : (parseInt(eff.duration) || 60) * 20;
+                effectsList.push(`{id:"${eff.id}",amplifier:${ampVal},duration:${durVal},show_particles:${showParticles}}`);
             });
             if (effectsList.length > 0) {
                 nbt.push(`active_effects:[${effectsList.join(",")}]`);
@@ -411,7 +413,8 @@ const Generator = {
                 const dbEff = effectsDb.find(e => e.id === eff.id);
                 const numId = dbEff ? dbEff.numeric_id : 1;
                 const showParticles = eff.id === "minecraft:invisibility" ? ",ShowParticles:0b" : "";
-                effectsList.push(`{Id:${numId}b,Amplifier:${ampVal}b,Duration:20000${showParticles}}`);
+                const durVal = eff.infinite ? 199999 : (parseInt(eff.duration) || 60) * 20;
+                effectsList.push(`{Id:${numId}b,Amplifier:${ampVal}b,Duration:${durVal}${showParticles}}`);
             });
             if (effectsList.length > 0) {
                 nbt.push(`ActiveEffects:[${effectsList.join(",")}]`);
@@ -1252,6 +1255,96 @@ const Generator = {
 
         const nbtString = nbtTags.length > 0 ? `{${nbtTags.join(",")}}` : "";
         return `/give @p ${type}${nbtString} 1`;
+    },
+
+    generatePotion(config, version) {
+        const itemId = config.id || "minecraft:potion";
+        const customName = config.name ? config.name.trim() : "";
+        const colorHex = config.color || "#3498db";
+        const decimalColor = parseInt(colorHex.replace("#", ""), 16);
+        const effects = config.effects || [];
+        const count = 1;
+
+        if (version === "java_modern") {
+            let components = [];
+            
+            // Name component
+            if (customName) {
+                components.push(`minecraft:custom_name='${this.textToJsonComponent(customName)}'`);
+            }
+
+            // Potion contents component
+            let potionContents = [];
+            if (colorHex && !isNaN(decimalColor)) {
+                potionContents.push(`custom_color:${decimalColor}`);
+            }
+
+            if (effects.length > 0) {
+                let effList = [];
+                effects.forEach(eff => {
+                    const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
+                    const durVal = eff.infinite ? -1 : (parseInt(eff.duration) || 60) * 20;
+                    const showParticles = eff.id === "minecraft:invisibility" ? "0b" : "1b";
+                    effList.push(`{id:"${eff.id}",amplifier:${ampVal},duration:${durVal},show_particles:${showParticles}}`);
+                });
+                potionContents.push(`custom_effects:[${effList.join(",")}]`);
+            }
+
+            if (potionContents.length > 0) {
+                components.push(`minecraft:potion_contents={${potionContents.join(",")}}`);
+            }
+
+            const compString = components.length > 0 ? `[${components.join(",")}]` : "";
+            return `/give @p ${itemId}${compString} ${count}`;
+
+        } else if (version === "java_legacy") {
+            let nbtTags = [];
+            
+            if (customName) {
+                nbtTags.push(`display:{Name:'${this.textToJsonComponent(customName)}'}`);
+            }
+
+            if (colorHex && !isNaN(decimalColor)) {
+                nbtTags.push(`CustomPotionColor:${decimalColor}`);
+            }
+
+            if (effects.length > 0) {
+                let effList = [];
+                const effectsDb = (typeof MC_DATA !== "undefined" && MC_DATA.effects) || [];
+                effects.forEach(eff => {
+                    const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
+                    const dbEff = effectsDb.find(e => e.id === eff.id);
+                    const numId = dbEff ? dbEff.numeric_id : 1;
+                    const showParticles = eff.id === "minecraft:invisibility" ? ",ShowParticles:0b" : "";
+                    const durVal = eff.infinite ? 199999 : (parseInt(eff.duration) || 60) * 20;
+                    effList.push(`{Id:${numId}b,Amplifier:${ampVal}b,Duration:${durVal}${showParticles}}`);
+                });
+                nbtTags.push(`CustomPotionEffects:[${effList.join(",")}]`);
+            }
+
+            const nbtString = nbtTags.length > 0 ? `{${nbtTags.join(",")}}` : "";
+            return `/give @p ${itemId}${nbtString} ${count}`;
+
+        } else {
+            // Bedrock
+            const cleanId = itemId.replace("minecraft:", "");
+            let cmd = `/give @p ${cleanId} ${count}`;
+            
+            let warnings = [];
+            warnings.push(`# WARNING: Bedrock Edition does not support custom status effects or custom colors directly inside items.`);
+            
+            if (effects.length > 0) {
+                warnings.push(`# To apply these effects, run the following commands on the player or targets:`);
+                effects.forEach(eff => {
+                    const cleanEffId = eff.id.replace("minecraft:", "");
+                    const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
+                    const durVal = eff.infinite ? 99999 : (parseInt(eff.duration) || 60);
+                    warnings.push(`/effect @p ${cleanEffId} ${durVal} ${ampVal}`);
+                });
+            }
+            
+            return warnings.join("\n") + "\n" + cmd;
+        }
     }
 };
 

@@ -339,3 +339,46 @@ versions.forEach(v => {
     }
 });
 
+// === CUSTOM POTION & ACTIVE EFFECT DURATION TESTS ===
+console.log("\n==========================================");
+console.log("=== RUNNING POTION & MOB EFFECT DURATION TESTS ===");
+console.log("==========================================");
+
+const potionTestConfig = {
+    id: "minecraft:splash_potion",
+    name: "§dSplash Potion of Ultimate Rage",
+    color: "#ff0055",
+    effects: [
+        { id: "minecraft:speed", amplifier: 3, duration: 60, infinite: false },
+        { id: "minecraft:strength", amplifier: 5, duration: 120, infinite: true }
+    ]
+};
+
+const mobDurationConfig = {
+    type: "minecraft:zombie",
+    name: "Zombie with Custom Effects",
+    health: "20",
+    speed: "1.0",
+    activeEffects: [
+        { id: "minecraft:speed", amplifier: 2, duration: 30, infinite: false },
+        { id: "minecraft:invisibility", amplifier: 1, duration: 0, infinite: true }
+    ]
+};
+
+versions.forEach(v => {
+    console.log(`\n--- Potion & Mob Effect Durations (Version: ${v}) ---`);
+    try {
+        const cmd = Generator.generatePotion(potionTestConfig, v);
+        console.log(`Custom Potion Command:\n${cmd}`);
+    } catch (err) {
+        console.error("❌ Custom Potion Test Failed:", err);
+    }
+
+    try {
+        const cmd = Generator.generateMob(mobDurationConfig, v);
+        console.log(`Mob with custom effect durations:\n${cmd}`);
+    } catch (err) {
+        console.error("❌ Mob Durations Test Failed:", err);
+    }
+});
+

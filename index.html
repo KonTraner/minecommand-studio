@@ -67,6 +67,10 @@
                         <span class="nav-icon">⚔️</span>
                         <span class="nav-text">Custom Items</span>
                     </button>
+                    <button class="nav-tab" data-target="potions-pane" aria-selected="false">
+                        <span class="nav-icon">🧪</span>
+                        <span class="nav-text">Potion Maker</span>
+                    </button>
                     <button class="nav-tab" data-target="trolls-pane" aria-selected="false">
                         <span class="nav-icon">🧨</span>
                         <span class="nav-text">Troll Menu</span>
@@ -527,6 +531,54 @@
                                         <span class="attr-tag">🏃</span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pane: Custom Potion Brewery -->
+                <section id="potions-pane" class="pane" aria-hidden="true">
+                    <div class="pane-header">
+                        <h2>🧪 CUSTOM POTION BREWERY</h2>
+                        <p>Brew customized potions with custom names, liquid colors, and active effect lists. Save them as Item Presets to give to mobs or place in containers.</p>
+                    </div>
+
+                    <div class="form-container">
+                        <!-- Left Panel: Potion Settings -->
+                        <div class="form-panel">
+                            <h3 class="panel-title">1. Potion Details</h3>
+                            <div class="form-grid">
+                                <div class="input-field col-span-2">
+                                    <label for="potion-base-type">Potion Type</label>
+                                    <select id="potion-base-type" class="mc-select" style="width: 100%;">
+                                        <option value="minecraft:potion">Standard Drinkable Potion</option>
+                                        <option value="minecraft:splash_potion">Splash Potion</option>
+                                        <option value="minecraft:lingering_potion">Lingering Potion</option>
+                                        <option value="minecraft:tipped_arrow">Tipped Arrow</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col-span-2">
+                                    <label for="potion-name">Custom Potion Name</label>
+                                    <input type="text" id="potion-name" placeholder="e.g. §dElixir of Haste" maxlength="64">
+                                </div>
+                                <div class="input-field col-span-2">
+                                    <label>Liquid Color Tint</label>
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <input type="color" id="potion-color-picker" value="#3498db" style="width: 48px; height: 42px; border: 2px solid var(--mc-panel-border); padding: 2px; background: #101011; border-radius: 4px; cursor: pointer; box-sizing: border-box; flex-shrink: 0;">
+                                        <input type="text" id="potion-color-hex" value="#3498db" placeholder="#3498db" style="flex: 1;" maxlength="7">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Status Effects selection -->
+                        <div class="form-panel">
+                            <h3 class="panel-title">2. Potion Status Effects</h3>
+                            <div class="search-filter-box">
+                                <input type="text" id="potion-effect-search" placeholder="🔍 Search effects..." class="mc-input-sm">
+                            </div>
+                            <div class="scroll-pane enchant-list-pane" id="potion-effects-checklist-container">
+                                <!-- Populated dynamically by JS -->
                             </div>
                         </div>
                     </div>
