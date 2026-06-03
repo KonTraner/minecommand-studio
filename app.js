@@ -25,23 +25,31 @@ const app = {
     },
 
     init() {
-        app.loadPresetsFromStorage();
-        app.initAllCustomDropdowns();
-        app.hydrateEnchantments();
-        app.hydrateMobEffects();
-        app.initCreativeInventory();
-        app.initContainerMaker();
-        app.initMobGearEnch();
-        app.initMobGearPresetSelect();
-        app.initExecutePresetSelectors();
-        app.initDocs();
-        app.renderDocs();
-        app.registerEventListeners();
-        app.updateMountUIState();
-        app.switchTab("home-pane", true);
-        app.updateTrollGrids();
-        app.updateSpecialMobPanel();
-        app.recalculateCurrentCommand();
+        const runSafe = (name, fn) => {
+            try {
+                fn();
+            } catch (err) {
+                console.error(`Error during init [${name}]:`, err);
+            }
+        };
+
+        runSafe("loadPresetsFromStorage", () => app.loadPresetsFromStorage());
+        runSafe("initAllCustomDropdowns", () => app.initAllCustomDropdowns());
+        runSafe("hydrateEnchantments", () => app.hydrateEnchantments());
+        runSafe("hydrateMobEffects", () => app.hydrateMobEffects());
+        runSafe("initCreativeInventory", () => app.initCreativeInventory());
+        runSafe("initContainerMaker", () => app.initContainerMaker());
+        runSafe("initMobGearEnch", () => app.initMobGearEnch());
+        runSafe("initMobGearPresetSelect", () => app.initMobGearPresetSelect());
+        runSafe("initExecutePresetSelectors", () => app.initExecutePresetSelectors());
+        runSafe("initDocs", () => app.initDocs());
+        runSafe("renderDocs", () => app.renderDocs());
+        runSafe("registerEventListeners", () => app.registerEventListeners());
+        runSafe("updateMountUIState", () => app.updateMountUIState());
+        runSafe("switchTab", () => app.switchTab("home-pane", true));
+        runSafe("updateTrollGrids", () => app.updateTrollGrids());
+        runSafe("updateSpecialMobPanel", () => app.updateSpecialMobPanel());
+        runSafe("recalculateCurrentCommand", () => app.recalculateCurrentCommand());
     },
 
     renderIcon(icon) {

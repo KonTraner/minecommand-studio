@@ -2098,6 +2098,12 @@ input[type="range"]::-webkit-slider-thumb:active {
     .cb-type {
         font-size: 11px !important;
     }
+    
+    .modal-close-btn, .mc-close-btn {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 14px !important;
+    }
 }
 
 /* ==========================================================================
