@@ -116,6 +116,12 @@ const app = {
         runSafe("updateTrollGrids", () => app.updateTrollGrids());
         runSafe("updateSpecialMobPanel", () => app.updateSpecialMobPanel());
         runSafe("recalculateCurrentCommand", () => app.recalculateCurrentCommand());
+
+        document.addEventListener("click", () => {
+            document.querySelectorAll(".pattern-dropdown-list").forEach(dl => {
+                dl.style.display = "none";
+            });
+        });
     },
 
     renderIcon(icon) {
@@ -2096,6 +2102,67 @@ const app = {
 
         if (!command) return;
 
+        // Check if command is too long for chat console (256 for Java, 512 for Bedrock)
+        const targetVersion = document.getElementById("version-selector") ? document.getElementById("version-selector").value : "java_modern";
+        const limit = targetVersion.startsWith("java") ? 256 : 512;
+
+        if (command.length > limit) {
+            app.showCommandBlockWarning(command, limit);
+        } else {
+            app.executeCopy(command);
+        }
+    },
+
+    showCommandBlockWarning(command, limit) {
+        const overlay = document.getElementById("command-block-warning-overlay");
+        const lenEl = document.getElementById("warning-cmd-len");
+        const limitEl = document.getElementById("warning-cmd-limit");
+        
+        if (lenEl) lenEl.textContent = command.length;
+        if (limitEl) limitEl.textContent = limit;
+
+        if (overlay) {
+            overlay.style.display = "flex";
+            overlay.classList.add("show");
+        }
+
+        const btnCopy = document.getElementById("btn-warning-copy-anyway");
+        const btnCancel = document.getElementById("btn-warning-cancel");
+        const btnCloseHeader = document.getElementById("btn-close-cmd-warning");
+
+        const closeHandler = () => {
+            app.playClick();
+            app.closeCommandBlockWarning();
+            cleanListeners();
+        };
+
+        const copyHandler = () => {
+            app.playClick();
+            app.closeCommandBlockWarning();
+            app.executeCopy(command);
+            cleanListeners();
+        };
+
+        const cleanListeners = () => {
+            btnCopy.removeEventListener("click", copyHandler);
+            btnCancel.removeEventListener("click", closeHandler);
+            if (btnCloseHeader) btnCloseHeader.removeEventListener("click", closeHandler);
+        };
+
+        if (btnCopy) btnCopy.addEventListener("click", copyHandler);
+        if (btnCancel) btnCancel.addEventListener("click", closeHandler);
+        if (btnCloseHeader) btnCloseHeader.addEventListener("click", closeHandler);
+    },
+
+    closeCommandBlockWarning() {
+        const overlay = document.getElementById("command-block-warning-overlay");
+        if (overlay) {
+            overlay.style.display = "none";
+            overlay.classList.remove("show");
+        }
+    },
+
+    executeCopy(command) {
         navigator.clipboard.writeText(command).then(() => {
             const toast = document.getElementById("toast");
             toast.textContent = "Copied to Clipboard!";
@@ -3247,6 +3314,206 @@ const app = {
         app.updateBannerPreview();
     },
 
+    drawPatternSVG(patternId, color, baseColor, contextId) {
+        const id = `${patternId}-${contextId}`.replace(/:/g, "-");
+        switch (patternId) {
+            case "minecraft:stripe_top":
+                return `<rect x="25" y="30" width="100" height="80" fill="${color}"/>`;
+            case "minecraft:stripe_bottom":
+                return `<rect x="25" y="190" width="100" height="80" fill="${color}"/>`;
+            case "minecraft:stripe_left":
+                return `<rect x="25" y="30" width="33.3" height="240" fill="${color}"/>`;
+            case "minecraft:stripe_right":
+                return `<rect x="91.7" y="30" width="33.3" height="240" fill="${color}"/>`;
+            case "minecraft:stripe_center":
+                return `<rect x="58.3" y="30" width="33.3" height="240" fill="${color}"/>`;
+            case "minecraft:stripe_middle":
+                return `<rect x="25" y="110" width="100" height="80" fill="${color}"/>`;
+            case "minecraft:stripe_downright":
+                return `<polygon points="25,30 50,30 125,210 125,270 100,270 25,90" fill="${color}"/>`;
+            case "minecraft:stripe_downleft":
+                return `<polygon points="125,30 100,30 25,210 25,270 50,270 125,90" fill="${color}"/>`;
+            case "minecraft:small_stripes":
+                return `<g fill="${color}"><rect x="25" y="30" width="12.5" height="240"/><rect x="50" y="30" width="12.5" height="240"/><rect x="75" y="30" width="12.5" height="240"/><rect x="100" y="30" width="12.5" height="240"/></g>`;
+            case "minecraft:cross":
+                return `<g fill="${color}"><polygon points="25,30 50,30 125,210 125,270 100,270 25,90"/><polygon points="125,30 100,30 25,210 25,270 50,270 125,90"/></g>`;
+            case "minecraft:straight_cross":
+                return `<g fill="${color}"><rect x="58.3" y="30" width="33.3" height="240"/><rect x="25" y="110" width="100" height="80"/></g>`;
+            case "minecraft:triangle_bottom":
+                return `<polygon points="25,270 75,120 125,270" fill="${color}"/>`;
+            case "minecraft:triangle_top":
+                return `<polygon points="25,30 75,180 125,30" fill="${color}"/>`;
+            case "minecraft:triangles_bottom":
+                return `<polygon points="25,270 25,230 37.5,270 50,230 62.5,270 75,230 87.5,270 100,230 112.5,270 125,230 125,270" fill="${color}"/>`;
+            case "minecraft:triangles_top":
+                return `<polygon points="25,30 25,70 37.5,30 50,70 62.5,30 75,70 87.5,30 100,70 112.5,30 125,70 125,30" fill="${color}"/>`;
+            case "minecraft:diagonal_left":
+                return `<polygon points="25,30 125,30 125,270" fill="${color}"/>`;
+            case "minecraft:diagonal_right":
+                return `<polygon points="25,30 125,30 25,270" fill="${color}"/>`;
+            case "minecraft:diagonal_up_left":
+                return `<polygon points="125,30 125,270 25,270" fill="${color}"/>`;
+            case "minecraft:diagonal_up_right":
+                return `<polygon points="25,30 125,270 25,270" fill="${color}"/>`;
+            case "minecraft:square_bottom_left":
+                return `<rect x="25" y="150" width="50" height="120" fill="${color}"/>`;
+            case "minecraft:square_bottom_right":
+                return `<rect x="75" y="150" width="50" height="120" fill="${color}"/>`;
+            case "minecraft:square_top_left":
+                return `<rect x="25" y="30" width="50" height="120" fill="${color}"/>`;
+            case "minecraft:square_top_right":
+                return `<rect x="75" y="30" width="50" height="120" fill="${color}"/>`;
+            case "minecraft:circle":
+                return `<circle cx="75" cy="150" r="30" fill="${color}"/>`;
+            case "minecraft:rhombus":
+                return `<polygon points="75,90 115,150 75,210 35,150" fill="${color}"/>`;
+            case "minecraft:half_vertical":
+                return `<rect x="25" y="30" width="50" height="240" fill="${color}"/>`;
+            case "minecraft:half_horizontal":
+                return `<rect x="25" y="30" width="100" height="120" fill="${color}"/>`;
+            case "minecraft:half_vertical_right":
+                return `<rect x="75" y="30" width="50" height="240" fill="${color}"/>`;
+            case "minecraft:half_horizontal_bottom":
+                return `<rect x="25" y="150" width="100" height="120" fill="${color}"/>`;
+            case "minecraft:border":
+                return `<rect x="25" y="30" width="100" height="240" fill="none" stroke="${color}" stroke-width="12"/>`;
+            case "minecraft:curly_border":
+                return `<rect x="25" y="30" width="100" height="240" fill="none" stroke="${color}" stroke-dasharray="10,6" stroke-width="12"/>`;
+            case "minecraft:brick":
+                return `
+                    <g stroke="${color}" stroke-width="2" opacity="0.8">
+                        <line x1="25" y1="60" x2="125" y2="60"/>
+                        <line x1="25" y1="90" x2="125" y2="90"/>
+                        <line x1="25" y1="120" x2="125" y2="120"/>
+                        <line x1="25" y1="150" x2="125" y2="150"/>
+                        <line x1="25" y1="180" x2="125" y2="180"/>
+                        <line x1="25" y1="210" x2="125" y2="210"/>
+                        <line x1="25" y1="240" x2="125" y2="240"/>
+                        <line x1="50" y1="30" x2="50" y2="60"/><line x1="100" y1="30" x2="100" y2="60"/>
+                        <line x1="75" y1="60" x2="75" y2="90"/>
+                        <line x1="50" y1="90" x2="50" y2="120"/><line x1="100" y1="90" x2="100" y2="120"/>
+                        <line x1="75" y1="120" x2="75" y2="150"/>
+                        <line x1="50" y1="150" x2="50" y2="180"/><line x1="100" y1="150" x2="100" y2="180"/>
+                        <line x1="75" y1="180" x2="75" y2="210"/>
+                        <line x1="50" y1="210" x2="50" y2="240"/><line x1="100" y1="210" x2="100" y2="240"/>
+                        <line x1="75" y1="240" x2="75" y2="270"/>
+                    </g>
+                `;
+            case "minecraft:gradient":
+                return `
+                    <defs>
+                        <linearGradient id="grad-top-down-${id}" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="${color}" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="25" y="30" width="100" height="240" fill="url(#grad-top-down-${id})"/>
+                `;
+            case "minecraft:gradient_up":
+                return `
+                    <defs>
+                        <linearGradient id="grad-bottom-up-${id}" x1="0%" y1="100%" x2="0%" y2="0%">
+                            <stop offset="0%" stop-color="${color}" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="25" y="30" width="100" height="240" fill="url(#grad-bottom-up-${id})"/>
+                `;
+            case "minecraft:creeper":
+                return `
+                    <g fill="${color}">
+                        <rect x="55" y="115" width="12" height="12"/>
+                        <rect x="83" y="115" width="12" height="12"/>
+                        <rect x="67" y="127" width="16" height="20"/>
+                        <rect x="59" y="137" width="8" height="24"/>
+                        <rect x="83" y="137" width="8" height="24"/>
+                    </g>
+                `;
+            case "minecraft:skull":
+                return `
+                    <g fill="${color}">
+                        <circle cx="75" cy="130" r="16"/>
+                        <rect x="67" y="142" width="16" height="10" rx="2"/>
+                        <line x1="45" y1="110" x2="105" y2="170" stroke="${color}" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="45" cy="110" r="6"/>
+                        <circle cx="105" cy="170" r="6"/>
+                        <line x1="105" y1="110" x2="45" y2="170" stroke="${color}" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="105" cy="110" r="6"/>
+                        <circle cx="45" cy="170" r="6"/>
+                    </g>
+                    <g fill="${baseColor}">
+                        <circle cx="69" cy="128" r="4"/>
+                        <circle cx="81" cy="128" r="4"/>
+                        <path d="M 72,138 L 75,134 L 78,138 Z"/>
+                    </g>
+                `;
+            case "minecraft:flower":
+                return `
+                    <g fill="${color}">
+                        <circle cx="75" cy="150" r="8"/>
+                        <circle cx="75" cy="136" r="6"/>
+                        <circle cx="75" cy="164" r="6"/>
+                        <circle cx="61" cy="150" r="6"/>
+                        <circle cx="89" cy="150" r="6"/>
+                        <circle cx="65" cy="140" r="5"/>
+                        <circle cx="85" cy="140" r="5"/>
+                        <circle cx="65" cy="160" r="5"/>
+                        <circle cx="85" cy="160" r="5"/>
+                    </g>
+                `;
+            case "minecraft:mojang":
+                return `
+                    <path d="M 60,135 C 60,125 70,120 75,120 C 85,120 90,125 90,135 C 90,145 80,148 78,150 L 78,162 L 72,162 L 72,148 C 65,148 60,145 60,135 Z" fill="${color}"/>
+                    <circle cx="82" cy="132" r="3" fill="${baseColor}"/>
+                `;
+            case "minecraft:globe":
+                return `
+                    <g stroke="${color}" stroke-width="3" fill="none">
+                        <circle cx="75" cy="150" r="24"/>
+                        <line x1="51" y1="150" x2="99" y2="150"/>
+                        <line x1="75" y1="126" x2="75" y2="174"/>
+                        <path d="M 60,132 Q 75,140 90,132"/>
+                        <path d="M 60,168 Q 75,160 90,168"/>
+                    </g>
+                `;
+            case "minecraft:piglin":
+                return `
+                    <g fill="${color}">
+                        <rect x="55" y="135" width="40" height="24" rx="4"/>
+                    </g>
+                    <g fill="${baseColor}">
+                        <rect x="62" y="141" width="6" height="12" rx="1"/>
+                        <rect x="82" y="141" width="6" height="12" rx="1"/>
+                    </g>
+                `;
+            case "minecraft:flow":
+                return `<path d="M 50,150 C 50,120 70,120 75,130 C 80,140 70,160 75,170 C 80,180 100,180 100,150" stroke="${color}" stroke-width="8" fill="none" stroke-linecap="round"/>`;
+            case "minecraft:guster":
+                return `<path d="M 45,140 Q 75,120 95,140 T 75,170 T 55,150" stroke="${color}" stroke-width="8" fill="none" stroke-linecap="round"/>`;
+            default:
+                return "";
+        }
+    },
+
+    getMiniPatternSVG(patternId, colorName, baseColorName) {
+        const colorMap = {
+            white: "#ffffff", orange: "#f9801d", magenta: "#c900c9", light_blue: "#3db2ff",
+            yellow: "#fed83d", lime: "#80c71f", pink: "#f38caa", gray: "#474f52",
+            light_gray: "#9d9d97", cyan: "#169c9c", purple: "#8932b8", blue: "#3c44aa",
+            brown: "#835432", green: "#5e7c16", red: "#b02e26", black: "#1d1d21"
+        };
+        const colHex = colorMap[colorName] || "#b02e26";
+        const baseHex = colorMap[baseColorName] || "#ffffff";
+        const patternElements = app.drawPatternSVG(patternId, colHex, baseHex, "mini");
+        
+        return `
+            <svg viewBox="25 30 100 240" width="100%" height="100%" style="display: block;">
+                <rect x="25" y="30" width="100" height="240" fill="${baseHex}"/>
+                ${patternElements}
+            </svg>
+        `;
+    },
+
     renderBannerLayers() {
         const container = document.getElementById("banner-layers-container");
         if (!container) return;
@@ -3262,11 +3529,24 @@ const app = {
             row.className = "banner-layer-row";
             row.dataset.index = idx;
 
-            // Generate Pattern select options
-            let patternOptions = "";
+            // Find current pattern details
+            const currentPat = BANNER_PATTERNS.find(p => p.id === layer.pattern) || BANNER_PATTERNS[0];
+            const currentPatternName = currentPat.name.split(" (")[0];
+            const miniSVG = app.getMiniPatternSVG(layer.pattern, "red", "white");
+
+            // Generate Custom Dropdown items
+            let dropdownItems = "";
             BANNER_PATTERNS.forEach(p => {
-                const selected = p.id === layer.pattern ? "selected" : "";
-                patternOptions += `<option value="${p.id}" ${selected}>${p.name}</option>`;
+                const isSelected = p.id === layer.pattern;
+                const itemSVG = app.getMiniPatternSVG(p.id, "red", "white");
+                dropdownItems += `
+                    <div class="pattern-dropdown-item ${isSelected ? 'selected' : ''}" data-value="${p.id}" style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; cursor: pointer; border-bottom: 1px solid #222; font-family: 'VT323', monospace; font-size: 16px; color: #ccc;">
+                        <span>${p.name.split(" (")[0]}</span>
+                        <div style="width: 16px; height: 26px; border: 1px solid #444; background: #fff; border-radius: 1px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            ${itemSVG}
+                        </div>
+                    </div>
+                `;
             });
 
             // Generate Color select options
@@ -3278,9 +3558,17 @@ const app = {
 
             row.innerHTML = `
                 <span class="layer-number">#${idx + 1}</span>
-                <select class="banner-pattern-type" style="flex: 2;">
-                    ${patternOptions}
-                </select>
+                <div class="banner-pattern-picker-wrapper">
+                    <button type="button" class="mc-btn pattern-picker-trigger" style="width: 100%; display: flex; align-items: center; justify-content: space-between; text-align: left; padding: 6px 10px; font-family: 'VT323', monospace; font-size: 16px;">
+                        <span class="picker-current-text">${currentPatternName}</span>
+                        <div class="picker-preview-mini" style="width: 16px; height: 26px; border: 1px solid #444; border-radius: 1px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center;">
+                            ${miniSVG}
+                        </div>
+                    </button>
+                    <div class="pattern-dropdown-list" style="display: none;">
+                        ${dropdownItems}
+                    </div>
+                </div>
                 <select class="banner-pattern-color" style="flex: 1; margin-left: 8px;">
                     ${colorOptions}
                 </select>
@@ -3291,21 +3579,42 @@ const app = {
                 </div>
             `;
 
-            // Add event listeners inside row
-            const patternSelect = row.querySelector(".banner-pattern-type");
+            // Dropdown List toggle listener
+            const trigger = row.querySelector(".pattern-picker-trigger");
+            const dropdownList = row.querySelector(".pattern-dropdown-list");
+            
+            trigger.addEventListener("click", (e) => {
+                e.stopPropagation();
+                // Close all other dropdown lists
+                document.querySelectorAll(".pattern-dropdown-list").forEach(list => {
+                    if (list !== dropdownList) {
+                        list.style.display = "none";
+                    }
+                });
+                const isHidden = dropdownList.style.display === "none";
+                dropdownList.style.display = isHidden ? "block" : "none";
+            });
+
+            // Handle custom dropdown item click
+            row.querySelectorAll(".pattern-dropdown-item").forEach(item => {
+                item.addEventListener("click", () => {
+                    const selectedVal = item.dataset.value;
+                    app.bannerPatterns[idx].pattern = selectedVal;
+                    app.renderBannerLayers();
+                    app.updateBannerPreview();
+                    app.recalculateCurrentCommand();
+                });
+            });
+
+            // Add other event listeners
             const colorSelect = row.querySelector(".banner-pattern-color");
             const btnUp = row.querySelector(".btn-layer-up");
             const btnDown = row.querySelector(".btn-layer-down");
             const btnDelete = row.querySelector(".btn-layer-delete");
 
-            patternSelect.addEventListener("change", (e) => {
-                app.bannerPatterns[idx].pattern = e.target.value;
-                app.updateBannerPreview();
-                app.recalculateCurrentCommand();
-            });
-
             colorSelect.addEventListener("change", (e) => {
                 app.bannerPatterns[idx].color = e.target.value;
+                app.renderBannerLayers();
                 app.updateBannerPreview();
                 app.recalculateCurrentCommand();
             });
@@ -3338,47 +3647,79 @@ const app = {
         const baseColor = document.getElementById("banner-base-color") ? document.getElementById("banner-base-color").value : "white";
         
         const previewBase = document.getElementById("banner-visual-base");
-        const modeLabel = document.getElementById("banner-mode-label");
-        const previewBaseText = document.getElementById("banner-preview-base-text");
         const descDiv = document.getElementById("banner-patterns-description");
 
         const colorMap = {
-            white: "#ffffff",
-            orange: "#f9801d",
-            magenta: "#c900c9",
-            light_blue: "#3db2ff",
-            yellow: "#fed83d",
-            lime: "#80c71f",
-            pink: "#f38caa",
-            gray: "#474f52",
-            light_gray: "#9d9d97",
-            cyan: "#169c9c",
-            purple: "#8932b8",
-            blue: "#3c44aa",
-            brown: "#835432",
-            green: "#5e7c16",
-            red: "#b02e26",
-            black: "#1d1d21"
+            white: "#ffffff", orange: "#f9801d", magenta: "#c900c9", light_blue: "#3db2ff",
+            yellow: "#fed83d", lime: "#80c71f", pink: "#f38caa", gray: "#474f52",
+            light_gray: "#9d9d97", cyan: "#169c9c", purple: "#8932b8", blue: "#3c44aa",
+            brown: "#835432", green: "#5e7c16", red: "#b02e26", black: "#1d1d21"
         };
 
         if (previewBase) {
-            previewBase.style.backgroundColor = colorMap[baseColor] || "#ffffff";
-            // Set text color depending on background brightness
-            const darkColors = ["black", "blue", "gray", "brown", "green", "red", "purple"];
-            previewBase.style.color = darkColors.includes(baseColor) ? "#ffffff" : "#100010";
-        }
-
-        if (modeLabel) {
-            modeLabel.textContent = isShield ? "SHIELD" : "BANNER";
-            modeLabel.style.backgroundColor = isShield ? "#ffd700" : "#00cdcd";
-            modeLabel.style.color = "#000000";
+            const baseColorHex = colorMap[baseColor] || "#ffffff";
+            const modeLabelHTML = `<span id="banner-mode-label" style="position: absolute; top: -14px; font-size: 11px; background: ${isShield ? '#ffd700' : '#00cdcd'}; color: #000; padding: 1px 6px; border-radius: 4px; font-family: 'VT323', monospace; text-transform: uppercase; z-index: 10;">${isShield ? 'SHIELD' : 'BANNER'}</span>`;
+            
+            // Build dynamic pattern layers SVG elements
+            let layersSvg = "";
+            app.bannerPatterns.forEach((layer, layerIdx) => {
+                const layerColorHex = colorMap[layer.color] || "#b02e26";
+                layersSvg += app.drawPatternSVG(layer.pattern, layerColorHex, baseColorHex, `main-${layerIdx}`);
+            });
+            
+            let svgContent = "";
+            if (isShield) {
+                // Shield canvas layout
+                svgContent = `
+                    <svg viewBox="0 0 150 300" width="100%" height="100%" style="display: block; width: 100%; height: 100%;">
+                        <defs>
+                            <clipPath id="shield-clip">
+                                <path d="M 75,30 L 125,30 L 125,120 Q 125,210 75,270 Q 25,210 25,120 L 25,30 Z"/>
+                            </clipPath>
+                        </defs>
+                        <!-- Wood backplate backing -->
+                        <path d="M 75,30 L 125,30 L 125,120 Q 125,210 75,270 Q 25,210 25,120 L 25,30 Z" fill="#2c2c2e" stroke="#101012" stroke-width="4"/>
+                        <!-- Clipped base shield and patterns -->
+                        <g clip-path="url(#shield-clip)">
+                            <path d="M 75,30 L 125,30 L 125,120 Q 125,210 75,270 Q 25,210 25,120 L 25,30 Z" fill="${baseColorHex}"/>
+                            ${layersSvg}
+                        </g>
+                        <!-- Grey metal rim -->
+                        <path d="M 75,30 L 125,30 L 125,120 Q 125,210 75,270 Q 25,210 25,120 L 25,30 Z" fill="none" stroke="#7f7f7f" stroke-width="6"/>
+                    </svg>
+                `;
+            } else {
+                // Banner canvas layout
+                svgContent = `
+                    <svg viewBox="0 0 150 300" width="100%" height="100%" style="display: block; width: 100%; height: 100%;">
+                        <defs>
+                            <clipPath id="banner-clip">
+                                <rect x="30" y="24" width="90" height="240" rx="2"/>
+                            </clipPath>
+                        </defs>
+                        <!-- Hanger Stand Bar -->
+                        <rect x="15" y="16" width="120" height="8" fill="#5c4033" rx="2"/>
+                        <!-- Hanger rope/string -->
+                        <path d="M 75,6 L 15,16 Q 75,16 135,16 Z" fill="none" stroke="#333" stroke-width="2"/>
+                        <!-- Clipped banner base and patterns -->
+                        <g clip-path="url(#banner-clip)">
+                            <rect x="30" y="24" width="90" height="240" fill="${baseColorHex}"/>
+                            ${layersSvg}
+                        </g>
+                        <!-- Thin black border contour -->
+                        <rect x="30" y="24" width="90" height="240" fill="none" stroke="#222" stroke-width="2" rx="2"/>
+                    </svg>
+                `;
+            }
+            
+            previewBase.innerHTML = modeLabelHTML + svgContent;
+            previewBase.style.backgroundColor = "transparent";
+            previewBase.style.border = "none";
+            previewBase.style.boxShadow = "none";
         }
 
         const colorName = baseColor.replace("_", " ");
         const baseColorDisplay = colorName.charAt(0).toUpperCase() + colorName.slice(1);
-        if (previewBaseText) {
-            previewBaseText.textContent = baseColorDisplay;
-        }
 
         if (descDiv) {
             if (app.bannerPatterns.length === 0) {
