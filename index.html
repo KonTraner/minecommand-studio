@@ -707,8 +707,19 @@
                                         <option value="@r">Random Player (@r)</option>
                                         <option value="@s">Executing Entity (@s)</option>
                                         <option value="@e">All Entities (@e)</option>
+                                        <option value="custom_mob">Saved Mob Preset...</option>
                                     </select>
                                     <span class="field-help">Choose the base targeted target group.</span>
+                                </div>
+
+                                <div id="exec-target-custom-mob-param" style="display: none; margin-top: 8px; flex-direction: column; gap: 8px; width: 100%;">
+                                    <label>Selected Custom Mob Preset</label>
+                                    <div style="display: flex; gap: 8px;">
+                                        <input type="text" id="exec-target-custom-mob-name" placeholder="No preset selected..." readonly style="flex: 1; background: #1a1a1c; cursor: default;">
+                                        <button type="button" class="mc-btn gold-btn" id="btn-exec-target-custom-mob-browse" style="padding: 4px 12px; font-size: 13px;">Browse...</button>
+                                    </div>
+                                    <input type="hidden" id="exec-target-custom-mob-type" value="">
+                                    <input type="hidden" id="exec-target-custom-mob-preset-name" value="">
                                 </div>
 
                                 <div class="grid-2-col">
@@ -946,9 +957,10 @@
                                 <div class="input-field">
                                     <label for="exec-action">Action Payload Type</label>
                                     <select id="exec-action">
-                                        <option value="summon" selected>👾 Summon Custom Mob</option>
-                                        <option value="summon_preset">👾 Summon Preset Mob</option>
-                                        <option value="give_preset">🎁 Give Preset Item or Container</option>
+                                        <option value="summon" selected>👾 Summon Standard Mob</option>
+                                        <option value="summon_preset">👾 Summon Custom Mob Preset</option>
+                                        <option value="give_item">🎁 Give Standard Item</option>
+                                        <option value="give_preset">🎁 Give Custom Preset Item/Container</option>
                                         <option value="playsound">🔊 Trigger Audio Sound Effect</option>
                                         <option value="particle">✨ Spawn Particle Trail</option>
                                         <option value="effect">🧪 Apply Potion Status Effect</option>
@@ -982,6 +994,34 @@
                                         <input type="text" id="exec-summon-offset" value="~ ~ ~">
                                     </div>
                                 </div>
+                                <!-- Give Item Action -->
+                                <div id="exec-action-param-give_item" class="exec-action-group" style="display: none; flex-direction: column; gap: 8px; width: 100%;">
+                                    <div class="input-field">
+                                        <label>Select Item</label>
+                                        <div class="mc-custom-dropdown" id="dropdown-exec-item-give">
+                                            <div class="dropdown-trigger" id="trigger-exec-item-give">
+                                                <span class="dropdown-trigger-icon">🟩</span>
+                                                <span class="dropdown-trigger-text">Select Item...</span>
+                                            </div>
+                                            <div class="dropdown-content">
+                                                <input type="text" class="dropdown-search" placeholder="🔍 Search items...">
+                                                <div class="dropdown-options" id="options-exec-item-give"></div>
+                                            </div>
+                                            <input type="hidden" id="exec-item-give" value="minecraft:diamond_sword">
+                                        </div>
+                                    </div>
+                                    <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                        <div class="input-field">
+                                            <label for="exec-item-give-target">Target Selector</label>
+                                            <input type="text" id="exec-item-give-target" value="@s" style="width: 100%;">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="exec-item-give-count">Count</label>
+                                            <input type="number" id="exec-item-give-count" value="1" min="1" max="64" style="width: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Give Preset Action -->
                                 <div id="exec-action-param-give_preset" class="exec-action-group" style="display: none; flex-direction: column; gap: 8px; width: 100%;">
                                     <div class="input-field">

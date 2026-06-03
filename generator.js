@@ -341,7 +341,8 @@ const Generator = {
                     const targetSelector = customName 
                         ? `@e[type=${mobType.replace("minecraft:", "")},name="${this.escapeString(customName)}",c=1]`
                         : `@e[type=${mobType.replace("minecraft:", "")},c=1]`;
-                    return `/effect ${targetSelector} ${cleanId} ${durationVal} ${ampVal}`;
+                    const hideP = eff.hideParticles ? " true" : "";
+                    return `/effect ${targetSelector} ${cleanId} ${durationVal} ${ampVal}${hideP}`;
                 });
                 baseCmd = [baseCmd].concat(effectCmds).join("\n");
             }
@@ -398,7 +399,7 @@ const Generator = {
         if (version === "java_modern") {
             activeEffects.forEach(eff => {
                 const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
-                const showParticles = eff.id === "minecraft:invisibility" ? "0b" : "1b";
+                const showParticles = (eff.hideParticles || eff.id === "minecraft:invisibility") ? "0b" : "1b";
                 const durVal = eff.infinite ? -1 : (parseInt(eff.duration) || 60) * 20;
                 effectsList.push(`{id:"${eff.id}",amplifier:${ampVal},duration:${durVal},show_particles:${showParticles}}`);
             });
@@ -412,7 +413,7 @@ const Generator = {
                 const ampVal = Math.max(0, Math.min(255, (parseInt(eff.amplifier) || 1) - 1));
                 const dbEff = effectsDb.find(e => e.id === eff.id);
                 const numId = dbEff ? dbEff.numeric_id : 1;
-                const showParticles = eff.id === "minecraft:invisibility" ? ",ShowParticles:0b" : "";
+                const showParticles = (eff.hideParticles || eff.id === "minecraft:invisibility") ? ",ShowParticles:0b" : "";
                 const durVal = eff.infinite ? 199999 : (parseInt(eff.duration) || 60) * 20;
                 effectsList.push(`{Id:${numId}b,Amplifier:${ampVal}b,Duration:${durVal}${showParticles}}`);
             });
@@ -611,8 +612,19 @@ const Generator = {
     },
 
     compileSelector(config, version) {
-        const base = config.targetBase || "@a";
+        let base = config.targetBase || "@a";
         let filters = [];
+
+        if (base === "custom_mob") {
+            base = "@e";
+            if (config.targetCustomMobType) {
+                const cleanType = version === "bedrock" ? config.targetCustomMobType.replace("minecraft:", "") : config.targetCustomMobType;
+                filters.push(`type=${cleanType}`);
+            }
+            if (config.targetCustomMobName) {
+                filters.push(`name="${config.targetCustomMobName}"`);
+            }
+        }
 
         // Exclude name
         if (config.targetExclude) {
@@ -838,6 +850,17 @@ const Generator = {
                 }
             } else {
                 actionCmd = `give ${target} minecraft:stone ${count}`;
+            }
+        }
+        else if (action === "give_item") {
+            const item = config.giveItem || "minecraft:diamond_sword";
+            const target = config.giveItemTarget || "@s";
+            const count = config.giveItemCount !== undefined ? config.giveItemCount : 1;
+            
+            if (version === "bedrock") {
+                actionCmd = `give ${target} ${item.replace("minecraft:", "")} ${count}`;
+            } else {
+                actionCmd = `give ${target} ${item} ${count}`;
             }
         }
         else if (action === "summon_preset") {

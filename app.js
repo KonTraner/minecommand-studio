@@ -318,6 +318,9 @@ const app = {
         const clearOptions = [{ id: "all", name: "Clear Entire Inventory (All)", icon: "❌" }].concat(MC_DATA.execute_items);
         app.buildCustomDropdown("dropdown-exec-clear-item", clearOptions, "all", () => app.recalculateCurrentCommand());
 
+        // Give Standard Item dropdown
+        app.buildCustomDropdown("dropdown-exec-item-give", MC_DATA.all_items, "minecraft:diamond_sword", () => app.recalculateCurrentCommand());
+
         // Setup global listener to close dropdowns when clicking outside
         document.addEventListener("click", (e) => {
             if (!e.target.closest(".mc-custom-dropdown")) {
@@ -614,10 +617,16 @@ const app = {
                         </div>
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="range" class="mob-eff-dur-slider" data-eff-id="${eff.id}" min="1" max="1000" value="60" disabled style="flex: 1;">
-                            <label class="mc-checkbox-label" style="font-size: 11px; white-space: nowrap; flex-shrink: 0;">
-                                <input type="checkbox" class="mob-eff-infinite-cb" data-eff-id="${eff.id}" checked>
-                                <span class="mc-checkbox" style="width: 14px; height: 14px;"></span> Infinite
-                            </label>
+                            <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start; flex-shrink: 0;">
+                                <label class="mc-checkbox-label" style="font-size: 11px; white-space: nowrap;">
+                                    <input type="checkbox" class="mob-eff-infinite-cb" data-eff-id="${eff.id}" checked>
+                                    <span class="mc-checkbox" style="width: 14px; height: 14px;"></span> Infinite
+                                </label>
+                                <label class="mc-checkbox-label" style="font-size: 11px; white-space: nowrap;">
+                                    <input type="checkbox" class="mob-eff-hide-particles-cb" data-eff-id="${eff.id}">
+                                    <span class="mc-checkbox" style="width: 14px; height: 14px;"></span> Hide Particles
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1418,6 +1427,10 @@ const app = {
                     }
                     app.recalculateCurrentCommand();
                 }
+                if (e.target.classList.contains("mob-eff-hide-particles-cb")) {
+                    app.playClick();
+                    app.recalculateCurrentCommand();
+                }
             });
 
             mobEffectsContainer.addEventListener("input", (e) => {
@@ -1538,6 +1551,23 @@ const app = {
             });
         }
 
+        // Base selector custom mob param toggling
+        const targetBaseSelect = document.getElementById("exec-target-base");
+        if (targetBaseSelect) {
+            targetBaseSelect.addEventListener("change", (e) => {
+                app.playClick();
+                const customMobParam = document.getElementById("exec-target-custom-mob-param");
+                if (customMobParam) {
+                    if (e.target.value === "custom_mob") {
+                        customMobParam.style.display = "flex";
+                    } else {
+                        customMobParam.style.display = "none";
+                    }
+                }
+                app.recalculateCurrentCommand();
+            });
+        }
+
         // General execute pane inputs
         const execInputs = [
             "exec-target-base", "exec-target-exclude", "exec-target-gamemode", "exec-target-tag", "exec-anchor",
@@ -1549,7 +1579,9 @@ const app = {
             "exec-particle-count", "exec-particle-speed", "exec-particle-offset",
             "exec-effect-duration", "exec-effect-amp", "exec-effect-hide-particles",
             "exec-block-place-offset", "exec-tellraw-text", "exec-tellraw-color", "exec-custom-cmd",
-            "exec-give-preset-val", "exec-give-preset-target", "exec-give-preset-count", "exec-summon-preset-val", "exec-summon-preset-offset"
+            "exec-give-preset-val", "exec-give-preset-target", "exec-give-preset-count", "exec-summon-preset-val", "exec-summon-preset-offset",
+            "exec-item-give", "exec-item-give-target", "exec-item-give-count",
+            "exec-target-custom-mob-type", "exec-target-custom-mob-preset-name"
         ];
         execInputs.forEach(id => {
             app.safeBind(id, "input", () => app.recalculateCurrentCommand());
@@ -1756,11 +1788,13 @@ const app = {
                 const slider = document.querySelector(`.mob-eff-slider[data-eff-id="${id}"]`);
                 const durSlider = document.querySelector(`.mob-eff-dur-slider[data-eff-id="${id}"]`);
                 const infiniteCb = document.querySelector(`.mob-eff-infinite-cb[data-eff-id="${id}"]`);
+                const hideParticlesCb = document.querySelector(`.mob-eff-hide-particles-cb[data-eff-id="${id}"]`);
                 
                 const amp = slider ? parseInt(slider.value) : 1;
                 const infinite = infiniteCb ? infiniteCb.checked : true;
                 const duration = durSlider ? parseInt(durSlider.value) : 60;
-                activeEffects.push({ id: id, amplifier: amp, infinite: infinite, duration: duration });
+                const hideParticles = hideParticlesCb ? hideParticlesCb.checked : false;
+                activeEffects.push({ id: id, amplifier: amp, infinite: infinite, duration: duration, hideParticles: hideParticles });
             });
 
             let mountPresetCmd = "";
@@ -1874,6 +1908,8 @@ const app = {
                 targetLevelMax: getVal("exec-target-level-max") !== "" ? parseInt(getVal("exec-target-level-max")) : undefined,
                 targetSurvivalOnly: getChecked("exec-target-survival-only"),
                 targetLimit: getChecked("exec-target-limit"),
+                targetCustomMobType: getVal("exec-target-custom-mob-type"),
+                targetCustomMobName: getVal("exec-target-custom-mob-preset-name"),
                 anchor: getVal("exec-anchor", "at"),
                 condType: getVal("exec-cond-type", "always"),
                 blockType: getVal("exec-block", "minecraft:lava"),
@@ -1896,6 +1932,9 @@ const app = {
                 givePresetCmd: getVal("exec-give-preset-val"),
                 givePresetTarget: getVal("exec-give-preset-target", "@s"),
                 givePresetCount: parseInt(getVal("exec-give-preset-count", "1")) || 1,
+                giveItem: getVal("exec-item-give", "minecraft:diamond_sword"),
+                giveItemTarget: getVal("exec-item-give-target", "@s"),
+                giveItemCount: parseInt(getVal("exec-item-give-count", "1")) || 1,
                 summonPresetCmd: getVal("exec-summon-preset-val"),
                 summonPresetOffset: getVal("exec-summon-preset-offset", "~ ~ ~"),
                 actionSound: getVal("exec-sound", "minecraft:entity.creeper.primed"),
@@ -3099,6 +3138,47 @@ const app = {
                     const presetValInput = document.getElementById("exec-summon-preset-val");
                     if (presetNameInput) presetNameInput.value = selection.name;
                     if (presetValInput) presetValInput.value = selection.command || `summon ${selection.id} ~ ~ ~`;
+                    app.recalculateCurrentCommand();
+                };
+                modal.style.display = "flex";
+                modal.offsetHeight;
+                modal.classList.add("show");
+                app.activeCreativeTab = "presets_mobs";
+                app.renderCreativeTabs();
+                app.renderCreativeGrid();
+            });
+        }
+
+        const btnTargetCustomMob = document.getElementById("btn-exec-target-custom-mob-browse");
+        if (btnTargetCustomMob && modal) {
+            btnTargetCustomMob.addEventListener("click", () => {
+                app.playClick();
+                app.creativeCallback = (selection) => {
+                    let mobName = "";
+                    if (selection.command) {
+                        const customNameMatch = selection.command.match(/CustomName:\s*['"](.*?)['"]/);
+                        if (customNameMatch) {
+                            const jsonStr = customNameMatch[1];
+                            try {
+                                const parsedJson = JSON.parse(jsonStr);
+                                mobName = parsedJson.text || mobName;
+                            } catch (e) {
+                                mobName = jsonStr;
+                            }
+                        }
+                    }
+                    if (!mobName) {
+                        mobName = selection.name;
+                    }
+                    
+                    const nameInput = document.getElementById("exec-target-custom-mob-name");
+                    const typeInput = document.getElementById("exec-target-custom-mob-type");
+                    const presetNameInput = document.getElementById("exec-target-custom-mob-preset-name");
+                    
+                    if (nameInput) nameInput.value = `${selection.name} (${selection.id.replace("minecraft:", "")})`;
+                    if (typeInput) typeInput.value = selection.id;
+                    if (presetNameInput) presetNameInput.value = mobName;
+                    
                     app.recalculateCurrentCommand();
                 };
                 modal.style.display = "flex";

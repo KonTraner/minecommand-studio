@@ -382,3 +382,50 @@ versions.forEach(v => {
     }
 });
 
+// === NEW EXECUTE BUILDER CUSTOM MOB SELECTOR, GIVE STANDARD ITEM, AND HIDDEN PARTICLES TESTS ===
+console.log("\n==========================================");
+console.log("=== RUNNING PARTICLES, CUSTOM MOB SELECTORS & GIVE ITEM TESTS ===");
+console.log("==========================================");
+
+const hiddenParticlesMobConfig = {
+    type: "minecraft:creeper",
+    name: "Silent Exploder",
+    health: "20",
+    speed: "1.2",
+    activeEffects: [
+        { id: "minecraft:speed", amplifier: 3, duration: 60, infinite: false, hideParticles: true },
+        { id: "minecraft:invisibility", amplifier: 1, duration: 0, infinite: true, hideParticles: true }
+    ]
+};
+
+const execCustomMobSelectorConfig = {
+    targetBase: "custom_mob",
+    targetCustomMobType: "minecraft:zombie",
+    targetCustomMobName: "Troll King",
+    targetExclude: "konlo",
+    targetTag: "boss",
+    anchor: "as_at",
+    condType: "none",
+    action: "give_item",
+    giveItem: "minecraft:netherite_axe",
+    giveItemTarget: "@s",
+    giveItemCount: 1
+};
+
+versions.forEach(v => {
+    console.log(`\n--- Particles & Custom Mob Selectors (Version: ${v}) ---`);
+    try {
+        const cmd1 = Generator.generateMob(hiddenParticlesMobConfig, v);
+        console.log(`Mob with hidden particles active effects:\n${cmd1}`);
+    } catch (err) {
+        console.error("❌ Mob Hidden Particles Test Failed:", err);
+    }
+
+    try {
+        const cmd2 = Generator.generateExecute(execCustomMobSelectorConfig, v);
+        console.log(`Execute with custom mob base selector and give_item action:\n${cmd2}`);
+    } catch (err) {
+        console.error("❌ Execute Custom Mob Selector/Give Item Test Failed:", err);
+    }
+});
+
