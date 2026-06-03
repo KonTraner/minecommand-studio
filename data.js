@@ -3029,199 +3029,199 @@ const MC_DATA = {
                 "id": "minecraft:speed",
                 "name": "Speed",
                 "numeric_id": 1,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/speed.png"
         },
         {
                 "id": "minecraft:slowness",
                 "name": "Slowness",
                 "numeric_id": 2,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/slowness.png"
         },
         {
                 "id": "minecraft:haste",
                 "name": "Haste",
                 "numeric_id": 3,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/haste.png"
         },
         {
                 "id": "minecraft:mining_fatigue",
                 "name": "Mining Fatigue",
                 "numeric_id": 4,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/mining_fatigue.png"
         },
         {
                 "id": "minecraft:strength",
                 "name": "Strength",
                 "numeric_id": 5,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/strength.png"
         },
         {
                 "id": "minecraft:instant_health",
                 "name": "Instant Health",
                 "numeric_id": 6,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/instant_health.png"
         },
         {
                 "id": "minecraft:instant_damage",
                 "name": "Instant Damage",
                 "numeric_id": 7,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/instant_damage.png"
         },
         {
                 "id": "minecraft:jump_boost",
                 "name": "Jump Boost",
                 "numeric_id": 8,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/jump_boost.png"
         },
         {
                 "id": "minecraft:nausea",
                 "name": "Nausea",
                 "numeric_id": 9,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/nausea.png"
         },
         {
                 "id": "minecraft:regeneration",
                 "name": "Regeneration",
                 "numeric_id": 10,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/regeneration.png"
         },
         {
                 "id": "minecraft:resistance",
                 "name": "Resistance",
                 "numeric_id": 11,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/resistance.png"
         },
         {
                 "id": "minecraft:fire_resistance",
                 "name": "Fire Resistance",
                 "numeric_id": 12,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/fire_resistance.png"
         },
         {
                 "id": "minecraft:water_breathing",
                 "name": "Water Breathing",
                 "numeric_id": 13,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/water_breathing.png"
         },
         {
                 "id": "minecraft:invisibility",
                 "name": "Invisibility",
                 "numeric_id": 14,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/invisibility.png"
         },
         {
                 "id": "minecraft:blindness",
                 "name": "Blindness",
                 "numeric_id": 15,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/blindness.png"
         },
         {
                 "id": "minecraft:night_vision",
                 "name": "Night Vision",
                 "numeric_id": 16,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/night_vision.png"
         },
         {
                 "id": "minecraft:hunger",
                 "name": "Hunger",
                 "numeric_id": 17,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/hunger.png"
         },
         {
                 "id": "minecraft:weakness",
                 "name": "Weakness",
                 "numeric_id": 18,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/weakness.png"
         },
         {
                 "id": "minecraft:poison",
                 "name": "Poison",
                 "numeric_id": 19,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/poison.png"
         },
         {
                 "id": "minecraft:wither",
                 "name": "Wither",
                 "numeric_id": 20,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/wither.png"
         },
         {
                 "id": "minecraft:health_boost",
                 "name": "Health Boost",
                 "numeric_id": 21,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/health_boost.png"
         },
         {
                 "id": "minecraft:absorption",
                 "name": "Absorption",
                 "numeric_id": 22,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/absorption.png"
         },
         {
                 "id": "minecraft:saturation",
                 "name": "Saturation",
                 "numeric_id": 23,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/saturation.png"
         },
         {
                 "id": "minecraft:glowing",
                 "name": "Glowing",
                 "numeric_id": 24,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/glowing.png"
         },
         {
                 "id": "minecraft:levitation",
                 "name": "Levitation",
                 "numeric_id": 25,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/levitation.png"
         },
         {
                 "id": "minecraft:luck",
                 "name": "Luck",
                 "numeric_id": 26,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/luck.png"
         },
         {
                 "id": "minecraft:bad_luck",
                 "name": "Bad Luck",
                 "numeric_id": 27,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/unluck.png"
         },
         {
                 "id": "minecraft:slow_falling",
                 "name": "Slow Falling",
                 "numeric_id": 28,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/slow_falling.png"
         },
         {
                 "id": "minecraft:conduit_power",
                 "name": "Conduit Power",
                 "numeric_id": 29,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/conduit_power.png"
         },
         {
                 "id": "minecraft:dolphins_grace",
                 "name": "Dolphin's Grace",
                 "numeric_id": 30,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/dolphins_grace.png"
         },
         {
                 "id": "minecraft:bad_omen",
                 "name": "Bad Omen",
                 "numeric_id": 31,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/bad_omen.png"
         },
         {
                 "id": "minecraft:hero_of_the_village",
                 "name": "Hero of the Village",
                 "numeric_id": 32,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/hero_of_the_village.png"
         },
         {
                 "id": "minecraft:darkness",
                 "name": "Darkness",
                 "numeric_id": 33,
-                "icon": "🧪"
+                "icon": "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/darkness.png"
         }
 ],
 

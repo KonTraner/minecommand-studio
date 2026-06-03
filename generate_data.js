@@ -535,6 +535,20 @@ const finalLootTables = {
     entities: entityLootTables
 };
 
+// Map old effects to include actual Minecraft textures
+const updatedEffects = oldEffects.map(e => {
+    let filename = e.id.replace("minecraft:", "");
+    if (filename === "bad_luck") {
+        filename = "unluck";
+    }
+    return {
+        id: e.id,
+        name: e.name,
+        numeric_id: e.numeric_id,
+        icon: `https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.2/assets/minecraft/textures/mob_effect/${filename}.png`
+    };
+});
+
 // Generate JavaScript file content
 let newContent = `/* ==========================================================================
    MineCommand Studio - Game Data (Unified & Complete Database)
@@ -634,7 +648,7 @@ newContent += `        ]
     trolls_chains: ${JSON.stringify(oldTrollsChains, null, 8)},
 
     // Preserved Effects List
-    effects: ${JSON.stringify(oldEffects, null, 8)},
+    effects: ${JSON.stringify(updatedEffects, null, 8)},
 
     // Preserved Particles List
     particles: ${JSON.stringify(oldParticles, null, 8)},

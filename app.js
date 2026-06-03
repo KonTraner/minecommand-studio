@@ -2038,6 +2038,44 @@ const app = {
                 desc: c.desc || "Vanilla chat command.",
                 meta: `Syntax: ${c.meta || c.id}`
             }));
+        } else if (tab === "loot_tables") {
+            const chests = (MC_DATA.loot_tables.chests || []).map(lt => ({
+                id: lt.id,
+                name: lt.name,
+                icon: "https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/CHEST.png",
+                desc: "Chest loot table from structures or dungeons.",
+                meta: `Category: Chest Loot | ID: ${lt.id}`
+            }));
+            const villages = (MC_DATA.loot_tables.villages || []).map(lt => ({
+                id: lt.id,
+                name: lt.name,
+                icon: "https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/EMERALD.png",
+                desc: "Village house loot chest table.",
+                meta: `Category: Village | ID: ${lt.id}`
+            }));
+            const gameplay = (MC_DATA.loot_tables.gameplay || []).map(lt => ({
+                id: lt.id,
+                name: lt.name,
+                icon: "https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/FISHING_ROD.png",
+                desc: "Gameplay interaction loot table (e.g. fishing, bartering).",
+                meta: `Category: Gameplay | ID: ${lt.id}`
+            }));
+            itemsList = [...chests, ...villages, ...gameplay];
+        } else if (tab === "mob_drops") {
+            itemsList = (MC_DATA.loot_tables.entities || []).map(lt => {
+                const mobId = lt.id.replace("entities/", "");
+                let iconUrl = "https://cdn.jsdelivr.net/gh/Owen1212055/mc-assets@main/item-assets/ROTTEN_FLESH.png";
+                if (typeof getMobIconPath === "function") {
+                    iconUrl = getMobIconPath(mobId);
+                }
+                return {
+                    id: lt.id,
+                    name: lt.name,
+                    icon: iconUrl,
+                    desc: "Entity mob drop loot table. Controls items dropped upon mob death.",
+                    meta: `Category: Mob Drops | ID: ${lt.id}`
+                };
+            });
         }
 
         itemsList.forEach(item => {
