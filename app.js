@@ -73,7 +73,41 @@ const BANNER_PATTERNS = [
     { id: "minecraft:guster", name: "Guster", code: "gus" }
 ];
 
+const SPAWN_EGG_COLORS = {
+    "minecraft:zombie": { primary: "#0a7172", secondary: "#7f9e2d" },
+    "minecraft:creeper": { primary: "#0da70b", secondary: "#000000" },
+    "minecraft:skeleton": { primary: "#c1c1c1", secondary: "#494949" },
+    "minecraft:spider": { primary: "#352d27", secondary: "#a80e0e" },
+    "minecraft:enderman": { primary: "#161616", secondary: "#000000" },
+    "minecraft:witch": { primary: "#340000", secondary: "#51a03e" },
+    "minecraft:blaze": { primary: "#f6b201", secondary: "#fff87e" },
+    "minecraft:pig": { primary: "#f0a1a1", secondary: "#db6c6c" },
+    "minecraft:cow": { primary: "#443626", secondary: "#a1a1a1" },
+    "minecraft:chicken": { primary: "#a1a1a1", secondary: "#ff0000" },
+    "minecraft:slime": { primary: "#51a03e", secondary: "#7ebf6e" },
+    "minecraft:villager": { primary: "#563c33", secondary: "#bd8b72" },
+    "minecraft:iron_golem": { primary: "#d9d9d9", secondary: "#bd3838" },
+    "minecraft:wither_skeleton": { primary: "#141414", secondary: "#474747" }
+};
+
 const app = {
+    SPAWN_EGG_COLORS: SPAWN_EGG_COLORS,
+
+    updateEggColorsForMobType() {
+        const mobType = document.getElementById("mob-type")?.value || "minecraft:zombie";
+        const colors = app.SPAWN_EGG_COLORS[mobType] || { primary: "#5c8e32", secondary: "#a0a0a0" };
+        
+        const primaryColorPicker = document.getElementById("mob-egg-primary-color");
+        const primaryColorHex = document.getElementById("mob-egg-primary-hex");
+        const secondaryColorPicker = document.getElementById("mob-egg-secondary-color");
+        const secondaryColorHex = document.getElementById("mob-egg-secondary-hex");
+
+        if (primaryColorPicker) primaryColorPicker.value = colors.primary;
+        if (primaryColorHex) primaryColorHex.value = colors.primary;
+        if (secondaryColorPicker) secondaryColorPicker.value = colors.secondary;
+        if (secondaryColorHex) secondaryColorHex.value = colors.secondary;
+    },
+
     // Safety Event Binders
     safeBind(id, event, callback) {
         const el = document.getElementById(id);
@@ -318,6 +352,7 @@ const app = {
             "minecraft:zombie",
             () => {
                 app.updateSpecialMobPanel();
+                app.updateEggColorsForMobType();
                 app.recalculateCurrentCommand();
             }
         );
@@ -770,6 +805,70 @@ const app = {
         btnOpen.addEventListener("click", () => {
             app.playClick();
             app.creativeCallback = (item) => {
+                if (item.isPreset && item.presetId) {
+                    app.loadPreset(item.presetId);
+                    return;
+                }
+                
+                const itemId = item.id;
+                if (itemId.startsWith("minecraft:potion") || 
+                    itemId.startsWith("minecraft:splash_potion") || 
+                    itemId.startsWith("minecraft:lingering_potion")) {
+                    app.switchTab("potions-pane");
+                    const baseSel = document.getElementById("potion-base-type");
+                    if (baseSel) baseSel.value = itemId;
+                    
+                    const nameInput = document.getElementById("potion-name");
+                    if (nameInput) nameInput.value = "";
+                    document.querySelectorAll("#potion-effects-checklist-container .pot-eff-cb").forEach(cb => {
+                        cb.checked = false;
+                        const id = cb.dataset.effId;
+                        const row = document.getElementById(`pot-eff-slider-row-${id}`);
+                        if (row) row.classList.remove("show");
+                    });
+                    app.recalculateCurrentCommand();
+                    
+                    const toast = document.getElementById("toast");
+                    toast.textContent = "Switched to Potions Editor!";
+                    toast.classList.add("show");
+                    setTimeout(() => toast.classList.remove("show"), 2000);
+                    return;
+                }
+                
+                if (itemId === "minecraft:shield") {
+                    app.switchTab("banners-pane");
+                    const modeShield = document.getElementById("banner-mode-shield");
+                    if (modeShield) modeShield.checked = true;
+                    
+                    app.hydrateBannerPatternLayers([]);
+                    app.recalculateCurrentCommand();
+                    
+                    const toast = document.getElementById("toast");
+                    toast.textContent = "Switched to Shield Editor!";
+                    toast.classList.add("show");
+                    setTimeout(() => toast.classList.remove("show"), 2000);
+                    return;
+                }
+                
+                if (itemId.endsWith("_banner")) {
+                    app.switchTab("banners-pane");
+                    const modeBanner = document.getElementById("banner-mode-banner");
+                    if (modeBanner) modeBanner.checked = true;
+                    
+                    const baseColor = itemId.replace("minecraft:", "").replace("_banner", "");
+                    const baseColorSel = document.getElementById("banner-base-color");
+                    if (baseColorSel) baseColorSel.value = baseColor;
+                    
+                    app.hydrateBannerPatternLayers([]);
+                    app.recalculateCurrentCommand();
+                    
+                    const toast = document.getElementById("toast");
+                    toast.textContent = "Switched to Banner Editor!";
+                    toast.classList.add("show");
+                    setTimeout(() => toast.classList.remove("show"), 2000);
+                    return;
+                }
+                
                 app.selectDropdownByValue("dropdown-item-type", item.id);
                 app.recalculateCurrentCommand();
             };
@@ -1416,6 +1515,37 @@ const app = {
         app.safeBind("mob-fireimmune", "change", () => app.recalculateCurrentCommand());
         app.safeBind("mob-isbaby", "change", () => app.recalculateCurrentCommand());
         app.safeBind("mob-mount-baby", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-output-egg", "change", (e) => {
+            const colorsContainer = document.getElementById("mob-egg-colors-container");
+            if (colorsContainer) {
+                colorsContainer.style.display = e.target.checked ? "grid" : "none";
+            }
+            app.recalculateCurrentCommand();
+        });
+        app.safeBind("mob-egg-primary-color", "input", (e) => {
+            const hex = document.getElementById("mob-egg-primary-hex");
+            if (hex) hex.value = e.target.value;
+            app.recalculateCurrentCommand();
+        });
+        app.safeBind("mob-egg-primary-hex", "input", (e) => {
+            const picker = document.getElementById("mob-egg-primary-color");
+            if (picker && e.target.value.match(/^#[0-9A-Fa-f]{6}$/)) {
+                picker.value = e.target.value;
+            }
+            app.recalculateCurrentCommand();
+        });
+        app.safeBind("mob-egg-secondary-color", "input", (e) => {
+            const hex = document.getElementById("mob-egg-secondary-hex");
+            if (hex) hex.value = e.target.value;
+            app.recalculateCurrentCommand();
+        });
+        app.safeBind("mob-egg-secondary-hex", "input", (e) => {
+            const picker = document.getElementById("mob-egg-secondary-color");
+            if (picker && e.target.value.match(/^#[0-9A-Fa-f]{6}$/)) {
+                picker.value = e.target.value;
+            }
+            app.recalculateCurrentCommand();
+        });
 
         // Mob Active Effects Checkboxes
         app.safeBind("mob-eff-speed", "change", () => app.recalculateCurrentCommand());
@@ -1928,6 +2058,9 @@ const app = {
             mountPresetCmd: mountPresetCmd,
             isBaby: getChecked("mob-isbaby"),
             mountIsBaby: getChecked("mob-mount-baby"),
+            outputEgg: getChecked("mob-output-egg"),
+            eggPrimary: getVal("mob-egg-primary-hex", "#5c8e32"),
+            eggSecondary: getVal("mob-egg-secondary-hex", "#a0a0a0"),
             silent: getChecked("mob-silent"),
             noAI: getChecked("mob-noai"),
             glowing: getChecked("mob-glowing"),
@@ -2007,8 +2140,50 @@ const app = {
 
         if (activeTab === "mobs-pane") {
             const config = app.readMobConfig();
-            const cmd = Generator.generateMob(config, targetVersion);
-            app.displayCommand(cmd);
+            if (config.outputEgg) {
+                const eggConfig = JSON.parse(JSON.stringify(config));
+                eggConfig.mountType = "none";
+                const summonCmd = Generator.generateMob(eggConfig, targetVersion);
+                let giveCmd = app.convertSummonToGiveEgg(summonCmd, config.type);
+
+                const primaryColorHex = config.eggPrimary || "#5c8e32";
+                const secondaryColorHex = config.eggSecondary || "#a0a0a0";
+                const primaryColorDec = parseInt(primaryColorHex.replace("#", ""), 16);
+                const secondaryColorDec = parseInt(secondaryColorHex.replace("#", ""), 16);
+
+                if (giveCmd) {
+                    if (targetVersion === "java_modern") {
+                        const bracketIdx = giveCmd.indexOf("[");
+                        if (bracketIdx !== -1) {
+                            giveCmd = giveCmd.substring(0, bracketIdx + 1) + 
+                                      `minecraft:dyed_color={color:${primaryColorDec}},` + 
+                                      `minecraft:custom_data={egg_primary:${primaryColorDec},egg_secondary:${secondaryColorDec}},` + 
+                                      giveCmd.substring(bracketIdx + 1);
+                        } else {
+                            const spaceIdx = giveCmd.lastIndexOf(" ");
+                            const eggItem = giveCmd.substring(0, spaceIdx).trim();
+                            const countVal = giveCmd.substring(spaceIdx).trim();
+                            giveCmd = `${eggItem}[minecraft:dyed_color={color:${primaryColorDec}},minecraft:custom_data={egg_primary:${primaryColorDec},egg_secondary:${secondaryColorDec}}] ${countVal}`;
+                        }
+                    } else if (targetVersion === "java_legacy") {
+                        const braceIdx = giveCmd.indexOf("{");
+                        if (braceIdx !== -1) {
+                            giveCmd = giveCmd.substring(0, braceIdx + 1) +
+                                      `display:{color:${primaryColorDec}},EggPrimary:${primaryColorDec},EggSecondary:${secondaryColorDec},` +
+                                      giveCmd.substring(braceIdx + 1);
+                        } else {
+                            const spaceIdx = giveCmd.lastIndexOf(" ");
+                            const eggItem = giveCmd.substring(0, spaceIdx).trim();
+                            const countVal = giveCmd.substring(spaceIdx).trim();
+                            giveCmd = `${eggItem} ${countVal} {display:{color:${primaryColorDec}},EggPrimary:${primaryColorDec},EggSecondary:${secondaryColorDec}}`;
+                        }
+                    }
+                }
+                app.displayCommand(giveCmd);
+            } else {
+                const cmd = Generator.generateMob(config, targetVersion);
+                app.displayCommand(cmd);
+            }
 
         } else if (activeTab === "items-pane") {
             const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
@@ -2465,12 +2640,107 @@ const app = {
         setTimeout(() => {
             toast.classList.remove("show");
         }, 2000);
+        app.updatePresetsUI();
     },
 
     deletePreset(id) {
         app.playClick();
         presets = presets.filter(p => p.id !== id);
         app.savePresetsToStorage();
+        app.updatePresetsUI();
+    },
+
+    convertSummonToGiveEgg(summonCmd, defaultMobType = "minecraft:zombie", presetId = null) {
+        if (!summonCmd) return "";
+        let cmd = summonCmd.trim();
+        if (cmd.startsWith("/")) cmd = cmd.substring(1);
+
+        const parts = cmd.split(/\s+/);
+        let entityId = defaultMobType;
+        let nbtStr = "";
+
+        if (parts[0] === "summon") {
+            entityId = parts[1] || defaultMobType;
+            const braceIdx = cmd.indexOf("{");
+            if (braceIdx !== -1) {
+                nbtStr = cmd.substring(braceIdx);
+            }
+        } else if (parts[0] === "give") {
+            if (!cmd.includes("Passengers:")) {
+                return "/" + cmd;
+            }
+            const entDataMatch = cmd.match(/entity_data=\{(.*?)\}/) || cmd.match(/EntityTag:\{(.*?)\}/);
+            if (entDataMatch) {
+                let inner = entDataMatch[1].trim();
+                if (!inner.includes("id:")) {
+                    const itemIdMatch = cmd.match(/give\s+@\w\s+([a-zA-Z0-9_:]+)/);
+                    if (itemIdMatch) {
+                        let entName = itemIdMatch[1].replace("_spawn_egg", "");
+                        if (!entName.includes(":")) entName = "minecraft:" + entName;
+                        inner = `id:"${entName}",` + inner;
+                    }
+                }
+                cmd = `summon custom ~ ~ ~ {${inner}}`;
+            }
+            const newParts = cmd.split(/\s+/);
+            entityId = newParts[1] || defaultMobType;
+            const braceIdx = cmd.indexOf("{");
+            if (braceIdx !== -1) {
+                nbtStr = cmd.substring(braceIdx);
+            }
+        }
+
+        let mainMobId = entityId;
+        let mainMobNbt = nbtStr;
+
+        if (nbtStr && nbtStr.includes("Passengers:")) {
+            const match = nbtStr.match(/Passengers:\s*\[\s*(\{.*\})\s*\]/s);
+            if (match) {
+                let inner = match[1].trim();
+                const idMatch = inner.match(/id:\s*['"](.*?)['"]/);
+                if (idMatch) {
+                    mainMobId = idMatch[1] || idMatch[0].replace(/id:\s*['"]/,"").replace(/['"]$/,"");
+                    mainMobNbt = inner;
+                }
+            }
+        }
+
+        let itemId = mainMobId;
+        if (!itemId.endsWith("_spawn_egg")) {
+            itemId = itemId + "_spawn_egg";
+        }
+
+        let cleanNbt = "";
+        if (mainMobNbt) {
+            cleanNbt = mainMobNbt.trim();
+            if (cleanNbt.startsWith("{") && cleanNbt.endsWith("}")) {
+                cleanNbt = cleanNbt.substring(1, cleanNbt.length - 1).trim();
+            }
+        }
+
+        let primaryColorDec = null;
+        let secondaryColorDec = null;
+        if (presetId) {
+            const pr = presets.find(p => p.id === presetId);
+            if (pr && pr.mobConfig) {
+                const primaryColorHex = pr.mobConfig.eggPrimary || "#5c8e32";
+                const secondaryColorHex = pr.mobConfig.eggSecondary || "#a0a0a0";
+                primaryColorDec = parseInt(primaryColorHex.replace("#", ""), 16);
+                secondaryColorDec = parseInt(secondaryColorHex.replace("#", ""), 16);
+            }
+        }
+
+        let comps = [];
+        if (primaryColorDec !== null && secondaryColorDec !== null) {
+            comps.push(`minecraft:dyed_color={color:${primaryColorDec}}`);
+            comps.push(`minecraft:custom_data={egg_primary:${primaryColorDec},egg_secondary:${secondaryColorDec}}`);
+        }
+        if (cleanNbt) {
+            comps.push(`minecraft:entity_data={${cleanNbt}}`);
+        }
+
+        const compStr = comps.length > 0 ? `[${comps.join(",")}]` : "";
+        return `/give @p ${itemId}${compStr} 1`;
     },
 
     setCustomDropdownValue(dropdownId, value, isGrouped = false, groupsObj = null) {
@@ -2762,6 +3032,24 @@ const app = {
             if (fireimmune) fireimmune.checked = !!p.mobConfig.fireImmune;
             const isbaby = document.getElementById("mob-isbaby");
             if (isbaby) isbaby.checked = !!p.mobConfig.isBaby;
+
+            const outputEgg = document.getElementById("mob-output-egg");
+            if (outputEgg) {
+                outputEgg.checked = !!p.mobConfig.outputEgg;
+                const colorsContainer = document.getElementById("mob-egg-colors-container");
+                if (colorsContainer) {
+                    colorsContainer.style.display = outputEgg.checked ? "grid" : "none";
+                }
+            }
+            const eggPrimary = document.getElementById("mob-egg-primary-color");
+            const eggPrimaryHex = document.getElementById("mob-egg-primary-hex");
+            if (eggPrimary) eggPrimary.value = p.mobConfig.eggPrimary || "#5c8e32";
+            if (eggPrimaryHex) eggPrimaryHex.value = p.mobConfig.eggPrimary || "#5c8e32";
+
+            const eggSecondary = document.getElementById("mob-egg-secondary-color");
+            const eggSecondaryHex = document.getElementById("mob-egg-secondary-hex");
+            if (eggSecondary) eggSecondary.value = p.mobConfig.eggSecondary || "#a0a0a0";
+            if (eggSecondaryHex) eggSecondaryHex.value = p.mobConfig.eggSecondary || "#a0a0a0";
 
             // 3. Potion effects checklist
             document.querySelectorAll("#mob-effects-checklist-container .mob-eff-cb").forEach(cb => {
@@ -3415,30 +3703,28 @@ const app = {
                         let itemIcon = selection.icon;
                         let itemCommand = selection.command;
 
-                        // Check if this is a custom mob preset (starts with /summon or summon)
-                        const isMobPreset = selection.command && (selection.command.startsWith("/summon") || selection.command.startsWith("summon"));
+                        const pr = presets.find(p => p.id === selection.presetId);
+                        const isMobPreset = (selection.command && (selection.command.startsWith("/summon") || selection.command.startsWith("summon"))) || 
+                                             (pr && pr.type === "mob");
                         if (isMobPreset) {
-                            if (!itemId.endsWith("_spawn_egg")) {
-                                itemId = itemId + "_spawn_egg";
-                            }
-                            itemName = itemName + " Spawn Egg";
-                            itemIcon = getItemIconPath(itemId);
-                            
-                            const braceIdx = selection.command.indexOf("{");
-                            let nbt = "";
-                            if (braceIdx !== -1) {
-                                nbt = selection.command.substring(braceIdx);
-                            }
-                            
-                            const entityId = selection.id;
-                            let innerNbt = `id:"${entityId}"`;
-                            if (nbt) {
-                                const cleanNbt = nbt.trim().slice(1, -1).trim();
-                                if (cleanNbt) {
-                                    innerNbt += "," + cleanNbt;
+                            itemCommand = app.convertSummonToGiveEgg(selection.command, selection.id, selection.presetId);
+                            let parsedId = selection.id;
+                            if (itemCommand) {
+                                const matchEgg = itemCommand.match(/\/give\s+@\w\s+([a-zA-Z0-9_:]+)/);
+                                if (matchEgg) {
+                                    parsedId = matchEgg[1];
                                 }
                             }
-                            itemCommand = `/give @p ${itemId}[minecraft:entity_data={${innerNbt}}] 1`;
+                            itemId = parsedId;
+                            if (!itemId.includes(":")) {
+                                itemId = "minecraft:" + itemId;
+                            }
+                            if (itemName.includes(" riding ")) {
+                                itemName = itemName.split(" riding ")[0] + " Spawn Egg";
+                            } else if (!itemName.endsWith(" Spawn Egg")) {
+                                itemName = itemName + " Spawn Egg";
+                            }
+                            itemIcon = getItemIconPath(itemId);
                         }
 
                         app.containerContents[app.selectedContainerSlot] = {
@@ -4267,9 +4553,38 @@ const app = {
 
                 app.creativeCallback = (selection) => {
                     const dropdownId = `dropdown-eq-${slot}`;
-                    const command = selection.command || `give @p ${selection.id} 1`;
-                    const label = selection.isPreset ? `★ ${selection.name}` : selection.name;
-                    app.selectCustomDropdownOption(dropdownId, command, label, app.renderIcon(selection.icon));
+                    let command = selection.command || `give @p ${selection.id} 1`;
+                    let label = selection.name;
+                    let icon = selection.icon;
+
+                    const pr = presets.find(p => p.id === selection.presetId);
+                    const isMobPreset = (selection.command && (selection.command.startsWith("/summon") || selection.command.startsWith("summon"))) || 
+                                         (pr && pr.type === "mob");
+                    if (isMobPreset) {
+                        command = app.convertSummonToGiveEgg(selection.command, selection.id, selection.presetId);
+                        if (label.includes("riding")) {
+                            label = label.split(" riding ")[0] + " Spawn Egg";
+                        } else if (!label.endsWith("Spawn Egg")) {
+                            label = label + " Spawn Egg";
+                        }
+                        
+                        let parsedId = selection.id;
+                        if (command) {
+                            const matchEgg = command.match(/\/give\s+@\w\s+([a-zA-Z0-9_:]+)/);
+                            if (matchEgg) {
+                                parsedId = matchEgg[1];
+                            }
+                        }
+                        if (!parsedId.includes(":")) {
+                            parsedId = "minecraft:" + parsedId;
+                        }
+                        icon = getItemIconPath(parsedId);
+                    }
+                    if (selection.isPreset) {
+                        label = `★ ${label}`;
+                    }
+
+                    app.selectCustomDropdownOption(dropdownId, command, label, app.renderIcon(icon));
                     app.recalculateCurrentCommand();
                 };
 
@@ -4301,35 +4616,21 @@ const app = {
                 app.creativeCallback = (selection) => {
                     const presetNameInput = document.getElementById("exec-give-preset-name");
                     const presetValInput = document.getElementById("exec-give-preset-val");
-                    if (presetNameInput) presetNameInput.value = selection.name;
-
+                    
+                    let targetName = selection.name;
                     let targetCommand = selection.command || `give @p ${selection.id} 1`;
 
-                    // Check if this is a custom mob preset (starts with /summon or summon)
                     const isMobPreset = selection.command && (selection.command.startsWith("/summon") || selection.command.startsWith("summon"));
                     if (isMobPreset) {
-                        let itemId = selection.id;
-                        if (!itemId.endsWith("_spawn_egg")) {
-                            itemId = itemId + "_spawn_egg";
+                        targetCommand = app.convertSummonToGiveEgg(selection.command, selection.id);
+                        if (targetName.includes("riding")) {
+                            targetName = targetName.split(" riding ")[0] + " Spawn Egg";
+                        } else if (!targetName.endsWith("Spawn Egg")) {
+                            targetName = targetName + " Spawn Egg";
                         }
-                        
-                        const braceIdx = selection.command.indexOf("{");
-                        let nbt = "";
-                        if (braceIdx !== -1) {
-                            nbt = selection.command.substring(braceIdx);
-                        }
-                        
-                        const entityId = selection.id;
-                        let innerNbt = `id:"${entityId}"`;
-                        if (nbt) {
-                            const cleanNbt = nbt.trim().slice(1, -1).trim();
-                            if (cleanNbt) {
-                                innerNbt += "," + cleanNbt;
-                            }
-                        }
-                        targetCommand = `/give @p ${itemId}[minecraft:entity_data={${innerNbt}}] 1`;
                     }
 
+                    if (presetNameInput) presetNameInput.value = targetName;
                     if (presetValInput) presetValInput.value = targetCommand;
                     app.recalculateCurrentCommand();
                 };

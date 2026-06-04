@@ -1238,6 +1238,86 @@ const Generator = {
             id = "minecraft:" + id;
         }
 
+        if (!tag && components.length > 0) {
+            let nbtParts = [];
+            let displayParts = [];
+            
+            components.forEach(comp => {
+                let cleanComp = comp.trim();
+                if (cleanComp.startsWith("minecraft:")) {
+                    cleanComp = cleanComp.substring("minecraft:".length);
+                }
+                
+                if (cleanComp.startsWith("custom_name=")) {
+                    const val = cleanComp.substring("custom_name=".length);
+                    displayParts.push(`Name:${val}`);
+                } else if (cleanComp.startsWith("lore=")) {
+                    const val = cleanComp.substring("lore=".length);
+                    displayParts.push(`Lore:${val}`);
+                } else if (cleanComp.startsWith("dyed_color=")) {
+                    let val = cleanComp.substring("dyed_color=".length).trim();
+                    if (val.startsWith("{")) {
+                        const colorMatch = val.match(/color:(-?\d+)/);
+                        if (colorMatch) {
+                            displayParts.push(`color:${colorMatch[1]}`);
+                        }
+                    } else {
+                        displayParts.push(`color:${val}`);
+                    }
+                } else if (cleanComp.startsWith("unbreakable=")) {
+                    nbtParts.push("Unbreakable:1b");
+                } else if (cleanComp.startsWith("enchantment_glint_override=true")) {
+                    nbtParts.push("Enchantments:[{}]");
+                } else if (cleanComp.startsWith("enchantments=")) {
+                    const val = cleanComp.substring("enchantments=".length);
+                    const levelsMatch = val.match(/levels:\{(.*?)\}/);
+                    if (levelsMatch) {
+                        const levels = levelsMatch[1].split(",");
+                        let enchList = [];
+                        levels.forEach(lvl => {
+                            const parts = lvl.split(":");
+                            if (parts.length === 2) {
+                                const enchId = parts[0].replace(/"/g, "").trim().replace("minecraft:", "");
+                                const enchLvl = parseInt(parts[1]) || 1;
+                                enchList.push(`{id:"minecraft:${enchId}",lvl:${enchLvl}s}`);
+                            }
+                        });
+                        if (enchList.length > 0) {
+                            nbtParts.push(`Enchantments:[${enchList.join(",")}]`);
+                        }
+                    }
+                } else if (cleanComp.startsWith("entity_data=")) {
+                    const val = cleanComp.substring("entity_data=".length);
+                    nbtParts.push(`EntityTag:${val}`);
+                } else if (cleanComp.startsWith("custom_data=")) {
+                    const val = cleanComp.substring("custom_data=".length).trim();
+                    if (val.startsWith("{") && val.endsWith("}")) {
+                        const inner = val.substring(1, val.length - 1).trim();
+                        if (inner) {
+                            const pairs = inner.split(",");
+                            pairs.forEach(p => {
+                                const kv = p.split(":");
+                                if (kv.length === 2) {
+                                    const k = kv[0].trim();
+                                    const v = kv[1].trim();
+                                    const legacyK = k.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join("");
+                                    nbtParts.push(`${legacyK}:${v}`);
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+            
+            if (displayParts.length > 0) {
+                nbtParts.push(`display:{${displayParts.join(",")}}`);
+            }
+            
+            if (nbtParts.length > 0) {
+                tag = `{${nbtParts.join(",")}}`;
+            }
+        }
+
         return { id, count, components, tag };
     },
 

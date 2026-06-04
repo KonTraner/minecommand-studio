@@ -168,6 +168,29 @@
                                     <label for="mob-name">Display Name</label>
                                     <input type="text" id="mob-name" placeholder="e.g. §cUndead King" maxlength="64">
                                 </div>
+                                <div class="checkbox-grid col-span-2" style="margin-top: 4px; margin-bottom: 8px;">
+                                    <label class="mc-checkbox-label">
+                                        <input type="checkbox" id="mob-output-egg">
+                                        <span class="mc-checkbox"></span>
+                                        Generate as Spawn Egg (instead of /summon)
+                                    </label>
+                                </div>
+                                <div id="mob-egg-colors-container" class="form-grid col-span-2" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; padding-left: 20px; border-left: 3px solid var(--color-emerald);">
+                                    <div class="input-field">
+                                        <label for="mob-egg-primary-color">Primary Egg Color</label>
+                                        <div style="display: flex; gap: 8px; align-items: center;">
+                                            <input type="color" id="mob-egg-primary-color" value="#5c8e32" style="width: 40px; height: 36px; border: 2px solid var(--mc-panel-border); padding: 2px; background: #101011; border-radius: 4px; cursor: pointer; box-sizing: border-box; flex-shrink: 0;">
+                                            <input type="text" id="mob-egg-primary-hex" value="#5c8e32" style="flex: 1;" placeholder="#5c8e32" maxlength="7">
+                                        </div>
+                                    </div>
+                                    <div class="input-field">
+                                        <label for="mob-egg-secondary-color">Secondary Egg Color</label>
+                                        <div style="display: flex; gap: 8px; align-items: center;">
+                                            <input type="color" id="mob-egg-secondary-color" value="#a0a0a0" style="width: 40px; height: 36px; border: 2px solid var(--mc-panel-border); padding: 2px; background: #101011; border-radius: 4px; cursor: pointer; box-sizing: border-box; flex-shrink: 0;">
+                                            <input type="text" id="mob-egg-secondary-hex" value="#a0a0a0" style="flex: 1;" placeholder="#a0a0a0" maxlength="7">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="input-field col-span-2 slider-group">
                                     <div class="slider-header">
                                         <label for="mob-health">Max Health</label>
