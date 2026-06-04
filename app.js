@@ -4302,7 +4302,35 @@ const app = {
                     const presetNameInput = document.getElementById("exec-give-preset-name");
                     const presetValInput = document.getElementById("exec-give-preset-val");
                     if (presetNameInput) presetNameInput.value = selection.name;
-                    if (presetValInput) presetValInput.value = selection.command || `give @p ${selection.id} 1`;
+
+                    let targetCommand = selection.command || `give @p ${selection.id} 1`;
+
+                    // Check if this is a custom mob preset (starts with /summon or summon)
+                    const isMobPreset = selection.command && (selection.command.startsWith("/summon") || selection.command.startsWith("summon"));
+                    if (isMobPreset) {
+                        let itemId = selection.id;
+                        if (!itemId.endsWith("_spawn_egg")) {
+                            itemId = itemId + "_spawn_egg";
+                        }
+                        
+                        const braceIdx = selection.command.indexOf("{");
+                        let nbt = "";
+                        if (braceIdx !== -1) {
+                            nbt = selection.command.substring(braceIdx);
+                        }
+                        
+                        const entityId = selection.id;
+                        let innerNbt = `id:"${entityId}"`;
+                        if (nbt) {
+                            const cleanNbt = nbt.trim().slice(1, -1).trim();
+                            if (cleanNbt) {
+                                innerNbt += "," + cleanNbt;
+                            }
+                        }
+                        targetCommand = `/give @p ${itemId}[minecraft:entity_data={${innerNbt}}] 1`;
+                    }
+
+                    if (presetValInput) presetValInput.value = targetCommand;
                     app.recalculateCurrentCommand();
                 };
                 modal.style.display = "flex";
