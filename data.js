@@ -11076,7 +11076,7 @@ const MC_DATA = {
         {
                 "id": "minecraft:cherry_grove",
                 "name": "Cherry Grove",
-                "icon": "❄️",
+                "icon": "🌸",
                 "desc": "A Overworld biome. Category: Forest. Temp: 0.5. Precipitation: Yes."
         },
         {
@@ -11136,7 +11136,7 @@ const MC_DATA = {
         {
                 "id": "minecraft:dripstone_caves",
                 "name": "Dripstone Caves",
-                "icon": "🌱",
+                "icon": "🪨",
                 "desc": "A Overworld biome. Category: Underground. Temp: 0.8. Precipitation: Yes."
         },
         {
@@ -11232,8 +11232,8 @@ const MC_DATA = {
         {
                 "id": "minecraft:mangrove_swamp",
                 "name": "Mangrove Swamp",
-                "icon": "❄️",
-                "desc": "A Overworld biome. Category: Forest. Temp: 0.8. Precipitation: Yes."
+                "icon": "🐊",
+                "desc": "A Overworld biome. Category: Swamp. Temp: 0.8. Precipitation: Yes."
         },
         {
                 "id": "minecraft:meadow",
@@ -11346,7 +11346,7 @@ const MC_DATA = {
         {
                 "id": "minecraft:stony_peaks",
                 "name": "Stony Peaks",
-                "icon": "❄️",
+                "icon": "⛰️",
                 "desc": "A Overworld biome. Category: Mountain. Temp: 1. Precipitation: Yes."
         },
         {
@@ -11382,8 +11382,8 @@ const MC_DATA = {
         {
                 "id": "minecraft:the_void",
                 "name": "The Void",
-                "icon": "🌱",
-                "desc": "A Overworld biome. Category: None. Temp: 0.5. Precipitation: No."
+                "icon": "🌌",
+                "desc": "A technical biome representing the empty void of space. Category: None. Temp: 0.5. Precipitation: No."
         },
         {
                 "id": "minecraft:warm_ocean",
