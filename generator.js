@@ -345,7 +345,21 @@ const Generator = {
         // --- BEDROCK ---
         if (version === "bedrock") {
             const rawName = customName ? `"${this.escapeString(customName)}"` : "";
-            let baseCmd = `/summon ${mobType.replace("minecraft:", "")} ~ ~ ~ ${rawName}`;
+            let spawnEvent = "";
+            if (config.isBaby) {
+                const animals = ["cow", "sheep", "pig", "chicken", "wolf", "cat", "ocelot", "fox", "polar_bear", "horse", "donkey", "mule", "llama", "trader_llama", "panda", "goat", "sniffer", "camel", "rabbit", "turtle", "frog", "bee", "axolotl", "strider", "hoglin", "mooshroom"];
+                const baseType = mobType.replace("minecraft:", "");
+                const isAnimal = animals.includes(baseType);
+                spawnEvent = isAnimal ? "minecraft:entity_born" : "minecraft:as_baby";
+            }
+            
+            let baseCmd = "";
+            if (spawnEvent) {
+                baseCmd = `/summon ${mobType.replace("minecraft:", "")} ~ ~ ~ ~ ~ ${spawnEvent}${rawName ? " " + rawName : ""}`;
+            } else {
+                baseCmd = `/summon ${mobType.replace("minecraft:", "")} ~ ~ ~ ${rawName}`;
+            }
+
             if (activeEffects.length > 0) {
                 const effectCmds = activeEffects.map(eff => {
                     const cleanId = eff.id.replace("minecraft:", "");
@@ -379,6 +393,10 @@ const Generator = {
         if (isInvulnerable) nbt.push("Invulnerable:1b");
         if (noGravity) nbt.push("NoGravity:1b");
         if (fireImmune) nbt.push("FireImmune:1b");
+        if (config.isBaby) {
+            nbt.push("IsBaby:1b");
+            nbt.push("Age:-24000");
+        }
 
         // HP and Attributes
         let attributesList = [];
@@ -476,7 +494,13 @@ const Generator = {
 
             if (config.mountType === "default") {
                 const mountMob = config.mountMob || "minecraft:chicken";
-                return `/summon ${mountMob} ~ ~ ~ {Passengers:[${activePassengerNBT}]}`;
+                let mountNBTs = [];
+                if (config.mountIsBaby) {
+                    mountNBTs.push("IsBaby:1b");
+                    mountNBTs.push("Age:-24000");
+                }
+                mountNBTs.push(`Passengers:[${activePassengerNBT}]`);
+                return `/summon ${mountMob} ~ ~ ~ {${mountNBTs.join(",")}}`;
             } else if (config.mountType === "preset") {
                 const presetCmd = config.mountPresetCmd;
                 const parsed = this.parseSummonCommand(presetCmd);

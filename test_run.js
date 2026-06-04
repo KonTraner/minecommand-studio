@@ -477,4 +477,59 @@ versions.forEach(v => {
     }
 });
 
+// ==========================================
+// === RUNNING BABY MOB & BABY MOUNT TESTS ===
+// ==========================================
+console.log("\n==========================================");
+console.log("=== RUNNING BABY MOB & BABY MOUNT TESTS ===");
+console.log("==========================================");
+
+const babyMonsterConfig = {
+    type: "minecraft:zombie",
+    name: "Baby Zombie King",
+    isBaby: true,
+    mountType: "none"
+};
+
+const babyAnimalConfig = {
+    type: "minecraft:pig",
+    name: "Baby Piggy",
+    isBaby: true,
+    mountType: "none"
+};
+
+const babyRiderWithBabyMountConfig = {
+    type: "minecraft:zombie",
+    name: "Baby Rider",
+    isBaby: true,
+    mountType: "default",
+    mountMob: "minecraft:chicken",
+    mountIsBaby: true
+};
+
+versions.forEach(v => {
+    console.log(`\n--- Baby Mobs & Mounts (Version: ${v}) ---`);
+    try {
+        const cmd1 = Generator.generateMob(babyMonsterConfig, v);
+        console.log(`Baby Monster:\n${cmd1}`);
+    } catch (err) {
+        console.error("❌ Baby Monster Test Failed:", err);
+    }
+
+    try {
+        const cmd2 = Generator.generateMob(babyAnimalConfig, v);
+        console.log(`Baby Animal:\n${cmd2}`);
+    } catch (err) {
+        console.error("❌ Baby Animal Test Failed:", err);
+    }
+
+    try {
+        const cmd3 = Generator.generateMob(babyRiderWithBabyMountConfig, v);
+        console.log(`Baby Rider & Baby Mount:\n${cmd3}`);
+    } catch (err) {
+        console.error("❌ Baby Rider & Baby Mount Test Failed:", err);
+    }
+});
+
+
 

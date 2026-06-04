@@ -1410,6 +1410,8 @@ const app = {
         app.safeBind("mob-invulnerable", "change", () => app.recalculateCurrentCommand());
         app.safeBind("mob-nogravity", "change", () => app.recalculateCurrentCommand());
         app.safeBind("mob-fireimmune", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-isbaby", "change", () => app.recalculateCurrentCommand());
+        app.safeBind("mob-mount-baby", "change", () => app.recalculateCurrentCommand());
 
         // Mob Active Effects Checkboxes
         app.safeBind("mob-eff-speed", "change", () => app.recalculateCurrentCommand());
@@ -1889,6 +1891,8 @@ const app = {
                 mountMob: getVal("mob-mount-default", "minecraft:chicken"),
                 mountPresetId: presetId,
                 mountPresetCmd: mountPresetCmd,
+                isBaby: getChecked("mob-isbaby"),
+                mountIsBaby: getChecked("mob-mount-baby"),
                 silent: getChecked("mob-silent"),
                 noAI: getChecked("mob-noai"),
                 glowing: getChecked("mob-glowing"),
@@ -3135,11 +3139,13 @@ const app = {
         const typeSelect = document.getElementById("mob-mount-type");
         const defaultRow = document.getElementById("mob-mount-default-row");
         const presetRow = document.getElementById("mob-mount-preset-row");
+        const optionsRow = document.getElementById("mob-mount-options-row");
         if (!typeSelect) return;
 
         const val = typeSelect.value;
         if (defaultRow) defaultRow.style.display = val === "default" ? "block" : "none";
         if (presetRow) presetRow.style.display = val === "preset" ? "block" : "none";
+        if (optionsRow) optionsRow.style.display = val === "default" ? "block" : "none";
         
         if (val === "preset") {
             app.populateMountPresets();
