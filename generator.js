@@ -156,6 +156,47 @@ const Generator = {
                 );
             }
 
+            // Container presets compilation
+            if (config.containerConfig) {
+                const cConf = config.containerConfig;
+                if (cConf.lootTable && cConf.lootTable !== "none") {
+                    components.push(`minecraft:container_loot={loot_table:"${cConf.lootTable}"}`);
+                } else if (cConf.contents) {
+                    let slotItems = [];
+                    for (const [slotStr, item] of Object.entries(cConf.contents)) {
+                        const slot = parseInt(slotStr);
+                        const id = item.id || "minecraft:stone";
+                        const count = item.count || 1;
+
+                        if (item.isPreset && item.command) {
+                            const parsed = this.parseGiveCommand(item.command);
+                            let itemComps = parsed.components.map(c => {
+                                const eqIdx = c.indexOf("=");
+                                if (eqIdx !== -1) {
+                                    return c.substring(0, eqIdx) + ":" + c.substring(eqIdx + 1);
+                                }
+                                return c;
+                            });
+                            if (parsed.tag && parsed.tag.includes("EntityTag:")) {
+                                const match = parsed.tag.match(/EntityTag:\s*(\{.*\})/s);
+                                if (match) {
+                                    itemComps.push(`"minecraft:entity_data":${match[1]}`);
+                                }
+                            } else if (parsed.tag && parsed.tag !== "{}") {
+                                itemComps.push(`"minecraft:custom_data":${parsed.tag}`);
+                            }
+                            const compStr = itemComps.length > 0 ? `,components:{${itemComps.join(",")}}` : "";
+                            slotItems.push(`{slot:${slot},item:{id:"${parsed.id}",count:${count}${compStr}}}`);
+                        } else {
+                            slotItems.push(`{slot:${slot},item:{id:"${id}",count:${count}}}`);
+                        }
+                    }
+                    if (slotItems.length > 0) {
+                        components.push(`minecraft:container=[${slotItems.join(",")}]`);
+                    }
+                }
+            }
+
             const compString = components.length > 0 ? `[${components.join(",")}]` : "";
             return `/give @p ${itemId}${compString} ${count}`;
         }
@@ -224,6 +265,31 @@ const Generator = {
                 nbtTags.push("HideFlags:127");
             }
 
+            // Container presets compilation (Legacy NBT)
+            if (config.containerConfig) {
+                const cConf = config.containerConfig;
+                if (cConf.lootTable && cConf.lootTable !== "none") {
+                    nbtTags.push(`BlockEntityTag:{LootTable:"${cConf.lootTable}"}`);
+                } else if (cConf.contents) {
+                    let slotItems = [];
+                    for (const [slotStr, item] of Object.entries(cConf.contents)) {
+                        const slot = parseInt(slotStr);
+                        const id = item.id || "minecraft:stone";
+                        const count = item.count || 1;
+                        if (item.isPreset && item.command) {
+                            const parsed = this.parseGiveCommand(item.command);
+                            let tagPart = parsed.tag && parsed.tag !== "{}" ? `,tag:${parsed.tag}` : "";
+                            slotItems.push(`{Slot:${slot}b,id:"${parsed.id}",Count:${count}b${tagPart}}`);
+                        } else {
+                            slotItems.push(`{Slot:${slot}b,id:"${id}",Count:${count}b}`);
+                        }
+                    }
+                    if (slotItems.length > 0) {
+                        nbtTags.push(`BlockEntityTag:{Items:[${slotItems.join(",")}]}`);
+                    }
+                }
+            }
+
             const nbtString = nbtTags.length > 0 ? `{${nbtTags.join(",")}}` : "";
             return `/give @p ${itemId}${nbtString} ${count}`;
         }
@@ -233,6 +299,11 @@ const Generator = {
             // Bedrock `/give` does not support inline NBT tags directly.
             // We output a clean `/give` command followed by `/enchant` calls for convenience.
             let commands = [];
+            
+            if (config.containerConfig) {
+                commands.push("# Note: Bedrock Edition does not support custom container contents in the /give command directly. Use the setblock / custom container tab if you want to place containers with loot.");
+            }
+
             commands.push(`/give @p ${itemId.replace("minecraft:", "")} ${count}`);
             
             if (enchantments.length > 0) {

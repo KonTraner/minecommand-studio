@@ -477,6 +477,15 @@
                                     </div>
                                     <input type="range" id="item-count" min="1" max="64" value="1">
                                 </div>
+                                <div class="input-field col-span-2" id="item-container-presets-row" style="margin-top: 10px;">
+                                    <label for="item-container-preset">Attach Container Contents (Preset)</label>
+                                    <div style="display: flex; gap: 8px; align-items: center;">
+                                        <select id="item-container-preset" style="flex: 1; min-height: 40px; font-family: 'VT323', monospace; font-size: 18px; padding: 6px;">
+                                            <option value="none">-- None (Plain Item) --</option>
+                                        </select>
+                                        <button id="btn-edit-item-container" class="mc-btn green-btn sm-btn" style="padding: 6px 12px; display: none;">Edit</button>
+                                    </div>
+                                </div>
                                 <div class="checkbox-grid">
                                     <label class="mc-checkbox-label">
                                         <input type="checkbox" id="item-unbreakable">
@@ -1419,6 +1428,9 @@
                                                 <button id="btn-slot-choose-item" class="mc-btn green-btn mc-btn-sm" style="flex: 1;">Set Item</button>
                                                 <button id="btn-slot-clear" class="mc-btn red-btn mc-btn-sm">Clear</button>
                                             </div>
+                                            <div style="margin-top: 4px;">
+                                                <button id="btn-slot-edit-preset" class="mc-btn gold-btn mc-btn-sm" style="width: 100%; display: none;">Edit Loaded Preset</button>
+                                            </div>
                                             <div style="display: flex; gap: 8px; margin-top: 4px; border-top: 1px solid #2d2d30; padding-top: 6px;">
                                                 <button id="btn-container-fill-all" class="mc-btn secondary-btn mc-btn-sm" style="flex: 1; font-size: 11px; padding: 4px 6px;" title="Fill ALL slots in the container with this item">Fill All</button>
                                                 <button id="btn-container-fill-empty" class="mc-btn secondary-btn mc-btn-sm" style="flex: 1; font-size: 11px; padding: 4px 6px;" title="Fill only empty slots in the container with this item">Fill Empty</button>
@@ -1482,8 +1494,11 @@
         </div>
 
         <footer class="mc-console-panel">
-            <div class="console-header">
-                <h3>CONSOLE OUTPUT</h3>
+            <div class="console-header" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <h3>CONSOLE OUTPUT</h3>
+                    <span id="console-char-counter" style="font-family: 'VT323', monospace; font-size: 16px; color: #888;">(0 chars)</span>
+                </div>
                 <div class="preset-save-form" id="preset-save-widget" style="display: none;">
                     <input type="text" id="save-preset-name" placeholder="Preset Name..." maxlength="32">
                     <button id="btn-save-preset" class="mc-btn green-btn sm-btn">Save Preset</button>

@@ -300,6 +300,10 @@ const app = {
             activeChainId = null;
         }
 
+        if (tabId === "items-pane") {
+            app.populateItemContainerPresets();
+        }
+
         app.recalculateCurrentCommand();
     },
 
@@ -1442,6 +1446,28 @@ const app = {
             });
         }
 
+        // Attached container preset events
+        const containerPresetSelect = document.getElementById("item-container-preset");
+        const editContainerBtn = document.getElementById("btn-edit-item-container");
+        if (containerPresetSelect) {
+            containerPresetSelect.addEventListener("change", () => {
+                if (containerPresetSelect.value && containerPresetSelect.value !== "none") {
+                    if (editContainerBtn) editContainerBtn.style.display = "block";
+                } else {
+                    if (editContainerBtn) editContainerBtn.style.display = "none";
+                }
+                app.recalculateCurrentCommand();
+            });
+        }
+        if (editContainerBtn) {
+            editContainerBtn.addEventListener("click", () => {
+                const val = containerPresetSelect ? containerPresetSelect.value : "none";
+                if (val && val !== "none") {
+                    app.loadPreset(val);
+                }
+            });
+        }
+
         // Enchant checklist handlers
         const enchantContainer = document.getElementById("enchantments-checklist-container");
         if (enchantContainer) {
@@ -1845,6 +1871,133 @@ const app = {
         const box = document.getElementById("command-output-box");
         box.innerHTML = app.highlightSyntax(cmd);
         box.dataset.rawCommand = cmd;
+
+        const counter = document.getElementById("console-char-counter");
+        if (counter) {
+            const len = cmd.length;
+            if (len > 32767) {
+                counter.textContent = `(${len.toLocaleString()} / 32,767 chars) ⚠️ EXCEEDS LIMIT!`;
+                counter.style.color = "#ff4500";
+                counter.style.fontWeight = "bold";
+            } else {
+                counter.textContent = `(${len.toLocaleString()} chars)`;
+                counter.style.color = "#888";
+                counter.style.fontWeight = "normal";
+            }
+        }
+    },
+
+    readMobConfig() {
+        const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
+        const getChecked = (id) => { const el = document.getElementById(id); return el ? el.checked : false; };
+
+        const activeEffects = [];
+        document.querySelectorAll("#mob-effects-checklist-container .mob-eff-cb:checked").forEach(cb => {
+            const id = cb.dataset.effId;
+            const slider = document.querySelector(`.mob-eff-slider[data-eff-id="${id}"]`);
+            const durSlider = document.querySelector(`.mob-eff-dur-slider[data-eff-id="${id}"]`);
+            const infiniteCb = document.querySelector(`.mob-eff-infinite-cb[data-eff-id="${id}"]`);
+            const hideParticlesCb = document.querySelector(`.mob-eff-hide-particles-cb[data-eff-id="${id}"]`);
+            
+            const amp = slider ? parseInt(slider.value) : 1;
+            const infinite = infiniteCb ? infiniteCb.checked : true;
+            const duration = durSlider ? parseInt(durSlider.value) : 60;
+            const hideParticles = hideParticlesCb ? hideParticlesCb.checked : false;
+            activeEffects.push({ id: id, amplifier: amp, infinite: infinite, duration: duration, hideParticles: hideParticles });
+        });
+
+        let mountPresetCmd = "";
+        const presetId = getVal("mob-mount-preset", "");
+        if (presetId) {
+            const foundPreset = presets.find(p => p.id === presetId);
+            if (foundPreset) {
+                mountPresetCmd = foundPreset.command;
+            }
+        }
+
+        const config = {
+            type: getVal("mob-type", "minecraft:zombie"),
+            name: getVal("mob-name"),
+            health: getVal("mob-health", "20"),
+            speed: getVal("mob-speed", "1.0"),
+            scale: getVal("mob-scale", "1.0"),
+            stepHeight: getVal("mob-step-height", "0.6"),
+            mountType: getVal("mob-mount-type", "none"),
+            mountMob: getVal("mob-mount-default", "minecraft:chicken"),
+            mountPresetId: presetId,
+            mountPresetCmd: mountPresetCmd,
+            isBaby: getChecked("mob-isbaby"),
+            mountIsBaby: getChecked("mob-mount-baby"),
+            silent: getChecked("mob-silent"),
+            noAI: getChecked("mob-noai"),
+            glowing: getChecked("mob-glowing"),
+            invulnerable: getChecked("mob-invulnerable"),
+            noGravity: getChecked("mob-nogravity"),
+            fireImmune: getChecked("mob-fireimmune"),
+            activeEffects: activeEffects,
+            gear: {
+                hand: getVal("eq-hand", "none"),
+                offhand: getVal("eq-offhand", "none"),
+                head: getVal("eq-head", "none"),
+                chest: getVal("eq-chest", "none"),
+                legs: getVal("eq-legs", "none"),
+                feet: getVal("eq-feet", "none")
+            },
+            gearEnch: {
+                hand: getChecked("eq-hand-ench") ? (app.mobEquipEnchants.hand && app.mobEquipEnchants.hand.length > 0 ? app.mobEquipEnchants.hand : true) : [],
+                offhand: getChecked("eq-offhand-ench") ? (app.mobEquipEnchants.offhand && app.mobEquipEnchants.offhand.length > 0 ? app.mobEquipEnchants.offhand : true) : [],
+                head: getChecked("eq-head-ench") ? (app.mobEquipEnchants.head && app.mobEquipEnchants.head.length > 0 ? app.mobEquipEnchants.head : true) : [],
+                chest: getChecked("eq-chest-ench") ? (app.mobEquipEnchants.chest && app.mobEquipEnchants.chest.length > 0 ? app.mobEquipEnchants.chest : true) : [],
+                legs: getChecked("eq-legs-ench") ? (app.mobEquipEnchants.legs && app.mobEquipEnchants.legs.length > 0 ? app.mobEquipEnchants.legs : true) : [],
+                feet: getChecked("eq-feet-ench") ? (app.mobEquipEnchants.feet && app.mobEquipEnchants.feet.length > 0 ? app.mobEquipEnchants.feet : true) : []
+            },
+            specials: {}
+        };
+
+        if (config.type === "minecraft:creeper") {
+            const powered = document.getElementById("spec-creeper-powered");
+            const rad = document.getElementById("spec-creeper-radius");
+            const fuse = document.getElementById("spec-creeper-fuse");
+            config.specials.creeperPowered = powered ? powered.checked : false;
+            config.specials.creeperRadius = rad ? parseInt(rad.value) : 3;
+            config.specials.creeperFuse = fuse ? parseInt(fuse.value) : 30;
+        } else if (config.type === "minecraft:slime") {
+            const size = document.getElementById("spec-slime-size");
+            config.specials.slimeSize = size ? parseInt(size.value) : 1;
+        } else if (config.type === "minecraft:villager") {
+            const prof = document.getElementById("spec-villager-profession");
+            config.specials.villagerProfession = prof ? prof.value : "none";
+        }
+
+        return config;
+    },
+
+    populateItemContainerPresets() {
+        const select = document.getElementById("item-container-preset");
+        const editBtn = document.getElementById("btn-edit-item-container");
+        if (!select) return;
+
+        const currentVal = select.value;
+        const containerPresets = presets.filter(p => p.type === "container");
+
+        // Keep the first option
+        select.innerHTML = '<option value="none">-- None (Plain Item) --</option>';
+        containerPresets.forEach(p => {
+            const opt = document.createElement("option");
+            opt.value = p.id;
+            opt.textContent = p.name;
+            select.appendChild(opt);
+        });
+
+        // Restore selected value if it still exists
+        const exists = containerPresets.some(p => p.id === currentVal);
+        if (exists) {
+            select.value = currentVal;
+            if (editBtn) editBtn.style.display = "block";
+        } else {
+            select.value = "none";
+            if (editBtn) editBtn.style.display = "none";
+        }
     },
 
     // 10. Central Command State Synthesizer
@@ -1853,88 +2006,7 @@ const app = {
         const targetVersion = versionEl ? versionEl.value : "java_modern";
 
         if (activeTab === "mobs-pane") {
-            const getVal = (id, def = "") => { const el = document.getElementById(id); return el ? el.value : def; };
-            const getChecked = (id) => { const el = document.getElementById(id); return el ? el.checked : false; };
-
-            const activeEffects = [];
-            document.querySelectorAll("#mob-effects-checklist-container .mob-eff-cb:checked").forEach(cb => {
-                const id = cb.dataset.effId;
-                const slider = document.querySelector(`.mob-eff-slider[data-eff-id="${id}"]`);
-                const durSlider = document.querySelector(`.mob-eff-dur-slider[data-eff-id="${id}"]`);
-                const infiniteCb = document.querySelector(`.mob-eff-infinite-cb[data-eff-id="${id}"]`);
-                const hideParticlesCb = document.querySelector(`.mob-eff-hide-particles-cb[data-eff-id="${id}"]`);
-                
-                const amp = slider ? parseInt(slider.value) : 1;
-                const infinite = infiniteCb ? infiniteCb.checked : true;
-                const duration = durSlider ? parseInt(durSlider.value) : 60;
-                const hideParticles = hideParticlesCb ? hideParticlesCb.checked : false;
-                activeEffects.push({ id: id, amplifier: amp, infinite: infinite, duration: duration, hideParticles: hideParticles });
-            });
-
-            let mountPresetCmd = "";
-            const presetId = getVal("mob-mount-preset", "");
-            if (presetId) {
-                const foundPreset = presets.find(p => p.id === presetId);
-                if (foundPreset) {
-                    mountPresetCmd = foundPreset.command;
-                }
-            }
-
-            const config = {
-                type: getVal("mob-type", "minecraft:zombie"),
-                name: getVal("mob-name"),
-                health: getVal("mob-health", "20"),
-                speed: getVal("mob-speed", "1.0"),
-                scale: getVal("mob-scale", "1.0"),
-                stepHeight: getVal("mob-step-height", "0.6"),
-                mountType: getVal("mob-mount-type", "none"),
-                mountMob: getVal("mob-mount-default", "minecraft:chicken"),
-                mountPresetId: presetId,
-                mountPresetCmd: mountPresetCmd,
-                isBaby: getChecked("mob-isbaby"),
-                mountIsBaby: getChecked("mob-mount-baby"),
-                silent: getChecked("mob-silent"),
-                noAI: getChecked("mob-noai"),
-                glowing: getChecked("mob-glowing"),
-                invulnerable: getChecked("mob-invulnerable"),
-                noGravity: getChecked("mob-nogravity"),
-                fireImmune: getChecked("mob-fireimmune"),
-                activeEffects: activeEffects,
-                gear: {
-                    hand: getVal("eq-hand", "none"),
-                    offhand: getVal("eq-offhand", "none"),
-                    head: getVal("eq-head", "none"),
-                    chest: getVal("eq-chest", "none"),
-                    legs: getVal("eq-legs", "none"),
-                    feet: getVal("eq-feet", "none")
-                },
-                gearEnch: {
-                    hand: getChecked("eq-hand-ench") ? (app.mobEquipEnchants.hand && app.mobEquipEnchants.hand.length > 0 ? app.mobEquipEnchants.hand : true) : [],
-                    offhand: getChecked("eq-offhand-ench") ? (app.mobEquipEnchants.offhand && app.mobEquipEnchants.offhand.length > 0 ? app.mobEquipEnchants.offhand : true) : [],
-                    head: getChecked("eq-head-ench") ? (app.mobEquipEnchants.head && app.mobEquipEnchants.head.length > 0 ? app.mobEquipEnchants.head : true) : [],
-                    chest: getChecked("eq-chest-ench") ? (app.mobEquipEnchants.chest && app.mobEquipEnchants.chest.length > 0 ? app.mobEquipEnchants.chest : true) : [],
-                    legs: getChecked("eq-legs-ench") ? (app.mobEquipEnchants.legs && app.mobEquipEnchants.legs.length > 0 ? app.mobEquipEnchants.legs : true) : [],
-                    feet: getChecked("eq-feet-ench") ? (app.mobEquipEnchants.feet && app.mobEquipEnchants.feet.length > 0 ? app.mobEquipEnchants.feet : true) : []
-                },
-                specials: {}
-            };
-
-            // Capture specials
-            if (config.type === "minecraft:creeper") {
-                const powered = document.getElementById("spec-creeper-powered");
-                const rad = document.getElementById("spec-creeper-radius");
-                const fuse = document.getElementById("spec-creeper-fuse");
-                config.specials.creeperPowered = powered ? powered.checked : false;
-                config.specials.creeperRadius = rad ? parseInt(rad.value) : 3;
-                config.specials.creeperFuse = fuse ? parseInt(fuse.value) : 30;
-            } else if (config.type === "minecraft:slime") {
-                const size = document.getElementById("spec-slime-size");
-                config.specials.slimeSize = size ? parseInt(size.value) : 1;
-            } else if (config.type === "minecraft:villager") {
-                const prof = document.getElementById("spec-villager-profession");
-                config.specials.villagerProfession = prof ? prof.value : "none";
-            }
-
+            const config = app.readMobConfig();
             const cmd = Generator.generateMob(config, targetVersion);
             app.displayCommand(cmd);
 
@@ -1951,6 +2023,15 @@ const app = {
                 selectedEnchs.push({ id, lvl });
             });
 
+            const attachedContainerId = getVal("item-container-preset", "none");
+            let containerConfig = null;
+            if (attachedContainerId !== "none") {
+                const foundContainer = presets.find(p => p.id === attachedContainerId);
+                if (foundContainer) {
+                    containerConfig = foundContainer.containerConfig;
+                }
+            }
+
             const config = {
                 id: getVal("item-type", "minecraft:diamond_sword"),
                 name: getVal("item-name"),
@@ -1960,6 +2041,8 @@ const app = {
                 glint: getChecked("item-glint"),
                 count: parseInt(getVal("item-count", "1")) || 1,
                 enchantments: selectedEnchs,
+                containerConfig: containerConfig,
+                attachedContainerId: attachedContainerId,
                 attributes: {
                     attack_damage: parseFloat(getVal("attr-attack-damage", "0")) || 0,
                     attack_speed: parseFloat(getVal("attr-attack-speed", "0")) || 0,
@@ -2225,11 +2308,13 @@ const app = {
         let pDetails = "";
         let itemConfig = null;
         let containerConfig = null;
+        let mobConfig = null;
 
         if (activeTab === "mobs-pane") {
             pType = "mob";
             const customMobName = document.getElementById("mob-name") ? document.getElementById("mob-name").value.trim() : "";
             pDetails = "Mob: " + document.getElementById("mob-type").value.replace("minecraft:", "") + (customMobName ? ` ("${customMobName}")` : "");
+            mobConfig = app.readMobConfig();
         } else if (activeTab === "items-pane") {
             pType = "item";
             const customItemName = document.getElementById("item-name") ? document.getElementById("item-name").value.trim() : "";
@@ -2246,6 +2331,15 @@ const app = {
                 selectedEnchs.push({ id, lvl });
             });
 
+            const attachedContainerId = getVal("item-container-preset", "none");
+            let itemContainerConfig = null;
+            if (attachedContainerId !== "none") {
+                const foundContainer = presets.find(p => p.id === attachedContainerId);
+                if (foundContainer) {
+                    itemContainerConfig = foundContainer.containerConfig;
+                }
+            }
+
             itemConfig = {
                 id: getVal("item-type", "minecraft:diamond_sword"),
                 name: getVal("item-name"),
@@ -2255,6 +2349,8 @@ const app = {
                 glint: getChecked("item-glint"),
                 count: parseInt(getVal("item-count", "1")) || 1,
                 enchantments: selectedEnchs,
+                containerConfig: itemContainerConfig,
+                attachedContainerId: attachedContainerId,
                 attributes: {
                     attack_damage: parseFloat(getVal("attr-attack-damage", "0")) || 0,
                     attack_speed: parseFloat(getVal("attr-attack-speed", "0")) || 0,
@@ -2356,6 +2452,9 @@ const app = {
         if (containerConfig) {
             presetObj.containerConfig = containerConfig;
         }
+        if (mobConfig) {
+            presetObj.mobConfig = mobConfig;
+        }
         presets.push(presetObj);
         app.savePresetsToStorage();
         nameInput.value = "";
@@ -2372,6 +2471,57 @@ const app = {
         app.playClick();
         presets = presets.filter(p => p.id !== id);
         app.savePresetsToStorage();
+    },
+
+    setCustomDropdownValue(dropdownId, value, isGrouped = false, groupsObj = null) {
+        if (value === "none" || !value) {
+            app.selectCustomDropdownOption(dropdownId, "none", "Empty Slot", "❌");
+            return;
+        }
+        if (isGrouped && groupsObj) {
+            let foundItem = null;
+            for (const list of Object.values(groupsObj)) {
+                const found = list.find(it => it.id === value);
+                if (found) {
+                    foundItem = found;
+                    break;
+                }
+            }
+            if (foundItem) {
+                app.selectCustomDropdownOption(dropdownId, value, foundItem.name, app.renderIcon(foundItem.icon));
+            } else {
+                if (value.includes("give @p ") || value.startsWith("give ") || value.startsWith("/")) {
+                    const foundP = presets.find(p => p.command === value);
+                    if (foundP) {
+                        app.selectCustomDropdownOption(dropdownId, value, `★ ${foundP.name}`, "★");
+                    } else {
+                        app.selectCustomDropdownOption(dropdownId, value, "Custom Item", "★");
+                    }
+                } else {
+                    const name = value.replace("minecraft:", "").replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+                    app.selectCustomDropdownOption(dropdownId, value, name, "🟩");
+                }
+            }
+        } else {
+            let foundItem = MC_DATA.mobs.find(it => it.id === value);
+            if (!foundItem) {
+                foundItem = MC_DATA.all_items.find(it => it.id === value);
+            }
+            if (!foundItem) {
+                for (const list of Object.values(MC_DATA.items)) {
+                    if (Array.isArray(list)) {
+                        const found = list.find(it => it.id === value);
+                        if (found) { foundItem = found; break; }
+                    }
+                }
+            }
+            if (foundItem) {
+                app.selectCustomDropdownOption(dropdownId, value, foundItem.name, app.renderIcon(foundItem.icon));
+            } else {
+                const name = value.replace("minecraft:", "").replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+                app.selectCustomDropdownOption(dropdownId, value, name, "🟩");
+            }
+        }
     },
 
     loadPreset(id) {
@@ -2466,6 +2616,288 @@ const app = {
 
             app.hydrateBannerPatternLayers(conf.patterns || []);
             app.recalculateCurrentCommand();
+        } else if (p.type === "item" && p.itemConfig) {
+            // Standard Custom Item
+            app.switchTab("items-pane");
+            
+            // 1. Select the item base type
+            const itemId = p.itemConfig.id || "minecraft:diamond_sword";
+            const itemCategories = {
+                "Weapons & Ranged": MC_DATA.items.weapons,
+                "Helmets": MC_DATA.items.helmets,
+                "Chestplates": MC_DATA.items.chestplates,
+                "Leggings": MC_DATA.items.leggings,
+                "Boots": MC_DATA.items.boots,
+                "Tools": MC_DATA.items.tools,
+                "Blocks": MC_DATA.items.blocks,
+                "Misc & Materials": MC_DATA.items.misc
+            };
+            app.setCustomDropdownValue("dropdown-item-type", itemId, true, itemCategories);
+
+            // 2. Set Custom Item Name
+            const nameInput = document.getElementById("item-name");
+            if (nameInput) nameInput.value = p.itemConfig.name || "";
+
+            // 3. Set Lore
+            const loreInput = document.getElementById("item-lore");
+            if (loreInput) loreInput.value = p.itemConfig.lore || "";
+
+            // 4. Set Stack Count
+            const countSlider = document.getElementById("item-count");
+            if (countSlider) {
+                countSlider.value = p.itemConfig.count || 1;
+                const valEl = document.getElementById("item-count-val");
+                if (valEl) valEl.textContent = `${countSlider.value} ${countSlider.value == 1 ? 'Item' : 'Items'}`;
+            }
+
+            // 5. Set checkboxes
+            const unbreakable = document.getElementById("item-unbreakable");
+            if (unbreakable) unbreakable.checked = !!p.itemConfig.unbreakable;
+            const hideflags = document.getElementById("item-hideflags");
+            if (hideflags) hideflags.checked = !!p.itemConfig.hideFlags;
+            const glint = document.getElementById("item-glint");
+            if (glint) glint.checked = !!p.itemConfig.glint;
+
+            // 6. Set Enchantments list
+            document.querySelectorAll(".ench-cb").forEach(cb => {
+                cb.checked = false;
+                const id = cb.dataset.enchId;
+                const row = document.getElementById(`ench-slider-row-${id}`);
+                if (row) row.classList.remove("show");
+            });
+
+            if (Array.isArray(p.itemConfig.enchantments)) {
+                p.itemConfig.enchantments.forEach(ench => {
+                    const cb = document.querySelector(`.ench-cb[data-ench-id="${ench.id}"]`);
+                    if (cb) {
+                        cb.checked = true;
+                        const row = document.getElementById(`ench-slider-row-${ench.id}`);
+                        if (row) row.classList.add("show");
+                        const slider = document.querySelector(`.ench-slider[data-ench-id="${ench.id}"]`);
+                        if (slider) {
+                            slider.value = ench.lvl || 1;
+                            const lbl = document.getElementById(`ench-lbl-${ench.id}`);
+                            if (lbl) lbl.textContent = `Level ${ench.lvl || 1}`;
+                        }
+                    }
+                });
+            }
+
+            // 7. Set Container Preset dropdown
+            app.populateItemContainerPresets();
+            const containerPresetSelect = document.getElementById("item-container-preset");
+            const attachedContainerId = p.itemConfig.attachedContainerId || "none";
+            if (containerPresetSelect) {
+                containerPresetSelect.value = attachedContainerId;
+                const editBtn = document.getElementById("btn-edit-item-container");
+                if (editBtn) {
+                    editBtn.style.display = (attachedContainerId !== "none") ? "block" : "none";
+                }
+            }
+
+            // 8. Set Stat Modifiers (Attributes)
+            const attrs = p.itemConfig.attributes || {};
+            const attrDamage = document.getElementById("attr-attack-damage");
+            if (attrDamage) attrDamage.value = attrs.attack_damage !== undefined ? attrs.attack_damage : 0;
+            const attrSpeed = document.getElementById("attr-attack-speed");
+            if (attrSpeed) attrSpeed.value = attrs.attack_speed !== undefined ? attrs.attack_speed : 0;
+            const attrHealth = document.getElementById("attr-max-health");
+            if (attrHealth) attrHealth.value = attrs.max_health !== undefined ? attrs.max_health : 0;
+            const attrKB = document.getElementById("attr-knockback-res");
+            if (attrKB) attrKB.value = attrs.knockback_resistance !== undefined ? attrs.knockback_resistance : 0;
+            const attrMove = document.getElementById("attr-movement-speed");
+            if (attrMove) attrMove.value = attrs.movement_speed !== undefined ? attrs.movement_speed : 0;
+
+            app.recalculateCurrentCommand();
+        } else if (p.type === "mob" && p.mobConfig) {
+            // Custom Mob
+            app.switchTab("mobs-pane");
+
+            // 1. Base properties
+            const mobType = p.mobConfig.type || "minecraft:zombie";
+            app.setCustomDropdownValue("dropdown-mob-type", mobType);
+            app.updateSpecialMobPanel();
+
+            const nameInput = document.getElementById("mob-name");
+            if (nameInput) nameInput.value = p.mobConfig.name || "";
+
+            // 2. Health and other stats
+            const hp = document.getElementById("mob-health");
+            if (hp) {
+                hp.value = p.mobConfig.health || 20;
+                const hpVal = document.getElementById("mob-health-val");
+                if (hpVal) hpVal.textContent = `${hp.value} HP`;
+            }
+            const speed = document.getElementById("mob-speed");
+            if (speed) {
+                speed.value = p.mobConfig.speed || 1.0;
+                const speedVal = document.getElementById("mob-speed-val");
+                if (speedVal) speedVal.textContent = `${parseFloat(speed.value).toFixed(1)}x`;
+            }
+            const scale = document.getElementById("mob-scale");
+            if (scale) {
+                scale.value = p.mobConfig.scale || 1.0;
+                const scaleVal = document.getElementById("mob-scale-val");
+                if (scaleVal) scaleVal.textContent = `${parseFloat(scale.value).toFixed(1)}x`;
+            }
+            const step = document.getElementById("mob-step-height");
+            if (step) {
+                step.value = p.mobConfig.stepHeight || 0.6;
+                const stepVal = document.getElementById("mob-step-height-val");
+                if (stepVal) stepVal.textContent = `${parseFloat(step.value).toFixed(1)} blocks`;
+            }
+
+            // Checkboxes
+            const silent = document.getElementById("mob-silent");
+            if (silent) silent.checked = !!p.mobConfig.silent;
+            const noai = document.getElementById("mob-noai");
+            if (noai) noai.checked = !!p.mobConfig.noAI;
+            const glowing = document.getElementById("mob-glowing");
+            if (glowing) glowing.checked = !!p.mobConfig.glowing;
+            const invulnerable = document.getElementById("mob-invulnerable");
+            if (invulnerable) invulnerable.checked = !!p.mobConfig.invulnerable;
+            const nogravity = document.getElementById("mob-nogravity");
+            if (nogravity) nogravity.checked = !!p.mobConfig.noGravity;
+            const fireimmune = document.getElementById("mob-fireimmune");
+            if (fireimmune) fireimmune.checked = !!p.mobConfig.fireImmune;
+            const isbaby = document.getElementById("mob-isbaby");
+            if (isbaby) isbaby.checked = !!p.mobConfig.isBaby;
+
+            // 3. Potion effects checklist
+            document.querySelectorAll("#mob-effects-checklist-container .mob-eff-cb").forEach(cb => {
+                cb.checked = false;
+                const id = cb.dataset.effId;
+                const row = document.getElementById(`mob-eff-slider-row-${id}`);
+                if (row) row.classList.remove("show");
+            });
+
+            if (Array.isArray(p.mobConfig.activeEffects)) {
+                p.mobConfig.activeEffects.forEach(eff => {
+                    const cb = document.querySelector(`#mob-effects-checklist-container .mob-eff-cb[data-eff-id="${eff.id}"]`);
+                    if (cb) {
+                        cb.checked = true;
+                        const row = document.getElementById(`mob-eff-slider-row-${eff.id}`);
+                        if (row) row.classList.add("show");
+                        
+                        const ampSlider = document.querySelector(`.mob-eff-slider[data-eff-id="${eff.id}"]`);
+                        if (ampSlider) {
+                            ampSlider.value = eff.amplifier || 1;
+                            const lbl = document.getElementById(`mob-eff-lbl-${eff.id}`);
+                            if (lbl) lbl.textContent = `Level ${eff.amplifier || 1}`;
+                        }
+                        
+                        const durSlider = document.querySelector(`.mob-eff-dur-slider[data-eff-id="${eff.id}"]`);
+                        const infiniteCb = document.querySelector(`.mob-eff-infinite-cb[data-eff-id="${eff.id}"]`);
+                        const durLbl = document.getElementById(`mob-eff-dur-lbl-${eff.id}`);
+                        
+                        if (infiniteCb) infiniteCb.checked = !!eff.infinite;
+                        if (durSlider) {
+                            durSlider.value = eff.duration || 60;
+                            durSlider.disabled = !!eff.infinite;
+                        }
+                        if (durLbl) {
+                            durLbl.textContent = eff.infinite ? "Infinite" : `${eff.duration || 60}s`;
+                        }
+                        
+                        const hideParticlesCb = document.querySelector(`.mob-eff-hide-particles-cb[data-eff-id="${eff.id}"]`);
+                        if (hideParticlesCb) hideParticlesCb.checked = !!eff.hideParticles;
+                    }
+                });
+            }
+
+            // 4. Riding mount properties
+            const mountTypeSelect = document.getElementById("mob-mount-type");
+            if (mountTypeSelect) {
+                mountTypeSelect.value = p.mobConfig.mountType || "none";
+                app.updateMountUIState();
+                
+                if (p.mobConfig.mountType === "default") {
+                    app.setCustomDropdownValue("dropdown-mob-mount-default", p.mobConfig.mountMob || "minecraft:chicken");
+                    const mountBabyCb = document.getElementById("mob-mount-baby");
+                    if (mountBabyCb) mountBabyCb.checked = !!p.mobConfig.mountIsBaby;
+                } else if (p.mobConfig.mountType === "preset") {
+                    const mountPresetSelect = document.getElementById("mob-mount-preset");
+                    if (mountPresetSelect) {
+                        mountPresetSelect.value = p.mobConfig.mountPresetId || "";
+                    }
+                }
+            }
+
+            // 5. Equipment slots
+            const handSlots = {
+                "Weapons": MC_DATA.items.weapons,
+                "Tools": MC_DATA.items.tools,
+                "Blocks": MC_DATA.items.blocks,
+                "Misc": MC_DATA.items.misc
+            };
+            const armorSlots = {
+                "head": { label: "Helmets", list: MC_DATA.items.helmets },
+                "chest": { label: "Chestplates", list: MC_DATA.items.chestplates },
+                "legs": { label: "Leggings", list: MC_DATA.items.leggings },
+                "feet": { label: "Boots", list: MC_DATA.items.boots }
+            };
+
+            if (p.mobConfig.gear) {
+                app.setCustomDropdownValue("dropdown-eq-hand", p.mobConfig.gear.hand || "none", true, handSlots);
+                app.setCustomDropdownValue("dropdown-eq-offhand", p.mobConfig.gear.offhand || "none", true, handSlots);
+
+                for (const [slot, data] of Object.entries(armorSlots)) {
+                    const groups = {};
+                    groups[data.label] = data.list;
+                    groups["Blocks"] = MC_DATA.items.blocks;
+                    groups["Misc"] = MC_DATA.items.misc;
+                    app.setCustomDropdownValue(`dropdown-eq-${slot}`, p.mobConfig.gear[slot] || "none", true, groups);
+                }
+            }
+
+            // 6. Gear enchantments
+            const eqSlots = ["hand", "offhand", "head", "chest", "legs", "feet"];
+            eqSlots.forEach(slot => {
+                const cb = document.getElementById(`eq-${slot}-ench`);
+                const val = p.mobConfig.gearEnch ? p.mobConfig.gearEnch[slot] : [];
+                if (Array.isArray(val) && val.length > 0) {
+                    if (cb) cb.checked = true;
+                    app.mobEquipEnchants[slot] = val;
+                } else if (val === true) {
+                    if (cb) cb.checked = true;
+                    app.mobEquipEnchants[slot] = [];
+                } else {
+                    if (cb) cb.checked = false;
+                    app.mobEquipEnchants[slot] = [];
+                }
+            });
+
+            // 7. Specials (Creeper powered, slime size, villager profession)
+            if (p.mobConfig.specials) {
+                if (p.mobConfig.type === "minecraft:creeper") {
+                    const powered = document.getElementById("spec-creeper-powered");
+                    if (powered) powered.checked = !!p.mobConfig.specials.creeperPowered;
+                    const rad = document.getElementById("spec-creeper-radius");
+                    if (rad) {
+                        rad.value = p.mobConfig.specials.creeperRadius !== undefined ? p.mobConfig.specials.creeperRadius : 3;
+                        const radLbl = document.getElementById("spec-creeper-radius-lbl");
+                        if (radLbl) radLbl.textContent = `${rad.value} Blocks`;
+                    }
+                    const fuse = document.getElementById("spec-creeper-fuse");
+                    if (fuse) {
+                        fuse.value = p.mobConfig.specials.creeperFuse !== undefined ? p.mobConfig.specials.creeperFuse : 30;
+                        const fuseLbl = document.getElementById("spec-creeper-fuse-lbl");
+                        if (fuseLbl) fuseLbl.textContent = `${fuse.value} Ticks`;
+                    }
+                } else if (p.mobConfig.type === "minecraft:slime") {
+                    const size = document.getElementById("spec-slime-size");
+                    if (size) {
+                        size.value = p.mobConfig.specials.slimeSize !== undefined ? p.mobConfig.specials.slimeSize : 1;
+                        const sizeLbl = document.getElementById("spec-slime-size-lbl");
+                        if (sizeLbl) sizeLbl.textContent = `Size ${size.value}`;
+                    }
+                } else if (p.mobConfig.type === "minecraft:villager") {
+                    const prof = document.getElementById("spec-villager-profession");
+                    if (prof) prof.value = p.mobConfig.specials.villagerProfession || "none";
+                }
+            }
+
+            app.recalculateCurrentCommand();
         } else {
             app.displayCommand(p.command);
         }
@@ -2520,6 +2952,7 @@ const app = {
     },
 
     updatePresetsUI() {
+        app.populateItemContainerPresets();
         const container = document.getElementById("presets-list-container");
         if (!container) return;
         container.innerHTML = "";
@@ -3088,6 +3521,17 @@ const app = {
             });
         }
 
+        const btnSlotEditPreset = document.getElementById("btn-slot-edit-preset");
+        if (btnSlotEditPreset) {
+            btnSlotEditPreset.addEventListener("click", () => {
+                app.playClick();
+                const item = app.containerContents[app.selectedContainerSlot];
+                if (item && item.isPreset && item.presetId) {
+                    app.loadPreset(item.presetId);
+                }
+            });
+        }
+
         app.renderContainerGrid();
         app.updateSlotEditorUI();
         app.updateLootTableUIState();
@@ -3230,6 +3674,7 @@ const app = {
         const iconEl = document.getElementById("slot-editor-icon-preview");
         const countInput = document.getElementById("slot-item-count-input");
         const countLbl = document.getElementById("slot-item-count-lbl");
+        const btnSlotEditPreset = document.getElementById("btn-slot-edit-preset");
 
         if (!info || !controls) return;
 
@@ -3243,12 +3688,18 @@ const app = {
             iconEl.innerHTML = app.renderIcon(item.icon);
             countInput.value = item.count;
             countLbl.textContent = item.count + "x";
+            if (btnSlotEditPreset) {
+                btnSlotEditPreset.style.display = (item.isPreset && item.presetId) ? "block" : "none";
+            }
         } else {
             nameEl.textContent = "Empty Slot";
             idEl.textContent = "none";
             iconEl.innerHTML = "🟩";
             countInput.value = 1;
             countLbl.textContent = "1x";
+            if (btnSlotEditPreset) {
+                btnSlotEditPreset.style.display = "none";
+            }
         }
     },
 
