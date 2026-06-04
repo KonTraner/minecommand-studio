@@ -175,19 +175,40 @@
                                         Generate as Spawn Egg (instead of /summon)
                                     </label>
                                 </div>
-                                <div id="mob-egg-colors-container" class="form-grid col-span-2" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; padding-left: 20px; border-left: 3px solid var(--color-emerald);">
-                                    <div class="input-field">
-                                        <label for="mob-egg-primary-color">Primary Egg Color</label>
-                                        <div style="display: flex; gap: 8px; align-items: center;">
-                                            <input type="color" id="mob-egg-primary-color" value="#5c8e32" style="width: 40px; height: 36px; border: 2px solid var(--mc-panel-border); padding: 2px; background: #101011; border-radius: 4px; cursor: pointer; box-sizing: border-box; flex-shrink: 0;">
-                                            <input type="text" id="mob-egg-primary-hex" value="#5c8e32" style="flex: 1;" placeholder="#5c8e32" maxlength="7">
+                                <div id="mob-egg-colors-container" class="col-span-2" style="display: none; margin-bottom: 8px; padding: 12px 16px; border-left: 3px solid var(--color-emerald); background: rgba(92,142,50,0.07); border-radius: 0 6px 6px 0;">
+                                    <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: start;">
+                                        <!-- Primary Color -->
+                                        <div class="input-field" style="margin: 0;">
+                                            <label for="mob-egg-primary-color">🟢 Primary Color</label>
+                                            <div style="display: flex; gap: 8px; align-items: center;">
+                                                <input type="color" id="mob-egg-primary-color" value="#5c8e32" style="width: 40px; height: 36px; border: 2px solid var(--mc-panel-border); padding: 2px; background: #101011; border-radius: 4px; cursor: pointer; box-sizing: border-box; flex-shrink: 0;">
+                                                <input type="text" id="mob-egg-primary-hex" value="#5c8e32" style="flex: 1;" placeholder="#5c8e32" maxlength="7">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="input-field">
-                                        <label for="mob-egg-secondary-color">Secondary Egg Color</label>
-                                        <div style="display: flex; gap: 8px; align-items: center;">
-                                            <input type="color" id="mob-egg-secondary-color" value="#a0a0a0" style="width: 40px; height: 36px; border: 2px solid var(--mc-panel-border); padding: 2px; background: #101011; border-radius: 4px; cursor: pointer; box-sizing: border-box; flex-shrink: 0;">
-                                            <input type="text" id="mob-egg-secondary-hex" value="#a0a0a0" style="flex: 1;" placeholder="#a0a0a0" maxlength="7">
+                                        <!-- Live SVG Egg Preview -->
+                                        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                                            <span style="font-size: 11px; color: var(--mc-text-muted); text-transform: uppercase; letter-spacing: 1px;">Preview</span>
+                                            <svg id="mob-egg-svg-preview" width="64" height="80" viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));">
+                                                <!-- Egg body -->
+                                                <ellipse id="egg-primary-fill" cx="32" cy="44" rx="28" ry="34" fill="#5c8e32"/>
+                                                <!-- Spot pattern (secondary color) -->
+                                                <circle id="egg-spot-1" cx="22" cy="36" r="5.5" fill="#a0a0a0" opacity="0.85"/>
+                                                <circle id="egg-spot-2" cx="40" cy="28" r="4" fill="#a0a0a0" opacity="0.85"/>
+                                                <circle id="egg-spot-3" cx="34" cy="52" r="6" fill="#a0a0a0" opacity="0.85"/>
+                                                <circle id="egg-spot-4" cx="18" cy="54" r="3.5" fill="#a0a0a0" opacity="0.85"/>
+                                                <circle id="egg-spot-5" cx="44" cy="46" r="4.5" fill="#a0a0a0" opacity="0.85"/>
+                                                <circle id="egg-spot-6" cx="28" cy="22" r="3" fill="#a0a0a0" opacity="0.85"/>
+                                                <!-- Shine highlight -->
+                                                <ellipse cx="22" cy="26" rx="7" ry="5" fill="white" opacity="0.12" transform="rotate(-20 22 26)"/>
+                                            </svg>
+                                        </div>
+                                        <!-- Secondary Color -->
+                                        <div class="input-field" style="margin: 0;">
+                                            <label for="mob-egg-secondary-color">🔵 Secondary Color</label>
+                                            <div style="display: flex; gap: 8px; align-items: center;">
+                                                <input type="color" id="mob-egg-secondary-color" value="#a0a0a0" style="width: 40px; height: 36px; border: 2px solid var(--mc-panel-border); padding: 2px; background: #101011; border-radius: 4px; cursor: pointer; box-sizing: border-box; flex-shrink: 0;">
+                                                <input type="text" id="mob-egg-secondary-hex" value="#a0a0a0" style="flex: 1;" placeholder="#a0a0a0" maxlength="7">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -500,14 +521,10 @@
                                     </div>
                                     <input type="range" id="item-count" min="1" max="64" value="1">
                                 </div>
-                                <div class="input-field col-span-2" id="item-container-presets-row" style="margin-top: 10px;">
-                                    <label for="item-container-preset">Attach Container Contents (Preset)</label>
-                                    <div style="display: flex; gap: 8px; align-items: center;">
-                                        <select id="item-container-preset" style="flex: 1; min-height: 40px; font-family: 'VT323', monospace; font-size: 18px; padding: 6px;">
-                                            <option value="none">-- None (Plain Item) --</option>
-                                        </select>
-                                        <button id="btn-edit-item-container" class="mc-btn green-btn sm-btn" style="padding: 6px 12px; display: none;">Edit</button>
-                                    </div>
+                                <div class="input-field col-span-2" id="item-preset-load-row" style="margin-top: 10px;">
+                                    <label>Load &amp; Edit a Saved Item Preset</label>
+                                    <button id="btn-load-item-preset" class="mc-btn green-btn" style="width: 100%; font-size: 17px;">★ Browse &amp; Load Saved Preset</button>
+                                    <p style="margin: 4px 0 0; font-size: 12px; color: var(--mc-text-muted);">Opens your saved presets — selecting one will redirect you to its editor (Potion, Banner, Shield, or Items).</p>
                                 </div>
                                 <div class="checkbox-grid">
                                     <label class="mc-checkbox-label">
@@ -548,6 +565,15 @@
                                     <label for="attr-attack-damage">Attack Damage Bonus</label>
                                     <div class="attr-input-group">
                                         <input type="number" id="attr-attack-damage" value="0" min="0" max="10000">
+                                        <select id="attr-attack-damage-slot" class="attr-slot-select" title="Equipment slot this modifier applies to">
+                                            <option value="any">Any Slot</option>
+                                            <option value="mainhand">Main Hand</option>
+                                            <option value="offhand">Off Hand</option>
+                                            <option value="head">Head</option>
+                                            <option value="chest">Chest</option>
+                                            <option value="legs">Legs</option>
+                                            <option value="feet">Feet</option>
+                                        </select>
                                         <span class="attr-tag">⚔️</span>
                                     </div>
                                 </div>
@@ -555,6 +581,15 @@
                                     <label for="attr-attack-speed">Attack Speed Modifier</label>
                                     <div class="attr-input-group">
                                         <input type="number" id="attr-attack-speed" value="0" min="-4" max="100" step="0.5">
+                                        <select id="attr-attack-speed-slot" class="attr-slot-select" title="Equipment slot this modifier applies to">
+                                            <option value="any">Any Slot</option>
+                                            <option value="mainhand">Main Hand</option>
+                                            <option value="offhand">Off Hand</option>
+                                            <option value="head">Head</option>
+                                            <option value="chest">Chest</option>
+                                            <option value="legs">Legs</option>
+                                            <option value="feet">Feet</option>
+                                        </select>
                                         <span class="attr-tag">⚡</span>
                                     </div>
                                 </div>
@@ -562,6 +597,15 @@
                                     <label for="attr-max-health">Bonus Health Slots</label>
                                     <div class="attr-input-group">
                                         <input type="number" id="attr-max-health" value="0" min="0" max="200">
+                                        <select id="attr-max-health-slot" class="attr-slot-select" title="Equipment slot this modifier applies to">
+                                            <option value="any">Any Slot</option>
+                                            <option value="mainhand">Main Hand</option>
+                                            <option value="offhand">Off Hand</option>
+                                            <option value="head">Head</option>
+                                            <option value="chest">Chest</option>
+                                            <option value="legs">Legs</option>
+                                            <option value="feet">Feet</option>
+                                        </select>
                                         <span class="attr-tag">❤️</span>
                                     </div>
                                 </div>
@@ -569,6 +613,15 @@
                                     <label for="attr-knockback-res">Knockback Resistance</label>
                                     <div class="attr-input-group">
                                         <input type="number" id="attr-knockback-res" value="0" min="0" max="1" step="0.1">
+                                        <select id="attr-knockback-res-slot" class="attr-slot-select" title="Equipment slot this modifier applies to">
+                                            <option value="any">Any Slot</option>
+                                            <option value="mainhand">Main Hand</option>
+                                            <option value="offhand">Off Hand</option>
+                                            <option value="head">Head</option>
+                                            <option value="chest">Chest</option>
+                                            <option value="legs">Legs</option>
+                                            <option value="feet">Feet</option>
+                                        </select>
                                         <span class="attr-tag">🛡️</span>
                                     </div>
                                 </div>
@@ -576,6 +629,15 @@
                                     <label for="attr-movement-speed">Bonus Movement Speed</label>
                                     <div class="attr-input-group">
                                         <input type="number" id="attr-movement-speed" value="0" min="0" max="1" step="0.05">
+                                        <select id="attr-movement-speed-slot" class="attr-slot-select" title="Equipment slot this modifier applies to">
+                                            <option value="any">Any Slot</option>
+                                            <option value="mainhand">Main Hand</option>
+                                            <option value="offhand">Off Hand</option>
+                                            <option value="head">Head</option>
+                                            <option value="chest">Chest</option>
+                                            <option value="legs">Legs</option>
+                                            <option value="feet">Feet</option>
+                                        </select>
                                         <span class="attr-tag">🏃</span>
                                     </div>
                                 </div>

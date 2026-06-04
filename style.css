@@ -873,7 +873,7 @@ input[type="range"]::-webkit-slider-thumb:active {
     background-color: #101011;
     border: 2px solid var(--mc-panel-border);
     position: relative;
-    width: 90px;
+    width: 190px;
 }
 
 .attr-input-group input {
@@ -890,6 +890,31 @@ input[type="range"]::-webkit-slider-thumb:active {
     right: 8px;
     font-size: 14px;
     pointer-events: none;
+}
+
+.attr-input-group input {
+    width: 70px;
+    flex-shrink: 0;
+}
+
+.attr-slot-select {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-left: 1px solid var(--mc-panel-border);
+    color: var(--text-secondary);
+    font-size: 11px;
+    padding: 6px 24px 6px 6px;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    appearance: auto;
+    min-width: 0;
+}
+
+.attr-slot-select:focus {
+    border-color: var(--mc-panel-border);
+    color: var(--color-diamond);
 }
 
 /* ==========================================================================

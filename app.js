@@ -106,6 +106,19 @@ const app = {
         if (primaryColorHex) primaryColorHex.value = colors.primary;
         if (secondaryColorPicker) secondaryColorPicker.value = colors.secondary;
         if (secondaryColorHex) secondaryColorHex.value = colors.secondary;
+        app.updateEggPreview();
+    },
+
+    updateEggPreview() {
+        const primaryHex = document.getElementById("mob-egg-primary-hex")?.value || "#5c8e32";
+        const secondaryHex = document.getElementById("mob-egg-secondary-hex")?.value || "#a0a0a0";
+        const eggBody = document.getElementById("egg-primary-fill");
+        const spots = ["egg-spot-1", "egg-spot-2", "egg-spot-3", "egg-spot-4", "egg-spot-5", "egg-spot-6"];
+        if (eggBody) eggBody.setAttribute("fill", primaryHex);
+        spots.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.setAttribute("fill", secondaryHex);
+        });
     },
 
     // Safety Event Binders
@@ -906,7 +919,31 @@ const app = {
                 app.renderCreativeGrid();
             });
         }
+
+        // Wire the "Load / Edit Saved Preset" button in the Custom Items tab
+        const btnLoadPreset = document.getElementById("btn-load-item-preset");
+        if (btnLoadPreset && modal) {
+            btnLoadPreset.addEventListener("click", () => {
+                app.playClick();
+                app.activeCreativeTab = "presets";
+                app.creativeCallback = (item) => {
+                    if (item.presetId) {
+                        app.loadPreset(item.presetId);
+                    }
+                };
+                modal.style.display = "flex";
+                modal.offsetHeight;
+                modal.classList.add("show");
+                app.renderCreativeTabs();
+                app.renderCreativeGrid();
+                if (searchInput) {
+                    searchInput.value = "";
+                    searchInput.focus();
+                }
+            });
+        }
     },
+
 
     renderCreativeTabs() {
         const tabsContainer = document.getElementById("creative-modal-tabs");
@@ -1518,13 +1555,15 @@ const app = {
         app.safeBind("mob-output-egg", "change", (e) => {
             const colorsContainer = document.getElementById("mob-egg-colors-container");
             if (colorsContainer) {
-                colorsContainer.style.display = e.target.checked ? "grid" : "none";
+                colorsContainer.style.display = e.target.checked ? "block" : "none";
             }
+            app.updateEggPreview();
             app.recalculateCurrentCommand();
         });
         app.safeBind("mob-egg-primary-color", "input", (e) => {
             const hex = document.getElementById("mob-egg-primary-hex");
             if (hex) hex.value = e.target.value;
+            app.updateEggPreview();
             app.recalculateCurrentCommand();
         });
         app.safeBind("mob-egg-primary-hex", "input", (e) => {
@@ -1532,11 +1571,13 @@ const app = {
             if (picker && e.target.value.match(/^#[0-9A-Fa-f]{6}$/)) {
                 picker.value = e.target.value;
             }
+            app.updateEggPreview();
             app.recalculateCurrentCommand();
         });
         app.safeBind("mob-egg-secondary-color", "input", (e) => {
             const hex = document.getElementById("mob-egg-secondary-hex");
             if (hex) hex.value = e.target.value;
+            app.updateEggPreview();
             app.recalculateCurrentCommand();
         });
         app.safeBind("mob-egg-secondary-hex", "input", (e) => {
@@ -1544,6 +1585,7 @@ const app = {
             if (picker && e.target.value.match(/^#[0-9A-Fa-f]{6}$/)) {
                 picker.value = e.target.value;
             }
+            app.updateEggPreview();
             app.recalculateCurrentCommand();
         });
 
@@ -1576,27 +1618,17 @@ const app = {
             });
         }
 
-        // Attached container preset events
-        const containerPresetSelect = document.getElementById("item-container-preset");
-        const editContainerBtn = document.getElementById("btn-edit-item-container");
-        if (containerPresetSelect) {
-            containerPresetSelect.addEventListener("change", () => {
-                if (containerPresetSelect.value && containerPresetSelect.value !== "none") {
-                    if (editContainerBtn) editContainerBtn.style.display = "block";
-                } else {
-                    if (editContainerBtn) editContainerBtn.style.display = "none";
-                }
-                app.recalculateCurrentCommand();
-            });
-        }
-        if (editContainerBtn) {
-            editContainerBtn.addEventListener("click", () => {
-                const val = containerPresetSelect ? containerPresetSelect.value : "none";
-                if (val && val !== "none") {
-                    app.loadPreset(val);
-                }
-            });
-        }
+        // Attribute stat modifier slot selects
+        ["attr-attack-damage-slot", "attr-attack-speed-slot", "attr-max-health-slot",
+         "attr-knockback-res-slot", "attr-movement-speed-slot"].forEach(id => {
+            app.safeBind(id, "change", () => app.recalculateCurrentCommand());
+        });
+        // Attribute number inputs
+        ["attr-attack-damage", "attr-attack-speed", "attr-max-health",
+         "attr-knockback-res", "attr-movement-speed"].forEach(id => {
+            app.safeBind(id, "input", () => app.recalculateCurrentCommand());
+        });
+
 
         // Enchant checklist handlers
         const enchantContainer = document.getElementById("enchantments-checklist-container");
@@ -2198,15 +2230,6 @@ const app = {
                 selectedEnchs.push({ id, lvl });
             });
 
-            const attachedContainerId = getVal("item-container-preset", "none");
-            let containerConfig = null;
-            if (attachedContainerId !== "none") {
-                const foundContainer = presets.find(p => p.id === attachedContainerId);
-                if (foundContainer) {
-                    containerConfig = foundContainer.containerConfig;
-                }
-            }
-
             const config = {
                 id: getVal("item-type", "minecraft:diamond_sword"),
                 name: getVal("item-name"),
@@ -2216,14 +2239,17 @@ const app = {
                 glint: getChecked("item-glint"),
                 count: parseInt(getVal("item-count", "1")) || 1,
                 enchantments: selectedEnchs,
-                containerConfig: containerConfig,
-                attachedContainerId: attachedContainerId,
                 attributes: {
                     attack_damage: parseFloat(getVal("attr-attack-damage", "0")) || 0,
+                    attack_damage_slot: getVal("attr-attack-damage-slot", "any"),
                     attack_speed: parseFloat(getVal("attr-attack-speed", "0")) || 0,
+                    attack_speed_slot: getVal("attr-attack-speed-slot", "any"),
                     max_health: parseFloat(getVal("attr-max-health", "0")) || 0,
+                    max_health_slot: getVal("attr-max-health-slot", "any"),
                     knockback_resistance: parseFloat(getVal("attr-knockback-res", "0")) || 0,
-                    movement_speed: parseFloat(getVal("attr-movement-speed", "0")) || 0
+                    knockback_resistance_slot: getVal("attr-knockback-res-slot", "any"),
+                    movement_speed: parseFloat(getVal("attr-movement-speed", "0")) || 0,
+                    movement_speed_slot: getVal("attr-movement-speed-slot", "any"),
                 }
             };
 
@@ -2953,30 +2979,28 @@ const app = {
                 });
             }
 
-            // 7. Set Container Preset dropdown
-            app.populateItemContainerPresets();
-            const containerPresetSelect = document.getElementById("item-container-preset");
-            const attachedContainerId = p.itemConfig.attachedContainerId || "none";
-            if (containerPresetSelect) {
-                containerPresetSelect.value = attachedContainerId;
-                const editBtn = document.getElementById("btn-edit-item-container");
-                if (editBtn) {
-                    editBtn.style.display = (attachedContainerId !== "none") ? "block" : "none";
-                }
-            }
-
             // 8. Set Stat Modifiers (Attributes)
             const attrs = p.itemConfig.attributes || {};
             const attrDamage = document.getElementById("attr-attack-damage");
             if (attrDamage) attrDamage.value = attrs.attack_damage !== undefined ? attrs.attack_damage : 0;
+            const attrDamageSlot = document.getElementById("attr-attack-damage-slot");
+            if (attrDamageSlot) attrDamageSlot.value = attrs.attack_damage_slot || "any";
             const attrSpeed = document.getElementById("attr-attack-speed");
             if (attrSpeed) attrSpeed.value = attrs.attack_speed !== undefined ? attrs.attack_speed : 0;
+            const attrSpeedSlot = document.getElementById("attr-attack-speed-slot");
+            if (attrSpeedSlot) attrSpeedSlot.value = attrs.attack_speed_slot || "any";
             const attrHealth = document.getElementById("attr-max-health");
             if (attrHealth) attrHealth.value = attrs.max_health !== undefined ? attrs.max_health : 0;
+            const attrHealthSlot = document.getElementById("attr-max-health-slot");
+            if (attrHealthSlot) attrHealthSlot.value = attrs.max_health_slot || "any";
             const attrKB = document.getElementById("attr-knockback-res");
             if (attrKB) attrKB.value = attrs.knockback_resistance !== undefined ? attrs.knockback_resistance : 0;
+            const attrKBSlot = document.getElementById("attr-knockback-res-slot");
+            if (attrKBSlot) attrKBSlot.value = attrs.knockback_resistance_slot || "any";
             const attrMove = document.getElementById("attr-movement-speed");
             if (attrMove) attrMove.value = attrs.movement_speed !== undefined ? attrs.movement_speed : 0;
+            const attrMoveSlot = document.getElementById("attr-movement-speed-slot");
+            if (attrMoveSlot) attrMoveSlot.value = attrs.movement_speed_slot || "any";
 
             app.recalculateCurrentCommand();
         } else if (p.type === "mob" && p.mobConfig) {

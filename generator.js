@@ -134,19 +134,24 @@ const Generator = {
             // Attributes
             let attrModifiers = [];
             if (attributes.attack_damage > 0) {
-                attrModifiers.push(`{type:"minecraft:generic.attack_damage",amount:${attributes.attack_damage},operation:"add_value",id:"custom_atk",slot:"any"}`);
+                const slot = attributes.attack_damage_slot || "any";
+                attrModifiers.push(`{type:"minecraft:generic.attack_damage",amount:${attributes.attack_damage},operation:"add_value",id:"custom_atk",slot:"${slot}"}`);
             }
             if (attributes.attack_speed !== undefined && attributes.attack_speed !== 0) {
-                attrModifiers.push(`{type:"minecraft:generic.attack_speed",amount:${attributes.attack_speed},operation:"add_value",id:"custom_speed",slot:"any"}`);
+                const slot = attributes.attack_speed_slot || "any";
+                attrModifiers.push(`{type:"minecraft:generic.attack_speed",amount:${attributes.attack_speed},operation:"add_value",id:"custom_speed",slot:"${slot}"}`);
             }
             if (attributes.max_health > 0) {
-                attrModifiers.push(`{type:"minecraft:generic.max_health",amount:${attributes.max_health},operation:"add_value",id:"custom_health",slot:"any"}`);
+                const slot = attributes.max_health_slot || "any";
+                attrModifiers.push(`{type:"minecraft:generic.max_health",amount:${attributes.max_health},operation:"add_value",id:"custom_health",slot:"${slot}"}`);
             }
             if (attributes.knockback_resistance > 0) {
-                attrModifiers.push(`{type:"minecraft:generic.knockback_resistance",amount:${attributes.knockback_resistance},operation:"add_value",id:"custom_kb",slot:"any"}`);
+                const slot = attributes.knockback_resistance_slot || "any";
+                attrModifiers.push(`{type:"minecraft:generic.knockback_resistance",amount:${attributes.knockback_resistance},operation:"add_value",id:"custom_kb",slot:"${slot}"}`);
             }
             if (attributes.movement_speed > 0) {
-                attrModifiers.push(`{type:"minecraft:generic.movement_speed",amount:${attributes.movement_speed},operation:"add_value",id:"custom_mv",slot:"any"}`);
+                const slot = attributes.movement_speed_slot || "any";
+                attrModifiers.push(`{type:"minecraft:generic.movement_speed",amount:${attributes.movement_speed},operation:"add_value",id:"custom_mv",slot:"${slot}"}`);
             }
 
             if (attrModifiers.length > 0) {
@@ -239,20 +244,26 @@ const Generator = {
 
             // Attributes
             let attrList = [];
+            const legacySlot = (s) => {
+                // Legacy uses slot string: mainhand, offhand, head, chest, legs, feet (or omit for any)
+                if (!s || s === "any") return "";
+                const map = { mainhand: "mainhand", offhand: "offhand", head: "head", chest: "chest", legs: "legs", feet: "feet" };
+                return map[s] ? `,Slot:"${map[s]}"` : "";
+            };
             if (attributes.attack_damage > 0) {
-                attrList.push(`{AttributeName:"generic.attack_damage",Name:"custom_atk",Amount:${attributes.attack_damage},Operation:0,UUID:[I;1,2,3,4]}`);
+                attrList.push(`{AttributeName:"generic.attack_damage",Name:"custom_atk",Amount:${attributes.attack_damage},Operation:0,UUID:[I;1,2,3,4]${legacySlot(attributes.attack_damage_slot)}}`);
             }
             if (attributes.attack_speed !== undefined && attributes.attack_speed !== 0) {
-                attrList.push(`{AttributeName:"generic.attack_speed",Name:"custom_spd",Amount:${attributes.attack_speed},Operation:0,UUID:[I;5,6,7,8]}`);
+                attrList.push(`{AttributeName:"generic.attack_speed",Name:"custom_spd",Amount:${attributes.attack_speed},Operation:0,UUID:[I;5,6,7,8]${legacySlot(attributes.attack_speed_slot)}}`);
             }
             if (attributes.max_health > 0) {
-                attrList.push(`{AttributeName:"generic.max_health",Name:"custom_hp",Amount:${attributes.max_health},Operation:0,UUID:[I;9,10,11,12]}`);
+                attrList.push(`{AttributeName:"generic.max_health",Name:"custom_hp",Amount:${attributes.max_health},Operation:0,UUID:[I;9,10,11,12]${legacySlot(attributes.max_health_slot)}}`);
             }
             if (attributes.knockback_resistance > 0) {
-                attrList.push(`{AttributeName:"generic.knockback_resistance",Name:"custom_kb",Amount:${attributes.knockback_resistance},Operation:0,UUID:[I;13,14,15,16]}`);
+                attrList.push(`{AttributeName:"generic.knockback_resistance",Name:"custom_kb",Amount:${attributes.knockback_resistance},Operation:0,UUID:[I;13,14,15,16]${legacySlot(attributes.knockback_resistance_slot)}}`);
             }
             if (attributes.movement_speed > 0) {
-                attrList.push(`{AttributeName:"generic.movement_speed",Name:"custom_mv",Amount:${attributes.movement_speed},Operation:0,UUID:[I;17,18,19,20]}`);
+                attrList.push(`{AttributeName:"generic.movement_speed",Name:"custom_mv",Amount:${attributes.movement_speed},Operation:0,UUID:[I;17,18,19,20]${legacySlot(attributes.movement_speed_slot)}}`);
             }
 
             if (attrList.length > 0) {
